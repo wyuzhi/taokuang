@@ -1,0 +1,5 @@
+<root>
+    <item name='com.jph.takephoto.app.TakePhotoActivity'>
+        <annotation name='java.lang.Deprecated' />
+    </item>
+</root>

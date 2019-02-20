@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_gravity="center"
+        android:textSize="24sp"
+        android:padding="5sp"
+        android:textColor="#77026c10"
+        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="登陆"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_margin="10dp"
+            android:background="@drawable/yhm"
+            android:layout_width="41dp"
+            android:layout_height="41dp" />
+
+        <EditText
+            android:hint="请输入账户"
+            android:id="@+id/dl_yhm"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="41dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_margin="10dp"
+            android:background="@drawable/mm"
+            android:layout_width="41dp"
+            android:layout_height="41dp" />
+
+        <EditText
+            android:hint="请输入密码"
+            android:id="@+id/dl_mm"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="41dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:textColor="#f6610261"
+            android:padding="5dp"
+            android:layout_margin="10dp"
+            android:id="@+id/dl_dl"
+            android:text="登陆"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:textColor="#fde10c30"
+            android:text="注册"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:id="@+id/dl_zc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>
