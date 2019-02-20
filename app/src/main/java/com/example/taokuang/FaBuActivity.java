@@ -154,7 +154,7 @@ public class FaBuActivity extends TakePhotoActivity implements View.OnClickListe
                                 Log.d("发布", "发布成功");
                                 Toast.makeText(FaBuActivity.this, "发布成功",
                                         Toast.LENGTH_SHORT).show();
-                                Intent iet = new Intent(FaBuActivity.this, TaoFragment.class);
+                               Intent iet = new Intent(FaBuActivity.this, TaoFragment.class);
                                 iet.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
                                //
                                 //

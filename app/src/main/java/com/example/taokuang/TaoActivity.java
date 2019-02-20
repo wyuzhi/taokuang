@@ -1,24 +1,14 @@
-package com.example.taokuang.Fragement;
+/*package com.example.taokuang;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.taokuang.Adapter.TaoAdapter;
-import com.example.taokuang.R;
 import com.example.taokuang.entity.TaoKuang;
-import com.example.taokuang.tool.BaseFragment;
 
 import java.util.List;
 
@@ -26,26 +16,22 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
-public class TaoFragment extends BaseFragment {
+public class TaoActivity extends AppCompatActivity {
+    private Context tC;
     private RecyclerView tRecyclerView;
     private TaoAdapter tAdapter;
     private SwipeRefreshLayout mSwipeRefresh;
-    private StaggeredGridLayoutManager layoutManager;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_tao_fragment, container, false);
-        initView(view);
-        return view;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_tao);
+        initView();
     }
 
-    private void initView(View v) {
-        tRecyclerView = v.findViewById(R.id.recycler_tao);
-        layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-        tRecyclerView.setLayoutManager(layoutManager);
-
-        mSwipeRefresh = v.findViewById(R.id.swipe_refresh);
+    private void initView() {
+        tRecyclerView = findViewById(R.id.recycler_tao);
+        mSwipeRefresh = findViewById(R.id.swipe_refresh);
         mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -62,9 +48,9 @@ public class TaoFragment extends BaseFragment {
             public void done(List<TaoKuang> list, BmobException e) {
                 if (e == null) {
 
-                    tAdapter = new TaoAdapter(getContext(), list);
+                    tAdapter = new TaoAdapter(tC,list);
                     tRecyclerView.setAdapter(tAdapter);
-                    Log.d("查询", "查询成功" + list);
+                    Log.d("查询", "查询成功"+list);
                     mSwipeRefresh.setRefreshing(false);
                 } else {
                     Log.d("查询", "查询失败:" + e);
@@ -72,6 +58,4 @@ public class TaoFragment extends BaseFragment {
             }
         });
     }
-
-
-}
+}*/

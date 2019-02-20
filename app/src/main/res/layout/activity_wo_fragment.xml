@@ -6,4 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".Fragement.WoFragment">
 
+    <Button
+        android:text="点啊"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </android.support.constraint.ConstraintLayout>

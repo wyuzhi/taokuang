@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                     viewPager.setCurrentItem(0);
                     return true;
                 case R.id.navigation_dashboard:
-                    Intent intent = new Intent(getBaseContext(),FaBuActivity.class);
+                    Intent intent = new Intent(getBaseContext(), FaBuActivity.class);
                     startActivity(intent);
                     return true;
                 case R.id.navigation_notifications:
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Bmob.initialize(this,"954905be70d4f5e4cff3780fb2e13d3f");
+        Bmob.initialize(this, "5897238c60762d0b91a19a3b781d9e6d");
         initView();//页面布局初始化
     }
 
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         //向viewpager中添加页面
         fragments.add(new TaoFragment());
         fragments.add(new WoFragment());
-        FragmentAdapter myAdapter = new FragmentAdapter(getSupportFragmentManager(),fragments);
+        FragmentAdapter myAdapter = new FragmentAdapter(getSupportFragmentManager(), fragments);
         viewPager.setAdapter(myAdapter);
         viewPager.setOffscreenPageLimit(2);
 
@@ -77,7 +77,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int i) {
-                if(i==1){i++;}
+                if (i == 1) {
+                    i++;
+                }
 
                 navigation.getMenu().getItem(i).setChecked(true);
 
