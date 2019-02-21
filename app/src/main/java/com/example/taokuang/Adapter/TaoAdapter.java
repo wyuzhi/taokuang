@@ -1,6 +1,7 @@
 package com.example.taokuang.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
@@ -9,9 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.taokuang.DetailActivity;
 import com.example.taokuang.Fragement.TaoFragment;
 import com.example.taokuang.R;
 import com.example.taokuang.entity.TaoKuang;
@@ -28,13 +32,19 @@ import cn.bmob.v3.datatype.BmobFile;
 public class TaoAdapter extends RecyclerView.Adapter<TaoAdapter.ViewHolder> {
     private List<TaoKuang> mTaoList;
     private Context mContext;
-    private View.OnClickListener mListener;
+    //private OnItemClickListener mListener;
 
     public TaoAdapter(Context context, List<TaoKuang> TaoList) {
         mContext = context;
         mTaoList = TaoList;
-        this.mListener = mListener;
+      //  this.mListener = mListener;
     }
+   /* public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener = listener;
+    }*/
 
     @NonNull
     @Override
@@ -97,6 +107,15 @@ public class TaoAdapter extends RecyclerView.Adapter<TaoAdapter.ViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent detailIntent = new Intent(mContext,DetailActivity.class);
+                detailIntent.putExtra("1图片",taoItem.getPicyi().getFileUrl());
+                detailIntent.putExtra("2图片",taoItem.getPicyi().getFileUrl());
+                detailIntent.putExtra("3图片",taoItem.getPicyi().getFileUrl());
+                detailIntent.putExtra("价格",taoItem.getJiage());
+                detailIntent.putExtra("标题",taoItem.getBiaoti());
+                detailIntent.putExtra("描述",taoItem.getMiaoshu());
+                detailIntent.putExtra("位置",taoItem.getWeizhi());
+                mContext.startActivity(detailIntent);
 //点击事件
             }
         });
@@ -117,6 +136,17 @@ public class TaoAdapter extends RecyclerView.Adapter<TaoAdapter.ViewHolder> {
             mfengmian = itemView.findViewById(R.id.item_fm);
             mbiaoti = itemView.findViewById(R.id.item_bt);
             mjiage = itemView.findViewById(R.id.item_jg);
+            /*itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mListener!=null){
+                        int position = getAdapterPosition();
+                        if(position!=RecyclerView.NO_POSITION){
+                            mListener.onItemClick(position);
+                        }
+                    }
+                }
+            });  */
         }
     }
 }

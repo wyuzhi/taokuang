@@ -1,6 +1,7 @@
 package com.example.taokuang.Fragement;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,12 +15,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.example.taokuang.Adapter.TaoAdapter;
+import com.example.taokuang.DetailActivity;
 import com.example.taokuang.R;
 import com.example.taokuang.entity.TaoKuang;
 import com.example.taokuang.tool.BaseFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
@@ -31,6 +35,8 @@ public class TaoFragment extends BaseFragment {
     private TaoAdapter tAdapter;
     private SwipeRefreshLayout mSwipeRefresh;
     private StaggeredGridLayoutManager layoutManager;
+    private List<TaoKuang> mTaolist;
+    //TaoAdapter.OnItemClickListener listener = (TaoAdapter.OnItemClickListener) getContext();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
@@ -41,6 +47,7 @@ public class TaoFragment extends BaseFragment {
     }
 
     private void initView(View v) {
+        mTaolist=new ArrayList<>();
         tRecyclerView = v.findViewById(R.id.recycler_tao);
         layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
         tRecyclerView.setLayoutManager(layoutManager);
@@ -61,9 +68,10 @@ public class TaoFragment extends BaseFragment {
             @Override
             public void done(List<TaoKuang> list, BmobException e) {
                 if (e == null) {
-
-                    tAdapter = new TaoAdapter(getContext(), list);
+                    mTaolist = list;
+                    tAdapter = new TaoAdapter(getContext(), mTaolist);
                     tRecyclerView.setAdapter(tAdapter);
+                    //tAdapter.setOnItemClickListener(listener);
                     Log.d("查询", "查询成功" + list);
                     mSwipeRefresh.setRefreshing(false);
                 } else {
@@ -74,4 +82,19 @@ public class TaoFragment extends BaseFragment {
     }
 
 
+    /*@Override
+    public void onItemClick(int position) {
+        Intent detailIntent = new Intent(getContext(),DetailActivity.class);
+        TaoKuang taoItem = mTaolist.get(position);
+        detailIntent.putExtra("1图片",taoItem.getPicyi().getFileUrl());
+        detailIntent.putExtra("2图片",taoItem.getPicyi().getFileUrl());
+        detailIntent.putExtra("3图片",taoItem.getPicyi().getFileUrl());
+        detailIntent.putExtra("价格",taoItem.getJiage());
+        detailIntent.putExtra("标题",taoItem.getBiaoti());
+        detailIntent.putExtra("描述",taoItem.getMiaoshu());
+        detailIntent.putExtra("位置",taoItem.getWeizhi());
+
+        startActivity(detailIntent);
+
+    }*/
 }

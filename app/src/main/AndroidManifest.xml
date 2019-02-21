@@ -63,7 +63,8 @@
         <activity android:name=".FaBuActivity" />
         <activity android:name=".Fragement.TaoFragment" />
         <activity android:name=".Fragement.WoFragment" />
-        <activity android:name=".TaoActivity"></activity>
+        <activity android:name=".TaoActivity" />
+        <activity android:name=".DetailActivity"></activity>
     </application>
 
 </manifest>
