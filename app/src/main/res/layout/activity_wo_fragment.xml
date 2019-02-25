@@ -1,13 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:leon="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Fragement.WoFragment">
 
-    <Button
-        android:text="点啊"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_height="180dp"
+        android:layout_marginBottom="16dp"
+        android:background="#fff"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/wo_icon"
+            android:background="@drawable/hdb"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/wo_name"
+            android:layout_marginTop="5dp"
+            android:text="登录"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+    <com.leon.lib.settingview.LSettingItem
+        android:id="@+id/wo_fb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        leon:leftIcon="@mipmap/history"
+        leon:leftText="我发布的"
+        leon:rightStyle="iconHide"/>
+
+    <com.leon.lib.settingview.LSettingItem
+        android:id="@+id/wo_gm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        leon:leftIcon="@mipmap/share"
+        leon:leftText="我购买的"
+        leon:rightStyle="iconHide"/>
+
+    <Button
+        android:text="注销"
+        android:background="#496644"
+        android:id="@+id/wo_zx"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

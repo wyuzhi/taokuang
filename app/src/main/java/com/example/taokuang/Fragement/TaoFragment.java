@@ -46,19 +46,18 @@ public class TaoFragment extends BaseFragment {
         return view;
     }
 
-    private void initView(View v) {
-        mTaolist=new ArrayList<>();
+    private void initView(final View v) {
+        mTaolist = new ArrayList<>();
         tRecyclerView = v.findViewById(R.id.recycler_tao);
-        layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         tRecyclerView.setLayoutManager(layoutManager);
-
         mSwipeRefresh = v.findViewById(R.id.swipe_refresh);
-        mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+       /*mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loadDate();
+
             }
-        });
+        });*/
         loadDate();
     }
 
@@ -69,7 +68,7 @@ public class TaoFragment extends BaseFragment {
             public void done(List<TaoKuang> list, BmobException e) {
                 if (e == null) {
                     mTaolist = list;
-                    tAdapter = new TaoAdapter(getContext(), mTaolist);
+                    tAdapter = new TaoAdapter(getContext(), list);
                     tRecyclerView.setAdapter(tAdapter);
                     //tAdapter.setOnItemClickListener(listener);
                     Log.d("查询", "查询成功" + list);

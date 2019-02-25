@@ -20,9 +20,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 用于申请调用A-GPS模块 -->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <!-- 用于申请获取蓝牙信息进行室内定位 -->
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <!-- 允许联网 -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -64,7 +61,10 @@
         <activity android:name=".Fragement.TaoFragment" />
         <activity android:name=".Fragement.WoFragment" />
         <activity android:name=".TaoActivity" />
-        <activity android:name=".DetailActivity"></activity>
+        <activity android:name=".DetailActivity" />
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".wo.WofbActivity" />
+        <activity android:name=".wo.WogmActivity"></activity>
     </application>
 
 </manifest>
