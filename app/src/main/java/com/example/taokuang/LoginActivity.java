@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
         if(BmobUser.isLogin()){
             User user = BmobUser.getCurrentUser(User.class);
-            Snackbar.make(v,"当前用户:"+dluser.getUsername(),Snackbar.LENGTH_LONG).show();
+            Snackbar.make(v,"当前用户:"+user.getUsername(),Snackbar.LENGTH_LONG).show();
         }
         else{
             Snackbar.make(v,"请登陆:",Snackbar.LENGTH_LONG).show();

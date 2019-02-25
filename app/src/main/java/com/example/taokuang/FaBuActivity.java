@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.taokuang.Fragement.TaoFragment;
 import com.example.taokuang.entity.TaoKuang;
+import com.example.taokuang.entity.User;
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.app.TakePhotoActivity;
 import com.jph.takephoto.compress.CompressConfig;
@@ -33,6 +34,7 @@ import com.jph.takephoto.model.TResult;
 import java.io.File;
 import java.util.List;
 
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
@@ -49,12 +51,14 @@ public class FaBuActivity extends TakePhotoActivity implements View.OnClickListe
     private EditText miaoshu;
     private EditText weizhi;
     private EditText jiage;
+    private EditText lianxi;
     private ImageView im1;
     private ImageView im2;
     private ImageView im3;
     private Button fabu;
 
     private String tbiaoti;
+    private String tlianxi;
     private String tmiaoshu;
     private String tweizhi;
     private String tjiage;
@@ -82,6 +86,7 @@ public class FaBuActivity extends TakePhotoActivity implements View.OnClickListe
         miaoshu = findViewById(R.id.edit_miaoshu);
         weizhi = findViewById(R.id.edit_weizhi);
         jiage = findViewById(R.id.edit_jiage);
+        lianxi =findViewById(R.id.edit_lianxi);
         im1 = findViewById(R.id.im_1);
         im2 = findViewById(R.id.im_2);
         im3 = findViewById(R.id.im_3);
@@ -116,6 +121,7 @@ public class FaBuActivity extends TakePhotoActivity implements View.OnClickListe
         //  fb.setPicer(bim1);
         //   fb.setPicer(bim2);
         // fb.setPicer(bim3);
+        tlianxi = String.valueOf(lianxi.getText());
         tbiaoti = String.valueOf(biaoti.getText());
         tmiaoshu = String.valueOf(miaoshu.getText());
         tweizhi = String.valueOf(weizhi.getText());
@@ -138,14 +144,17 @@ public class FaBuActivity extends TakePhotoActivity implements View.OnClickListe
                     Log.d("图片", "图片成功");
                     Toast.makeText(FaBuActivity.this, "图片成功",
                             Toast.LENGTH_SHORT).show();
+                    if(BmobUser.isLogin()){
                     TaoKuang fb = new TaoKuang();
                     fb.setBiaoti(tbiaoti);
                     fb.setMiaoshu(tmiaoshu);
                     fb.setWeizhi(tweizhi);
+                    fb.setLianxi(tlianxi);
                     fb.setJiage(tjiage);
                     fb.setPicyi(files.get(0));
                     fb.setPicer(files.get(1));
                     fb.setPicsan(files.get(2));
+                    fb.setFabu(BmobUser.getCurrentUser(User.class));
 
                     fb.save(new SaveListener<String>() {
                         @Override
@@ -169,7 +178,7 @@ public class FaBuActivity extends TakePhotoActivity implements View.OnClickListe
                     });
 
                     //do something
-                }
+                }}
             }
 
             @Override

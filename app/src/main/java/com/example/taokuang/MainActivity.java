@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobUser;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -54,7 +55,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Bmob.initialize(this, "5897238c60762d0b91a19a3b781d9e6d");
-        initView();//页面布局初始化
+        if(BmobUser.isLogin()){
+            initView();//页面布局初始化
+        }
+        else {Intent intentl =new Intent(this,LoginActivity.class);
+        startActivity(intentl);
+        }
     }
 
     private void initView() {

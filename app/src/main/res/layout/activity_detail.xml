@@ -11,15 +11,35 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="7dp"
+                android:background="@drawable/hdb" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="13dp"
+                android:text="没那么简单" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/detail_jg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp" />
 
         <TextView
             android:id="@+id/detail_bt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp" />
 
         <TextView
             android:id="@+id/detail_ms"
@@ -33,18 +53,47 @@
 
         <ImageView
             android:id="@+id/detail_im1"
-            android:layout_width="305.6dp"
-            android:layout_height="494.4dp" />
+            android:layout_width="366.72dp"
+            android:layout_height="494.4dp"
+            android:layout_margin="12dp" />
+
         <ImageView
             android:id="@+id/detail_im2"
-            android:layout_width="305.6dp"
-            android:layout_height="494.4dp" />
+            android:layout_width="366.72dp"
+            android:layout_height="494.4dp"
+            android:layout_margin="12dp" />
+
         <ImageView
             android:id="@+id/detail_im3"
-            android:layout_width="305.6dp"
-            android:layout_height="494.4dp" />
+            android:layout_width="366.72dp"
+            android:layout_height="494.4dp"
+            android:layout_margin="12dp" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="联系方式:" />
+
+            <TextView
+                android:id="@+id/detail_lx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/detail_gm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="7dp"
+            android:background="#496644"
+            android:text="GOT'EM" />
 
 
     </LinearLayout>

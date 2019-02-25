@@ -4,14 +4,16 @@ import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.datatype.BmobFile;
 
 public class TaoKuang extends BmobObject {
-    private String fabuzhu;//发布者
     private String biaoti;
+    private String lianxi;
     private String miaoshu;
     private String weizhi;
     private String jiage;
     private BmobFile picyi;
     private BmobFile picer;
     private BmobFile picsan;
+    private User fabu;
+    private User goumai;
 
 
     public String getBiaoti() {
@@ -64,19 +66,35 @@ public class TaoKuang extends BmobObject {
         this.picer = picer;
     }
 
-    public String getFabuzhu() {
-        return fabuzhu;
-    }
-
-    public void setFabuzhu(String fabuzhu) {
-        this.fabuzhu = fabuzhu;
-    }
-
     public BmobFile getPicyi() {
         return picyi;
     }
 
     public void setPicyi(BmobFile picyi) {
         this.picyi = picyi;
+    }
+
+    public User getFabu() {
+        return fabu;
+    }
+
+    public void setFabu(User fabu) {
+        this.fabu = fabu;
+    }
+
+    public User getGoumai() {
+        return goumai;
+    }
+
+    public void setGoumai(User goumai) {
+        this.goumai = goumai;
+    }
+
+    public String getLianxi() {
+        return lianxi;
+    }
+
+    public void setLianxi(String lianxi) {
+        this.lianxi = lianxi;
     }
 }

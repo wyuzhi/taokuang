@@ -109,12 +109,15 @@ public class TaoAdapter extends RecyclerView.Adapter<TaoAdapter.ViewHolder> {
             public void onClick(View v) {
                 Intent detailIntent = new Intent(mContext,DetailActivity.class);
                 detailIntent.putExtra("1图片",taoItem.getPicyi().getFileUrl());
-                detailIntent.putExtra("2图片",taoItem.getPicyi().getFileUrl());
-                detailIntent.putExtra("3图片",taoItem.getPicyi().getFileUrl());
+                detailIntent.putExtra("2图片",taoItem.getPicer().getFileUrl());
+                detailIntent.putExtra("3图片",taoItem.getPicsan().getFileUrl());
                 detailIntent.putExtra("价格",taoItem.getJiage());
                 detailIntent.putExtra("标题",taoItem.getBiaoti());
                 detailIntent.putExtra("描述",taoItem.getMiaoshu());
                 detailIntent.putExtra("位置",taoItem.getWeizhi());
+                detailIntent.putExtra("联系",taoItem.getLianxi());
+                detailIntent.putExtra("发布",taoItem.getFabu());
+                detailIntent.putExtra("ID",taoItem.getObjectId());
                 mContext.startActivity(detailIntent);
 //点击事件
             }
