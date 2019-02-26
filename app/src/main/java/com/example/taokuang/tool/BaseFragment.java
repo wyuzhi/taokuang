@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 
-import com.example.taokuang.tool.MyApplication;
-
 public class BaseFragment extends Fragment {
     private Activity activity;
 

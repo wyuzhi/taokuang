@@ -9,6 +9,8 @@ public class TaoKuang extends BmobObject {
     private String miaoshu;
     private String weizhi;
     private String jiage;
+    private String leibie;
+    private String fabuname;
     private BmobFile picyi;
     private BmobFile picer;
     private BmobFile picsan;
@@ -96,5 +98,21 @@ public class TaoKuang extends BmobObject {
 
     public void setLianxi(String lianxi) {
         this.lianxi = lianxi;
+    }
+
+    public String getLeibie() {
+        return leibie;
+    }
+
+    public void setLeibie(String leibie) {
+        this.leibie = leibie;
+    }
+
+    public String getFabuname() {
+        return fabuname;
+    }
+
+    public void setFabuname(String fabuname) {
+        this.fabuname = fabuname;
     }
 }

@@ -60,11 +60,20 @@
         <activity android:name=".FaBuActivity" />
         <activity android:name=".Fragement.TaoFragment" />
         <activity android:name=".Fragement.WoFragment" />
-        <activity android:name=".TaoActivity" />
         <activity android:name=".DetailActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".wo.WofbActivity" />
-        <activity android:name=".wo.WogmActivity"></activity>
+        <activity android:name=".wo.WogmActivity" />
+        <activity android:name=".Leibie.QuanFragment" />
+        <activity android:name=".Leibie.ShuFragment" />
+        <activity android:name=".Leibie.MaFragment" />
+        <activity android:name=".Leibie.SheFragment" />
+        <activity android:name=".Leibie.YiFragment" />
+        <activity android:name=".Leibie.XieFragment" />
+        <activity android:name=".Leibie.WenFragment" />
+        <activity android:name=".Leibie.ShengFragment" />
+        <activity android:name=".Leibie.QiFragment" />
+        <activity android:name=".Leibie.ShiFragment"></activity>
     </application>
 
 </manifest>

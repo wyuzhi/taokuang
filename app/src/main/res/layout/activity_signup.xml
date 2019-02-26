@@ -31,6 +31,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_margin="10dp"
+            android:background="@drawable/zh"
+            android:layout_width="41dp"
+            android:layout_height="41dp" />
+
+        <EditText
+            android:layout_margin="10dp"
+            android:id="@+id/zh"
+            android:hint="请输入账号"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"

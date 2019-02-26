@@ -1,11 +1,9 @@
 package com.example.taokuang.Fragement;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.taokuang.R;
-import com.example.taokuang.SignUpActivity;
+import com.example.taokuang.entity.User;
 import com.example.taokuang.tool.BaseFragment;
 import com.example.taokuang.wo.WofbActivity;
 import com.example.taokuang.wo.WogmActivity;
@@ -69,6 +67,10 @@ public class WoFragment extends BaseFragment {
 
         woicon = v.findViewById(R.id.wo_icon);
         woname = v.findViewById(R.id.wo_name);
+        if(BmobUser.isLogin()){
+            User user = BmobUser.getCurrentUser(User.class);
+            woname.setText(user.getNicheng());
+        }
     }
 
 

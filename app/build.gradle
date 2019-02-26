@@ -19,6 +19,12 @@ android {
 }
 
 dependencies {
+    implementation 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
+    //Optional: see how to use the utility.
+    implementation 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'
+    //Optional: see how to use the utility.
+
+
     implementation 'com.jph.takephoto:takephoto_library:4.0.3'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //noinspection GradleCompatible

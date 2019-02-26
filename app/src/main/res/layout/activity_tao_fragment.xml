@@ -1,21 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragement.TaoFragment">
+    tools:context=".Fragement.TaoFragment"
+    android:orientation="vertical">
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <com.ogaclejapan.smarttablayout.SmartTabLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/view_tab"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/swipe_refresh">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_tao"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="38dp"
+        android:clipToPadding="false"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        app:stl_defaultTabTextColor="#350020"
+        app:stl_defaultTabTextHorizontalPadding="18dp"
+        app:stl_dividerColor="#496644"
+        app:stl_dividerThickness="0dp"
+        app:stl_indicatorColor="#496644"
+        app:stl_indicatorCornerRadius="18dp"
+        app:stl_indicatorGravity="center"
+        app:stl_indicatorInterpolation="smart"
+        app:stl_indicatorThickness="36dp"
+        app:stl_underlineColor="#496644"
+        app:stl_underlineThickness="0dp"
+        />
 
-    </android.support.v7.widget.RecyclerView>
-    </android.support.v4.widget.SwipeRefreshLayout>
-</android.support.constraint.ConstraintLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_weight="9"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+    </android.support.v4.view.ViewPager>
+</LinearLayout>

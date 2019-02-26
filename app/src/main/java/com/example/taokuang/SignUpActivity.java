@@ -18,9 +18,11 @@ import cn.bmob.v3.listener.SaveListener;
 public class SignUpActivity extends AppCompatActivity {
     private Button mzc;
     private EditText myhm;
+    private EditText mzh;
     private EditText mmm;
     private String yhm;
     private String mm;
+    private String zh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class SignUpActivity extends AppCompatActivity {
     private void initView() {
         mzc = findViewById(R.id.ljzc);
         myhm = findViewById(R.id.yhm);
+        mzh = findViewById(R.id.zh);
         mmm = findViewById(R.id.mm);
         mzc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,13 +46,15 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void signup() {
-        final Intent intent = new Intent(this,LoginActivity.class);
+        final Intent intent = new Intent(this, LoginActivity.class);
 
         final User user = new User();
         yhm = String.valueOf(myhm.getText());
+        zh = String.valueOf(mzh.getText());
         mm = String.valueOf(mmm.getText());
-        user.setUsername(yhm);
+        user.setUsername(zh);
         user.setPassword(mm);
+        user.setNicheng(yhm);
         user.signUp(new SaveListener<User>() {
             @Override
             public void done(User user, BmobException e) {
@@ -68,7 +73,6 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     }
-
 
 
 }

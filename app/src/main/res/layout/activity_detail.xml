@@ -23,6 +23,7 @@
                 android:background="@drawable/hdb" />
 
             <TextView
+                android:id="@+id/detail_nc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="13dp"

@@ -4,9 +4,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -70,11 +69,14 @@ public class DetailActivity extends AppCompatActivity {
         TextView dbt = findViewById(R.id.detail_bt);
         TextView dms = findViewById(R.id.detail_ms);
         TextView dwz = findViewById(R.id.detail_wz);
+        TextView dnc = findViewById(R.id.detail_nc);
         final ImageView di1 = findViewById(R.id.detail_im1);
         final ImageView di2 = findViewById(R.id.detail_im2);
         final ImageView di3 = findViewById(R.id.detail_im3);
 
 
+        String ncd =intent.getStringExtra("昵称");
+        dnc.setText(ncd);
         String jgd =intent.getStringExtra("价格");
         djg.setText("￥"+jgd);
         djg.setTextColor(Color.RED);

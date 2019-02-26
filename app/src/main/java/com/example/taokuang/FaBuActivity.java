@@ -1,26 +1,16 @@
 package com.example.taokuang;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Path;
 import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.taokuang.Fragement.TaoFragment;
@@ -39,10 +29,8 @@ import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadBatchListener;
-import cn.bmob.v3.listener.UploadFileListener;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
-import static android.os.Environment.*;
 
 
 public class FaBuActivity extends TakePhotoActivity implements View.OnClickListener {
@@ -56,10 +44,14 @@ public class FaBuActivity extends TakePhotoActivity implements View.OnClickListe
     private ImageView im2;
     private ImageView im3;
     private Button fabu;
+    private Spinner leibie;
+    private Toolbar tbfb;
 
+    private String tleibie;
     private String tbiaoti;
     private String tlianxi;
     private String tmiaoshu;
+    private String tfabu;
     private String tweizhi;
     private String tjiage;
     private File file1;
@@ -82,6 +74,9 @@ public class FaBuActivity extends TakePhotoActivity implements View.OnClickListe
     }
 
     private void initView() {
+        //tbfb =findViewById(R.id.toolbar_fabu);
+        //toolbarfabu.setTitle("发布你的闲置好物");
+        leibie = findViewById(R.id.spinner_leibie);
         biaoti = findViewById(R.id.edit_biaoti);
         miaoshu = findViewById(R.id.edit_miaoshu);
         weizhi = findViewById(R.id.edit_weizhi);
@@ -121,6 +116,7 @@ public class FaBuActivity extends TakePhotoActivity implements View.OnClickListe
         //  fb.setPicer(bim1);
         //   fb.setPicer(bim2);
         // fb.setPicer(bim3);
+        tleibie =String.valueOf(leibie.getSelectedItem());
         tlianxi = String.valueOf(lianxi.getText());
         tbiaoti = String.valueOf(biaoti.getText());
         tmiaoshu = String.valueOf(miaoshu.getText());
@@ -146,6 +142,10 @@ public class FaBuActivity extends TakePhotoActivity implements View.OnClickListe
                             Toast.LENGTH_SHORT).show();
                     if(BmobUser.isLogin()){
                     TaoKuang fb = new TaoKuang();
+                    User user = BmobUser.getCurrentUser(User.class);
+                    tfabu = user.getNicheng();
+                    fb.setFabuname(tfabu);
+                    fb.setLeibie(tleibie);
                     fb.setBiaoti(tbiaoti);
                     fb.setMiaoshu(tmiaoshu);
                     fb.setWeizhi(tweizhi);

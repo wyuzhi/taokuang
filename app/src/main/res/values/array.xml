@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spingarr">
+        <item>类别</item>
+        <item>书籍</item>
+        <item>文具</item>
+        <item>食品</item>
+        <item>生活</item>
+        <item>数码</item>
+        <item>外设</item>
+        <item>服饰</item>
+        <item>球鞋</item>
+        <item>其他</item>
+    </string-array>
+</resources>
