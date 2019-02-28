@@ -55,6 +55,7 @@ public class SignUpActivity extends AppCompatActivity {
         user.setUsername(zh);
         user.setPassword(mm);
         user.setNicheng(yhm);
+        user.setRenz(false);
         user.signUp(new SaveListener<User>() {
             @Override
             public void done(User user, BmobException e) {

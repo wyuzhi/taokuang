@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,11 +9,18 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/wo_gm_toolbar"
-        android:layout_width="115dp"
-        android:layout_height="35dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:background="@color/colorPrimary"
         android:theme="@style/AppTheme.AppBarOverlay">
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="我购买的"
+            android:textSize="20dp"
+            android:textColor="#FCFAFA"/>
     </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView

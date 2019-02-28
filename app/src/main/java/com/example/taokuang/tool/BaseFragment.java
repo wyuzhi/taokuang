@@ -2,9 +2,10 @@ package com.example.taokuang.tool;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v4.app.Fragment;
 
-public class BaseFragment extends Fragment {
+import com.jph.takephoto.app.TakePhotoFragment;
+
+public class BaseFragment extends TakePhotoFragment {
     private Activity activity;
 
     public Context getContext() {

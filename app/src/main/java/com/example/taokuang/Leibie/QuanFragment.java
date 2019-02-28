@@ -27,7 +27,7 @@ public class QuanFragment extends BaseFragment {
     private RecyclerView tRecyclerView;
     private TaoAdapter tAdapter;
     private SwipeRefreshLayout mSwipeRefresh;
-    private StaggeredGridLayoutManager layoutManager;
+
     private List<TaoKuang> mTaolist;
     //TaoAdapter.OnItemClickListener listener = (TaoAdapter.OnItemClickListener) getContext();
 
@@ -42,21 +42,23 @@ public class QuanFragment extends BaseFragment {
     private void initView(final View v) {
         mTaolist = new ArrayList<>();
         tRecyclerView = v.findViewById(R.id.recycler_tao);
-        layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         tRecyclerView.setLayoutManager(layoutManager);
         mSwipeRefresh = v.findViewById(R.id.swipe_refresh);
-       /*mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
+                loadDate();
             }
-        });*/
+        });
         loadDate();
     }
 
     private void loadDate() {
         BmobQuery<TaoKuang> tQuery = new BmobQuery<>();
         tQuery.addWhereDoesNotExists("goumai");
+        tQuery.order("-updatedAt");
+        //tQuery.include("fabu[username|icon|nicheng]");
         tQuery.findObjects(new FindListener<TaoKuang>() {
             @Override
             public void done(List<TaoKuang> list, BmobException e) {
@@ -72,6 +74,7 @@ public class QuanFragment extends BaseFragment {
                 }
             }
         });
+
     }
 
 

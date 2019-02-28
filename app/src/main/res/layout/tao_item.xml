@@ -25,26 +25,10 @@
 
                 <ImageView
                     android:id="@+id/item_fm"
-                    android:layout_width="152.8dp"
+                    android:layout_width="172.8dp"
                     android:layout_height="247.2dp" />
             </android.support.v7.widget.CardView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-                <Button
-                    android:id="@+id/item_gj"
-                    android:text="改价"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-                <Button
-                    android:id="@+id/item_sc"
-                    android:text="下架"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
         </LinearLayout>
 
         <TextView
@@ -54,6 +38,7 @@
 
         <TextView
             android:id="@+id/item_jg"
+            android:textSize="15dp"
             android:layout_width="match_parent"
             android:layout_height="30dp" />
     </LinearLayout>

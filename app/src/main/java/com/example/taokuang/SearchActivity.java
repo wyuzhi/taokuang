@@ -1,23 +1,25 @@
 package com.example.taokuang;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.Window;
 
 import com.example.taokuang.Adapter.TaoAdapter;
 import com.example.taokuang.entity.TaoKuang;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends Activity {
     private RecyclerView sRecyclerView;
     private TaoAdapter sAdapter;
     private SwipeRefreshLayout sSwipeRefresh;
@@ -25,6 +27,7 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         Intent intents = getIntent();
@@ -40,12 +43,30 @@ public class SearchActivity extends AppCompatActivity {
             }
         });*/
         BmobQuery<TaoKuang> tQuery = new BmobQuery<>();
-        tQuery.addWhereContains("biaoti","sstj");
+        //tQuery.addWhereContains("biaoti","sstj");
+        tQuery.addWhereDoesNotExists("goumai");
         tQuery.findObjects(new FindListener<TaoKuang>() {
             @Override
             public void done(List<TaoKuang> list, BmobException e) {
                 if (e == null) {
-                    sAdapter = new TaoAdapter(SearchActivity.this, list);
+                    String key= sstj.toString().trim();
+                    List<TaoKuang> datas = new ArrayList<TaoKuang>();
+                    for(int i =0;i<list.size();i++){
+                        String actbt = list.get(i).getBiaoti();
+                        String actfb = list.get(i).getFabuname();
+                        String actms = list.get(i).getMiaoshu();
+                        if( actbt.contains(key)){
+                            datas.add(list.get(i));
+                        }
+                        else if( actfb.contains(key)){
+                            datas.add(list.get(i));
+                        }
+                        else if(actms.contains(key)){
+                            datas.add(list.get(i));
+                        }
+                    }
+
+                    sAdapter = new TaoAdapter(SearchActivity.this, datas);
                     sRecyclerView.setAdapter(sAdapter);
                     //tAdapter.setOnItemClickListener(listener);
                     Log.d("查询", "查询成功" + list);

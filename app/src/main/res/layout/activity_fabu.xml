@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".FaBuActivity">
+    tools:context=".FaBuActivity"
+    android:layout_margin="8dp">
 
     <android.support.v7.widget.Toolbar
         app:title="发布你的闲置好物"
@@ -26,24 +27,29 @@
         android:id="@+id/edit_miaoshu"
         android:layout_width="match_parent"
         android:layout_height="180dp"
+        android:gravity="top"
         android:hint="描述宝贝的转手原因，入手渠道和使用感受"/>
 
     <LinearLayout
+        android:layout_margin="3dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <ImageView
+            android:layout_margin="3dp"
             android:background="@drawable/heikuang_sharp"
             android:id="@+id/im_1"
             android:layout_width="70dp"
             android:layout_height="100dp" />
         <ImageView
+            android:layout_margin="3dp"
             android:background="@drawable/heikuang_sharp"
             android:id="@+id/im_2"
             android:layout_width="70dp"
             android:layout_height="100dp" />
         <ImageView
+            android:layout_margin="3dp"
             android:background="@drawable/heikuang_sharp"
             android:id="@+id/im_3"
             android:layout_width="70dp"
@@ -51,12 +57,19 @@
 
 
             <Spinner
+                android:layout_margin="10dp"
                 android:id="@+id/spinner_leibie"
-                android:layout_width="wrap_content"
+                android:layout_width="98dp"
                 android:layout_height="wrap_content"
                 android:entries="@array/spingarr">
 
             </Spinner>
+
+        <TextView
+            android:textColor="#496644"
+            android:text="请一次性选择三张图片"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
 
     </LinearLayout>
@@ -78,11 +91,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="联系方式"/>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <Button
-        android:text="发布"
+        android:layout_alignParentBottom="true"
+        android:text="确认发布"
+        android:textColor="@color/but_fb"
+        android:textSize="20dp"
         android:background="#496644"
         android:id="@+id/fabu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+</RelativeLayout>
+
 </LinearLayout>

@@ -9,9 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.taokuang.Leibie.MaFragment;
+import com.example.taokuang.Leibie.QiFragment;
 import com.example.taokuang.Leibie.QuanFragment;
 import com.example.taokuang.Leibie.SheFragment;
+import com.example.taokuang.Leibie.ShengFragment;
+import com.example.taokuang.Leibie.ShiFragment;
 import com.example.taokuang.Leibie.ShuFragment;
+import com.example.taokuang.Leibie.WenFragment;
 import com.example.taokuang.Leibie.XieFragment;
 import com.example.taokuang.Leibie.YiFragment;
 import com.example.taokuang.R;
@@ -32,14 +36,14 @@ public class TaoFragment extends BaseFragment {
                 , FragmentPagerItems.with(getContext())
                 .add("全部", QuanFragment.class)
                 .add("书籍", ShuFragment.class)
-                //.add("文具", ShuFragment.class)
-                //.add("生活", ShuFragment.class)
-                //.add("食品", MaFragment.class)
+                .add("文具", WenFragment.class)
+                .add("生活", ShengFragment.class)
+                .add("食品", ShiFragment.class)
                 .add("数码", MaFragment.class)
                 .add("外设", SheFragment.class)
                 .add("服饰", YiFragment.class)
                 .add("球鞋", XieFragment.class)
-                //.add("其他", MaFragment.class)
+                .add("其他", QiFragment.class)
                 .create());
 
         viewPager.setAdapter(adapter);

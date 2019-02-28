@@ -2,15 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".wo.WofbActivity">
+    tools:context=".wo.WomcActivity">
+
 
     <android.support.v7.widget.Toolbar
+        android:id="@+id/wo_mc_toolbar"
         android:gravity="center"
-        android:id="@+id/wo_fb_toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/colorPrimary"
@@ -19,18 +19,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="我发布的"
+            android:text="我卖出的"
             android:textSize="20dp"
             android:textColor="#FCFAFA"/>
-
     </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_wo_fb"
+        android:id="@+id/recycler_wo_mc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
     </android.support.v7.widget.RecyclerView>
-
 
 </LinearLayout>

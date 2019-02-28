@@ -4,6 +4,7 @@ import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.datatype.BmobFile;
 
 public class TaoKuang extends BmobObject {
+    private int gengxin;
     private String biaoti;
     private String lianxi;
     private String miaoshu;
@@ -114,5 +115,13 @@ public class TaoKuang extends BmobObject {
 
     public void setFabuname(String fabuname) {
         this.fabuname = fabuname;
+    }
+
+    public int getGengxin() {
+        return gengxin;
+    }
+
+    public void setGengxin(int gengxin) {
+        this.gengxin = gengxin;
     }
 }

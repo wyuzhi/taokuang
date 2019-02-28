@@ -21,7 +21,7 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
-public class WogmActivity extends Activity {
+public class WomcActivity  extends Activity {
     private RecyclerView gRecyclerView;
     private TaoAdapter gAdapter;
     private LinearLayoutManager glayoutManager;
@@ -29,14 +29,14 @@ public class WogmActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wogm);
+        setContentView(R.layout.activity_womc);
         initView();
     }
 
     private void initView() {
         Toolbar toolbar = findViewById(R.id.wo_gm_toolbar);
         //toolbar.setTitle("我购买的");
-        gRecyclerView = findViewById(R.id.recycler_wo_gm);
+        gRecyclerView = findViewById(R.id.recycler_wo_mc);
         glayoutManager = new LinearLayoutManager(this);
         gRecyclerView.setLayoutManager(glayoutManager);
         loadData();
@@ -45,7 +45,8 @@ public class WogmActivity extends Activity {
     private void loadData() {
         if (BmobUser.isLogin()) {
             BmobQuery<TaoKuang> query = new BmobQuery<>();
-            query.addWhereEqualTo("goumai", BmobUser.getCurrentUser(User.class));
+            query.addWhereEqualTo("fabu", BmobUser.getCurrentUser(User.class));
+            query.addWhereExists("goumai");
             query.order("-updatedAt");
             //包含作者信息
             query.include("goumai");
@@ -54,7 +55,7 @@ public class WogmActivity extends Activity {
                 @Override
                 public void done(List<TaoKuang> object, BmobException e) {
                     if (e == null) {
-                        gAdapter = new TaoAdapter(WogmActivity.this, object);
+                        gAdapter = new TaoAdapter(WomcActivity.this, object);
                         gRecyclerView.setAdapter(gAdapter);
                         Snackbar.make(gRecyclerView, "查询成功", Snackbar.LENGTH_LONG).show();
                     } else {

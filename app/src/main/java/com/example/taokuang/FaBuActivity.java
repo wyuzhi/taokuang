@@ -1,9 +1,9 @@
 package com.example.taokuang;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +13,6 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
-import com.example.taokuang.Fragement.TaoFragment;
 import com.example.taokuang.entity.TaoKuang;
 import com.example.taokuang.entity.User;
 import com.jph.takephoto.app.TakePhoto;
@@ -22,6 +21,7 @@ import com.jph.takephoto.compress.CompressConfig;
 import com.jph.takephoto.model.TResult;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
@@ -30,11 +30,14 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadBatchListener;
 
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 
-
-public class FaBuActivity extends TakePhotoActivity implements View.OnClickListener {
+public  class FaBuActivity extends TakePhotoActivity implements View.OnClickListener {
     public static final int CHOOSE_PHOTO = 2;
+    private static final int MIN_CLICK_DELAY_TIME = 6000;
+    private static long lastClickTime;
+
+
+
     private EditText biaoti;
     private EditText miaoshu;
     private EditText weizhi;
@@ -66,6 +69,7 @@ public class FaBuActivity extends TakePhotoActivity implements View.OnClickListe
     private File tim2;
     private File tim3;*/
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +85,7 @@ public class FaBuActivity extends TakePhotoActivity implements View.OnClickListe
         miaoshu = findViewById(R.id.edit_miaoshu);
         weizhi = findViewById(R.id.edit_weizhi);
         jiage = findViewById(R.id.edit_jiage);
-        lianxi =findViewById(R.id.edit_lianxi);
+        lianxi = findViewById(R.id.edit_lianxi);
         im1 = findViewById(R.id.im_1);
         im2 = findViewById(R.id.im_2);
         im3 = findViewById(R.id.im_3);
@@ -96,6 +100,7 @@ public class FaBuActivity extends TakePhotoActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
+
         switch (v.getId()) {
             case R.id.im_1:
                 Toast.makeText(this, "添加图片", Toast.LENGTH_SHORT).show();
@@ -103,7 +108,12 @@ public class FaBuActivity extends TakePhotoActivity implements View.OnClickListe
                 break;
 
             case R.id.fabu:
-                Fabu();
+                long curClickTime = System.currentTimeMillis();
+                if((curClickTime - lastClickTime) >= MIN_CLICK_DELAY_TIME) {
+                    // 超过点击间隔后再将lastClickTime重置为当前点击时间
+                    lastClickTime = curClickTime;
+                    Fabu();}
+
                 break;
         }
 
@@ -116,15 +126,22 @@ public class FaBuActivity extends TakePhotoActivity implements View.OnClickListe
         //  fb.setPicer(bim1);
         //   fb.setPicer(bim2);
         // fb.setPicer(bim3);
-        tleibie =String.valueOf(leibie.getSelectedItem());
+        tleibie = String.valueOf(leibie.getSelectedItem());
         tlianxi = String.valueOf(lianxi.getText());
         tbiaoti = String.valueOf(biaoti.getText());
         tmiaoshu = String.valueOf(miaoshu.getText());
         tweizhi = String.valueOf(weizhi.getText());
         tjiage = String.valueOf(jiage.getText());
+
         im1path = file1.getPath();
         im2path = file2.getPath();
         im3path = file3.getPath();
+
+        if (im1path == null || im2path == null || tleibie == null || tlianxi == null || tbiaoti == null || tmiaoshu == null || tweizhi == null || tjiage == null) {
+            Toast.makeText(FaBuActivity.this, "请将信息填写完整",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
         final String[] paths = new String[3];
         paths[0] = im1path;
         paths[1] = im2path;
@@ -140,45 +157,54 @@ public class FaBuActivity extends TakePhotoActivity implements View.OnClickListe
                     Log.d("图片", "图片成功");
                     Toast.makeText(FaBuActivity.this, "图片成功",
                             Toast.LENGTH_SHORT).show();
-                    if(BmobUser.isLogin()){
-                    TaoKuang fb = new TaoKuang();
-                    User user = BmobUser.getCurrentUser(User.class);
-                    tfabu = user.getNicheng();
-                    fb.setFabuname(tfabu);
-                    fb.setLeibie(tleibie);
-                    fb.setBiaoti(tbiaoti);
-                    fb.setMiaoshu(tmiaoshu);
-                    fb.setWeizhi(tweizhi);
-                    fb.setLianxi(tlianxi);
-                    fb.setJiage(tjiage);
-                    fb.setPicyi(files.get(0));
-                    fb.setPicer(files.get(1));
-                    fb.setPicsan(files.get(2));
-                    fb.setFabu(BmobUser.getCurrentUser(User.class));
+                    if (BmobUser.isLogin()) {
+                        TaoKuang fb = new TaoKuang();
+                        User user = BmobUser.getCurrentUser(User.class);
+                        tfabu = user.getNicheng();
+                        fb.setFabuname(tfabu);
+                        fb.setLeibie(tleibie);
+                        fb.setBiaoti(tbiaoti);
+                        fb.setMiaoshu(tmiaoshu);
+                        fb.setWeizhi(tweizhi);
+                        fb.setLianxi(tlianxi);
+                        fb.setJiage(tjiage);
+                        fb.setGengxin(1);
+                        fb.setPicyi(files.get(0));
+                        fb.setPicer(files.get(1));
+                        fb.setPicsan(files.get(2));
+                        fb.setFabu(user);
 
-                    fb.save(new SaveListener<String>() {
-                        @Override
-                        public void done(String s, BmobException e) {
-                            if (e == null) {
-                                Log.d("发布", "发布成功");
-                                Toast.makeText(FaBuActivity.this, "发布成功",
-                                        Toast.LENGTH_SHORT).show();
-                               Intent iet = new Intent(FaBuActivity.this, TaoFragment.class);
-                                iet.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
-                               //
-                                //
-                                //
-                                // startActivity(iet);
-                            } else {
-                                Log.d("发布", "发布失败:" + e);
-                                Toast.makeText(FaBuActivity.this, "发布失败",
-                                        Toast.LENGTH_SHORT).show();
+                        fb.save(new SaveListener<String>() {
+                            @Override
+                            public void done(String s, BmobException e) {
+                                if (e == null) {
+                                    Log.d("发布", "发布成功");
+                                    Toast.makeText(FaBuActivity.this, "发布成功",
+                                            Toast.LENGTH_SHORT).show();
+                                    //Intent iet = new Intent(FaBuActivity.this, TaoFragment.class);
+                                    //startActivity(iet);
+                                    Runtime runtime = Runtime.getRuntime();
+                                    try {
+                                        runtime.exec("input keyevent " + KeyEvent.KEYCODE_BACK);
+                                    } catch (IOException z) {
+                                        z.printStackTrace();
+                                    }
+
+                                } else {
+                                    Log.d("发布", "发布失败:" + e);
+                                    Toast.makeText(FaBuActivity.this, "发布失败",
+                                            Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        }
-                    });
+                        });
 
-                    //do something
-                }}
+                        //do something
+                    } else {
+                        Toast.makeText(FaBuActivity.this, "请先登陆",
+                                Toast.LENGTH_LONG).show();
+
+                    }
+                }
             }
 
             @Override
