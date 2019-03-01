@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="#FFFFFF"
-                    android:src="@drawable/sale" />
+                    android:src="@drawable/sale1" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="#FFFFFF"
-                    android:src="@drawable/sold" />
+                    android:src="@drawable/sold2" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -121,7 +121,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="#FFFFFF"
-                    android:src="@drawable/get" />
+                    android:src="@drawable/get1" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -169,7 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="#FFFFFF"
-                    android:src="@drawable/rz" />
+                    android:src="@drawable/rz1" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -191,7 +191,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="#FFFFFF"
-                    android:src="@drawable/sold" />
+                    android:src="@drawable/rz1" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -213,7 +213,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="#FFFFFF"
-                    android:src="@drawable/out" />
+                    android:src="@drawable/zx1" />
 
                 <TextView
                     android:layout_width="match_parent"

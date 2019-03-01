@@ -23,7 +23,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
-public class WenFragment extends BaseFragment {
+public class HuaFragment extends BaseFragment {
     private RecyclerView sRecyclerView;
     private TaoAdapter sAdapter;
     private SwipeRefreshLayout sSwipeRefresh;
@@ -34,7 +34,7 @@ public class WenFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_wen_fragment, container, false);
+        View view = inflater.inflate(R.layout.activity_hua_fragment, container, false);
         initView(view);
         return view;
     }
@@ -55,7 +55,7 @@ public class WenFragment extends BaseFragment {
 
     private void loadDate() {
         BmobQuery<TaoKuang> tQuery = new BmobQuery<>();
-        tQuery.addWhereEqualTo("leibie", "文具");
+        tQuery.addWhereEqualTo("leibie", "化妆品");
         tQuery.addWhereDoesNotExists("goumai");
         tQuery.findObjects(new FindListener<TaoKuang>() {
             @Override

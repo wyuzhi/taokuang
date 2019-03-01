@@ -1,9 +1,9 @@
 package com.example.taokuang;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +21,6 @@ import com.jph.takephoto.compress.CompressConfig;
 import com.jph.takephoto.model.TResult;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
@@ -137,12 +136,11 @@ public  class FaBuActivity extends TakePhotoActivity implements View.OnClickList
         im2path = file2.getPath();
         im3path = file3.getPath();
 
-        if (im1path == null || im2path == null || tleibie == null || tlianxi == null || tbiaoti == null || tmiaoshu == null || tweizhi == null || tjiage == null) {
-            Toast.makeText(FaBuActivity.this, "请将信息填写完整",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
-        final String[] paths = new String[3];
+        if (!tlianxi.equals("")
+                && !tbiaoti.equals("") && !tmiaoshu.equals("")
+                && !tweizhi.equals("") && !tjiage.equals("")){
+
+            final String[] paths = new String[3];
         paths[0] = im1path;
         paths[1] = im2path;
         paths[2] = im3path;
@@ -181,14 +179,15 @@ public  class FaBuActivity extends TakePhotoActivity implements View.OnClickList
                                     Log.d("发布", "发布成功");
                                     Toast.makeText(FaBuActivity.this, "发布成功",
                                             Toast.LENGTH_SHORT).show();
-                                    //Intent iet = new Intent(FaBuActivity.this, TaoFragment.class);
-                                    //startActivity(iet);
-                                    Runtime runtime = Runtime.getRuntime();
+                                    Intent fbcg = new Intent(FaBuActivity.this, MainActivity.class);
+                                    fbcg.putExtra("发布成功", "发布成功");
+                                    startActivity(fbcg);
+                                    /*Runtime runtime = Runtime.getRuntime();
                                     try {
                                         runtime.exec("input keyevent " + KeyEvent.KEYCODE_BACK);
                                     } catch (IOException z) {
                                         z.printStackTrace();
-                                    }
+                                    }*/
 
                                 } else {
                                     Log.d("发布", "发布失败:" + e);
@@ -232,6 +231,8 @@ public  class FaBuActivity extends TakePhotoActivity implements View.OnClickList
                 }
             }*/
         });
+    }else Toast.makeText(FaBuActivity.this, "请将信息填写完整",
+                Toast.LENGTH_SHORT).show();
 
     }
 

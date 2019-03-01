@@ -16,7 +16,7 @@
         android:clipToPadding="false"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        app:stl_defaultTabTextColor="#350020"
+        app:stl_defaultTabTextColor="#050505"
         app:stl_defaultTabTextHorizontalPadding="18dp"
         app:stl_dividerColor="#496644"
         app:stl_dividerThickness="0dp"

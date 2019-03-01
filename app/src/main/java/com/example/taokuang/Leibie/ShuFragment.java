@@ -27,7 +27,7 @@ public class ShuFragment extends BaseFragment {
     private RecyclerView sRecyclerView;
     private TaoAdapter sAdapter;
     private SwipeRefreshLayout sSwipeRefresh;
-    private StaggeredGridLayoutManager slayoutManager;
+    //private StaggeredGridLayoutManager slayoutManager;
     private List<TaoKuang> sTaolist;
     //TaoAdapter.OnItemClickListener listener = (TaoAdapter.OnItemClickListener) getContext();
 
@@ -42,27 +42,29 @@ public class ShuFragment extends BaseFragment {
     private void initView(final View v) {
         sTaolist = new ArrayList<>();
         sRecyclerView = v.findViewById(R.id.recycler_tao);
-        slayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        sRecyclerView.setLayoutManager(slayoutManager);
+
         sSwipeRefresh = v.findViewById(R.id.swipe_refresh);
-       /*mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        sSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
+                loadDate();
             }
-        });*/
+        });
         loadDate();
     }
 
     private void loadDate() {
         BmobQuery<TaoKuang> tQuery = new BmobQuery<>();
-        tQuery.addWhereEqualTo("leibie","书籍");
+        tQuery.addWhereEqualTo("leibie", "书籍");
         tQuery.addWhereDoesNotExists("goumai");
         tQuery.findObjects(new FindListener<TaoKuang>() {
             @Override
             public void done(List<TaoKuang> list, BmobException e) {
                 if (e == null) {
                     sTaolist = list;
+
+                    StaggeredGridLayoutManager slayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                    sRecyclerView.setLayoutManager(slayoutManager);
                     sAdapter = new TaoAdapter(getContext(), list);
                     sRecyclerView.setAdapter(sAdapter);
                     //tAdapter.setOnItemClickListener(listener);

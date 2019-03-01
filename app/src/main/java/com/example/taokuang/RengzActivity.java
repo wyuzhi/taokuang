@@ -2,7 +2,6 @@ package com.example.taokuang;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -26,10 +25,10 @@ import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
 public class RengzActivity extends TakePhotoActivity {
-    private Button rrz;
-    private ImageView rxsz;
-    private EditText rxh;
-    private File xxztp;
+    private Button sc;
+    private EditText xh;
+    private ImageView xsz;
+    private File xyk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,59 +39,57 @@ public class RengzActivity extends TakePhotoActivity {
     }
 
     private void initView() {
-        rrz =findViewById(R.id.rz_sc);
-        rrz.setOnClickListener(new View.OnClickListener() {
+
+        xh = findViewById(R.id.rz_xh);
+        final String xha=String.valueOf(xh.getText());
+        xsz = findViewById(R.id.rz_xsz);
+        xsz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String xh = String.valueOf(rxh.getText());
-                String filepate = xxztp.getPath();
-                final BmobFile ixsz = new BmobFile(xxztp);
-                ixsz.uploadblock(new UploadFileListener() {
+                Choose();
+            }
+        });
+        sc =findViewById(R.id.rz_sc);
+        sc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String path = xyk.getPath();
+                final BmobFile xsza=new BmobFile(xyk);
+                xsza.uploadblock(new UploadFileListener() {
                     @Override
                     public void done(BmobException e) {
-                        if (e == null) {
+                        if(e==null){
                             User user = BmobUser.getCurrentUser(User.class);
-                            user.setXsz(ixsz);
-                            user.setXh(xh);
+                            user.setXh(xha);
+                            user.setXsz(xsza);
                             user.update(new UpdateListener() {
                                 @Override
                                 public void done(BmobException e) {
-                                    if (e == null) {
+                                    if (e==null){
                                         Toast.makeText(RengzActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
-                                        Intent aaa =new Intent(RengzActivity.this,MainActivity.class);
+                                        Intent aaa = new Intent(RengzActivity.this, MainActivity.class);
                                         startActivity(aaa);
-                                    } else {
-                                        Toast.makeText(RengzActivity.this, "图片失败" + e,
-                                                Toast.LENGTH_LONG).show();
-                                        Log.d("认证", "图片失败:" + e);
                                     }
+                                    else Toast.makeText(RengzActivity.this, "上传失败"+e.toString(), Toast.LENGTH_SHORT).show();
                                 }
                             });
-                        }
+                        }else Toast.makeText(RengzActivity.this, "上传失败"+e.toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         });
-        rxsz =findViewById(R.id.rz_xsz);
-        rxsz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                iconChoose();
-            }
-        });
-        rxh = findViewById(R.id.rz_xh);
-
     }
-    private void iconChoose() {
+
+    private void Choose() {
         TakePhoto takePhoto = getTakePhoto();
         configCompress(takePhoto);
         takePhoto.onPickFromGallery();
     }
     @Override
     public void takeSuccess(TResult result) {
-        xxztp = new File(result.getImages().get(0).getCompressPath());
+        xyk = new File(result.getImages().get(0).getCompressPath());
         super.takeSuccess(result);
-        Glide.with(this).load(new File(result.getImages().get(0).getCompressPath())).into(rxsz);
+        Glide.with(this).load(new File(result.getImages().get(0).getCompressPath())).into(xsz);
     }
     private void configCompress(TakePhoto takePhoto) {//压缩配置
         int maxSize = Integer.parseInt("409600");//最大 压缩
@@ -105,4 +102,5 @@ public class RengzActivity extends TakePhotoActivity {
                 .create();
         takePhoto.onEnableCompress(config, false);//是否显示进度条
     }
+
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Window;
@@ -38,7 +39,8 @@ public class WogmActivity extends Activity {
         //toolbar.setTitle("我购买的");
         gRecyclerView = findViewById(R.id.recycler_wo_gm);
         glayoutManager = new LinearLayoutManager(this);
-        gRecyclerView.setLayoutManager(glayoutManager);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        gRecyclerView.setLayoutManager(layoutManager);
         loadData();
     }
 

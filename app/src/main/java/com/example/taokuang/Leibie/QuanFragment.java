@@ -22,6 +22,9 @@ import java.util.List;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import me.dkzwm.widget.srl.RefreshingListenerAdapter;
+import me.dkzwm.widget.srl.SmoothRefreshLayout;
+import me.dkzwm.widget.srl.extra.header.ClassicHeader;
 
 public class QuanFragment extends BaseFragment {
     private RecyclerView tRecyclerView;
@@ -34,7 +37,8 @@ public class QuanFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_quan_fragment, container, false);
+        View view = inflater.inflate(R.layout.activity_quan_fragment,
+                container, false);
         initView(view);
         return view;
     }
@@ -42,15 +46,25 @@ public class QuanFragment extends BaseFragment {
     private void initView(final View v) {
         mTaolist = new ArrayList<>();
         tRecyclerView = v.findViewById(R.id.recycler_tao);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        tRecyclerView.setLayoutManager(layoutManager);
-        mSwipeRefresh = v.findViewById(R.id.swipe_refresh);
-        mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+
+        final SmoothRefreshLayout refreshLayout = v.findViewById(R.id.refreshLayout);
+        refreshLayout.setHeaderView(new ClassicHeader(getContext()));
+        refreshLayout.setOnRefreshListener(new RefreshingListenerAdapter() {
             @Override
-            public void onRefresh() {
+            public void onRefreshing() {
                 loadDate();
+                refreshLayout.refreshComplete();
+
             }
         });
+        //mSwipeRefresh = v.findViewById(R.id.swipe_refresh);
+        //mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        //   @Override
+        //   public void onRefresh() {
+        //       loadDate();
+        //   }
+        //});
         loadDate();
     }
 
@@ -64,11 +78,14 @@ public class QuanFragment extends BaseFragment {
             public void done(List<TaoKuang> list, BmobException e) {
                 if (e == null) {
                     mTaolist = list;
+                    StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(
+                            2, StaggeredGridLayoutManager.VERTICAL);
+                    tRecyclerView.setLayoutManager(layoutManager);
                     tAdapter = new TaoAdapter(getContext(), list);
                     tRecyclerView.setAdapter(tAdapter);
                     //tAdapter.setOnItemClickListener(listener);
                     Log.d("查询", "查询成功" + list);
-                    mSwipeRefresh.setRefreshing(false);
+                    //mSwipeRefresh.setRefreshing(false);
                 } else {
                     Log.d("查询", "查询失败:" + e);
                 }
@@ -76,7 +93,6 @@ public class QuanFragment extends BaseFragment {
         });
 
     }
-
 
     /*@Override
     public void onItemClick(int position) {

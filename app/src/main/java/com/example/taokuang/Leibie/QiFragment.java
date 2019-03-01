@@ -27,14 +27,14 @@ public class QiFragment extends BaseFragment {
     private RecyclerView sRecyclerView;
     private TaoAdapter sAdapter;
     private SwipeRefreshLayout sSwipeRefresh;
-    private StaggeredGridLayoutManager slayoutManager;
+    //private StaggeredGridLayoutManager slayoutManager;
     private List<TaoKuang> sTaolist;
     //TaoAdapter.OnItemClickListener listener = (TaoAdapter.OnItemClickListener) getContext();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_ma_fragment, container, false);
+        View view = inflater.inflate(R.layout.activity_qi_fragment, container, false);
         initView(view);
         return view;
     }
@@ -42,15 +42,14 @@ public class QiFragment extends BaseFragment {
     private void initView(final View v) {
         sTaolist = new ArrayList<>();
         sRecyclerView = v.findViewById(R.id.recycler_tao);
-        slayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        sRecyclerView.setLayoutManager(slayoutManager);
+
         sSwipeRefresh = v.findViewById(R.id.swipe_refresh);
-       /*mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        sSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
+                loadDate();
             }
-        });*/
+        });
         loadDate();
     }
 
@@ -63,6 +62,8 @@ public class QiFragment extends BaseFragment {
             public void done(List<TaoKuang> list, BmobException e) {
                 if (e == null) {
                     sTaolist = list;
+                    StaggeredGridLayoutManager slayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                    sRecyclerView.setLayoutManager(slayoutManager);
                     sAdapter = new TaoAdapter(getContext(), list);
                     sRecyclerView.setAdapter(sAdapter);
                     //tAdapter.setOnItemClickListener(listener);

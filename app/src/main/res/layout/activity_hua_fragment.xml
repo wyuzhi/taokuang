@@ -4,14 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Leibie.QuanFragment">
-
-    <me.dkzwm.widget.srl.SmoothRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/refreshLayout"
+    tools:context=".Leibie.HuaFragment">
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/swipe_refresh">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_tao"
@@ -19,5 +17,5 @@
             android:layout_height="wrap_content">
 
         </android.support.v7.widget.RecyclerView>
-    </me.dkzwm.widget.srl.SmoothRefreshLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </android.support.constraint.ConstraintLayout>

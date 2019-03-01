@@ -26,7 +26,7 @@
                 <ImageView
                     android:id="@+id/item_fm_zs"
                     android:layout_width="172.8dp"
-                    android:layout_height="247.2dp" />
+                    android:layout_height="227.2dp" />
             </android.support.v7.widget.CardView>
 
             <LinearLayout
@@ -34,22 +34,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_margin="10dp"
-                    android:text="填充"
-                    android:visibility="invisible"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+
 
                 <android.support.v7.widget.CardView
                     app:cardCornerRadius="6dp"
                     android:layout_margin="10dp"
+                    android:visibility="invisible"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
                     <Button
                         android:id="@+id/item_gj_zs"
                         android:text="改价"
+                        android:visibility="invisible"
                         android:background="#FFFFFF"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />

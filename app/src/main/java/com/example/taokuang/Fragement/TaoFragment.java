@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.taokuang.Leibie.HuaFragment;
 import com.example.taokuang.Leibie.MaFragment;
 import com.example.taokuang.Leibie.QiFragment;
 import com.example.taokuang.Leibie.QuanFragment;
@@ -37,6 +38,7 @@ public class TaoFragment extends BaseFragment {
                 .add("全部", QuanFragment.class)
                 .add("书籍", ShuFragment.class)
                 .add("文具", WenFragment.class)
+                .add("化妆品", HuaFragment.class)
                 .add("生活", ShengFragment.class)
                 .add("食品", ShiFragment.class)
                 .add("数码", MaFragment.class)

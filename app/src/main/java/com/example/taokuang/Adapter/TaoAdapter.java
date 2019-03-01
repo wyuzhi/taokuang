@@ -36,7 +36,7 @@ public class TaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
 
-    private static final int MIN_CLICK_DELAY_TIME = 36000000;
+    private static final int MIN_CLICK_DELAY_TIME = 3600;
     private static long lastClickTime;
 
     private static final int NOMAL_ITEM = 9999;
@@ -200,7 +200,7 @@ public class TaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         public void done(BmobException e) {
                             if (e == null) {
                                 Log.d("擦亮", "擦亮成功");
-                                Toast.makeText(mContext, "擦亮成功"+"10小时后才能再次擦亮",
+                                Toast.makeText(mContext, "擦亮成功",
                                         Toast.LENGTH_SHORT).show();
                                 viewHolder.scl.setBackgroundColor(Color.GRAY);
                             } else {
@@ -224,6 +224,7 @@ public class TaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             Log.d("删除", "删除成功");
                             Toast.makeText(mContext, "删除成功",
                                     Toast.LENGTH_SHORT).show();
+
                         }else {
                             Log.d("删除", e.toString());
                             Toast.makeText(mContext, "删除失败"+e.toString(),
