@@ -38,14 +38,14 @@
 
         <ImageView
             android:layout_margin="10dp"
-            android:background="@drawable/zh"
+            android:background="@drawable/people"
             android:layout_width="41dp"
             android:layout_height="41dp" />
 
         <EditText
             android:layout_margin="10dp"
             android:id="@+id/zh"
-            android:hint="请输入账号"
+            android:hint="请用学号注册"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -63,7 +63,8 @@
 
         <EditText
             android:id="@+id/mm"
-            android:hint="请输入密码"
+            android:hint="设置你的密码"
+            android:inputType="textPassword"
             android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

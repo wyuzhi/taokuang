@@ -13,7 +13,7 @@
         android:id="@+id/wo_fb_toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorPrimary"
+        android:background="#112d4e"
         android:theme="@style/AppTheme.AppBarOverlay">
         <TextView
             android:layout_width="match_parent"

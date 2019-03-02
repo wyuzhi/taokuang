@@ -9,7 +9,7 @@
         android:layout_gravity="center"
         android:textSize="24sp"
         android:padding="5sp"
-        android:textColor="#77026c10"
+        android:textColor="#212121"
         android:layout_margin="5dp"
         android:layout_width="wrap_content"
         android:layout_height="40dp"

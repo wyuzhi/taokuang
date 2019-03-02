@@ -11,7 +11,7 @@
         android:id="@+id/toolbar_fabu"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorPrimary"
+        android:background="#112d4e"
         android:theme="@style/AppTheme.AppBarOverlay"
         app:title="发布你的闲置好物">
 
@@ -56,10 +56,12 @@
                 android:layout_width="70dp"
                 android:layout_height="100dp"
                 android:layout_margin="3dp"
+                android:visibility="gone"
                 android:background="@drawable/heikuang_sharp" />
 
             <ImageView
                 android:id="@+id/im_3"
+                android:visibility="gone"
                 android:layout_width="70dp"
                 android:layout_height="100dp"
                 android:layout_margin="3dp"
@@ -145,11 +147,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="6dp">
+
             <Button
                 android:id="@+id/fabu"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:background="#496644"
+                android:background="#3f72af"
                 android:text="确认发布"
                 android:textColor="@color/but_fb"
                 android:textSize="20dp" />

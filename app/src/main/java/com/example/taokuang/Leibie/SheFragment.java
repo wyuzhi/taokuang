@@ -57,6 +57,7 @@ public class SheFragment extends BaseFragment {
         BmobQuery<TaoKuang> tQuery = new BmobQuery<>();
         tQuery.addWhereEqualTo("leibie", "外设");
         tQuery.addWhereDoesNotExists("goumai");
+        tQuery.include("fabu");
         tQuery.findObjects(new FindListener<TaoKuang>() {
             @Override
             public void done(List<TaoKuang> list, BmobException e) {

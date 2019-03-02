@@ -12,7 +12,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorPrimary"
+        android:background="#112d4e"
         android:theme="@style/AppTheme.AppBarOverlay">
 
     </android.support.v7.widget.Toolbar>
@@ -33,6 +33,8 @@
         android:layout_marginEnd="0dp"
         android:layout_marginStart="0dp"
         android:background="?android:attr/windowBackground"
+        app:itemIconTint="@drawable/navigation_item"
+        app:itemTextColor="@drawable/navigation_item"
         app:menu="@menu/navigation" />
 
 </LinearLayout>

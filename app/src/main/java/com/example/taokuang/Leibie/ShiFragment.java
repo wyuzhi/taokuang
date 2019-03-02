@@ -57,6 +57,7 @@ public class ShiFragment extends BaseFragment {
         BmobQuery<TaoKuang> tQuery = new BmobQuery<>();
         tQuery.addWhereEqualTo("leibie", "食品");
         tQuery.addWhereDoesNotExists("goumai");
+        tQuery.include("fabu");
         tQuery.findObjects(new FindListener<TaoKuang>() {
             @Override
             public void done(List<TaoKuang> list, BmobException e) {

@@ -72,7 +72,8 @@ public class QuanFragment extends BaseFragment {
         BmobQuery<TaoKuang> tQuery = new BmobQuery<>();
         tQuery.addWhereDoesNotExists("goumai");
         tQuery.order("-updatedAt");
-        //tQuery.include("fabu[username|icon|nicheng]");
+
+        tQuery.include("fabu");
         tQuery.findObjects(new FindListener<TaoKuang>() {
             @Override
             public void done(List<TaoKuang> list, BmobException e) {

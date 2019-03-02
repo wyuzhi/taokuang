@@ -9,11 +9,18 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
-        app:title="搜索结果"
-        android:layout_width="115dp"
-        android:layout_height="35dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:background="@color/colorPrimary"
         android:theme="@style/AppTheme.AppBarOverlay">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="搜索结果"
+            android:textSize="20dp"
+            android:textColor="#FCFAFA"/>
 
     </android.support.v7.widget.Toolbar>
     <android.support.v4.widget.SwipeRefreshLayout

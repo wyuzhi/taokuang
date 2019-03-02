@@ -10,16 +10,16 @@
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorPrimary"
+        android:background="#112d4e"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <TextView
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:text="校园认证"
-            android:textSize="20dp"
-            android:textColor="#FCFAFA"/>
+            android:textColor="#FCFAFA"
+            android:textSize="20dp" />
 
     </android.support.v7.widget.Toolbar>
 
@@ -34,54 +34,56 @@
             android:orientation="vertical">
 
             <android.support.v7.widget.CardView
-                android:layout_margin="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 app:cardCornerRadius="6dp">
 
-            <ImageView
-                android:id="@+id/rz_xsz"
-                android:layout_width="210dp"
-                android:layout_height="300dp" />
+                <ImageView
+                    android:id="@+id/rz_xsz"
+                    android:layout_width="210dp"
+                    android:layout_height="300dp" />
             </android.support.v7.widget.CardView>
 
             <EditText
                 android:id="@+id/rz_xh"
-                android:hint="请输入学号"
-                android:layout_margin="10dp"
                 android:layout_width="210dp"
-                android:layout_height="50dp" />
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:hint="请输入学号" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
-                android:textColor="#496644"
-                android:layout_margin="30dp"
-                android:textSize="25dp"
-                android:text="请上传学生证正面图片以及学号以进行实名认证"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:text="请上传学生证正面图片以及学号以进行实名认证"
+                android:textColor="#496644"
+                android:textSize="25dp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <android.support.v7.widget.CardView
-                    android:layout_centerInParent="true"
-                    android:layout_margin="50dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="50dp"
                     app:cardCornerRadius="6dp">
+
                     <Button
-                        android:background="#496644"
                         android:id="@+id/rz_sc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="确认上传"/>
+                        android:background="#496644"
+                        android:text="确认上传" />
                 </android.support.v7.widget.CardView>
             </RelativeLayout>
         </LinearLayout>

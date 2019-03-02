@@ -50,7 +50,7 @@ public class WogmActivity extends Activity {
             query.addWhereEqualTo("goumai", BmobUser.getCurrentUser(User.class));
             query.order("-updatedAt");
             //包含作者信息
-            query.include("goumai");
+            query.include("fabu");
             query.findObjects(new FindListener<TaoKuang>() {
 
                 @Override

@@ -152,7 +152,8 @@ public class TaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                          detailIntent.putExtra("位置", taoItem.getWeizhi());
                          detailIntent.putExtra("联系", taoItem.getLianxi());
                          detailIntent.putExtra("发布", taoItem.getFabu());
-                         detailIntent.putExtra("昵称", taoItem.getFabuname());
+                         detailIntent.putExtra("发布icon", taoItem.getFabu().getIcon().getFileUrl());
+                         detailIntent.putExtra("昵称", taoItem.getFabu().getNicheng());
                          detailIntent.putExtra("ID", taoItem.getObjectId());
                          mContext.startActivity(detailIntent);
                      }
@@ -254,7 +255,8 @@ public class TaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 detailIntent.putExtra("位置", taoItem.getWeizhi());
                 detailIntent.putExtra("联系", taoItem.getLianxi());
                 detailIntent.putExtra("发布", taoItem.getFabu());
-                detailIntent.putExtra("昵称", taoItem.getFabuname());
+                detailIntent.putExtra("发布icon", taoItem.getFabu().getIcon().getFileUrl());
+                detailIntent.putExtra("昵称", taoItem.getFabu().getNicheng());
                 detailIntent.putExtra("ID", taoItem.getObjectId());
                 mContext.startActivity(detailIntent);
             }

@@ -53,29 +53,34 @@ public class RengzActivity extends TakePhotoActivity {
         sc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String path = xyk.getPath();
-                final BmobFile xsza=new BmobFile(xyk);
-                xsza.uploadblock(new UploadFileListener() {
-                    @Override
-                    public void done(BmobException e) {
-                        if(e==null){
-                            User user = BmobUser.getCurrentUser(User.class);
-                            user.setXh(xha);
-                            user.setXsz(xsza);
-                            user.update(new UpdateListener() {
-                                @Override
-                                public void done(BmobException e) {
-                                    if (e==null){
-                                        Toast.makeText(RengzActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
-                                        Intent aaa = new Intent(RengzActivity.this, MainActivity.class);
-                                        startActivity(aaa);
+                if(!xha.equals("")){
+                    String path = xyk.getPath();
+                    final BmobFile xsza=new BmobFile(xyk);
+                    xsza.uploadblock(new UploadFileListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e==null){
+                                User user = BmobUser.getCurrentUser(User.class);
+                                user.setXh(xha);
+                                user.setXsz(xsza);
+                                user.update(new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+                                        if (e==null){
+                                            Toast.makeText(RengzActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
+                                            Intent aaa = new Intent(RengzActivity.this, MainActivity.class);
+                                            startActivity(aaa);
+                                        }
+                                        else Toast.makeText(RengzActivity.this, "上传失败"+e.toString(), Toast.LENGTH_SHORT).show();
                                     }
-                                    else Toast.makeText(RengzActivity.this, "上传失败"+e.toString(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }else Toast.makeText(RengzActivity.this, "上传失败"+e.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                                });
+                            }else Toast.makeText(RengzActivity.this, "上传失败"+e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else
+                    Toast.makeText(RengzActivity.this, "请填写完整",
+                            Toast.LENGTH_LONG).show();
             }
         });
     }

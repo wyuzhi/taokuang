@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.taokuang">
+
     <!-- 用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 用于访问GPS定位 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
@@ -21,22 +23,25 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+
     <application
         android:name=".AppContext"
         android:allowBackup="true"
-        android:icon="@drawable/ks1"
+        android:icon="@drawable/ks"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:networkSecurityConfig,android:allowBackup,android:icon,android:label,android:supportsRtl,android:theme,android:roundIcon">
         <activity android:name=".RengzActivity"></activity>
         <activity android:name=".wo.WomcActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -62,6 +67,7 @@
         <activity android:name=".Leibie.ShengFragment" />
         <activity android:name=".Leibie.QiFragment" />
         <activity android:name=".Leibie.ShiFragment" />
+
     </application>
 
 </manifest>
