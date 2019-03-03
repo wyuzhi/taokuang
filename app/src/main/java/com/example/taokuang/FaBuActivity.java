@@ -2,6 +2,7 @@ package com.example.taokuang;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +29,7 @@ import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadBatchListener;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class FaBuActivity extends Activity implements View.OnClickListener {
@@ -112,6 +114,7 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
                 if ((curClickTime - lastClickTime) >= MIN_CLICK_DELAY_TIME) {
                     // 超过点击间隔后再将lastClickTime重置为当前点击时间
                     lastClickTime = curClickTime;
+
                     Fabu();
                 }
                 break;
@@ -141,6 +144,11 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
                 && !tbiaoti.equals("") && !tmiaoshu.equals("")
                 && !tweizhi.equals("") && !tjiage.equals("")) {
             if (!tleibie.equals("类别")){
+                final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#3f72af"));
+                pDialog.setTitleText("正在发布");
+                pDialog.setCancelable(false);
+                pDialog.show();
 
             final String[] paths = new String[3];
             paths[0] = im1path;
@@ -180,8 +188,10 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
                                         Log.d("发布", "发布成功");
                                         Toast.makeText(FaBuActivity.this, "发布成功",
                                                 Toast.LENGTH_SHORT).show();
+                                        pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
                                         Intent fbcg = new Intent(FaBuActivity.this, MainActivity.class);
                                         fbcg.putExtra("发布成功", "发布成功");
+                                        fbcg.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(fbcg);
                                     /*Runtime runtime = Runtime.getRuntime();
                                     try {

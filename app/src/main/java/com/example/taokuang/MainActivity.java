@@ -1,5 +1,6 @@
 package com.example.taokuang;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,6 +23,11 @@ import java.util.List;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
+import kr.co.namee.permissiongen.PermissionFail;
+import kr.co.namee.permissiongen.PermissionGen;
+import kr.co.namee.permissiongen.PermissionSuccess;
+
+
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -57,10 +63,38 @@ public class MainActivity extends AppCompatActivity {
         if(BmobUser.isLogin()){
             initView();//页面布局初始化
         }
-        else {Intent intentl =new Intent(this,LoginActivity.class);
+        else {Intent intentl =new Intent(MainActivity.this,LoginActivity.class);
         startActivity(intentl);
         }
+        // 申请权限
+        PermissionGen.with(MainActivity.this).addRequestCode(100)
+                .permissions(
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                        Manifest.permission.REQUEST_INSTALL_PACKAGES,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                .request();
+
+
     }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+    }
+
+    @PermissionSuccess(requestCode = 100)
+    public void doSomething() {
+         //Toast.makeText(this, "已授权", Toast.LENGTH_SHORT).show();
+    }
+
+    @PermissionFail(requestCode = 100)
+    public void doFailSomething() {
+       //Toast.makeText(MainActivity.this, "将", Toast.LENGTH_LONG).show();
+    }
+
+
+
 
     private void initView() {
 

@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void loginb(View v) {
-        final Intent intent2 = new Intent(this, MainActivity.class);
+        final Intent intent2 = new Intent(LoginActivity.this, MainActivity.class);
         dlyhm= String.valueOf(yhm.getText());
         dlmm= String.valueOf(mm.getText());
         final User dluser=new User();
@@ -76,6 +76,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Log.d("登陆", "登陆成功");
                     Toast.makeText(LoginActivity.this,"登陆成功",
                             Toast.LENGTH_SHORT).show();
+                    intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent2);
                 } else {
                     Log.d("登陆", "登陆失败:" + e);

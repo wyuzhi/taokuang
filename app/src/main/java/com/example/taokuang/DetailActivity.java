@@ -29,13 +29,14 @@ public class DetailActivity extends AppCompatActivity {
 
     private static final int MIN_CLICK_DELAY_TIME = 6000;
     private static long lastClickTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
         Intent intent = getIntent();
-        final String id =intent.getStringExtra("ID");
+        final String id = intent.getStringExtra("ID");
         Button dgm = findViewById(R.id.detail_gm);
         dgm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,7 +45,7 @@ public class DetailActivity extends AppCompatActivity {
                 new SweetAlertDialog(DetailActivity.this, SweetAlertDialog.WARNING_TYPE)
                         .setTitleText("确认购买")
                         .setContentText("确认后请尽快联系卖家交易，否则视为鸽子")
-                        .setCancelText("再考虑一下")
+                        .setCancelText("考虑一下")
                         .setConfirmText("得到它")
                         .showCancelButton(true)
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -52,21 +53,21 @@ public class DetailActivity extends AppCompatActivity {
                             @Override
                             public void onClick(final SweetAlertDialog sweetAlertDialog) {
                                 long curClickTime = System.currentTimeMillis();
-                                if((curClickTime - lastClickTime) >= MIN_CLICK_DELAY_TIME) {
+                                if ((curClickTime - lastClickTime) >= MIN_CLICK_DELAY_TIME) {
                                     // 超过点击间隔后再将lastClickTime重置为当前点击时间
                                     lastClickTime = curClickTime;
 
                                     if (BmobUser.isLogin()) {
                                         final TaoKuang gm = new TaoKuang();
 
-                                        BmobQuery<TaoKuang> gml =new BmobQuery<>();
+                                        BmobQuery<TaoKuang> gml = new BmobQuery<>();
                                         gml.getObject(id, new QueryListener<TaoKuang>() {
                                             @Override
                                             public void done(TaoKuang taoKuang, BmobException e) {
-                                                if(e==null){
+                                                if (e == null) {
                                                     String o = taoKuang.getFabu().getObjectId();
                                                     String p = BmobUser.getCurrentUser(User.class).getObjectId();
-                                                    if (taoKuang.getGoumai()==null&& !o.equals(p)){
+                                                    if (taoKuang.getGoumai() == null && !o.equals(p)) {
                                                         gm.setGoumai(BmobUser.getCurrentUser(User.class));
                                                         gm.update(id, new UpdateListener() {
                                                             @Override
@@ -74,9 +75,17 @@ public class DetailActivity extends AppCompatActivity {
                                                                 if (e == null) {
                                                                     Toast.makeText(DetailActivity.this, "GOT’EM，请尽快联系卖家，当面交易",
                                                                             Toast.LENGTH_LONG).show();
+                                                                    sweetAlertDialog
+                                                                            .showCancelButton(false)
+                                                                            .setTitleText("GOT'EM")
+                                                                            .setContentText("请尽快联系卖家拿到它")
+                                                                            .setConfirmText("OK")
+                                                                            .setConfirmClickListener(null)
+                                                                            .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
 
                                                                     Intent gmcg = new Intent(DetailActivity.this, MainActivity.class);
                                                                     gmcg.putExtra("购买成功", "购买成功");
+                                                                    gmcg.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                                     startActivity(gmcg);
                                                                 } else {
                                                                     Log.d("购买", "购买失败:" + e);
@@ -86,8 +95,7 @@ public class DetailActivity extends AppCompatActivity {
 
                                                             }
                                                         });
-                                                    }
-                                                    else{
+                                                    } else {
                                                         sweetAlertDialog.cancel();
                                                         Toast.makeText(DetailActivity.this, "已经售出或该商品是你发布的",
                                                                 Toast.LENGTH_SHORT).show();
@@ -96,9 +104,7 @@ public class DetailActivity extends AppCompatActivity {
                                             }
                                         });
 
-                                    }
-
-                                    else{
+                                    } else {
                                         Toast.makeText(DetailActivity.this, "请先登陆",
                                                 Toast.LENGTH_LONG).show();
 
@@ -116,10 +122,6 @@ public class DetailActivity extends AppCompatActivity {
                         .show();
 
 
-
-
-
-
             }
         });
         TextView djg = findViewById(R.id.detail_jg);
@@ -128,29 +130,29 @@ public class DetailActivity extends AppCompatActivity {
         TextView dms = findViewById(R.id.detail_ms);
         TextView dwz = findViewById(R.id.detail_wz);
         TextView dnc = findViewById(R.id.detail_nc);
-        ImageView dicon =findViewById(R.id.detail_tx);
+        ImageView dicon = findViewById(R.id.detail_tx);
         final ImageView di1 = findViewById(R.id.detail_im1);
         final ImageView di2 = findViewById(R.id.detail_im2);
         final ImageView di3 = findViewById(R.id.detail_im3);
 
 
-        String ncd =intent.getStringExtra("昵称");
+        String ncd = intent.getStringExtra("昵称");
         dnc.setText(ncd);
-        String jgd =intent.getStringExtra("价格");
-        djg.setText("￥"+jgd);
+        String jgd = intent.getStringExtra("价格");
+        djg.setText("￥" + jgd);
         djg.setTextColor(Color.RED);
-        String btd =intent.getStringExtra("标题");
+        String btd = intent.getStringExtra("标题");
         dbt.setText(btd);
-        String lxd =intent.getStringExtra("联系");
+        String lxd = intent.getStringExtra("联系");
         dlx.setText(lxd);
-        String msd =intent.getStringExtra("描述");
+        String msd = intent.getStringExtra("描述");
         dms.setText(msd);
-        String wzd =intent.getStringExtra("位置");
+        String wzd = intent.getStringExtra("位置");
         dwz.setText(wzd);
-        final String icon =intent.getStringExtra("发布icon");
-        final String d1 =intent.getStringExtra("1图片");
-        final String d2 =intent.getStringExtra("2图片");
-        final String d3 =intent.getStringExtra("3图片");
+        final String icon = intent.getStringExtra("发布icon");
+        final String d1 = intent.getStringExtra("1图片");
+        final String d2 = intent.getStringExtra("2图片");
+        final String d3 = intent.getStringExtra("3图片");
 
         //这里解析图片
         DisplayImageOptions options = new DisplayImageOptions.Builder()
