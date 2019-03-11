@@ -7,12 +7,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.taokuang.MainActivity;
 import com.example.taokuang.R;
-import com.example.taokuang.entity.User;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -20,7 +18,6 @@ import cn.bmob.v3.listener.UpdateListener;
 
 public class WozlActivity extends Activity implements View.OnClickListener {
     private Button zlqr;
-    private TextView zlzh;
     private EditText zlymm;
     private EditText zlxmm;
     private EditText zlxmm1;
@@ -37,16 +34,11 @@ public class WozlActivity extends Activity implements View.OnClickListener {
     }
 
     private void initView() {
-        zlzh=findViewById(R.id.zl_zh);
         zlymm =findViewById(R.id.zl_ymm);
         zlxmm=findViewById(R.id.zl_xmm);
         zlxmm1=findViewById(R.id.zl_xmm1);
         zlqr=findViewById(R.id.zl_qr);
         zlqr.setOnClickListener(this);
-        if (BmobUser.isLogin()) {
-            User user = BmobUser.getCurrentUser(User.class);
-            zlzh.setText(user.getUsername());
-        }
     }
 
     @Override
