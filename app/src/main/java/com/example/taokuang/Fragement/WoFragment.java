@@ -40,12 +40,12 @@ import cn.bmob.v3.listener.UploadFileListener;
 public class WoFragment extends BaseFragment {
     private ImageView woicon;
     private TextView woname;
-    private ImageView wofb;
-    private ImageView wogm;
-    private ImageView womc;
-    private ImageView wozx;
-    private ImageView worz;
-    private ImageView wozl;
+    private View wofb;
+    private View wogm;
+    private View womc;
+    private View wozx;
+    private View worz;
+    private View wozl;
     private File iconfile;
     private ImageLoader imageLoader = ImageLoader.getInstance();
 
@@ -121,7 +121,7 @@ public class WoFragment extends BaseFragment {
                 BmobUser.logOut();
                 Toast.makeText(getContext(), "注销成功",
                         Toast.LENGTH_SHORT).show();
-                Log.d("注销", "注销成功");
+                getActivity().finish();
             }
         });
 

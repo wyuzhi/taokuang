@@ -85,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void fetchUserInfo() {
+        if (!BmobUser.isLogin()) {
+            return;
+        }
         BmobUser.fetchUserInfo(new FetchUserInfoListener<BmobUser>() {
             @Override
             public void done(BmobUser user, BmobException e) {

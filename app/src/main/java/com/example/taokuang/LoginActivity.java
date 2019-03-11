@@ -50,7 +50,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         switch (v.getId()) {
             case R.id.dl_zc:
-                Toast.makeText(this, "去注册", Toast.LENGTH_SHORT).show();
                 startActivity(intent1);
                 break;
 
@@ -73,13 +72,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void done(User user, BmobException e) {
                 if (e == null) {
-                    Log.d("登陆", "登陆成功");
-                    Toast.makeText(LoginActivity.this,"登陆成功",
-                            Toast.LENGTH_SHORT).show();
                     intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent2);
                 } else {
-                    Log.d("登陆", "登陆失败:" + e);
                     Toast.makeText(LoginActivity.this, "用户名或密码错误",
                             Toast.LENGTH_SHORT).show();
                 }

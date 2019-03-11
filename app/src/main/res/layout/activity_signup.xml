@@ -5,83 +5,70 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_margin="10dp"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
         android:text="注册"
-        android:textSize="24sp"
-        android:textColor="#FF161616"/>
+        android:textColor="#FF161616"
+        android:textSize="24sp" />
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_margin="10dp"
-            android:background="@drawable/yhm"
-            android:layout_width="41dp"
-            android:layout_height="41dp" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp">
 
         <EditText
-            android:layout_margin="10dp"
             android:id="@+id/yhm"
-            android:hint="请输入用户名"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:hint="昵称" />
+    </android.support.design.widget.TextInputLayout>
 
-        <ImageView
-            android:layout_margin="10dp"
-            android:background="@drawable/people"
-            android:layout_width="41dp"
-            android:layout_height="41dp" />
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp">
 
         <EditText
-            android:inputType="number|textPassword"
-            android:digits="0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
-            android:layout_margin="10dp"
             android:id="@+id/zh"
-            android:hint="请用学号注册"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:digits="0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
+            android:hint="学号"
+            android:inputType="number|textPassword" />
+    </android.support.design.widget.TextInputLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_margin="10dp"
-            android:background="@drawable/mm"
-            android:layout_width="41dp"
-            android:layout_height="41dp" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp">
 
         <EditText
             android:id="@+id/mm"
-            android:hint="设置你的密码"
-            android:inputType="textPassword"
-            android:layout_margin="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
+            android:layout_height="wrap_content"
+            android:hint="设置你的密码"
+            android:inputType="textPassword" />
+    </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:layout_gravity="center"
         android:id="@+id/ljzc"
-        android:padding="5dp"
-        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/colorBlueCommon"
         android:text="立即注册"
-        android:textColor="#500248"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:textColor="@color/colorWhite" />
 
 
 </LinearLayout>
