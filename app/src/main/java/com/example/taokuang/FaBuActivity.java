@@ -114,7 +114,6 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
 
         switch (v.getId()) {
             case R.id.im_1:
-                Toast.makeText(this, "添加图片", Toast.LENGTH_SHORT).show();
                 Choose();
                 break;
 
@@ -140,70 +139,80 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
         //   fb.setPicer(bim2);
         // fb.setPicer(bim3);
         tleibie = String.valueOf(leibie.getSelectedItem());
-        tlianxi = String.valueOf(lianxi.getText());
-        tbiaoti = String.valueOf(biaoti.getText());
-        tmiaoshu = String.valueOf(miaoshu.getText());
-        tweizhi = String.valueOf(weizhi.getText());
-        tjiage = String.valueOf(jiage.getText());
+        tlianxi = String.valueOf(lianxi.getText().toString());
+        tbiaoti = String.valueOf(biaoti.getText().toString());
+        tmiaoshu = String.valueOf(miaoshu.getText().toString());
+        tweizhi = String.valueOf(weizhi.getText().toString());
+        tjiage = String.valueOf(jiage.getText().toString());
+
+        if (TextUtils.isEmpty(tlianxi) || TextUtils.isEmpty(tbiaoti) || TextUtils.isEmpty(tmiaoshu) || TextUtils.isEmpty(tweizhi) || TextUtils.isEmpty(tjiage)) {
+            Toast.makeText(FaBuActivity.this, "请将信息填写完整", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (tleibie == null || tleibie.equals("类别")) {
+            Toast.makeText(FaBuActivity.this, "请选择类别", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (file1b == null || file2b == null || file3b == null) {
+            Toast.makeText(FaBuActivity.this, "请选择三张图片", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         im1pathb = file1b.getPath();
         im2pathb = file2b.getPath();
         im3pathb = file3b.getPath();
 
-        if (!tlianxi.equals("")
-                && !tbiaoti.equals("") && !tmiaoshu.equals("")
-                && !tweizhi.equals("") && !tjiage.equals("")) {
-            if (!tleibie.equals("类别")){
-                final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
-                pDialog.getProgressHelper().setBarColor(Color.parseColor("#3f72af"));
-                pDialog.setTitleText("正在发布");
-                pDialog.setCancelable(false);
-                pDialog.show();
+        final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#3f72af"));
+        pDialog.setTitleText("正在发布");
+        pDialog.setCancelable(false);
+        pDialog.show();
 
-            final String[] paths = new String[3];
-            paths[0] = im1pathb;
-            paths[1] = im2pathb;
-            paths[2] = im3pathb;
-            final BmobFile bim1 = new BmobFile(new File(im1pathb));
-            final BmobFile bim2 = new BmobFile(new File(im2pathb));
-            final BmobFile bim3 = new BmobFile(new File(im3pathb));
-            BmobFile.uploadBatch(paths, new UploadBatchListener() {
-                @Override
-                public void onSuccess(List<BmobFile> files, List<String> urls) {
+        final String[] paths = new String[3];
+        paths[0] = im1pathb;
+        paths[1] = im2pathb;
+        paths[2] = im3pathb;
+        final BmobFile bim1 = new BmobFile(new File(im1pathb));
+        final BmobFile bim2 = new BmobFile(new File(im2pathb));
+        final BmobFile bim3 = new BmobFile(new File(im3pathb));
+        BmobFile.uploadBatch(paths, new UploadBatchListener() {
+            @Override
+            public void onSuccess(List<BmobFile> files, List<String> urls) {
 
-                    if (files.size() == paths.length) {//如果数量相等，则代表文件全部上传完成
-                        Log.d("图片", "图片成功");
-                        //Toast.makeText(FaBuActivity.this, "图片成功",
-                         //       Toast.LENGTH_SHORT).show();
-                        if (BmobUser.isLogin()&&BmobUser.getCurrentUser(User.class).getRenz()) {
-                            TaoKuang fb = new TaoKuang();
-                            User user = BmobUser.getCurrentUser(User.class);
-                            tfabu = user.getNicheng();
-                            fb.setLeibie(tleibie);
-                            fb.setBiaoti(tbiaoti);
-                            fb.setMiaoshu(tmiaoshu);
-                            fb.setWeizhi(tweizhi);
-                            fb.setLianxi(tlianxi);
-                            fb.setJiage(tjiage);
-                            fb.setJiaoyi(false);
-                            fb.setGengxin(1);
-                            fb.setPicyi(files.get(0));
-                            fb.setPicer(files.get(1));
-                            fb.setPicsan(files.get(2));
-                            fb.setFabu(user);
+                if (files.size() == paths.length) {//如果数量相等，则代表文件全部上传完成
+                    Log.d("图片", "图片成功");
+                    //Toast.makeText(FaBuActivity.this, "图片成功",
+                    //       Toast.LENGTH_SHORT).show();
+                    if (BmobUser.isLogin() && BmobUser.getCurrentUser(User.class).getRenz()) {
+                        TaoKuang fb = new TaoKuang();
+                        User user = BmobUser.getCurrentUser(User.class);
+                        tfabu = user.getNicheng();
+                        fb.setLeibie(tleibie);
+                        fb.setBiaoti(tbiaoti);
+                        fb.setMiaoshu(tmiaoshu);
+                        fb.setWeizhi(tweizhi);
+                        fb.setLianxi(tlianxi);
+                        fb.setJiage(tjiage);
+                        fb.setJiaoyi(false);
+                        fb.setGengxin(1);
+                        fb.setPicyi(files.get(0));
+                        fb.setPicer(files.get(1));
+                        fb.setPicsan(files.get(2));
+                        fb.setFabu(user);
 
-                            fb.save(new SaveListener<String>() {
-                                @Override
-                                public void done(String s, BmobException e) {
-                                    if (e == null) {
-                                        Log.d("发布", "发布成功");
-                                        Toast.makeText(FaBuActivity.this, "发布成功",
-                                                Toast.LENGTH_SHORT).show();
-                                        pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
-                                        Intent fbcg = new Intent(FaBuActivity.this, MainActivity.class);
-                                        fbcg.putExtra("发布成功", "发布成功");
-                                        fbcg.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        startActivity(fbcg);
+                        fb.save(new SaveListener<String>() {
+                            @Override
+                            public void done(String s, BmobException e) {
+                                if (e == null) {
+                                    Log.d("发布", "发布成功");
+                                    Toast.makeText(FaBuActivity.this, "发布成功",
+                                            Toast.LENGTH_SHORT).show();
+                                    pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                                    Intent fbcg = new Intent(FaBuActivity.this, MainActivity.class);
+                                    fbcg.putExtra("发布成功", "发布成功");
+                                    fbcg.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(fbcg);
                                     /*Runtime runtime = Runtime.getRuntime();
                                     try {
                                         runtime.exec("input keyevent " + KeyEvent.KEYCODE_BACK);
@@ -211,34 +220,34 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
                                         z.printStackTrace();
                                     }*/
 
-                                    } else {
-                                        Log.d("发布", "发布失败:" + e);
-                                        pDialog.cancel();
-                                        Toast.makeText(FaBuActivity.this, "发布失败",
-                                                Toast.LENGTH_SHORT).show();
-                                    }
+                                } else {
+                                    Log.d("发布", "发布失败:" + e);
+                                    pDialog.cancel();
+                                    Toast.makeText(FaBuActivity.this, "发布失败",
+                                            Toast.LENGTH_SHORT).show();
                                 }
-                            });
+                            }
+                        });
 
-                            //do something
-                        } else {
-                            pDialog.cancel();
-                            Toast.makeText(FaBuActivity.this, "请先登陆或认证",
-                                    Toast.LENGTH_LONG).show();
+                        //do something
+                    } else {
+                        pDialog.cancel();
+                        Toast.makeText(FaBuActivity.this, "请先登陆或认证",
+                                Toast.LENGTH_LONG).show();
 
-                        }
                     }
                 }
+            }
 
-                @Override
-                public void onProgress(int i, int i1, int i2, int i3) {
+            @Override
+            public void onProgress(int i, int i1, int i2, int i3) {
 
-                }
+            }
 
-                @Override
-                public void onError(int i, String s) {
-                    Log.d("图片", "图片失败" + s);
-                }
+            @Override
+            public void onError(int i, String s) {
+                Log.d("图片", "图片失败" + s);
+            }
 
             /*@Override
             public void done(BmobException e) {
@@ -254,11 +263,8 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
                             Toast.LENGTH_SHORT).show();
                 }
             }*/
-            });
-        }else Toast.makeText(FaBuActivity.this, "请选择类别",
-                Toast.LENGTH_SHORT).show();
-        } else Toast.makeText(FaBuActivity.this, "请将信息填写完整",
-                Toast.LENGTH_SHORT).show();
+        });
+
 
     }
 

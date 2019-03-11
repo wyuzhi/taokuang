@@ -12,7 +12,7 @@
         android:layout_height="50dp"
         android:background="#112d4e"
         android:theme="@style/AppTheme.AppBarOverlay"
-        app:title="发布你的闲置好物">
+        app:title="发布">
 
     </android.support.v7.widget.Toolbar>
 
@@ -26,127 +26,132 @@
             android:id="@+id/edit_biaoti"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
             android:background="@null"
-            android:hint="好物标题" />
+            android:hint="标题"
+            android:singleLine="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorDarkCommon" />
 
         <EditText
             android:id="@+id/edit_miaoshu"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:gravity="top"
+            android:layout_height="120dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@null"
+            android:gravity="top|left"
             android:hint="描述宝贝的转手原因，入手渠道和使用感受" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="3dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/im_1"
-                android:layout_width="70dp"
-                android:layout_height="100dp"
-                android:layout_margin="3dp"
-                android:background="@drawable/heikuang_sharp" />
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_upload_photo" />
 
             <ImageView
                 android:id="@+id/im_2"
-                android:layout_width="70dp"
-                android:layout_height="100dp"
-                android:layout_margin="3dp"
-                android:visibility="gone"
-                android:background="@drawable/heikuang_sharp" />
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginLeft="5dp"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/im_3"
-                android:visibility="gone"
-                android:layout_width="70dp"
-                android:layout_height="100dp"
-                android:layout_margin="3dp"
-                android:background="@drawable/heikuang_sharp" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <Spinner
-                    android:id="@+id/spinner_leibie"
-                    android:layout_width="98dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:entries="@array/spingarr">
-
-                </Spinner>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="15dp"
-                        android:layout_height="wrap_content" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="请一次性"
-                            android:textColor="#496644" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="选择"
-                            android:textColor="#496644" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="三张图片"
-                            android:textColor="#496644" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginLeft="5dp"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorDarkCommon" />
+
+        <Spinner
+            android:id="@+id/spinner_leibie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:entries="@array/spingarr"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorDarkCommon" />
 
         <EditText
             android:id="@+id/edit_weizhi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="位置" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:hint="位置"
+            android:singleLine="true"
+            android:textSize="16sp" />
 
         <EditText
-            android:inputType="number|numberDecimal"
             android:id="@+id/edit_jiage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="价格" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:hint="价格"
+            android:inputType="number|numberDecimal"
+            android:singleLine="true"
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/edit_lianxi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="联系方式" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:hint="联系方式"
+            android:singleLine="true"
+            android:textSize="16sp" />
 
-        <RelativeLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.v7.widget.CardView
-                android:layout_alignParentBottom="true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="6dp">
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            app:cardCornerRadius="6dp">
 
             <Button
                 android:id="@+id/fabu"
@@ -155,9 +160,9 @@
                 android:background="#3f72af"
                 android:text="确认发布"
                 android:textColor="@color/but_fb"
-                android:textSize="20dp" />
+                android:textSize="18sp" />
 
-            </android.support.v7.widget.CardView>
-        </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
     </LinearLayout>
 </LinearLayout>
