@@ -8,14 +8,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.taokuang.entity.TaoKuang;
 import com.example.taokuang.entity.User;
+import com.example.taokuang.wo.WomcActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
@@ -57,7 +58,7 @@ public class DetailActivity extends AppCompatActivity {
                                     // 超过点击间隔后再将lastClickTime重置为当前点击时间
                                     lastClickTime = curClickTime;
 
-                                    if (BmobUser.isLogin()) {
+                                    if (BmobUser.isLogin()&&BmobUser.getCurrentUser(User.class).getRenz()) {
                                         final TaoKuang gm = new TaoKuang();
 
                                         BmobQuery<TaoKuang> gml = new BmobQuery<>();
@@ -105,7 +106,8 @@ public class DetailActivity extends AppCompatActivity {
                                         });
 
                                     } else {
-                                        Toast.makeText(DetailActivity.this, "请先登陆",
+                                        sweetAlertDialog.cancel();
+                                        Toast.makeText(DetailActivity.this, "请先登陆或认证",
                                                 Toast.LENGTH_LONG).show();
 
                                     }
@@ -124,6 +126,9 @@ public class DetailActivity extends AppCompatActivity {
 
             }
         });
+        TextView dgmnc = findViewById(R.id.detail_gmnc);
+        TextView dgmdh = findViewById(R.id.detail_gmdh);
+
         TextView djg = findViewById(R.id.detail_jg);
         TextView dlx = findViewById(R.id.detail_lx);
         TextView dbt = findViewById(R.id.detail_bt);
@@ -134,7 +139,18 @@ public class DetailActivity extends AppCompatActivity {
         final ImageView di1 = findViewById(R.id.detail_im1);
         final ImageView di2 = findViewById(R.id.detail_im2);
         final ImageView di3 = findViewById(R.id.detail_im3);
+        LinearLayout linearLayout = findViewById(R.id.detal_gmxx);
 
+
+        String dh = intent.getStringExtra("购买phone");
+        dgmdh.setText(dh);
+        String nc = intent.getStringExtra("购买name");
+        dgmnc.setText(nc);
+        final String gzid = intent.getStringExtra("鸽子id");
+        String b = BmobUser.getCurrentUser(User.class).getObjectId();
+        if (gzid != null) {
+            linearLayout.setVisibility(View.VISIBLE);
+        }
 
         String ncd = intent.getStringExtra("昵称");
         dnc.setText(ncd);
@@ -149,6 +165,7 @@ public class DetailActivity extends AppCompatActivity {
         dms.setText(msd);
         String wzd = intent.getStringExtra("位置");
         dwz.setText(wzd);
+
         final String icon = intent.getStringExtra("发布icon");
         final String d1 = intent.getStringExtra("1图片");
         final String d2 = intent.getStringExtra("2图片");
@@ -161,7 +178,9 @@ public class DetailActivity extends AppCompatActivity {
                 .showImageOnFail(R.drawable.hdb)// 设置图片加载或解码过程中发生错误显示的图片
                 .cacheInMemory(true)// 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true)// 设置下载的图片是否缓存在SD卡中
-                .displayer(new RoundedBitmapDisplayer(20))// 设置成圆角图片
+                .resetViewBeforeLoading(true)
+                .considerExifParams(true)
+                //.displayer(new RoundedBitmapDisplayer(20))// 设置成圆角图片
                 .build();// 创建DisplayImageOptions对象
         // 使用ImageLoader加载图片
         imageLoader.displayImage(icon, dicon
@@ -221,5 +240,123 @@ public class DetailActivity extends AppCompatActivity {
                 return  bm;
             }
         }).start();*/
+        Button gzx = findViewById(R.id.detail_gz);
+        gzx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SweetAlertDialog(DetailActivity.this, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("确认举报")
+                        .setContentText("主动联系过卖家了吗？")
+                        .setCancelText("再联系联系")
+                        .setConfirmText("确认举报")
+                        .showCancelButton(true)
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(final SweetAlertDialog sweet) {
+                                TaoKuang gza = new TaoKuang();
+                                gza.setGezi(gzid);
+                                gza.update(id, new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+
+                                    }
+                                });
+                                TaoKuang gz = new TaoKuang();
+                                gz.setObjectId(id);
+                                gz.remove("goumai");
+                                gz.update(new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+                                        if (e == null) {
+                                            sweet
+                                                    .showCancelButton(false)
+                                                    .setTitleText("举报成功")
+                                                    .setContentText("商品已重新上架，鸽子核实之后将对买家做出惩罚")
+                                                    .setConfirmText("OK")
+                                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                        @Override
+                                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                            Intent intent = new Intent(DetailActivity.this, WomcActivity.class);
+                                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                            startActivity(intent);
+                                                        }
+                                                    })
+                                                    .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                                        } else {
+                                            Toast.makeText(DetailActivity.this, "举报失败",
+                                                    Toast.LENGTH_LONG).show();
+                                            sweet.cancel();
+                                        }
+                                    }
+                                });
+                            }
+                        }).setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.cancel();
+                    }
+                })
+                        .show();
+
+            }
+        });
+        Button cgx = findViewById(R.id.detail_cg);
+        cgx.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                new SweetAlertDialog(DetailActivity.this, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("确认交易")
+                        .setContentText("交易成功？")
+                        .setCancelText("还没")
+                        .setConfirmText("成功了")
+                        .showCancelButton(true)
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(final SweetAlertDialog sweetAlertDialog) {
+                                TaoKuang cgl = new TaoKuang();
+                                cgl.setJiaoyi(true);
+                                cgl.update(id,new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+                                        if (e == null) {
+                                            sweetAlertDialog
+                                                    .showCancelButton(false)
+                                                    .setTitleText("交易成功")
+                                                    .setContentText("感谢支持，希望在这里遇见更好的自己")
+                                                    .setConfirmText("OK")
+                                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                        @Override
+                                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                            Intent intent = new Intent(DetailActivity.this, WomcActivity.class);
+                                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                            startActivity(intent);
+                                                        }
+                                                    })
+                                                    .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                                        } else {
+                                            Toast.makeText(DetailActivity.this, "确认失败",
+                                                    Toast.LENGTH_LONG).show();
+                                            sweetAlertDialog.cancel();
+                                        }
+                                    }
+                                });
+
+
+                            }
+                        }).setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.cancel();
+                    }
+                })
+                        .show();
+
+
+            }
+        });
+
+
     }
 }

@@ -43,6 +43,8 @@
             android:layout_height="41dp" />
 
         <EditText
+            android:inputType="number|textPassword"
+            android:digits="0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
             android:layout_margin="10dp"
             android:id="@+id/zh"
             android:hint="请用学号注册"

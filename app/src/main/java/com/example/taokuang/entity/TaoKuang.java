@@ -17,6 +17,8 @@ public class TaoKuang extends BmobObject {
     private BmobFile picsan;
     private User fabu;
     private User goumai;
+    private Boolean jiaoyi;
+    private String gezi;
 
 
     public String getBiaoti() {
@@ -123,5 +125,21 @@ public class TaoKuang extends BmobObject {
 
     public void setGengxin(int gengxin) {
         this.gengxin = gengxin;
+    }
+
+    public String getGezi() {
+        return gezi;
+    }
+
+    public void setGezi(String gezi) {
+        this.gezi = gezi;
+    }
+
+    public Boolean getJiaoyi() {
+        return jiaoyi;
+    }
+
+    public void setJiaoyi(Boolean jiaoyi) {
+        this.jiaoyi = jiaoyi;
     }
 }

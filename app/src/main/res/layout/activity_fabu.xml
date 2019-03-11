@@ -127,6 +127,7 @@
             android:hint="位置" />
 
         <EditText
+            android:inputType="number|numberDecimal"
             android:id="@+id/edit_jiage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

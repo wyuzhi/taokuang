@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,11 +31,14 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadBatchListener;
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 
 public class FaBuActivity extends Activity implements View.OnClickListener {
     public static final int CHOOSE_PHOTO = 2;
-    private static final int MIN_CLICK_DELAY_TIME = 60000;
+    private static final int MIN_CLICK_DELAY_TIME = 10000;
     private static long lastClickTime;
 
     private static final int REQUEST_CODE_CHOOSE = 99;
@@ -61,9 +65,15 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
     private File file1;
     private File file2;
     private File file3;
+    private File file1b;
+    private File file2b;
+    private File file3b;
     private String im1path;
     private String im3path;
     private String im2path;
+    private String im1pathb;
+    private String im3pathb;
+    private String im2pathb;
 
     private Uri im1Uri;
   /*  private File tim1;
@@ -136,9 +146,9 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
         tweizhi = String.valueOf(weizhi.getText());
         tjiage = String.valueOf(jiage.getText());
 
-        //im1path = file1.getPath();
-        //im2path = file2.getPath();
-        //im3path = file3.getPath();
+        im1pathb = file1b.getPath();
+        im2pathb = file2b.getPath();
+        im3pathb = file3b.getPath();
 
         if (!tlianxi.equals("")
                 && !tbiaoti.equals("") && !tmiaoshu.equals("")
@@ -151,21 +161,21 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
                 pDialog.show();
 
             final String[] paths = new String[3];
-            paths[0] = im1path;
-            paths[1] = im2path;
-            paths[2] = im3path;
-            final BmobFile bim1 = new BmobFile(new File(im1path));
-            final BmobFile bim2 = new BmobFile(new File(im2path));
-            final BmobFile bim3 = new BmobFile(new File(im3path));
+            paths[0] = im1pathb;
+            paths[1] = im2pathb;
+            paths[2] = im3pathb;
+            final BmobFile bim1 = new BmobFile(new File(im1pathb));
+            final BmobFile bim2 = new BmobFile(new File(im2pathb));
+            final BmobFile bim3 = new BmobFile(new File(im3pathb));
             BmobFile.uploadBatch(paths, new UploadBatchListener() {
                 @Override
                 public void onSuccess(List<BmobFile> files, List<String> urls) {
 
                     if (files.size() == paths.length) {//如果数量相等，则代表文件全部上传完成
                         Log.d("图片", "图片成功");
-                        Toast.makeText(FaBuActivity.this, "图片成功",
-                                Toast.LENGTH_SHORT).show();
-                        if (BmobUser.isLogin()) {
+                        //Toast.makeText(FaBuActivity.this, "图片成功",
+                         //       Toast.LENGTH_SHORT).show();
+                        if (BmobUser.isLogin()&&BmobUser.getCurrentUser(User.class).getRenz()) {
                             TaoKuang fb = new TaoKuang();
                             User user = BmobUser.getCurrentUser(User.class);
                             tfabu = user.getNicheng();
@@ -175,6 +185,7 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
                             fb.setWeizhi(tweizhi);
                             fb.setLianxi(tlianxi);
                             fb.setJiage(tjiage);
+                            fb.setJiaoyi(false);
                             fb.setGengxin(1);
                             fb.setPicyi(files.get(0));
                             fb.setPicer(files.get(1));
@@ -202,6 +213,7 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
 
                                     } else {
                                         Log.d("发布", "发布失败:" + e);
+                                        pDialog.cancel();
                                         Toast.makeText(FaBuActivity.this, "发布失败",
                                                 Toast.LENGTH_SHORT).show();
                                     }
@@ -210,7 +222,8 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
 
                             //do something
                         } else {
-                            Toast.makeText(FaBuActivity.this, "请先登陆",
+                            pDialog.cancel();
+                            Toast.makeText(FaBuActivity.this, "请先登陆或认证",
                                     Toast.LENGTH_LONG).show();
 
                         }
@@ -311,15 +324,104 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
             }
             if (pathsx.length == 3) {
                 im1path = Matisse.obtainPathResult(data).get(0);
+                file1 = new File(im1path);
                 Glide.with(this).load(new File(im1path)).into(im1);
                 im2path = Matisse.obtainPathResult(data).get(1);
+                file2 = new File(im2path);
                 Glide.with(this).load(new File(im2path)).into(im2);
                 im2.setVisibility(View.VISIBLE);
                 im3path = Matisse.obtainPathResult(data).get(2);
+                file3 = new File(im3path);
+                //File[] files = new File[];
+
                 Glide.with(this).load(new File(im3path)).into(im3);
                 im3.setVisibility(View.VISIBLE);
                 // List<Uri> result = Matisse.obtainResult(data);
             }
+            //压缩图片
+            Luban.with(this)
+                    .load(file1)
+                    .ignoreBy(100)
+                    //.setTargetDir(file_pathss)
+                    .filter(new CompressionPredicate() {
+                        @Override
+                        public boolean apply(String path) {
+                            return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                        }
+                    })
+                    .setCompressListener(new OnCompressListener() {
+                        @Override
+                        public void onStart() {
+                            // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                        }
+
+                        @Override
+                        public void onSuccess(File file) {
+                            file1b=file;
+                            // TODO 压缩成功后调用，返回压缩后的图片文件
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            // TODO 当压缩过程出现问题时调用
+                        }
+                    }).launch();
+
+            Luban.with(this)
+                    .load(file2)
+                    .ignoreBy(100)
+                    //.setTargetDir(file_pathss)
+                    .filter(new CompressionPredicate() {
+                        @Override
+                        public boolean apply(String path) {
+                            return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                        }
+                    })
+                    .setCompressListener(new OnCompressListener() {
+                        @Override
+                        public void onStart() {
+                            // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                        }
+
+                        @Override
+                        public void onSuccess(File file) {
+                            file2b=file;
+                            // TODO 压缩成功后调用，返回压缩后的图片文件
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            // TODO 当压缩过程出现问题时调用
+                        }
+                    }).launch();
+            Luban.with(this)
+                    .load(file3)
+                    .ignoreBy(100)
+                    //.setTargetDir(file_pathss)
+                    .filter(new CompressionPredicate() {
+                        @Override
+                        public boolean apply(String path) {
+                            return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                        }
+                    })
+                    .setCompressListener(new OnCompressListener() {
+                        @Override
+                        public void onStart() {
+                            // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                        }
+
+                        @Override
+                        public void onSuccess(File file) {
+                            file3b=file;
+                            // TODO 压缩成功后调用，返回压缩后的图片文件
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            // TODO 当压缩过程出现问题时调用
+                        }
+                    }).launch();
+
         }
 
     }

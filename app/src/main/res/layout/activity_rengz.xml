@@ -46,11 +46,21 @@
             </android.support.v7.widget.CardView>
 
             <EditText
+                android:inputType="number|textPassword"
+                android:digits="0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
                 android:id="@+id/rz_xh"
                 android:layout_width="210dp"
                 android:layout_height="50dp"
                 android:layout_margin="10dp"
                 android:hint="请输入学号" />
+
+            <EditText
+                android:inputType="number"
+                android:id="@+id/rz_sjh"
+                android:layout_width="210dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:hint="请输入手机号" />
 
         </LinearLayout>
 
@@ -63,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
-                android:text="请上传学生证正面图片以及学号以进行实名认证"
+                android:text="请上传校园卡正面图片以及学号和手机号以进行实名认证"
                 android:textColor="#496644"
                 android:textSize="25dp" />
 
@@ -74,13 +84,13 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_alignParentBottom="true"
                     android:layout_margin="50dp"
                     app:cardCornerRadius="6dp">
 
                     <Button
                         android:id="@+id/rz_sc"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#496644"
                         android:text="确认上传" />

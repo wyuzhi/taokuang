@@ -35,7 +35,6 @@ public class TaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ImageLoader imageLoader = ImageLoader.getInstance();
 
 
-
     private static final int MIN_CLICK_DELAY_TIME = 3600;
     private static long lastClickTime;
 
@@ -92,7 +91,7 @@ public class TaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             sjiage = itemView.findViewById(R.id.item_jg_zs);
             sgj = itemView.findViewById(R.id.item_gj_zs);
             ssc = itemView.findViewById(R.id.item_sc_zs);
-            scl =itemView.findViewById(R.id.item_sc_cl);
+            scl = itemView.findViewById(R.id.item_sc_cl);
 
         }
     }
@@ -130,13 +129,15 @@ public class TaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 .showImageOnFail(R.drawable.hdb)// 设置图片加载或解码过程中发生错误显示的图片
                 .cacheInMemory(true)// 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true)// 设置下载的图片是否缓存在SD卡中
+                .resetViewBeforeLoading(true)
+                .considerExifParams(true)
                 .displayer(new RoundedBitmapDisplayer(20))// 设置成圆角图片
                 .build();// 创建DisplayImageOptions对象
         // 使用ImageLoader加载图片
         imageLoader.displayImage(fengmian.getFileUrl(), viewHolder.nfengmian
                 , options);
-        viewHolder.nbiaoti.setText("   标题： " + biaoti);
-        viewHolder.njiage.setText("  ￥" + jiage);
+        viewHolder.nbiaoti.setText("     " + biaoti);
+        viewHolder.njiage.setText("    ￥" + jiage);
         viewHolder.njiage.setTextColor(Color.RED);
         viewHolder.itemView.setOnClickListener
                 (new View.OnClickListener() {
@@ -152,7 +153,18 @@ public class TaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                          detailIntent.putExtra("位置", taoItem.getWeizhi());
                          detailIntent.putExtra("联系", taoItem.getLianxi());
                          detailIntent.putExtra("发布", taoItem.getFabu());
-                         detailIntent.putExtra("发布icon", taoItem.getFabu().getIcon().getFileUrl());
+                         String a = taoItem.getFabu().getObjectId();
+                         String b = BmobUser.getCurrentUser(User.class).getObjectId();
+                         if (a.equals(b) && taoItem.getGoumai() != null) {
+                             detailIntent.putExtra("购买name", taoItem.getGoumai().getNicheng());
+                             detailIntent.putExtra("购买phone", taoItem.getGoumai().getMobilePhoneNumber());
+                             detailIntent.putExtra("鸽子id", taoItem.getGoumai().getObjectId());
+                         }
+
+
+                         if (taoItem.getFabu().getIcon() != null) {
+                             detailIntent.putExtra("发布icon", taoItem.getFabu().getIcon().getFileUrl());
+                         }
                          detailIntent.putExtra("昵称", taoItem.getFabu().getNicheng());
                          detailIntent.putExtra("ID", taoItem.getObjectId());
                          mContext.startActivity(detailIntent);
@@ -177,12 +189,14 @@ public class TaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 .showImageOnFail(R.drawable.hdb)// 设置图片加载或解码过程中发生错误显示的图片
                 .cacheInMemory(true)// 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true)// 设置下载的图片是否缓存在SD卡中
+                .resetViewBeforeLoading(true)
+                .considerExifParams(true)
                 .displayer(new RoundedBitmapDisplayer(20))// 设置成圆角图片
                 .build();// 创建DisplayImageOptions对象
         // 使用ImageLoader加载图片
         imageLoader.displayImage(fengmian.getFileUrl(), viewHolder.sfengmian
                 , options);
-        viewHolder.sbiaoti.setText("   标题： " + biaoti);
+        viewHolder.sbiaoti.setText("     " + biaoti);
         viewHolder.sjiage.setText("  ￥" + jiage);
         viewHolder.sjiage.setTextColor(Color.RED);
         viewHolder.scl.setOnClickListener(new View.OnClickListener() {
@@ -221,15 +235,16 @@ public class TaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 sc.delete(taoItem.getObjectId(), new UpdateListener() {
                     @Override
                     public void done(BmobException e) {
-                        if(e==null){
+                        if (e == null) {
                             Log.d("删除", "删除成功");
                             Toast.makeText(mContext, "删除成功",
                                     Toast.LENGTH_SHORT).show();
 
-                        }else {
+                        } else {
                             Log.d("删除", e.toString());
-                            Toast.makeText(mContext, "删除失败"+e.toString(),
-                                Toast.LENGTH_SHORT).show();}
+                            Toast.makeText(mContext, "删除失败" + e.toString(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }
@@ -255,7 +270,10 @@ public class TaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 detailIntent.putExtra("位置", taoItem.getWeizhi());
                 detailIntent.putExtra("联系", taoItem.getLianxi());
                 detailIntent.putExtra("发布", taoItem.getFabu());
-                detailIntent.putExtra("发布icon", taoItem.getFabu().getIcon().getFileUrl());
+                if (taoItem.getFabu().getIcon() != null) {
+                    detailIntent.putExtra("发布icon", taoItem.getFabu().getIcon().getFileUrl());
+                }
+
                 detailIntent.putExtra("昵称", taoItem.getFabu().getNicheng());
                 detailIntent.putExtra("ID", taoItem.getObjectId());
                 mContext.startActivity(detailIntent);

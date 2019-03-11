@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Bmob.initialize(this,"5897238c60762d0b91a19a3b781d9e6d");
+        Bmob.initialize(this,"7c28cec5766e668a48a5ea7d719d8e08");
         initView();
     }
 

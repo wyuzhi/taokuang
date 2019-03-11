@@ -55,7 +55,7 @@ public class XieFragment extends BaseFragment {
 
     private void loadDate() {
         BmobQuery<TaoKuang> tQuery = new BmobQuery<>();
-        tQuery.addWhereEqualTo("leibie", "球鞋");
+        tQuery.addWhereEqualTo("leibie", "鞋子");
         tQuery.addWhereDoesNotExists("goumai");
         tQuery.include("fabu");
         tQuery.findObjects(new FindListener<TaoKuang>() {

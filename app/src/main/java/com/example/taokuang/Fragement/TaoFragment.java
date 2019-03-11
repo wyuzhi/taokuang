@@ -44,7 +44,7 @@ public class TaoFragment extends BaseFragment {
                 .add("数码", MaFragment.class)
                 .add("外设", SheFragment.class)
                 .add("服饰", YiFragment.class)
-                .add("球鞋", XieFragment.class)
+                .add("鞋子", XieFragment.class)
                 .add("其他", QiFragment.class)
                 .create());
 

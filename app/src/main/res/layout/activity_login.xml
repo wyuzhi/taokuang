@@ -47,6 +47,7 @@
 
         <EditText
             android:hint="请输入密码"
+            android:inputType="textPassword"
             android:id="@+id/dl_mm"
             android:layout_margin="10dp"
             android:layout_width="match_parent"

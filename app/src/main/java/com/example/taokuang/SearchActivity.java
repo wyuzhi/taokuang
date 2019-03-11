@@ -45,6 +45,7 @@ public class SearchActivity extends Activity {
         BmobQuery<TaoKuang> tQuery = new BmobQuery<>();
         //tQuery.addWhereContains("biaoti","sstj");
         tQuery.addWhereDoesNotExists("goumai");
+        tQuery.include("fabu");
         tQuery.findObjects(new FindListener<TaoKuang>() {
             @Override
             public void done(List<TaoKuang> list, BmobException e) {
@@ -53,7 +54,7 @@ public class SearchActivity extends Activity {
                     List<TaoKuang> datas = new ArrayList<TaoKuang>();
                     for(int i =0;i<list.size();i++){
                         String actbt = list.get(i).getBiaoti();
-                        String actfb = list.get(i).getFabuname();
+                        String actfb = list.get(i).getFabu().getNicheng();
                         String actms = list.get(i).getMiaoshu();
                         if( actbt.contains(key)){
                             datas.add(list.get(i));

@@ -183,22 +183,22 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:visibility="invisible">
+                android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/wo_zl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="#FFFFFF"
-                    android:src="@drawable/rz1" />
+                    android:src="@drawable/gm1" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:gravity="center"
-                    android:text="卖出" />
+                    android:text="改密" />
             </LinearLayout>
 
             <LinearLayout
@@ -213,7 +213,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="#FFFFFF"
-                    android:src="@drawable/zx1" />
+                    android:src="@drawable/zx2" />
 
                 <TextView
                     android:layout_width="match_parent"

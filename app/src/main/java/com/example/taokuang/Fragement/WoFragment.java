@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.taokuang.LoginActivity;
 import com.example.taokuang.R;
 import com.example.taokuang.RengzActivity;
 import com.example.taokuang.entity.User;
@@ -20,6 +21,7 @@ import com.example.taokuang.tool.BaseFragment;
 import com.example.taokuang.wo.WofbActivity;
 import com.example.taokuang.wo.WogmActivity;
 import com.example.taokuang.wo.WomcActivity;
+import com.example.taokuang.wo.WozlActivity;
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.compress.CompressConfig;
 import com.jph.takephoto.model.TResult;
@@ -43,6 +45,7 @@ public class WoFragment extends BaseFragment {
     private ImageView womc;
     private ImageView wozx;
     private ImageView worz;
+    private ImageView wozl;
     private File iconfile;
     private ImageLoader imageLoader = ImageLoader.getInstance();
 
@@ -57,6 +60,15 @@ public class WoFragment extends BaseFragment {
     }
 
     private void initView(View v) {
+        wozl=v.findViewById(R.id.wo_zl);
+        wozl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentzl = new Intent(getContext(), WozlActivity.class);
+                startActivity(intentzl);
+
+            }
+        });
         womc=v.findViewById(R.id.wo_mc);
         womc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +148,17 @@ public class WoFragment extends BaseFragment {
         });
 
         woname = v.findViewById(R.id.wo_name);
+        woname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (BmobUser.isLogin()) {
+                    Toast.makeText(getContext(), "已经登陆", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                Intent in = new Intent(getContext(), LoginActivity.class);
+                startActivity(in);}
+            }
+        });
         if (BmobUser.isLogin()) {
             User user = BmobUser.getCurrentUser(User.class);
             woname.setText(user.getNicheng());
@@ -164,6 +187,9 @@ public class WoFragment extends BaseFragment {
         //final User user = BmobUser.getCurrentUser(User.class);//第一种方法 成功
         super.takeSuccess(result);
         iconfile = new File(result.getImages().get(0).getCompressPath());
+
+
+
         String iconPath = iconfile.getPath();
         final BmobFile ic = new BmobFile(iconfile);
         ic.uploadblock(new UploadFileListener() {
@@ -196,7 +222,7 @@ public class WoFragment extends BaseFragment {
     }
 
     private void configCompress(TakePhoto takePhoto) {//压缩配置
-        int maxSize = Integer.parseInt("409600");//最大 压缩
+        int maxSize = Integer.parseInt("102400");//最大 压缩
         int width = Integer.parseInt("800");//宽
         int height = Integer.parseInt("800");//高
         CompressConfig config;

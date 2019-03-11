@@ -11,18 +11,23 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.taokuang.Adapter.FragmentAdapter;
 import com.example.taokuang.Fragement.TaoFragment;
 import com.example.taokuang.Fragement.WoFragment;
+import com.pgyersdk.update.PgyUpdateManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FetchUserInfoListener;
 import kr.co.namee.permissiongen.PermissionFail;
 import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
@@ -33,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private List<Fragment> fragments = new ArrayList<>();
     private ViewPager viewPager;
+    private int ret;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -59,7 +65,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Bmob.initialize(this, "5897238c60762d0b91a19a3b781d9e6d");
+        Bmob.initialize(this,"7c28cec5766e668a48a5ea7d719d8e08");
+        fetchUserInfo();
+        checkUpdate();
         if(BmobUser.isLogin()){
             initView();//页面布局初始化
         }
@@ -74,6 +82,50 @@ public class MainActivity extends AppCompatActivity {
                         Manifest.permission.READ_EXTERNAL_STORAGE)
                 .request();
 
+
+    }
+    private void fetchUserInfo() {
+        BmobUser.fetchUserInfo(new FetchUserInfoListener<BmobUser>() {
+            @Override
+            public void done(BmobUser user, BmobException e) {
+                if (e == null) {
+                    //final User myUser = BmobUser.getCurrentUser(User.class);
+                    //Toast.makeText(MainActivity.this, "更新用户本地缓存信息成功",
+                     //       Toast.LENGTH_SHORT).show();
+                } else {
+                    Runtime runtime = Runtime.getRuntime();
+                    try {
+                        Process p = runtime.exec("ping -c 3 www.baidu.com");
+                        ret = p.waitFor();
+                        Log.i("Avalible", "Process:"+ret);
+                    } catch (Exception o) {
+                        o.printStackTrace();
+                    }
+                    if (ret == 0){
+                        Toast.makeText(MainActivity.this, e.getMessage(),
+                                Toast.LENGTH_SHORT).show();
+                        Log.e("error",e.getMessage());
+                        BmobUser.logOut();
+                    }
+                    else Toast.makeText(MainActivity.this, "请检查网络状况",
+                            Toast.LENGTH_SHORT).show();
+
+
+
+
+                }
+            }
+        });
+    }
+
+    private void checkUpdate() {
+
+        new PgyUpdateManager.Builder()
+                .setForced(true)//设置是否强制提示更新
+                // v3.0.4+ 以上同时可以在官网设置强制更新最高低版本；网站设置和代码设置一种情况成立则提示强制更新
+                .setUserCanRetry(false)//失败后是否提示重新下载
+                .setDeleteHistroyApk(false)     // 检查更新前是否删除本地历史 Apk， 默认为true
+                .register();
 
     }
 

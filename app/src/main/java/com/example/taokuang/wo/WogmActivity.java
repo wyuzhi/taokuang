@@ -48,6 +48,7 @@ public class WogmActivity extends Activity {
         if (BmobUser.isLogin()) {
             BmobQuery<TaoKuang> query = new BmobQuery<>();
             query.addWhereEqualTo("goumai", BmobUser.getCurrentUser(User.class));
+            query.addWhereEqualTo("jiaoyi", false );
             query.order("-updatedAt");
             //包含作者信息
             query.include("fabu");
@@ -58,7 +59,7 @@ public class WogmActivity extends Activity {
                     if (e == null) {
                         gAdapter = new TaoAdapter(WogmActivity.this, object);
                         gRecyclerView.setAdapter(gAdapter);
-                        Snackbar.make(gRecyclerView, "查询成功", Snackbar.LENGTH_LONG).show();
+                        //Snackbar.make(gRecyclerView, "查询成功", Snackbar.LENGTH_LONG).show();
                     } else {
                         Log.e("BMOB", e.toString());
                         Snackbar.make(gRecyclerView, e.getMessage(), Snackbar.LENGTH_LONG).show();

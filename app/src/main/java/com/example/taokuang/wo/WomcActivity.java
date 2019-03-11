@@ -45,11 +45,15 @@ public class WomcActivity extends Activity {
     private void loadData() {
         if (BmobUser.isLogin()) {
             BmobQuery<TaoKuang> query = new BmobQuery<>();
+
             query.addWhereExists("goumai");
+
             query.addWhereEqualTo("fabu", BmobUser.getCurrentUser(User.class));
+            query.addWhereEqualTo("jiaoyi", false );
             query.order("-updatedAt");
             //包含作者信息
-            query.include("fabu");
+
+            query.include("fabu,goumai");
             query.findObjects(new FindListener<TaoKuang>() {
 
                 @Override
@@ -57,7 +61,7 @@ public class WomcActivity extends Activity {
                     if (e == null) {
                         mAdapter = new TaoAdapter(WomcActivity.this, object);
                         mRecyclerView.setAdapter(mAdapter);
-                        Snackbar.make(mRecyclerView, "查询成功", Snackbar.LENGTH_LONG).show();
+                        //Snackbar.make(mRecyclerView, "查询成功", Snackbar.LENGTH_LONG).show();
                     } else {
                         Log.e("BMOB", e.toString());
                         Snackbar.make(mRecyclerView, e.getMessage(), Snackbar.LENGTH_LONG).show();

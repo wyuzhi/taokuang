@@ -57,7 +57,7 @@ public class WofbActivity extends Activity {
                     if (e == null) {
                         fAdapter = new TaoAdapter(WofbActivity.this, object);
                         fRecyclerView.setAdapter(fAdapter);
-                        Snackbar.make(fRecyclerView, "查询成功", Snackbar.LENGTH_LONG).show();
+                        //Snackbar.make(fRecyclerView, "查询成功", Snackbar.LENGTH_LONG).show();
                     } else {
                         Log.e("BMOB", e.toString());
                         Snackbar.make(fRecyclerView, e.getMessage(), Snackbar.LENGTH_LONG).show();
