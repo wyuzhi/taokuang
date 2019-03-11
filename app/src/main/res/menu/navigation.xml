@@ -3,19 +3,18 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/gm"
+        android:icon="@drawable/ic_tab_home"
         android:title="主页" />
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/fb2"
+        android:icon="@drawable/ic_tab_add"
         android:title="发布" />
 
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/wd1"
+        android:icon="@drawable/ic_tab_my"
         android:title="我的" />
-
 
 
 </menu>
