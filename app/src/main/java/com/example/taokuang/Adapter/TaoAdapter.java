@@ -157,7 +157,7 @@ public class TaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                          String b = BmobUser.getCurrentUser(User.class).getObjectId();
                          if (a.equals(b) && taoItem.getGoumai() != null) {
                              detailIntent.putExtra("购买name", taoItem.getGoumai().getNicheng());
-                             detailIntent.putExtra("购买phone", taoItem.getGoumai().getMobilePhoneNumber());
+                             detailIntent.putExtra("购买phone", taoItem.getGoumai().getPhone());
                              detailIntent.putExtra("鸽子id", taoItem.getGoumai().getObjectId());
                          }
 
@@ -271,6 +271,9 @@ public class TaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 detailIntent.putExtra("联系", taoItem.getLianxi());
                 detailIntent.putExtra("发布", taoItem.getFabu());
                 if (taoItem.getFabu().getIcon() != null) {
+
+
+
                     detailIntent.putExtra("发布icon", taoItem.getFabu().getIcon().getFileUrl());
                 }
 

@@ -2,7 +2,6 @@ package com.example.taokuang;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -24,9 +23,6 @@ import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
-import top.zibin.luban.CompressionPredicate;
-import top.zibin.luban.Luban;
-import top.zibin.luban.OnCompressListener;
 
 public class RengzActivity extends TakePhotoActivity {
     private Button sc;
@@ -70,7 +66,7 @@ public class RengzActivity extends TakePhotoActivity {
                         public void done(BmobException e) {
                             if (e == null) {
                                 User user = BmobUser.getCurrentUser(User.class);
-                                user.setMobilePhoneNumber(sjha);
+                                user.setPhone(sjha);
                                 user.setXh(xha);
                                 user.setXsz(xsza);
                                 user.setRenz(true);
@@ -105,9 +101,9 @@ public class RengzActivity extends TakePhotoActivity {
 
     @Override
     public void takeSuccess(TResult result) {
-        xykb = new File(result.getImages().get(0).getCompressPath());
+        xyk = new File(result.getImages().get(0).getCompressPath());
         super.takeSuccess(result);
-        Luban.with(this)
+        /*Luban.with(this)
                 .load(xykb)
                 .ignoreBy(100)
                 //.setTargetDir(file_pathss)
@@ -133,13 +129,13 @@ public class RengzActivity extends TakePhotoActivity {
                     public void onError(Throwable e) {
                         // TODO 当压缩过程出现问题时调用
                     }
-                }).launch();
+                }).launch();*/
 
         Glide.with(this).load(new File(result.getImages().get(0).getCompressPath())).into(xsz);
     }
 
     private void configCompress(TakePhoto takePhoto) {//压缩配置
-        int maxSize = Integer.parseInt("409600");//最大 压缩
+        int maxSize = Integer.parseInt("102400");//最大 压缩
         int width = Integer.parseInt("800");//宽
         int height = Integer.parseInt("800");//高
         CompressConfig config;

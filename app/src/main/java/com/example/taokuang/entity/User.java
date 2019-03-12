@@ -6,9 +6,11 @@ import cn.bmob.v3.datatype.BmobFile;
 public class User extends BmobUser {
     private String nicheng;
     private String xh;
+    private String phone;
     private BmobFile icon;
     private BmobFile xsz;
     private Boolean renz;
+
 
     public String getNicheng() {
         return nicheng;
@@ -48,5 +50,13 @@ public class User extends BmobUser {
 
     public void setXh(String xh) {
         this.xh = xh;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
