@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.example.taokuang.Adapter.FragmentAdapter;
 import com.example.taokuang.Fragement.TaoFragment;
 import com.example.taokuang.Fragement.WoFragment;
+import com.pgyersdk.crash.PgyCrashManager;
+import com.pgyersdk.feedback.PgyerFeedbackManager;
 import com.pgyersdk.update.PgyUpdateManager;
 
 import java.util.ArrayList;
@@ -31,7 +33,6 @@ import cn.bmob.v3.listener.FetchUserInfoListener;
 import kr.co.namee.permissiongen.PermissionFail;
 import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
-
 
 
 public class MainActivity extends AppCompatActivity {
@@ -65,14 +66,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Bmob.initialize(this,"7c28cec5766e668a48a5ea7d719d8e08");
+        Bmob.initialize(this, "7c28cec5766e668a48a5ea7d719d8e08");
+        crash();
         fetchUserInfo();
         checkUpdate();
-        if(BmobUser.isLogin()){
+        if (BmobUser.isLogin()) {
             initView();//页面布局初始化
-        }
-        else {Intent intentl =new Intent(MainActivity.this,LoginActivity.class);
-        startActivity(intentl);
+        } else {
+            Intent intentl = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intentl);
         }
         // 申请权限
         PermissionGen.with(MainActivity.this).addRequestCode(100)
@@ -84,6 +86,20 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    private void crash() {
+
+
+        new PgyerFeedbackManager.PgyerFeedbackBuilder().builder().register();
+        PgyCrashManager.register();
+        try {
+            // code
+        } catch (Exception e) {
+/** 新版本 **/
+            PgyCrashManager.reportCaughtException(e);
+        }
+    }
+
     private void fetchUserInfo() {
         if (!BmobUser.isLogin()) {
             return;
@@ -94,26 +110,23 @@ public class MainActivity extends AppCompatActivity {
                 if (e == null) {
                     //final User myUser = BmobUser.getCurrentUser(User.class);
                     //Toast.makeText(MainActivity.this, "更新用户本地缓存信息成功",
-                     //       Toast.LENGTH_SHORT).show();
+                    //       Toast.LENGTH_SHORT).show();
                 } else {
                     Runtime runtime = Runtime.getRuntime();
                     try {
                         Process p = runtime.exec("ping -c 3 www.baidu.com");
                         ret = p.waitFor();
-                        Log.i("Avalible", "Process:"+ret);
+                        Log.i("Avalible", "Process:" + ret);
                     } catch (Exception o) {
                         o.printStackTrace();
                     }
-                    if (ret == 0){
+                    if (ret == 0) {
                         Toast.makeText(MainActivity.this, e.getMessage(),
                                 Toast.LENGTH_SHORT).show();
-                        Log.e("error",e.getMessage());
+                        Log.e("error", e.getMessage());
                         BmobUser.logOut();
-                    }
-                    else Toast.makeText(MainActivity.this, "请检查网络状况",
+                    } else Toast.makeText(MainActivity.this, "请检查网络状况",
                             Toast.LENGTH_SHORT).show();
-
-
 
 
                 }
@@ -140,15 +153,13 @@ public class MainActivity extends AppCompatActivity {
 
     @PermissionSuccess(requestCode = 100)
     public void doSomething() {
-         //Toast.makeText(this, "已授权", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "已授权", Toast.LENGTH_SHORT).show();
     }
 
     @PermissionFail(requestCode = 100)
     public void doFailSomething() {
-       //Toast.makeText(MainActivity.this, "将", Toast.LENGTH_LONG).show();
+        //Toast.makeText(MainActivity.this, "将", Toast.LENGTH_LONG).show();
     }
-
-
 
 
     private void initView() {
@@ -194,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu); //找到searchView
