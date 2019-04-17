@@ -68,4 +68,12 @@
         android:padding="3dp"
         android:text="还没注册账号？点击进行注册账号"
         android:textColor="@color/colorDarkCommon" />
+    <TextView
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="如果在3月15日之前已经注册，密码可能为学号后三位"
+        android:textColor="#112d4e"
+        android:layout_marginTop="10dp"/>
+
 </LinearLayout>

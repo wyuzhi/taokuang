@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="10dp"
+    android:background="#FFFFFF"
+    android:layout_height="match_parent"
+    >
+    <ImageView
+        android:id="@+id/tvImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="60sp"
+        android:layout_centerHorizontal="true"
+        >
+    </ImageView>
+
+    <TextView
+        android:id="@+id/tvMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:text="收藏成功"
+        android:textColor="#3f72af"
+        android:layout_below="@+id/tvImg"
+        android:layout_centerHorizontal="true"
+        />
+
+</RelativeLayout>

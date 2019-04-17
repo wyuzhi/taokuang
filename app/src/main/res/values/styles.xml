@@ -1,13 +1,14 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+</style>
+
+    <style name="AppTheme.Main" parent="AppTheme" />
 
     <style name="AppTheme.NoActionBar">
 
@@ -16,5 +17,27 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="toolbarTitle" >
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#FCFAFA</item>
+    </style>
+    <style name="toolbarTitle2" >
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="RatingBar1" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/rating_bar</item>
+        <item name="android:maxHeight">64dp</item>
+        <item name="android:isIndicator">false</item>
+        <item name="android:minHeight">32dp</item>
+    </style>
+    <!--popupwindow-->
+    <style name="take_photo_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@animator/pop_enter</item>
+        <item name="android:windowExitAnimation">@animator/pop_exit</item>
+    </style>
+
+
 
 </resources>

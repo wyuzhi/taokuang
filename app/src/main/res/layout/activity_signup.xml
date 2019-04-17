@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="40dp"
@@ -57,6 +59,26 @@
             android:hint="设置你的密码"
             android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/text_xieyi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="    我已阅读并同意协议"/>
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/ljzc"

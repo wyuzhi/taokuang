@@ -12,11 +12,16 @@
         android:layout_height="50dp"
         android:background="#112d4e"
         android:theme="@style/AppTheme.AppBarOverlay">
+        <ImageView
+            android:id="@+id/img_return"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_return"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="我卖出的"
+            android:gravity="center_vertical"
+            android:text="      我卖出的"
             android:textSize="20dp"
             android:textColor="#FCFAFA"/>
     </android.support.v7.widget.Toolbar>

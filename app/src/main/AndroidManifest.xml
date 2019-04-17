@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.taokuang">
+    package="com.flying.taokuang">
 
     <!-- 用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 用于访问GPS定位 -->
@@ -20,19 +20,22 @@
     <application
         android:name=".AppContext"
         android:allowBackup="true"
-        android:icon="@drawable/ks4"
+        android:icon="@mipmap/ic_tk"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_tk_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:networkSecurityConfig,android:allowBackup,android:icon,android:label,android:supportsRtl,android:theme,android:roundIcon">
 
-        <activity android:name=".wo.WozlActivity" />
-        <activity android:name=".RengzActivity" />
-        <activity android:name=".wo.WomcActivity" />
+
         <activity
-            android:name=".MainActivity"
+            android:name=".PersonalActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".wo.SellerActivity" />
+        <activity
+            android:name=".SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan">
@@ -42,12 +45,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".EditActivity" />
+
+        <meta-data
+            android:name="design_width"
+            android:value="750" />
+        <meta-data
+            android:name="design_height"
+            android:value="1334" />
+
+        <activity
+            android:name=".CommentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".wo.WoscActivity" />
+        <activity android:name=".XieyiActivity" />
+        <activity android:name=".wo.AboutActivity" />
+        <activity android:name=".wo.WozlActivity" />
+        <activity android:name=".RengzActivity" />
+        <activity android:name=".wo.WomcActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".FaBuActivity" />
         <activity android:name=".Fragement.TaoFragment" />
         <activity android:name=".Fragement.WoFragment" />
-        <activity android:name=".DetailActivity" />
+        <activity
+            android:name=".DetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".wo.WofbActivity" />
         <activity android:name=".wo.WogmActivity" />
@@ -61,22 +87,29 @@
         <activity android:name=".Leibie.ShengFragment" />
         <activity android:name=".Leibie.QiFragment" />
         <activity android:name=".Leibie.ShiFragment" />
-
         <activity
             android:name="cn.bmob.v3.update.UpdateDialogActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
-        </activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <provider
             android:name="com.pgyersdk.PgyerProvider"
             android:authorities="${applicationId}.com.pgyer.provider"
-            android:exported="false"/>
+            android:exported="false" />
 
         <meta-data
             android:name="PGYER_APPID"
-            android:value="af11efd0f9a86259024973cf54851d4a" >
-        </meta-data>
+            android:value="9a9dfba8053e157d139d5b6b3439f96f" />
 
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.flying.taokuang.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths"
+                tools:replace="android:resource" />
+        </provider>
     </application>
 
 </manifest>

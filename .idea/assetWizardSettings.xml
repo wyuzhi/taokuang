@@ -63,8 +63,10 @@
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="fcfcfc" />
-                                      <entry key="foregroundImage" value="D:\ks4.png" />
-                                      <entry key="foregroundLayerName" value="ic_launcher_ks" />
+                                      <entry key="backgroundLayerName" value="ic_launcher_background" />
+                                      <entry key="foregroundImage" value="C:\Users\Hasee\Desktop\app\taokuang\app\src\main\res\drawable\tk.jpg" />
+                                      <entry key="foregroundLayerName" value="ic_tk_" />
+                                      <entry key="outputName" value="ic_tk" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -120,6 +122,11 @@
                 </map>
               </option>
             </PersistentState>
+          </value>
+        </entry>
+        <entry key="vectorWizard">
+          <value>
+            <PersistentState />
           </value>
         </entry>
       </map>
