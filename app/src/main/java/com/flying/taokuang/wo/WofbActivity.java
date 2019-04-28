@@ -6,11 +6,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 
+import com.flying.baselib.utils.app.LogUtils;
 import com.flying.taokuang.Adapter.TaoAdapter;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
@@ -68,7 +68,7 @@ public class WofbActivity extends Activity {
                         fRecyclerView.setAdapter(fAdapter);
                         //Snackbar.make(fRecyclerView, "查询成功", Snackbar.LENGTH_LONG).show();
                     } else {
-                        Log.e("BMOB", e.toString());
+                        LogUtils.e("BMOB", e.toString());
                         Snackbar.make(fRecyclerView, e.getMessage(), Snackbar.LENGTH_LONG).show();
                     }
                 }

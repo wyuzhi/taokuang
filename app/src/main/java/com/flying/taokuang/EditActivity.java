@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.flying.baselib.utils.app.LogUtils;
 import com.flying.taokuang.Adapter.ImgAdapter;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
@@ -237,7 +237,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
                     @Override
                     public void done(BmobException e) {
                         if (e == null) {
-                            Log.d("发布", "发布成功");
+                            LogUtils.d("发布", "发布成功");
                             Toast.makeText(EditActivity.this, "编辑并发布成功",
                                     Toast.LENGTH_SHORT).show();
                             pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
@@ -252,7 +252,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
                                         z.printStackTrace();
                                     }*/
                         } else {
-                            Log.d("发布", "编辑并发布成功:" + e);
+                            LogUtils.d("发布", "编辑并发布成功:" + e);
                             pDialog.cancel();
                             Toast.makeText(EditActivity.this, "编辑并发布成功",
                                     Toast.LENGTH_SHORT).show();
@@ -278,7 +278,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
 
 
                     if (urls.size() == paths.length) {//如果数量相等，则代表文件全部上传完成
-                        Log.d("图片", "图片成功");
+                        LogUtils.d("图片", "图片成功");
                         zList.addAll(urls);
                         //Toast.makeText(FaBuActivity.this, "图片成功",
                         //       Toast.LENGTH_SHORT).show();
@@ -301,7 +301,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
                                 @Override
                                 public void done(BmobException e) {
                                     if (e == null) {
-                                        Log.d("发布", "发布成功");
+                                        LogUtils.d("发布", "发布成功");
                                         Toast.makeText(EditActivity.this, "编辑并发布成功",
                                                 Toast.LENGTH_SHORT).show();
                                         pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
@@ -316,7 +316,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
                                         z.printStackTrace();
                                     }*/
                                     } else {
-                                        Log.d("发布", "编辑并发布成功:" + e);
+                                        LogUtils.d("发布", "编辑并发布成功:" + e);
                                         pDialog.cancel();
                                         Toast.makeText(EditActivity.this, "编辑并发布成功",
                                                 Toast.LENGTH_SHORT).show();
@@ -340,7 +340,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
 
                 @Override
                 public void onError(int i, String s) {
-                    Log.d("图片", "图片失败" + s);
+                    LogUtils.d("图片", "图片失败" + s);
                 }
 
             });

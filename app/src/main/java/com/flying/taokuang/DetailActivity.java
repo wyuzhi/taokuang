@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.flying.baselib.utils.app.LogUtils;
 import com.flying.taokuang.Adapter.DetailAdapter;
 import com.flying.taokuang.entity.CollectionBean;
 import com.flying.taokuang.entity.TaoKuang;
@@ -106,7 +106,7 @@ public class DetailActivity extends AppCompatActivity {
             });
         }else {
             fabuID = intent.getStringExtra("发布");
-            Log.d("Detail", fabuID);
+            LogUtils.d("Detail", fabuID);
             goumaiID = intent.getStringExtra("购买");
             gmcg = intent.getStringExtra("购买成功");
             dh = intent.getStringExtra("购买phone");
@@ -183,7 +183,7 @@ public class DetailActivity extends AppCompatActivity {
                                                                     gmcg.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                                     startActivity(gmcg);
                                                                 } else {
-                                                                    Log.d("购买", "购买失败:" + e);
+                                                                    LogUtils.d("购买", "购买失败:" + e);
                                                                     Toast.makeText(DetailActivity.this, "购买失败",
                                                                             Toast.LENGTH_SHORT).show();
                                                                 }

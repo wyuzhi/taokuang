@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 
+import com.flying.baselib.utils.app.LogUtils;
 import com.flying.taokuang.Adapter.TaoAdapter;
 import com.flying.taokuang.entity.TaoKuang;
 
@@ -79,10 +79,10 @@ public class SearchActivity extends Activity {
                     sAdapter = new TaoAdapter(SearchActivity.this, datas);
                     sRecyclerView.setAdapter(sAdapter);
                     //tAdapter.setOnItemClickListener(listener);
-                    Log.d("查询", "查询成功" + list);
+                    LogUtils.d("查询", "查询成功" + list);
                     sSwipeRefresh.setRefreshing(false);
                 } else {
-                    Log.d("查询", "查询失败:" + e);
+                    LogUtils.d("查询", "查询失败:" + e);
                 }
             }
         });

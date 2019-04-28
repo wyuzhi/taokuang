@@ -6,11 +6,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.flying.baselib.utils.app.LogUtils;
 import com.flying.taokuang.Adapter.CommentAdapter;
 import com.flying.taokuang.PersonalActivity;
 import com.flying.taokuang.R;
@@ -67,7 +67,7 @@ public class EvaluationFragment extends BaseFragment {
                     sAdapter = new CommentAdapter(getContext(),list);
                     sRecyclerView.setAdapter(sAdapter);
                 } else {
-                    Log.d("查询", "查询失败:" + e);
+                    LogUtils.d("查询", "查询失败:" + e);
                 }
             }
         });

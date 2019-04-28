@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +17,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.flying.baselib.utils.app.LogUtils;
 import com.flying.taokuang.Adapter.ImgAdapter;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
@@ -235,7 +235,7 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
 
 
                 if (urls.size() == paths.length) {//如果数量相等，则代表文件全部上传完成
-                    Log.d("图片", "图片成功");
+                    LogUtils.d("图片", "图片成功");
                     //Toast.makeText(FaBuActivity.this, "图片成功",
                     //       Toast.LENGTH_SHORT).show();
                     if (BmobUser.isLogin() && BmobUser.getCurrentUser(User.class).getRenz()) {
@@ -258,7 +258,7 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
                             @Override
                             public void done(String s, BmobException e) {
                                 if (e == null) {
-                                    Log.d("发布", "发布成功");
+                                    LogUtils.d("发布", "发布成功");
                                     Toast.makeText(FaBuActivity.this, "发布成功",
                                             Toast.LENGTH_SHORT).show();
                                     pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
@@ -273,7 +273,7 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
                                         z.printStackTrace();
                                     }*/
                                 } else {
-                                    Log.d("发布", "发布失败:" + e);
+                                    LogUtils.d("发布", "发布失败:" + e);
                                     pDialog.cancel();
                                     Toast.makeText(FaBuActivity.this, "发布失败",
                                             Toast.LENGTH_SHORT).show();
@@ -298,7 +298,7 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
 
             @Override
             public void onError(int i, String s) {
-                Log.d("图片", "图片失败" + s);
+                LogUtils.d("图片", "图片失败" + s);
             }
 
         });

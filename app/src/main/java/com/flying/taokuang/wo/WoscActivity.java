@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 
+import com.flying.baselib.utils.app.LogUtils;
 import com.flying.taokuang.Adapter.CollectionAdapter;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.CollectionBean;
@@ -59,7 +59,7 @@ public class WoscActivity extends Activity {
 //            }});
 //            datas.add(taoKuang);
 //        }
-        Log.d("Collection Taokuang", "loadData: " + collections.size());
+        LogUtils.d("Collection Taokuang", "loadData: " + collections.size());
         mAdapter = new CollectionAdapter(collections, WoscActivity.this);
         mRecyclerView.setAdapter(mAdapter);
 //        if (BmobUser.isLogin()) {

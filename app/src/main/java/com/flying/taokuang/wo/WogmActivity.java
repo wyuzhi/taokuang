@@ -7,11 +7,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 
+import com.flying.baselib.utils.app.LogUtils;
 import com.flying.taokuang.Adapter.TaoAdapter;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
@@ -70,7 +70,7 @@ public class WogmActivity extends Activity {
                         gRecyclerView.setAdapter(gAdapter);
                         //Snackbar.make(gRecyclerView, "查询成功", Snackbar.LENGTH_LONG).show();
                     } else {
-                        Log.e("BMOB", e.toString());
+                        LogUtils.e("BMOB", e.toString());
                         Snackbar.make(gRecyclerView, e.getMessage(), Snackbar.LENGTH_LONG).show();
                     }
                 }

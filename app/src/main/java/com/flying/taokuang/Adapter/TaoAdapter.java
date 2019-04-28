@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.flying.baselib.utils.app.LogUtils;
 import com.flying.taokuang.DetailActivity;
 import com.flying.taokuang.EditActivity;
 import com.flying.taokuang.R;
@@ -223,12 +223,12 @@ public class TaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         @Override
                         public void done(BmobException e) {
                             if (e == null) {
-                                Log.d("擦亮", "擦亮成功");
+                                LogUtils.d("擦亮", "擦亮成功");
                                 Toast.makeText(mContext, "擦亮成功",
                                         Toast.LENGTH_SHORT).show();
                                 viewHolder.scl.setBackgroundColor(Color.GRAY);
                             } else {
-                                Log.d("擦亮", e.toString());
+                                LogUtils.d("擦亮", e.toString());
                                 Toast.makeText(mContext, "擦亮失败" + e.toString(),
                                         Toast.LENGTH_SHORT).show();
                             }
@@ -245,12 +245,12 @@ public class TaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     @Override
                     public void done(BmobException e) {
                         if (e == null) {
-                            Log.d("删除", "删除成功");
+                            LogUtils.d("删除", "删除成功");
                             Toast.makeText(mContext, "删除成功",
                                     Toast.LENGTH_SHORT).show();
 
                         } else {
-                            Log.d("删除", e.toString());
+                            LogUtils.d("删除", e.toString());
                             Toast.makeText(mContext, "删除失败" + e.toString(),
                                     Toast.LENGTH_SHORT).show();
                         }

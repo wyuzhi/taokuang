@@ -4,13 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.flying.baselib.utils.app.LogUtils;
 import com.flying.taokuang.DetailActivity;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.CollectionBean;
@@ -60,7 +60,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
             @Override
             public void onClick(View v) {
 
-                Log.d("Collection id", "onClick: " + collection.getTitle());
+                LogUtils.d("Collection id", "onClick: " + collection.getTitle());
                 Intent intent = new Intent(context, DetailActivity.class);
                 intent.putExtra("ID", collection.getGood());
                 context.startActivity(intent);

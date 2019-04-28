@@ -11,11 +11,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.flying.baselib.utils.app.LogUtils;
 import com.flying.taokuang.Adapter.FragmentAdapter;
 import com.flying.taokuang.Fragement.TaoFragment;
 import com.flying.taokuang.Fragement.WoFragment;
@@ -119,14 +119,14 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         Process p = runtime.exec("ping -c 3 www.baidu.com");
                         ret = p.waitFor();
-                        Log.i("Avalible", "Process:" + ret);
+                        LogUtils.i("Avalible", "Process:" + ret);
                     } catch (Exception o) {
                         o.printStackTrace();
                     }
                     if (ret == 0) {
                         Toast.makeText(MainActivity.this, e.getMessage(),
                                 Toast.LENGTH_SHORT).show();
-                        Log.e("error", e.getMessage());
+                        LogUtils.e("error", e.getMessage());
                         BmobUser.logOut();
                     } else Toast.makeText(MainActivity.this, "请检查网络状况",
                             Toast.LENGTH_SHORT).show();

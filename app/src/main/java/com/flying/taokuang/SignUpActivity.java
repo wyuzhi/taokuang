@@ -3,7 +3,6 @@ package com.flying.taokuang;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.flying.baselib.utils.app.LogUtils;
 import com.flying.taokuang.entity.User;
 
 import cn.bmob.v3.exception.BmobException;
@@ -97,10 +97,10 @@ public class SignUpActivity extends AppCompatActivity {
                 if (e == null) {
                     Toast.makeText(SignUpActivity.this, "注册成功",
                             Toast.LENGTH_SHORT).show();
-                    Log.d("注册", "注册成功");
+                    LogUtils.d("注册", "注册成功");
                     startActivity(intent);
                 } else {
-                    Log.d("注册", "注册失败:" + e);
+                    LogUtils.d("注册", "注册失败:" + e);
                     Toast.makeText(SignUpActivity.this, "注册失败",
                             Toast.LENGTH_SHORT).show();
                 }

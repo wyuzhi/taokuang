@@ -6,11 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.flying.baselib.utils.app.LogUtils;
 import com.flying.taokuang.Adapter.TaoAdapter;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
@@ -85,10 +85,10 @@ public class QuanFragment extends BaseFragment {
                     tAdapter = new TaoAdapter(getContext(), list);
                     tRecyclerView.setAdapter(tAdapter);
                     //tAdapter.setOnItemClickListener(listener);
-                    Log.d("查询", "查询成功" + list);
+                    LogUtils.d("查询", "查询成功" + list);
                     //mSwipeRefresh.setRefreshing(false);
                 } else {
-                    Log.d("查询", "查询失败:" + e);
+                    LogUtils.d("查询", "查询失败:" + e);
                 }
             }
         });

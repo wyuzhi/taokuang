@@ -8,12 +8,12 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.flying.baselib.utils.app.LogUtils;
 import com.flying.taokuang.R;
 
 public class AboutActivity  extends AppCompatActivity {
@@ -98,7 +98,7 @@ public class AboutActivity  extends AppCompatActivity {
                     .getPackageManager()
                     .getPackageInfo(ctx.getPackageName(), 0);
             localVersion = packageInfo.versionName;
-            Log.d("TAG", "当前版本名称：" + localVersion);
+            LogUtils.d("TAG", "当前版本名称：" + localVersion);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

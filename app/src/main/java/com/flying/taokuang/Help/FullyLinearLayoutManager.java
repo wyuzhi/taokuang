@@ -2,9 +2,10 @@ package com.flying.taokuang.Help;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.flying.baselib.utils.app.LogUtils;
 
 public class FullyLinearLayoutManager extends LinearLayoutManager {
 
@@ -29,7 +30,7 @@ public class FullyLinearLayoutManager extends LinearLayoutManager {
         final int widthSize = View.MeasureSpec.getSize(widthSpec);
         final int heightSize = View.MeasureSpec.getSize(heightSpec);
 
-        Log.i(TAG, "onMeasure called. \nwidthMode " + widthMode
+        LogUtils.i(TAG, "onMeasure called. \nwidthMode " + widthMode
                 + " \nheightMode " + heightSpec
                 + " \nwidthSize " + widthSize
                 + " \nheightSize " + heightSize

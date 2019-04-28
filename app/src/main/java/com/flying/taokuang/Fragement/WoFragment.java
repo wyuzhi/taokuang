@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.flying.baselib.utils.app.LogUtils;
 import com.flying.taokuang.CommentActivity;
 import com.flying.taokuang.LoginActivity;
 import com.flying.taokuang.PersonalActivity;
@@ -255,14 +255,14 @@ public class WoFragment extends BaseFragment {
                             } else {
                                 Toast.makeText(getContext(), "修改失败" + e,
                                         Toast.LENGTH_LONG).show();
-                                Log.d("修改图片", "修改失败:" + e);
+                                LogUtils.d("修改图片", "修改失败:" + e);
                             }
                         }
                     });
                 } else {
                     Toast.makeText(getContext(), "修改失败" + e,
                             Toast.LENGTH_LONG).show();
-                    Log.d("修改图片", "修改失败:" + e);
+                    LogUtils.d("修改图片", "修改失败:" + e);
                 }
             }
         });

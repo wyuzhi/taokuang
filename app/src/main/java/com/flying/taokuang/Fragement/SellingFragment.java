@@ -8,11 +8,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.flying.baselib.utils.app.LogUtils;
 import com.flying.taokuang.Adapter.TaoAdapter;
 import com.flying.taokuang.PersonalActivity;
 import com.flying.taokuang.R;
@@ -63,7 +63,7 @@ public class SellingFragment extends BaseFragment {
         if (BmobUser.isLogin()) {
             User user = new User();
             user.setObjectId(fabuID);
-            Log.d("查询", "查询成功" + fabuID);
+            LogUtils.d("查询", "查询成功" + fabuID);
             BmobQuery<TaoKuang> query = new BmobQuery<>();
             query.addWhereDoesNotExists("goumai");
             query.addWhereEqualTo("fabu",user);
@@ -80,10 +80,10 @@ public class SellingFragment extends BaseFragment {
                         sRecyclerView.setLayoutManager(slayoutManager);
                         sAdapter = new TaoAdapter(getContext(), sTaolist);
                         sRecyclerView.setAdapter(sAdapter);
-                        Log.d("查询", "查询成功" + object);
+                        LogUtils.d("查询", "查询成功" + object);
                         //Snackbar.make(fRecyclerView, "查询成功", Snackbar.LENGTH_LONG).show();
                     } else {
-                        Log.e("BMOB", e.toString());
+                        LogUtils.e("BMOB", e.toString());
                         Snackbar.make(sRecyclerView, e.getMessage(), Snackbar.LENGTH_LONG).show();
                     }
                 }

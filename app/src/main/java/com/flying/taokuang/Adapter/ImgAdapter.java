@@ -6,7 +6,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.flying.baselib.utils.app.LogUtils;
 import com.flying.taokuang.R;
 
 import java.io.File;
@@ -116,7 +116,7 @@ public class ImgAdapter extends RecyclerView.Adapter<ImgAdapter.ViewHolder> {
             doitp++;
             if (doitp==p){doit=false;}
         }
-        Log.d("IMAGE_URL", "onBindViewHolder: " + mList.get(position));
+        LogUtils.d("IMAGE_URL", "onBindViewHolder: " + mList.get(position));
 //        imageLoader.displayImage(mList.get(position), viewHolder.img,options);
         if (mList.get(position).startsWith("http") || mList.get(position).startsWith("https")) {
             Glide.with(mContext).load(mList.get(position)).into(viewHolder.img);
