@@ -1,13 +1,11 @@
 package com.flying.baselib.utils.app;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
 import android.support.annotation.NonNull;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-@SuppressLint("PrivateApi")
 public final class ApplicationUtils {
 
     private ApplicationUtils() {

@@ -4,6 +4,8 @@ package com.flying.taokuang;
 import android.app.Application;
 import android.content.Context;
 
+import com.flying.baselib.utils.app.AppUtils;
+import com.flying.baselib.utils.ui.ToastUtils;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -12,8 +14,10 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import org.litepal.LitePal;
 
+import java.lang.reflect.Method;
 
-public class AppContext extends Application {
+
+public class BaseApplication extends Application {
 
     /**
      * Called when the application is starting, before any activity, service, or
@@ -30,6 +34,16 @@ public class AppContext extends Application {
         // 缓存图片的配置，一般通用的配置
         initImageLoader(getApplicationContext());
         LitePal.initialize(this);
+        //DoKit工具,只在debug版本使用
+        if (AppUtils.sIsDebug) {
+            try {
+                Class<?> dokit = Class.forName("com.didichuxing.doraemonkit.DoraemonKit");
+                Method install = dokit.getDeclaredMethod("install", Application.class);
+                install.invoke(null, this);
+            } catch (Exception e) {
+                ToastUtils.show("Dokit install failed.");
+            }
+        }
     }
 
     private void initImageLoader(Context context) {

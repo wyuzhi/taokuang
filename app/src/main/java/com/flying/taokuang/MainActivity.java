@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
     private void checkUpdate() {
 
         new PgyUpdateManager.Builder()
-                .setForced(true)//设置是否强制提示更新
+                .setForced(false)//设置是否强制提示更新
                 // v3.0.4+ 以上同时可以在官网设置强制更新最高低版本；网站设置和代码设置一种情况成立则提示强制更新
                 .setUserCanRetry(false)//失败后是否提示重新下载
                 .setDeleteHistroyApk(false)     // 检查更新前是否删除本地历史 Apk， 默认为true
