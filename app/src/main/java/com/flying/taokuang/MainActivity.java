@@ -13,20 +13,20 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
+import com.flying.baselib.utils.app.ApplicationUtils;
 import com.flying.baselib.utils.app.LogUtils;
+import com.flying.baselib.utils.app.MainThread;
+import com.flying.baselib.utils.device.NetworkUtils;
 import com.flying.taokuang.Adapter.FragmentAdapter;
 import com.flying.taokuang.Fragement.TaoFragment;
 import com.flying.taokuang.Fragement.WoFragment;
-import com.pgyersdk.crash.PgyCrashManager;
 import com.pgyersdk.feedback.PgyerFeedbackManager;
 import com.pgyersdk.update.PgyUpdateManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FetchUserInfoListener;
@@ -36,10 +36,8 @@ import kr.co.namee.permissiongen.PermissionSuccess;
 
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
     private List<Fragment> fragments = new ArrayList<>();
     private ViewPager viewPager;
-    private int ret;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -66,72 +64,42 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Bmob.initialize(this, "7c28cec5766e668a48a5ea7d719d8e08");
-        crash();
-        fetchUserInfo();
-        checkUpdate();
-        if (BmobUser.isLogin()) {
-            initView();//页面布局初始化
-        } else {
-            Intent intentl = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intentl);
+        if (!BmobUser.isLogin()) {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+            return;
         }
-        // 申请权限
-        PermissionGen.with(MainActivity.this).addRequestCode(100)
-                .permissions(
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-//                        Manifest.permission.REQUEST_INSTALL_PACKAGES,
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.CAMERA)
-                .request();
-
-//        LitePal.deleteAll(CollectionBean.class);
-
-
+        initView();
+        delayInit();
     }
 
-    private void crash() {
-
-
-        new PgyerFeedbackManager.PgyerFeedbackBuilder().builder().register();
-        PgyCrashManager.register();
-        try {
-            // code
-        } catch (Exception e) {
-/** 新版本 **/
-            PgyCrashManager.reportCaughtException(e);
-        }
+    private void delayInit() {
+        //不是很重要的操作,优先让主线程绘制UI
+        MainThread.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (NetworkUtils.isNetworkConnected(ApplicationUtils.getApplication())) {
+                    fetchUserInfo();
+                    checkUpdate();
+                }
+                new PgyerFeedbackManager.PgyerFeedbackBuilder().builder().register();
+                PermissionGen.with(MainActivity.this).addRequestCode(100)
+                        .permissions(
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.CAMERA)
+                        .request();
+            }
+        }, 6000);
     }
 
     private void fetchUserInfo() {
-        if (!BmobUser.isLogin()) {
-            return;
-        }
         BmobUser.fetchUserInfo(new FetchUserInfoListener<BmobUser>() {
             @Override
             public void done(BmobUser user, BmobException e) {
-                if (e == null) {
-                    //final User myUser = BmobUser.getCurrentUser(User.class);
-                    //Toast.makeText(MainActivity.this, "更新用户本地缓存信息成功",
-                    //       Toast.LENGTH_SHORT).show();
-                } else {
-                    Runtime runtime = Runtime.getRuntime();
-                    try {
-                        Process p = runtime.exec("ping -c 3 www.baidu.com");
-                        ret = p.waitFor();
-                        LogUtils.i("Avalible", "Process:" + ret);
-                    } catch (Exception o) {
-                        o.printStackTrace();
-                    }
-                    if (ret == 0) {
-                        Toast.makeText(MainActivity.this, e.getMessage(),
-                                Toast.LENGTH_SHORT).show();
-                        LogUtils.e("error", e.getMessage());
-                        BmobUser.logOut();
-                    } else Toast.makeText(MainActivity.this, "请检查网络状况",
-                            Toast.LENGTH_SHORT).show();
-
-
+                if (e != null) {
+                    LogUtils.d(e.toString());
                 }
             }
         });

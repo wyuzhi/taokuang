@@ -11,10 +11,13 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.pgyersdk.crash.PgyCrashManager;
 
 import org.litepal.LitePal;
 
 import java.lang.reflect.Method;
+
+import cn.bmob.v3.Bmob;
 
 
 public class BaseApplication extends Application {
@@ -27,23 +30,12 @@ public class BaseApplication extends Application {
      */
     @Override
     public void onCreate() {
-        // TODO Auto-generated method stub
-
         super.onCreate();
-
-        // 缓存图片的配置，一般通用的配置
-        initImageLoader(getApplicationContext());
+        PgyCrashManager.register();
         LitePal.initialize(this);
-        //DoKit工具,只在debug版本使用
-        if (AppUtils.sIsDebug) {
-            try {
-                Class<?> dokit = Class.forName("com.didichuxing.doraemonkit.DoraemonKit");
-                Method install = dokit.getDeclaredMethod("install", Application.class);
-                install.invoke(null, this);
-            } catch (Exception e) {
-                ToastUtils.show("Dokit install failed.");
-            }
-        }
+        Bmob.initialize(this, "7c28cec5766e668a48a5ea7d719d8e08");
+        initImageLoader(getApplicationContext());
+        initDokit();
     }
 
     private void initImageLoader(Context context) {
@@ -62,4 +54,16 @@ public class BaseApplication extends Application {
         ImageLoader.getInstance().init(configuration);
     }
 
+    private void initDokit() {
+        //DoKit工具,只在debug版本使用
+        if (AppUtils.sIsDebug) {
+            try {
+                Class<?> dokit = Class.forName("com.didichuxing.doraemonkit.DoraemonKit");
+                Method install = dokit.getDeclaredMethod("install", Application.class);
+                install.invoke(null, this);
+            } catch (Exception e) {
+                ToastUtils.show("Dokit install failed.");
+            }
+        }
+    }
 }
