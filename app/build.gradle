@@ -60,6 +60,5 @@ dependencies {
     implementation files('libs/pgyer_sdk_3.0.4.jar')
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
     implementation 'com.zhy:autolayout:1.4.5'
-
-
+    implementation project(':baselib')
 }
