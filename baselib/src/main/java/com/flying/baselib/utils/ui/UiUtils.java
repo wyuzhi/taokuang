@@ -9,6 +9,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.TouchDelegate;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -36,6 +37,34 @@ public final class UiUtils {
     public static int px2sp(float px) {
         final float scale = ApplicationUtils.getApplication().getResources().getDisplayMetrics().scaledDensity;
         return (int) (px / scale + 0.5f);
+    }
+
+    /**
+     * 扩大view在父view中的点击区域
+     *
+     * @param view
+     * @param expandSize
+     */
+    public static void expandClickRegion(final View view, final int expandSize) {
+        ((View) view.getParent()).post(new Runnable() {
+            @Override
+            public void run() {
+                Rect bounds = new Rect();
+                view.setEnabled(true);
+                view.getHitRect(bounds);
+                bounds.top -= expandSize;
+                bounds.bottom += expandSize;
+                bounds.left -= expandSize;
+                bounds.right += expandSize;
+
+                TouchDelegate touchDelegate = new TouchDelegate(bounds, view);
+
+                if (View.class.isInstance(view.getParent())) {
+                    ((View) view.getParent()).setTouchDelegate(touchDelegate);
+                }
+            }
+        });
+
     }
 
     /**
