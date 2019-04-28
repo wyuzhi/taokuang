@@ -75,22 +75,22 @@ public class DetailActivity extends AppCompatActivity {
                 @Override
                 public void done(TaoKuang taoKuang, BmobException e) {
 
-                    String a = taoKuang.getFabu().getObjectId();
-                    String b = BmobUser.getCurrentUser(User.class).getObjectId();
-                    if (a.equals(b) && taoKuang.getGoumai() != null) {
-                        gzid = taoKuang.getGezi();
-                        dh = taoKuang.getFabu().getPhone();
-                        nc = taoKuang.getFabu().getNicheng();
-                    }
+//                    String a = taoKuang.getFabu().getObjectId();
+//                    String b = BmobUser.getCurrentUser(User.class).getObjectId();
+//                    if (a.equals(b) && taoKuang.getGoumai() != null) {
+//                        gzid = taoKuang.getGezi();
+//                        dh = taoKuang.getFabu().getPhone();
+//                        nc = taoKuang.getFabu().getNicheng();
+//                    }
                     if (taoKuang.getFabu().getIcon() != null) {
                          icon = taoKuang.getFabu().getIcon().getFileUrl();
                     }
-                    if (taoKuang.getGoumai() != null) {
-                        goumaiID = taoKuang.getGoumai().getObjectId();
-                        icon =  taoKuang.getFabu().getIcon().getFileUrl();
-                    }
+//                    if (taoKuang.getGoumai() != null) {
+//                        goumaiID = taoKuang.getGoumai().getObjectId();
+//                        icon =  taoKuang.getFabu().getIcon().getFileUrl();
+//                    }
                     fabuID = taoKuang.getFabu().getObjectId();
-                    gmcg = taoKuang.getGoumai()  == null ? null:"成功";
+//                    gmcg = taoKuang.getGoumai()  == null ? null:"成功";
                     gzid = taoKuang.getGezi();
                     ncd = taoKuang.getFabu().getNicheng();
                     jgd = taoKuang.getJiage();

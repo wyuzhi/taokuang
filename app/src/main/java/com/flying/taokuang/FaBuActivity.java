@@ -18,6 +18,7 @@ import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.flying.baselib.utils.app.LogUtils;
+import com.flying.baselib.utils.collection.CollectionUtils;
 import com.flying.taokuang.Adapter.ImgAdapter;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
@@ -184,7 +185,7 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
 
 
     private void Fabu() {
-        if (iList.size() == 0) {
+        if (CollectionUtils.isEmpty(iList)) {
             Toast.makeText(FaBuActivity.this, "请至少添加一张图片", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -312,7 +313,7 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
                 .choose(MimeType.ofImage())
                 .capture(true)  //是否可以拍照
                 .captureStrategy(//参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
-                        new CaptureStrategy(true, "com.example.com.flying.taokuang.fileprovider"))
+                        new CaptureStrategy(true, "com.flying.taokuang.fileprovider"))
                 .countable(true)
                 .maxSelectable(s)
                 .imageEngine(new GlideEngine())
