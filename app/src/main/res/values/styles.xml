@@ -2,11 +2,11 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-    <!-- Customize your theme here. -->
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
-</style>
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
     <style name="AppTheme.Main" parent="AppTheme" />
 
@@ -18,11 +18,12 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="toolbarTitle" >
+    <style name="toolbarTitle">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">#FCFAFA</item>
     </style>
-    <style name="toolbarTitle2" >
+
+    <style name="toolbarTitle2">
         <item name="android:textSize">18sp</item>
     </style>
 
@@ -38,6 +39,8 @@
         <item name="android:windowExitAnimation">@animator/pop_exit</item>
     </style>
 
-
+    <style name="AppTheme.NoActionBar.Fullscreen" parent="AppTheme.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+    </style>
 
 </resources>
