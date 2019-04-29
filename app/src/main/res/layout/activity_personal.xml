@@ -23,8 +23,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:statusBarScrim="@color/color">
 
-            <com.makeramen.roundedimageview.RoundedImageView
-                app:riv_corner_radius="15dip"
+            <com.flying.taokuang.ui.AsyncImageView
                 android:id="@+id/icon"
                 android:layout_width="100dp"
                 android:layout_height="100dp"

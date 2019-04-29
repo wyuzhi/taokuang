@@ -22,16 +22,14 @@
             app:contentScrim="#FCFAFA"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <com.makeramen.roundedimageview.RoundedImageView
-                app:riv_corner_radius="15dip"
-                android:layout_margin="6dp"
+            <com.flying.taokuang.ui.AsyncImageView
                 android:id="@+id/wo_icon"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
+                android:layout_margin="6dp"
                 android:scaleType="centerInside"
-                app:layout_collapseMode="parallax"
-                />
+                app:layout_collapseMode="parallax" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

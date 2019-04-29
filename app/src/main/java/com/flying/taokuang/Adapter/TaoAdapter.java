@@ -9,19 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flying.baselib.utils.app.LogUtils;
+import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.DetailActivity;
 import com.flying.taokuang.EditActivity;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.flying.taokuang.ui.AsyncImageView;
 
 import java.util.List;
 
@@ -30,10 +28,6 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 
 public class TaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<TaoKuang> mTaoList;
-    private Context mContext;
-    private ImageLoader imageLoader = ImageLoader.getInstance();
-
 
     private static final int MIN_CLICK_DELAY_TIME = 3600;
     private static long lastClickTime;
@@ -41,6 +35,9 @@ public class TaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int NOMAL_ITEM = 9999;
     private static final int ZAIS_ITEM = 8888;
     public static final int ZAIM_ITEM = 4;
+
+    private List<TaoKuang> mTaoList;
+    private Context mContext;
 
     public TaoAdapter(Context context, List<TaoKuang> TaoList) {
         mContext = context;
@@ -63,7 +60,7 @@ public class TaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public class nomalViewHolder extends RecyclerView.ViewHolder {
-        private ImageView nfengmian;
+        private AsyncImageView nfengmian;
         private TextView nbiaoti;
         private TextView njiage;
 
@@ -77,7 +74,7 @@ public class TaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public class zaisViewHolder extends RecyclerView.ViewHolder {
-        private ImageView sfengmian;
+        private AsyncImageView sfengmian;
         private TextView sbiaoti;
         private TextView sjiage;
         private Button sbj;
@@ -124,19 +121,8 @@ public class TaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         String jiage = taoItem.getJiage();
         List<String> pic = taoItem.getPic();
 
-        DisplayImageOptions options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.hdb)// 设置图片下载期间显示的图片
-                .showImageForEmptyUri(R.drawable.hdb)// 设置图片Uri为空或是错误的时候显示的图片
-                .showImageOnFail(R.drawable.hdb)// 设置图片加载或解码过程中发生错误显示的图片
-                .cacheInMemory(true)// 设置下载的图片是否缓存在内存中
-                .cacheOnDisk(true)// 设置下载的图片是否缓存在SD卡中
-                .resetViewBeforeLoading(true)
-                .considerExifParams(true)
-                .displayer(new RoundedBitmapDisplayer(20))// 设置成圆角图片
-                .build();// 创建DisplayImageOptions对象
-        // 使用ImageLoader加载图片
-        imageLoader.displayImage(pic.get(0), viewHolder.nfengmian
-                , options);
+        viewHolder.nfengmian.setUrl(pic.get(0));
+        viewHolder.nfengmian.setRoundingRadius(UiUtils.dp2px(5));
         viewHolder.nbiaoti.setText("     " + biaoti);
         viewHolder.njiage.setText("    ￥" + jiage);
         viewHolder.njiage.setTextColor(Color.RED);
@@ -192,19 +178,8 @@ public class TaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         List<String> pic = taoItem.getPic();
 
 
-        DisplayImageOptions options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.hdb)// 设置图片下载期间显示的图片
-                .showImageForEmptyUri(R.drawable.hdb)// 设置图片Uri为空或是错误的时候显示的图片
-                .showImageOnFail(R.drawable.hdb)// 设置图片加载或解码过程中发生错误显示的图片
-                .cacheInMemory(true)// 设置下载的图片是否缓存在内存中
-                .cacheOnDisk(true)// 设置下载的图片是否缓存在SD卡中
-                .resetViewBeforeLoading(true)
-                .considerExifParams(true)
-                .displayer(new RoundedBitmapDisplayer(20))// 设置成圆角图片
-                .build();// 创建DisplayImageOptions对象
-        // 使用ImageLoader加载图片
-        imageLoader.displayImage(pic.get(0), viewHolder.sfengmian
-                , options);
+        viewHolder.sfengmian.setUrl(pic.get(0));
+        viewHolder.sfengmian.setRoundingRadius(UiUtils.dp2px(5));
         viewHolder.sbiaoti.setText("     " + biaoti);
         viewHolder.sjiage.setText("  ￥" + jiage);
         viewHolder.sjiage.setTextColor(Color.RED);

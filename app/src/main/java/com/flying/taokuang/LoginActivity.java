@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.taokuang.entity.User;
 
 import cn.bmob.v3.Bmob;
@@ -81,9 +81,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     });
                     intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent2);
+                    LoginActivity.this.finish();
                 } else {
-                    Toast.makeText(LoginActivity.this, "用户名或密码错误"+e,
-                            Toast.LENGTH_SHORT).show();
+                    ToastUtils.show("用户名或密码错误");
                 }
             }
         });

@@ -10,14 +10,12 @@ import android.widget.TextView;
 
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.Comment;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
     public List<Comment> mList;
     private Context mContext;
-    private ImageLoader imageLoader = ImageLoader.getInstance();
     //public List<String> zList = new ArrayList<>();
 
 

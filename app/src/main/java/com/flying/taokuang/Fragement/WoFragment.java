@@ -10,12 +10,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.flying.baselib.utils.app.LogUtils;
+import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.CommentActivity;
 import com.flying.taokuang.LoginActivity;
 import com.flying.taokuang.PersonalActivity;
@@ -23,6 +22,7 @@ import com.flying.taokuang.R;
 import com.flying.taokuang.RengzActivity;
 import com.flying.taokuang.entity.User;
 import com.flying.taokuang.tool.BaseFragment;
+import com.flying.taokuang.ui.AsyncImageView;
 import com.flying.taokuang.wo.AboutActivity;
 import com.flying.taokuang.wo.WofbActivity;
 import com.flying.taokuang.wo.WogmActivity;
@@ -32,8 +32,6 @@ import com.flying.taokuang.wo.WozlActivity;
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.compress.CompressConfig;
 import com.jph.takephoto.model.TResult;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
 
@@ -44,7 +42,7 @@ import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
 public class WoFragment extends BaseFragment {
-    private ImageView woicon;
+    private AsyncImageView woicon;
     private View wofb;
     private View wogm;
     private View womc;
@@ -55,8 +53,6 @@ public class WoFragment extends BaseFragment {
     private View woo_fb;
     private File iconfile;
     private View aboutus;
-    private ImageLoader imageLoader = ImageLoader.getInstance();
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
@@ -69,7 +65,7 @@ public class WoFragment extends BaseFragment {
 
 
     private void initView(View v) {
-        woo_fb=v.findViewById(R.id.woo_fb);
+        woo_fb = v.findViewById(R.id.woo_fb);
         woo_fb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +75,7 @@ public class WoFragment extends BaseFragment {
         });
 
 
-        wosc=v.findViewById(R.id.wo_sc);
+        wosc = v.findViewById(R.id.wo_sc);
         wosc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +84,7 @@ public class WoFragment extends BaseFragment {
             }
         });
 
-        wozl=v.findViewById(R.id.wo_zl);
+        wozl = v.findViewById(R.id.wo_zl);
         wozl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +93,7 @@ public class WoFragment extends BaseFragment {
 
             }
         });
-        womc=v.findViewById(R.id.wo_mc);
+        womc = v.findViewById(R.id.wo_mc);
         womc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,22 +101,20 @@ public class WoFragment extends BaseFragment {
                 startActivity(intentmc);
             }
         });
-        worz=v.findViewById(R.id.wo_rz);
+        worz = v.findViewById(R.id.wo_rz);
         worz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (BmobUser.isLogin()) {
                     User user = BmobUser.getCurrentUser(User.class);
-                    if(user.getRenz()){
+                    if (user.getRenz()) {
                         Toast.makeText(getContext(), "已认证成功",
                                 Toast.LENGTH_SHORT).show();
-                    }
-                    else {
+                    } else {
                         Intent rz = new Intent(getContext(), RengzActivity.class);
                         startActivity(rz);
                     }
-                }
-                else Toast.makeText(getContext(), "请先登陆",
+                } else Toast.makeText(getContext(), "请先登陆",
                         Toast.LENGTH_SHORT).show();
 
             }
@@ -186,7 +180,6 @@ public class WoFragment extends BaseFragment {
         });
 
 
-
         Toolbar toolbar = v.findViewById(R.id.toolbar);
         CollapsingToolbarLayout collapsingToolbar = v.findViewById(R.id.collapsing_toolbar);
         //setSupportActionBar
@@ -201,31 +194,20 @@ public class WoFragment extends BaseFragment {
                     Intent Personal = new Intent(getContext(), PersonalActivity.class);
                     Personal.putExtra("发布", user.getObjectId());
                     startActivity(Personal);
+                } else {
+                    Intent in = new Intent(getContext(), LoginActivity.class);
+                    startActivity(in);
                 }
-                else {
-                Intent in = new Intent(getContext(), LoginActivity.class);
-                startActivity(in);}
             }
         });
-        DisplayImageOptions options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.hdb)// 设置图片下载期间显示的图片
-                .showImageForEmptyUri(R.drawable.hdb)// 设置图片Uri为空或是错误的时候显示的图片
-                .showImageOnFail(R.drawable.hdb)// 设置图片加载或解码过程中发生错误显示的图片
-                .cacheInMemory(true)// 设置下载的图片是否缓存在内存中
-                .cacheOnDisk(true)// 设置下载的图片是否缓存在SD卡中
-//                .displayer(new RoundedBitmapDisplayer(20))// 设置成圆角图片
-                .build();// 创建DisplayImageOptions对象
-        imageLoader.displayImage("drawable://" + R.drawable.hdb,woicon,options);
+        woicon.setPlaceholderImage(R.drawable.hdb);
+        woicon.setRoundingRadius(UiUtils.dp2px(5));
         if (BmobUser.isLogin()) {
             User user = BmobUser.getCurrentUser(User.class);
             collapsingToolbar.setTitle(user.getNicheng());
             BmobFile icon = user.getIcon();
-            // 创建DisplayImageOptions对象并进行相关选项配置
-
-            if (icon != null){
-                // 使用ImageLoader加载图片
-                imageLoader.displayImage(icon.getFileUrl(), woicon, options);
-
+            if (icon != null) {
+                woicon.setUrl(icon.getFileUrl());
             }
         }
 
@@ -236,7 +218,6 @@ public class WoFragment extends BaseFragment {
         //final User user = BmobUser.getCurrentUser(User.class);//第一种方法 成功
         super.takeSuccess(result);
         iconfile = new File(result.getImages().get(0).getCompressPath());
-
 
 
         String iconPath = iconfile.getPath();

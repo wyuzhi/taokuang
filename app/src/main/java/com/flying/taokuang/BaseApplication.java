@@ -2,16 +2,11 @@ package com.flying.taokuang;
 
 
 import android.app.Application;
-import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.flying.baselib.utils.app.AppUtils;
 import com.flying.baselib.utils.ui.ToastUtils;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.pgyersdk.crash.PgyCrashManager;
 
 import org.litepal.LitePal;
@@ -35,25 +30,10 @@ public class BaseApplication extends MultiDexApplication {
         PgyCrashManager.register();
         LitePal.initialize(this);
         Bmob.initialize(this, "7c28cec5766e668a48a5ea7d719d8e08");
-        initImageLoader(getApplicationContext());
+        Fresco.initialize(this);
         initDokit();
     }
 
-    private void initImageLoader(Context context) {
-        // TODO Auto-generated method stub
-        // 创建DisplayImageOptions对象
-        DisplayImageOptions defaulOptions = new DisplayImageOptions.Builder()
-                .cacheInMemory(true).cacheOnDisk(true).build();
-        // 创建ImageLoaderConfiguration对象
-        ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(
-                context).defaultDisplayImageOptions(defaulOptions)
-                .threadPriority(Thread.NORM_PRIORITY - 2)
-                .denyCacheImageMultipleSizesInMemory()
-                .diskCacheFileNameGenerator(new Md5FileNameGenerator())
-                .tasksProcessingOrder(QueueProcessingType.LIFO).build();
-        // ImageLoader对象的配置
-        ImageLoader.getInstance().init(configuration);
-    }
 
     private void initDokit() {
         //DoKit工具,只在debug版本使用

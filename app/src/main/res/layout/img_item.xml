@@ -28,10 +28,10 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp">
 
-      <ImageView
+      <com.flying.taokuang.ui.AsyncImageView
           android:id="@+id/detail_im"
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
+          android:layout_height="wrap_content"
           android:adjustViewBounds="true"
           android:contentDescription="@string/app_name"
           android:scaleType="centerCrop"

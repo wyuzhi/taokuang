@@ -22,9 +22,8 @@ import com.flying.taokuang.Adapter.DetailAdapter;
 import com.flying.taokuang.entity.CollectionBean;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
+import com.flying.taokuang.ui.AsyncImageView;
 import com.flying.taokuang.wo.WomcActivity;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.litepal.LitePal;
 
@@ -41,7 +40,6 @@ import cn.bmob.v3.listener.UpdateListener;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class DetailActivity extends AppCompatActivity {
-    private ImageLoader imageLoader = ImageLoader.getInstance();
     private static final int MIN_CLICK_DELAY_TIME = 6000;
     private static long lastClickTime;
     private ImageView dcollect;
@@ -237,7 +235,7 @@ public class DetailActivity extends AppCompatActivity {
         TextView dms = findViewById(R.id.detail_ms);
         TextView dwz = findViewById(R.id.detail_wz);
         TextView dnc = findViewById(R.id.detail_nc);
-        ImageView dicon = findViewById(R.id.detail_tx);
+        AsyncImageView dicon = findViewById(R.id.detail_tx);
         dicon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -365,20 +363,9 @@ public class DetailActivity extends AppCompatActivity {
 
         DetailAdapter adapter = new DetailAdapter(this, list);
         imgrec.setAdapter(adapter);
-
-        DisplayImageOptions options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.hdb)// 设置图片下载期间显示的图片
-                .showImageForEmptyUri(R.drawable.hdb)// 设置图片Uri为空或是错误的时候显示的图片
-                .showImageOnFail(R.drawable.hdb)// 设置图片加载或解码过程中发生错误显示的图片
-                .cacheInMemory(true)// 设置下载的图片是否缓存在内存中
-                .cacheOnDisk(true)// 设置下载的图片是否缓存在SD卡中
-                .resetViewBeforeLoading(true)
-                .considerExifParams(true)
-                //.displayer(new RoundedBitmapDisplayer(20))// 设置成圆角图片
-                .build();// 创建DisplayImageOptions对象
-        // 使用ImageLoader加载图片
-        imageLoader.displayImage(icon, dicon
-                , options);
+        dicon.setUrl(icon);
+        dicon.setPlaceholderImage(R.drawable.ic_default_avatar);
+        dicon.setRoundAsCircle();
 
 
         Button gzx = findViewById(R.id.detail_gz);
