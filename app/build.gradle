@@ -8,6 +8,7 @@ android {
         targetSdkVersion 28
         versionCode 312
         versionName "3.1.2"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -60,6 +61,7 @@ dependencies {
     implementation files('libs/pgyer_sdk_3.0.4.jar')
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
     implementation 'com.zhy:autolayout:1.4.5'
+    implementation 'com.android.support:multidex:1.0.1'
     implementation project(':baselib')
 
     debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:1.1.5'

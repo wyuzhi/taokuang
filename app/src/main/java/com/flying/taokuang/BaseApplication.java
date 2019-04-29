@@ -3,6 +3,7 @@ package com.flying.taokuang;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDexApplication;
 
 import com.flying.baselib.utils.app.AppUtils;
 import com.flying.baselib.utils.ui.ToastUtils;
@@ -20,7 +21,7 @@ import java.lang.reflect.Method;
 import cn.bmob.v3.Bmob;
 
 
-public class BaseApplication extends Application {
+public class BaseApplication extends MultiDexApplication {
 
     /**
      * Called when the application is starting, before any activity, service, or
