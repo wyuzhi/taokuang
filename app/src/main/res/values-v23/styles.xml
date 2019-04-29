@@ -10,9 +10,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.Main" parent="AppTheme.NoActionBar">
-        <item name="android:windowTranslucentStatus">true</item>
-    </style>
     <style name="RatingBar1" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/rating_bar</item>
         <item name="android:maxHeight">32dp</item>

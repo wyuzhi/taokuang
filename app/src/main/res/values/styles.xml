@@ -8,8 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.Main" parent="AppTheme" />
-
     <style name="AppTheme.NoActionBar">
 
         <item name="windowActionBar">false</item>
@@ -34,10 +32,6 @@
         <item name="android:minHeight">32dp</item>
     </style>
     <!--popupwindow-->
-    <style name="take_photo_anim" parent="android:Animation">
-        <item name="android:windowEnterAnimation">@animator/pop_enter</item>
-        <item name="android:windowExitAnimation">@animator/pop_exit</item>
-    </style>
 
     <style name="AppTheme.NoActionBar.Fullscreen" parent="AppTheme.NoActionBar">
         <item name="android:windowFullscreen">true</item>

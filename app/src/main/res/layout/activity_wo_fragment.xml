@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <android.support.design.widget.CollapsingToolbarLayout
@@ -307,7 +306,6 @@
                         android:textColor="#66020000" />
 
                     <LinearLayout
-                        android:id="@+id/wo_rzzx"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
@@ -335,7 +333,6 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/wo_kb"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -349,7 +346,6 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/wo_js"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
