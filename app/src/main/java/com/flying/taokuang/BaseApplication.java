@@ -4,7 +4,6 @@ package com.flying.taokuang;
 import android.app.Application;
 import android.content.Context;
 
-import com.didichuxing.doraemonkit.DoraemonKit;
 import com.flying.baselib.utils.app.AppUtils;
 import com.flying.baselib.utils.ui.ToastUtils;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;

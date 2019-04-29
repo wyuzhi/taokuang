@@ -264,6 +264,27 @@
                                 android:gravity="center"
                                 android:text="注销" />
                         </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/wo_about_us"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="#FFFFFF"
+                                android:src="@drawable/ic_about_us" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:gravity="center"
+                                android:text="关于我们" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -354,17 +375,6 @@
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
-
-            <TextView
-                android:id="@+id/about"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:clickable="true"
-                android:paddingRight="10dp"
-                android:text="关于我们 >"
-                android:textColor="#66020000"
-                android:textSize="18dp" />
 
 
             <ImageView

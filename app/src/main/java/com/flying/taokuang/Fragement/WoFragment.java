@@ -54,7 +54,7 @@ public class WoFragment extends BaseFragment {
     private View wosc;
     private View woo_fb;
     private File iconfile;
-    private TextView about;
+    private View aboutus;
     private ImageLoader imageLoader = ImageLoader.getInstance();
 
 
@@ -176,8 +176,8 @@ public class WoFragment extends BaseFragment {
             }
         });
 
-        about = v.findViewById(R.id.about);
-        about.setOnClickListener(new View.OnClickListener() {
+        aboutus = v.findViewById(R.id.wo_about_us);
+        aboutus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), AboutActivity.class);
