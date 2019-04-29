@@ -11,7 +11,7 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import com.flying.baselib.utils.app.LogUtils;
-import com.flying.taokuang.Adapter.TaoAdapter;
+import com.flying.taokuang.Adapter.HomeRecyclerViewAdapter;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
@@ -25,7 +25,7 @@ import cn.bmob.v3.listener.FindListener;
 
 public class WomcActivity extends Activity {
     private RecyclerView mRecyclerView;
-    private TaoAdapter mAdapter;
+    private HomeRecyclerViewAdapter mAdapter;
     private LinearLayoutManager mlayoutManager;
 
     @Override
@@ -68,7 +68,7 @@ public class WomcActivity extends Activity {
                 public void done(List<TaoKuang> object, BmobException e) {
                     if (e == null) {
                         //Log.d("哈", object.get(0).getGoumai().getNicheng());
-                        mAdapter = new TaoAdapter(WomcActivity.this, object);
+                        mAdapter = new HomeRecyclerViewAdapter(WomcActivity.this, object);
                         mRecyclerView.setAdapter(mAdapter);
                         //Snackbar.make(mRecyclerView, "查询成功", Snackbar.LENGTH_LONG).show();
                     } else {

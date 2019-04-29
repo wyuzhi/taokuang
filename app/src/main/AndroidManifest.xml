@@ -70,8 +70,6 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".FaBuActivity" />
-        <activity android:name=".Fragement.TaoFragment" />
-        <activity android:name=".Fragement.WoFragment" />
         <activity
             android:name=".DetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />

@@ -11,7 +11,7 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import com.flying.baselib.utils.app.LogUtils;
-import com.flying.taokuang.Adapter.TaoAdapter;
+import com.flying.taokuang.Adapter.HomeRecyclerViewAdapter;
 import com.flying.taokuang.entity.TaoKuang;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import cn.bmob.v3.listener.FindListener;
 
 public class SearchActivity extends Activity {
     private RecyclerView sRecyclerView;
-    private TaoAdapter sAdapter;
+    private HomeRecyclerViewAdapter sAdapter;
     private SwipeRefreshLayout sSwipeRefresh;
     private StaggeredGridLayoutManager slayoutManager;
 
@@ -76,7 +76,7 @@ public class SearchActivity extends Activity {
                         }
                     }
 
-                    sAdapter = new TaoAdapter(SearchActivity.this, datas);
+                    sAdapter = new HomeRecyclerViewAdapter(SearchActivity.this, datas);
                     sRecyclerView.setAdapter(sAdapter);
                     //tAdapter.setOnItemClickListener(listener);
                     LogUtils.d("查询", "查询成功" + list);

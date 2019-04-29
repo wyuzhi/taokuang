@@ -19,7 +19,7 @@ import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.app.MainThread;
 import com.flying.baselib.utils.device.NetworkUtils;
 import com.flying.taokuang.Adapter.FragmentAdapter;
-import com.flying.taokuang.Fragement.TaoFragment;
+import com.flying.taokuang.Fragement.HomeFragment;
 import com.flying.taokuang.Fragement.WoFragment;
 import com.pgyersdk.feedback.PgyerFeedbackManager;
 import com.pgyersdk.update.PgyUpdateManager;
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         //向viewpager中添加页面
-        fragments.add(new TaoFragment());
+        fragments.add(new HomeFragment());
         fragments.add(new WoFragment());
         FragmentAdapter myAdapter = new FragmentAdapter(getSupportFragmentManager(), fragments);
         viewPager.setAdapter(myAdapter);

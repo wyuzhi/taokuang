@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.flying.baselib.utils.app.LogUtils;
-import com.flying.taokuang.Adapter.TaoAdapter;
+import com.flying.taokuang.Adapter.HomeRecyclerViewAdapter;
 import com.flying.taokuang.PersonalActivity;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
@@ -39,11 +39,11 @@ public class SellingFragment extends BaseFragment {
 
 
     private RecyclerView sRecyclerView;
-    private TaoAdapter sAdapter;
+    private HomeRecyclerViewAdapter sAdapter;
     private SwipeRefreshLayout sSwipeRefresh;
     //private StaggeredGridLayoutManager slayoutManager;
     private List<TaoKuang> sTaolist;
-    //TaoAdapter.OnItemClickListener listener = (TaoAdapter.OnItemClickListener) getContext();
+    //HomeRecyclerViewAdapter.OnItemClickListener listener = (HomeRecyclerViewAdapter.OnItemClickListener) getContext();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
@@ -78,7 +78,7 @@ public class SellingFragment extends BaseFragment {
                         sTaolist = object;
                         StaggeredGridLayoutManager slayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
                         sRecyclerView.setLayoutManager(slayoutManager);
-                        sAdapter = new TaoAdapter(getContext(), sTaolist);
+                        sAdapter = new HomeRecyclerViewAdapter(getContext(), sTaolist);
                         sRecyclerView.setAdapter(sAdapter);
                         LogUtils.d("查询", "查询成功" + object);
                         //Snackbar.make(fRecyclerView, "查询成功", Snackbar.LENGTH_LONG).show();

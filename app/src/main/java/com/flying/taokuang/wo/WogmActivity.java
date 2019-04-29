@@ -12,7 +12,7 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import com.flying.baselib.utils.app.LogUtils;
-import com.flying.taokuang.Adapter.TaoAdapter;
+import com.flying.taokuang.Adapter.HomeRecyclerViewAdapter;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
@@ -26,7 +26,7 @@ import cn.bmob.v3.listener.FindListener;
 
 public class WogmActivity extends Activity {
     private RecyclerView gRecyclerView;
-    private TaoAdapter gAdapter;
+    private HomeRecyclerViewAdapter gAdapter;
     private LinearLayoutManager glayoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class WogmActivity extends Activity {
                 @Override
                 public void done(List<TaoKuang> object, BmobException e) {
                     if (e == null) {
-                        gAdapter = new TaoAdapter(WogmActivity.this, object);
+                        gAdapter = new HomeRecyclerViewAdapter(WogmActivity.this, object);
                         gRecyclerView.setAdapter(gAdapter);
                         //Snackbar.make(gRecyclerView, "查询成功", Snackbar.LENGTH_LONG).show();
                     } else {
