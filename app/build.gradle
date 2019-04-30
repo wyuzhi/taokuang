@@ -61,7 +61,7 @@ dependencies {
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
     implementation 'com.zhy:autolayout:1.4.5'
     implementation 'com.android.support:multidex:1.0.1'
-    implementation 'com.facebook.fresco:fresco:0.12.0'
+    implementation 'com.facebook.fresco:fresco:1.13.0'
     implementation 'com.wuxiaolong.pullloadmorerecyclerview:library:1.1.2'
     implementation project(':baselib')
 

@@ -4,6 +4,7 @@ package com.flying.taokuang;
 import android.app.Application;
 import android.support.multidex.MultiDexApplication;
 
+import com.facebook.drawee.backends.pipeline.DraweeConfig;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.flying.baselib.utils.app.AppUtils;
@@ -34,7 +35,10 @@ public class BaseApplication extends MultiDexApplication {
         ImagePipelineConfig.Builder imagePipelineConfigBuilder = ImagePipelineConfig.newBuilder(this)
                 .setResizeAndRotateEnabledForNetwork(true)
                 .setDownsampleEnabled(true);
-        Fresco.initialize(this, imagePipelineConfigBuilder.build());
+        DraweeConfig draweeConfig = DraweeConfig.newBuilder()
+                .setDrawDebugOverlay(AppUtils.sIsDebug)
+                .build();
+        Fresco.initialize(this, imagePipelineConfigBuilder.build(), draweeConfig);
         initDokit();
     }
 
