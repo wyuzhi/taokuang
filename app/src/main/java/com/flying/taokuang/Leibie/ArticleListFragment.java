@@ -25,10 +25,10 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
 public class ArticleListFragment extends BaseFragment implements PullLoadMoreRecyclerView.PullLoadMoreListener {
-    private static final int MAX_NUM_PER_SKIP = 8;
+    private static final int MAX_NUM_PER_PAGE = 8;
     private static final String ARTICLE_LIST_TYPE = "list_type";
 
-    private int mSkip = 0;
+    private int mSkipPages;
     private String mTypeStr;
     private HomeRecyclerViewAdapter mRecyclerViewAdapter;
     private RecyclerView mRecyclerView;
@@ -65,6 +65,7 @@ public class ArticleListFragment extends BaseFragment implements PullLoadMoreRec
         mRecyclerViewAdapter = new HomeRecyclerViewAdapter(getActivity());
         mPullLoadMoreRecyclerView.setAdapter(mRecyclerViewAdapter);
 
+        mSkipPages = 0;
         mTypeStr = getArguments().getString(ARTICLE_LIST_TYPE);
         loadData();
     }
@@ -77,19 +78,16 @@ public class ArticleListFragment extends BaseFragment implements PullLoadMoreRec
         }
         tQuery.order("-updatedAt");
         tQuery.include("fabu");
-        tQuery.setLimit(MAX_NUM_PER_SKIP);
-        tQuery.setSkip(mSkip);
+        tQuery.setLimit(MAX_NUM_PER_PAGE);
+        tQuery.setSkip(mSkipPages * MAX_NUM_PER_PAGE);
         tQuery.findObjects(new FindListener<TaoKuang>() {
             @Override
             public void done(List<TaoKuang> list, BmobException e) {
-                if (e == null && !CollectionUtils.isEmpty(list)) {
+                if (!CollectionUtils.isEmpty(list)) {
                     mRecyclerViewAdapter.addData(list);
-                    if (list.size() < MAX_NUM_PER_SKIP) {
-                        mSkip = Integer.MAX_VALUE;
-                    } else {
-                        mSkip++;
-                    }
-                } else {
+                    mSkipPages++;
+                }
+                if (e != null) {
                     ToastUtils.show("没有更多了...");
                 }
                 MainThread.postDelayed(new Runnable() {
@@ -105,7 +103,7 @@ public class ArticleListFragment extends BaseFragment implements PullLoadMoreRec
 
     @Override
     public void onRefresh() {
-        mSkip = 0;
+        mSkipPages = 0;
         mRecyclerViewAdapter.clearData();
         loadData();
     }

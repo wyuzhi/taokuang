@@ -31,23 +31,22 @@ public class MySellViewHolder extends RecyclerView.ViewHolder {
     private static long lastClickTime;
 
     private Context mContext;
-    public AsyncImageView sIvCoverImage;
-    public TextView sTvTitle;
-    public TextView sTvPrice;
-    public Button sBtnEdit;
-    public Button sBtnDelete;
-    public Button sBtnRefresh;
-
+    private AsyncImageView mIvCoverImage;
+    private TextView mTvTitle;
+    private TextView mTvPrice;
+    private Button mBtnEdit;
+    private Button mBtnDelete;
+    private Button mBtnRefresh;
 
     public MySellViewHolder(@NonNull View itemView) {
         super(itemView);
         mContext = itemView.getContext();
-        sIvCoverImage = itemView.findViewById(R.id.item_fm_zs);
-        sTvTitle = itemView.findViewById(R.id.item_bt_zs);
-        sTvPrice = itemView.findViewById(R.id.item_jg_zs);
-        sBtnEdit = itemView.findViewById(R.id.item_bj_zs);
-        sBtnDelete = itemView.findViewById(R.id.item_sc_zs);
-        sBtnRefresh = itemView.findViewById(R.id.item_sc_cl);
+        mIvCoverImage = itemView.findViewById(R.id.item_fm_zs);
+        mTvTitle = itemView.findViewById(R.id.item_bt_zs);
+        mTvPrice = itemView.findViewById(R.id.item_jg_zs);
+        mBtnEdit = itemView.findViewById(R.id.item_bj_zs);
+        mBtnDelete = itemView.findViewById(R.id.item_sc_zs);
+        mBtnRefresh = itemView.findViewById(R.id.item_sc_cl);
     }
 
     public void bindViewHolder(final TaoKuang taoItem) {
@@ -58,12 +57,12 @@ public class MySellViewHolder extends RecyclerView.ViewHolder {
         String jiage = taoItem.getJiage();
         List<String> pic = taoItem.getPic();
 
-        sIvCoverImage.setUrl(pic.get(0));
-        sIvCoverImage.setRoundingRadius(UiUtils.dp2px(5));
-        sTvTitle.setText("     " + biaoti);
-        sTvPrice.setText("  ￥" + jiage);
-        sTvPrice.setTextColor(Color.RED);
-        sBtnRefresh.setOnClickListener(new View.OnClickListener() {
+        mIvCoverImage.setUrl(pic.get(0), (int) UiUtils.dp2px(172), (int) UiUtils.dp2px(227));
+        mIvCoverImage.setRoundingRadius(UiUtils.dp2px(5));
+        mTvTitle.setText("     " + biaoti);
+        mTvPrice.setText("  ￥" + jiage);
+        mTvPrice.setTextColor(Color.RED);
+        mBtnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 long curClickTime = System.currentTimeMillis();
@@ -80,7 +79,7 @@ public class MySellViewHolder extends RecyclerView.ViewHolder {
                             if (e == null) {
                                 LogUtils.d("擦亮", "擦亮成功");
                                 ToastUtils.show("擦亮成功");
-                                sBtnRefresh.setBackgroundColor(Color.GRAY);
+                                mBtnRefresh.setBackgroundColor(Color.GRAY);
                             } else {
                                 LogUtils.d("擦亮", e.toString());
                                 ToastUtils.show("擦亮失败" + e.toString());
@@ -90,7 +89,7 @@ public class MySellViewHolder extends RecyclerView.ViewHolder {
                 }
             }
         });
-        sBtnDelete.setOnClickListener(new View.OnClickListener() {
+        mBtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TaoKuang sc = new TaoKuang();
@@ -110,7 +109,7 @@ public class MySellViewHolder extends RecyclerView.ViewHolder {
             }
         });
 
-        sBtnEdit.setOnClickListener(new View.OnClickListener() {
+        mBtnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent editIntent = new Intent(mContext, EditActivity.class);
@@ -120,7 +119,7 @@ public class MySellViewHolder extends RecyclerView.ViewHolder {
             }
         });
 
-        sIvCoverImage.setOnClickListener(new View.OnClickListener() {
+        mIvCoverImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent detailIntent = new Intent(mContext, DetailActivity.class);

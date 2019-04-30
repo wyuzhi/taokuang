@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.flying.baselib.utils.app.LogUtils;
+import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.DetailActivity;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.CollectionBean;
@@ -21,7 +22,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
     private List<CollectionBean> collections;
     private Context context;
 
-    public CollectionAdapter(List<CollectionBean> collections, Context context){
+    public CollectionAdapter(List<CollectionBean> collections, Context context) {
         this.collections = collections;
         this.context = context;
     }
@@ -38,7 +39,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
         final CollectionBean collection = collections.get(i);
         viewHolder.title.setText(collection.getTitle());
         viewHolder.price.setText(collection.getPrice());
-        viewHolder.image.setUrl(collection.getImage());
+        viewHolder.image.setUrl(collection.getImage(), (int) UiUtils.dp2px(172), (int) UiUtils.dp2px(227));
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +60,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView title, price;
         private AsyncImageView image;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.item_bt);

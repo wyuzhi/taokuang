@@ -207,7 +207,7 @@ public class WoFragment extends BaseFragment {
             collapsingToolbar.setTitle(user.getNicheng());
             BmobFile icon = user.getIcon();
             if (icon != null) {
-                woicon.setUrl(icon.getFileUrl());
+                woicon.setUrl(icon.getFileUrl(), (int) UiUtils.dp2px(100), (int) UiUtils.dp2px(100));
             }
         }
 

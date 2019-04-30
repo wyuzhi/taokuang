@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flying.baselib.utils.app.LogUtils;
+import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.DetailAdapter;
 import com.flying.taokuang.entity.CollectionBean;
 import com.flying.taokuang.entity.TaoKuang;
@@ -363,7 +364,7 @@ public class DetailActivity extends AppCompatActivity {
 
         DetailAdapter adapter = new DetailAdapter(this, list);
         imgrec.setAdapter(adapter);
-        dicon.setUrl(icon);
+        dicon.setUrl(icon, (int) UiUtils.dp2px(50), (int) UiUtils.dp2px(50));
         dicon.setPlaceholderImage(R.drawable.ic_default_avatar);
         dicon.setRoundAsCircle();
 

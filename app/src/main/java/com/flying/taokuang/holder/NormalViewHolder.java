@@ -22,16 +22,16 @@ import cn.bmob.v3.BmobUser;
 public class NormalViewHolder extends RecyclerView.ViewHolder {
 
     private Context mContext;
-    public AsyncImageView sIvCoverImage;
-    public TextView sTvTitle;
-    public TextView sTvPrice;
+    private AsyncImageView mIvCoverImage;
+    private TextView mTvTitle;
+    private TextView mTvPrice;
 
     public NormalViewHolder(@NonNull View itemView) {
         super(itemView);
         mContext = itemView.getContext();
-        sIvCoverImage = itemView.findViewById(R.id.item_fm);
-        sTvTitle = itemView.findViewById(R.id.item_bt);
-        sTvPrice = itemView.findViewById(R.id.item_jg);
+        mIvCoverImage = itemView.findViewById(R.id.item_fm);
+        mTvTitle = itemView.findViewById(R.id.item_bt);
+        mTvPrice = itemView.findViewById(R.id.item_jg);
     }
 
 
@@ -43,11 +43,11 @@ public class NormalViewHolder extends RecyclerView.ViewHolder {
         String jiage = taoItem.getJiage();
         List<String> pic = taoItem.getPic();
 
-        sIvCoverImage.setUrl(pic.get(0));
-        sIvCoverImage.setRoundingRadius(UiUtils.dp2px(5));
-        sTvTitle.setText("     " + biaoti);
-        sTvPrice.setText("    ￥" + jiage);
-        sTvPrice.setTextColor(Color.RED);
+        mIvCoverImage.setUrl(pic.get(0), (int) UiUtils.dp2px(172), (int) UiUtils.dp2px(227));
+        mIvCoverImage.setRoundingRadius(UiUtils.dp2px(5));
+        mTvTitle.setText("     " + biaoti);
+        mTvPrice.setText("    ￥" + jiage);
+        mTvPrice.setTextColor(Color.RED);
         itemView.setOnClickListener
                 (new View.OnClickListener() {
                      @Override

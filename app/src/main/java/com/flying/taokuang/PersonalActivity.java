@@ -7,6 +7,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Fragement.EvaluationFragment;
 import com.flying.taokuang.Fragement.SellingFragment;
 import com.flying.taokuang.entity.User;
@@ -55,7 +56,7 @@ public class PersonalActivity extends AppCompatActivity {
                     collapsingToolbar.setTitle(user.getNicheng());
                     BmobFile i = user.getIcon();
                     if (i != null) {
-                        icon.setUrl(i.getFileUrl());
+                        icon.setUrl(i.getFileUrl(), (int) UiUtils.dp2px(100), (int) UiUtils.dp2px(100));
                     }
                 }
             }

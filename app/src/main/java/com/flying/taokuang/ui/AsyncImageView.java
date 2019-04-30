@@ -3,6 +3,7 @@ package com.flying.taokuang.ui;
 import android.content.Context;
 import android.graphics.Outline;
 import android.graphics.drawable.Animatable;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.RequiresApi;
@@ -11,6 +12,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
 import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.controller.ControllerListener;
@@ -19,7 +22,10 @@ import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.image.ImageInfo;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 /**
  * 不支持wrap_content 见:https://www.fresco-cn.org/docs/wrap-content.html
@@ -124,6 +130,30 @@ public class AsyncImageView extends SimpleDraweeView {
                 .setControllerListener(listener)
                 .setUri(url)
                 .setOldController(getController())
+                .build();
+        setController(controller);
+    }
+
+    /**
+     * 支持根据宽高进行缩放,建议用这个
+     *
+     * @param url
+     * @param width
+     * @param height
+     */
+    public void setUrl(String url, int width, int height) {
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
+        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url))
+                .setResizeOptions(new ResizeOptions(width, height))
+                .setProgressiveRenderingEnabled(true)
+                .setAutoRotateEnabled(true)
+                .build();
+        PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
+                .setImageRequest(request)
+                .setOldController(getController())
+                .setAutoPlayAnimations(true)
                 .build();
         setController(controller);
     }

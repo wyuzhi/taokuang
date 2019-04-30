@@ -5,6 +5,7 @@ import android.app.Application;
 import android.support.multidex.MultiDexApplication;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.flying.baselib.utils.app.AppUtils;
 import com.flying.baselib.utils.ui.ToastUtils;
 import com.pgyersdk.crash.PgyCrashManager;
@@ -30,7 +31,10 @@ public class BaseApplication extends MultiDexApplication {
         PgyCrashManager.register();
         LitePal.initialize(this);
         Bmob.initialize(this, "7c28cec5766e668a48a5ea7d719d8e08");
-        Fresco.initialize(this);
+        ImagePipelineConfig.Builder imagePipelineConfigBuilder = ImagePipelineConfig.newBuilder(this)
+                .setResizeAndRotateEnabledForNetwork(true)
+                .setDownsampleEnabled(true);
+        Fresco.initialize(this, imagePipelineConfigBuilder.build());
         initDokit();
     }
 
