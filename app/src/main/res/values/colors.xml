@@ -7,5 +7,6 @@
     <color name="colorBlueCommon">#3f72af</color>
     <color name="colorDarkCommon">#9f9f9f</color>
     <color name="color">#FCFAFA</color>
-
+    <color name="multiple_image_select_primary">@color/colorPrimary</color>
+    <color name="multiple_image_select_primaryDark">@color/colorPrimary</color>
 </resources>

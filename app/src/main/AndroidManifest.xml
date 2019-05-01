@@ -76,16 +76,6 @@
         <activity android:name=".SearchActivity" />
         <activity android:name=".wo.WofbActivity" />
         <activity android:name=".wo.WogmActivity" />
-        <activity android:name=".Leibie.QuanFragment" />
-        <activity android:name=".Leibie.ShuFragment" />
-        <activity android:name=".Leibie.MaFragment" />
-        <activity android:name=".Leibie.SheFragment" />
-        <activity android:name=".Leibie.YiFragment" />
-        <activity android:name=".Leibie.XieFragment" />
-        <activity android:name=".Leibie.WenFragment" />
-        <activity android:name=".Leibie.ShengFragment" />
-        <activity android:name=".Leibie.QiFragment" />
-        <activity android:name=".Leibie.ShiFragment" />
         <activity
             android:name="cn.bmob.v3.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
@@ -101,13 +91,12 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.flying.taokuang.fileprovider"
+            android:authorities="${applicationId}.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/filepaths"
-                tools:replace="android:resource" />
+                android:resource="@xml/file_paths" />
         </provider>
     </application>
 

@@ -2,7 +2,9 @@ package com.flying.taokuang.Fragement;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -12,8 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.flying.baselib.utils.app.LogUtils;
+import com.flying.baselib.utils.collection.CollectionUtils;
+import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.CommentActivity;
 import com.flying.taokuang.LoginActivity;
@@ -31,7 +33,9 @@ import com.flying.taokuang.wo.WoscActivity;
 import com.flying.taokuang.wo.WozlActivity;
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.compress.CompressConfig;
+import com.jph.takephoto.model.CropOptions;
 import com.jph.takephoto.model.TResult;
+import com.jph.takephoto.model.TakePhotoOptions;
 
 import java.io.File;
 
@@ -152,21 +156,10 @@ public class WoFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 if (BmobUser.isLogin()) {
-                    //User user = BmobUser.getCurrentUser(User.class);
-                    Toast.makeText(getContext(), "修改头像", Toast.LENGTH_SHORT).show();
-                    iconChoose();
+                    chooseAvatarFromGallery();
                 } else {
-                    Toast.makeText(getContext(), "请先登陆",
-                            Toast.LENGTH_LONG).show();
-
+                    ToastUtils.show("请先登陆");
                 }
-            }
-
-            private void iconChoose() {
-                TakePhoto takePhoto = getTakePhoto();
-                configCompress(takePhoto);
-                takePhoto.onPickFromGallery();
-
             }
         });
 
@@ -200,8 +193,8 @@ public class WoFragment extends BaseFragment {
                 }
             }
         });
-        woicon.setPlaceholderImage(R.drawable.hdb);
-        woicon.setRoundingRadius(UiUtils.dp2px(5));
+        woicon.setPlaceholderImage(R.drawable.ic_default_avatar);
+        woicon.setRoundAsCircle();
         if (BmobUser.isLogin()) {
             User user = BmobUser.getCurrentUser(User.class);
             collapsingToolbar.setTitle(user.getNicheng());
@@ -215,12 +208,11 @@ public class WoFragment extends BaseFragment {
 
     @Override
     public void takeSuccess(TResult result) {
-        //final User user = BmobUser.getCurrentUser(User.class);//第一种方法 成功
         super.takeSuccess(result);
+        if (result == null || CollectionUtils.isEmpty(result.getImages())) {
+            return;
+        }
         iconfile = new File(result.getImages().get(0).getCompressPath());
-
-
-        String iconPath = iconfile.getPath();
         final BmobFile ic = new BmobFile(iconfile);
         ic.uploadblock(new UploadFileListener() {
             @Override
@@ -232,34 +224,40 @@ public class WoFragment extends BaseFragment {
                         @Override
                         public void done(BmobException e) {
                             if (e == null) {
-                                Toast.makeText(getContext(), "修改成功", Toast.LENGTH_SHORT).show();
+                                ToastUtils.show("修改成功");
+                                woicon.setUrl(BmobUser.getCurrentUser(User.class).getIcon().getFileUrl());
                             } else {
-                                Toast.makeText(getContext(), "修改失败" + e,
-                                        Toast.LENGTH_LONG).show();
-                                LogUtils.d("修改图片", "修改失败:" + e);
+                                ToastUtils.show("修改失败");
                             }
                         }
                     });
                 } else {
-                    Toast.makeText(getContext(), "修改失败" + e,
-                            Toast.LENGTH_LONG).show();
-                    LogUtils.d("修改图片", "修改失败:" + e);
+                    ToastUtils.show("修改失败");
                 }
             }
         });
-
-        Glide.with(this).load(iconfile).into(woicon);
     }
 
-    private void configCompress(TakePhoto takePhoto) {//压缩配置
-        int maxSize = Integer.parseInt("102400");//最大 压缩
-        int width = Integer.parseInt("800");//宽
-        int height = Integer.parseInt("800");//高
-        CompressConfig config;
-        config = new CompressConfig.Builder().setMaxSize(maxSize)
-                .setMaxPixel(width >= height ? width : height)
-                .enableReserveRaw(false)//拍照压缩后是否显示原图
+    private void chooseAvatarFromGallery() {
+        File file = new File(Environment.getExternalStorageDirectory(), "/temp/" + System.currentTimeMillis() + ".jpg");
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+        Uri imageUri = Uri.fromFile(file);
+
+        TakePhoto takePhoto = getTakePhoto();
+        CompressConfig config = new CompressConfig.Builder().setMaxSize(60 * 1024)
+                .setMaxPixel(300)
+                .enableReserveRaw(false)
                 .create();
-        takePhoto.onEnableCompress(config, false);//是否显示进度条
+        takePhoto.onEnableCompress(config, true);
+
+        TakePhotoOptions.Builder builder = new TakePhotoOptions.Builder();
+        builder.setWithOwnGallery(true);
+        builder.setCorrectImage(true);
+        takePhoto.setTakePhotoOptions(builder.create());
+
+        CropOptions cropOptions = new CropOptions.Builder().setAspectX(1).setAspectY(1).setWithOwnCrop(true).create();
+        takePhoto.onPickFromGalleryWithCrop(imageUri, cropOptions);
     }
 }

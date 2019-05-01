@@ -8,9 +8,8 @@ import android.view.ViewGroup;
 
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
-import com.flying.taokuang.entity.User;
 import com.flying.taokuang.holder.MySellViewHolder;
-import com.flying.taokuang.holder.NormalViewHolder;
+import com.flying.taokuang.holder.NewNormalViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +39,8 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         switch (i) {
             case NOMAL_ITEM:
-                return new NormalViewHolder(LayoutInflater.from(mContext).
-                        inflate(R.layout.tao_item, viewGroup, false));
+                return new NewNormalViewHolder(LayoutInflater.from(mContext).
+                        inflate(R.layout.feed_new_item, viewGroup, false));
             case MY_SELL_ITEM:
                 return new MySellViewHolder(LayoutInflater.from(mContext).
                         inflate(R.layout.tao_item_zs, viewGroup, false));
@@ -59,7 +58,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         TaoKuang data = mTaoList.get(i);
         switch (type) {
             case NOMAL_ITEM:
-                ((NormalViewHolder) viewHolder).bindViewHolder(data);
+                ((NewNormalViewHolder) viewHolder).bindViewHolder(data);
                 break;
             case MY_SELL_ITEM:
                 ((MySellViewHolder) viewHolder).bindViewHolder(data);
@@ -85,12 +84,6 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public int getItemViewType(int position) {
-        TaoKuang taoItem = mTaoList.get(position);
-        String o = taoItem.getFabu().getObjectId();
-        String p = BmobUser.getCurrentUser(User.class).getObjectId();
-        if (o.equals(p) && taoItem.getGoumai() == null) {
-            return MY_SELL_ITEM;
-        } else
             return NOMAL_ITEM;
     }
 }

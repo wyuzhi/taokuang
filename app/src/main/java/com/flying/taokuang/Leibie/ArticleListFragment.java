@@ -25,7 +25,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
 public class ArticleListFragment extends BaseFragment implements PullLoadMoreRecyclerView.PullLoadMoreListener {
-    private static final int MAX_NUM_PER_PAGE = 8;
+    private static final int MAX_NUM_PER_PAGE = 5;
     private static final String ARTICLE_LIST_TYPE = "list_type";
 
     private int mSkipPages;
@@ -59,7 +59,7 @@ public class ArticleListFragment extends BaseFragment implements PullLoadMoreRec
         mRecyclerView.setVerticalScrollBarEnabled(true);
         mPullLoadMoreRecyclerView.setRefreshing(true);
         mPullLoadMoreRecyclerView.setFooterViewText("加载中...");
-        mPullLoadMoreRecyclerView.setGridLayout(2);
+        mPullLoadMoreRecyclerView.setLinearLayout();
 
         mPullLoadMoreRecyclerView.setOnPullLoadMoreListener(this);
         mRecyclerViewAdapter = new HomeRecyclerViewAdapter(getActivity());

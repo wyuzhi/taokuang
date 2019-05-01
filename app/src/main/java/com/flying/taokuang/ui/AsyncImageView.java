@@ -69,6 +69,15 @@ public class AsyncImageView extends SimpleDraweeView {
     }
 
     /**
+     * 占位图
+     *
+     * @param imgId
+     */
+    public void setPlaceholderImage(@DrawableRes int imgId, ScalingUtils.ScaleType scaleType) {
+        getHierarchy().setPlaceholderImage(imgId, scaleType);
+    }
+
+    /**
      * 失败图
      *
      * @param imgId

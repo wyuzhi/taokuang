@@ -59,24 +59,14 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.v7.widget.CardView
+    <com.flying.taokuang.ui.AsyncImageView
+        android:id="@+id/rz_xsz"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_gravity="center"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="20dp"
-        app:cardCornerRadius="6dp">
-
-        <ImageView
-            android:id="@+id/rz_xsz"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_upload_photo" />
-
-    </android.support.v7.widget.CardView>
+        android:layout_marginRight="20dp" />
 
     <Button
         android:id="@+id/rz_sc"
@@ -89,9 +79,10 @@
         android:text="提交"
         android:textColor="@color/colorWhite"
         android:textSize="18sp" />
+
     <TextView
-        android:layout_margin="25dp"
-        android:text="请上传校园卡正面图片"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        android:text="请上传校园卡正面图片" />
 </LinearLayout>
