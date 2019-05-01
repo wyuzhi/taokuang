@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.flying.baselib.utils.collection.CollectionUtils;
@@ -22,6 +23,7 @@ import com.flying.taokuang.LoginActivity;
 import com.flying.taokuang.PersonalActivity;
 import com.flying.taokuang.R;
 import com.flying.taokuang.RengzActivity;
+import com.flying.taokuang.debug.DebugActivity;
 import com.flying.taokuang.entity.User;
 import com.flying.taokuang.tool.BaseFragment;
 import com.flying.taokuang.ui.AsyncImageView;
@@ -46,6 +48,7 @@ import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
 public class WoFragment extends BaseFragment {
+    private static final int SHOW_DEBUG_ACTIVITY_NUMS = 5;
     private AsyncImageView woicon;
     private View wofb;
     private View wogm;
@@ -57,6 +60,7 @@ public class WoFragment extends BaseFragment {
     private View woo_fb;
     private File iconfile;
     private View aboutus;
+    private ImageView mIvBottomLogo;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
@@ -69,6 +73,20 @@ public class WoFragment extends BaseFragment {
 
 
     private void initView(View v) {
+        mIvBottomLogo = v.findViewById(R.id.iv_fs_logo);
+        mIvBottomLogo.setOnClickListener(new View.OnClickListener() {
+            private int i = 0;
+
+            @Override
+            public void onClick(View v) {
+                i++;
+                if (i >= SHOW_DEBUG_ACTIVITY_NUMS) {
+                    Intent intent = new Intent(getContext(), DebugActivity.class);
+                    startActivity(intent);
+                    i = 0;
+                }
+            }
+        });
         woo_fb = v.findViewById(R.id.woo_fb);
         woo_fb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +95,6 @@ public class WoFragment extends BaseFragment {
                 startActivity(intentsc1);
             }
         });
-
 
         wosc = v.findViewById(R.id.wo_sc);
         wosc.setOnClickListener(new View.OnClickListener() {
@@ -203,6 +220,7 @@ public class WoFragment extends BaseFragment {
                 woicon.setUrl(icon.getFileUrl(), (int) UiUtils.dp2px(100), (int) UiUtils.dp2px(100));
             }
         }
+
 
     }
 

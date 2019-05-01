@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.flying.taokuang">
-
     <!-- 用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 用于访问GPS定位 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
@@ -28,8 +27,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:networkSecurityConfig,android:allowBackup,android:icon,android:label,android:supportsRtl,android:theme,android:roundIcon">
-
-
+        <activity android:name=".debug.DebugActivity"></activity>
         <activity
             android:name=".PersonalActivity"
             android:theme="@style/AppTheme.NoActionBar" />
