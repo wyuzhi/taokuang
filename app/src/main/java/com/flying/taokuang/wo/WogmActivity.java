@@ -12,6 +12,7 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import com.flying.baselib.utils.app.LogUtils;
+import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.HomeRecyclerViewAdapter;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
@@ -28,6 +29,7 @@ public class WogmActivity extends Activity {
     private RecyclerView gRecyclerView;
     private HomeRecyclerViewAdapter gAdapter;
     private LinearLayoutManager glayoutManager;
+    private ImageView mIvBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -37,13 +39,14 @@ public class WogmActivity extends Activity {
     }
 
     private void initView() {
-        ImageView img=findViewById(R.id.img_return);
-        img.setOnClickListener(new View.OnClickListener() {
+        mIvBack = findViewById(R.id.img_return);
+        mIvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        UiUtils.setOnTouchBackground(mIvBack);
         Toolbar toolbar = findViewById(R.id.wo_gm_toolbar);
         //toolbar.setTitle("我购买的");
         gRecyclerView = findViewById(R.id.recycler_wo_gm);
@@ -57,7 +60,7 @@ public class WogmActivity extends Activity {
         if (BmobUser.isLogin()) {
             BmobQuery<TaoKuang> query = new BmobQuery<>();
             query.addWhereEqualTo("goumai", BmobUser.getCurrentUser(User.class));
-            query.addWhereEqualTo("buy", false );
+            query.addWhereEqualTo("buy", false);
             query.order("-updatedAt");
             //包含作者信息
             query.include("fabu");

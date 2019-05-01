@@ -11,6 +11,7 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import com.flying.baselib.utils.app.LogUtils;
+import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.HomeRecyclerViewAdapter;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
@@ -27,24 +28,24 @@ public class WofbActivity extends Activity {
     private RecyclerView fRecyclerView;
     private HomeRecyclerViewAdapter fAdapter;
     private LinearLayoutManager flayoutManager;
+    private ImageView mIvBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wofb);
         initView();
     }
 
     private void initView() {
-        ImageView img=findViewById(R.id.img_return);
-        img.setOnClickListener(new View.OnClickListener() {
+        mIvBack=findViewById(R.id.img_return);
+        mIvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        Toolbar toolbar = findViewById(R.id.wo_fb_toolbar);
-        //toolbar.setTitle("我发布的");
+        UiUtils.setOnTouchBackground(mIvBack);
         fRecyclerView = findViewById(R.id.recycler_wo_fb);
         flayoutManager = new LinearLayoutManager(this);
         fRecyclerView.setLayoutManager(flayoutManager);

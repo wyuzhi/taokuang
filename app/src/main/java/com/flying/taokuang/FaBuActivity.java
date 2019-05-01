@@ -19,6 +19,7 @@ import android.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.collection.CollectionUtils;
+import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.ImgAdapter;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
@@ -90,6 +91,7 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
     private String im1pathb;
     private String im3pathb;
     private String im2pathb;
+    private ImageView mIvBack;
 
     private Uri im1Uri;
   /*  private File tim1;
@@ -105,14 +107,14 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
     }
 
     private void initView() {
-        ImageView img = findViewById(R.id.img_return);
-        img.setOnClickListener(new View.OnClickListener() {
+        mIvBack = findViewById(R.id.image_fabu_return);
+        mIvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
+        UiUtils.setOnTouchBackground(mIvBack);
         iList = new ArrayList<String>();
         im2 = findViewById(R.id.expanded_image);
         im2.setOnClickListener(new View.OnClickListener() {

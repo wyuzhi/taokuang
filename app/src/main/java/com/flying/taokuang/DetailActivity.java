@@ -47,6 +47,7 @@ public class DetailActivity extends AppCompatActivity {
     private String jgd;
     private String btd;
     private String[] lists;
+    private ImageView mIvBack;
     String fabuID;
     String goumaiID;
     String gmcg;
@@ -219,13 +220,14 @@ public class DetailActivity extends AppCompatActivity {
 
             }
         });
-        ImageView img = findViewById(R.id.img_return);
-        img.setOnClickListener(new View.OnClickListener() {
+        mIvBack= findViewById(R.id.img_return);
+        mIvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        UiUtils.setOnTouchBackground(mIvBack);
 
         TextView dgmnc = findViewById(R.id.detail_gmnc);
         TextView dgmdh = findViewById(R.id.detail_gmdh);
