@@ -25,6 +25,7 @@ import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
 import com.flying.taokuang.ui.AsyncImageView;
 import com.flying.taokuang.wo.WomcActivity;
+import com.tendcloud.tenddata.TCAgent;
 
 import org.litepal.LitePal;
 
@@ -131,6 +132,17 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "商品详情页");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "商品详情页");
+    }
     private void initView() {
         Button dgm = findViewById(R.id.detail_gm);
         dgm.setOnClickListener(new View.OnClickListener() {

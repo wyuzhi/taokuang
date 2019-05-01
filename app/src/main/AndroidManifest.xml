@@ -99,6 +99,14 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <meta-data
+            android:name="TD_APP_ID"
+            android:value="AED653BA138D416FAAED0E8E58F8A87B" />
+        <meta-data
+            android:name="TD_CHANNEL_ID"
+            android:value="Default" />
+
     </application>
 
 </manifest>

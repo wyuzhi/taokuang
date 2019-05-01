@@ -10,6 +10,7 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.flying.baselib.utils.app.AppUtils;
 import com.flying.baselib.utils.ui.ToastUtils;
 import com.pgyersdk.crash.PgyCrashManager;
+import com.tendcloud.tenddata.TCAgent;
 
 import org.litepal.LitePal;
 
@@ -40,6 +41,9 @@ public class BaseApplication extends MultiDexApplication {
                 .build();
         Fresco.initialize(this, imagePipelineConfigBuilder.build(), draweeConfig);
         initDokit();
+        TCAgent.LOG_ON = false;
+        TCAgent.setReportUncaughtExceptions(false);
+        TCAgent.init(this);
     }
 
 

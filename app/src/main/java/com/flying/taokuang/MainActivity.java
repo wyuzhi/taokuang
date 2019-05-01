@@ -23,6 +23,7 @@ import com.flying.taokuang.Fragement.HomeFragment;
 import com.flying.taokuang.Fragement.WoFragment;
 import com.pgyersdk.feedback.PgyerFeedbackManager;
 import com.pgyersdk.update.PgyUpdateManager;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +73,18 @@ public class MainActivity extends AppCompatActivity {
         }
         initView();
         delayInit();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TCAgent.onPageEnd(this, "主页");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TCAgent.onPageStart(this, "主页");
     }
 
     private void delayInit() {
