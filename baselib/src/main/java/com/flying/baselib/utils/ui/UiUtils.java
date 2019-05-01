@@ -9,6 +9,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.view.WindowManager;
@@ -65,6 +66,31 @@ public final class UiUtils {
             }
         });
 
+    }
+
+    /**
+     * 设置点击效果
+     *
+     * @param view
+     */
+    public static void setOnTouchBackground(View view) {
+        if (view == null) {
+            return;
+        }
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        v.setAlpha(0.6f);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        v.setAlpha(1.0f);
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     /**
