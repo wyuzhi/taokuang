@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".wo.WofbActivity">
+    tools:context=".wo.MySellingActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/wo_fb_toolbar"
@@ -38,12 +38,10 @@
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_wo_fb"
+    <com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView
+        android:id="@+id/pullLoadMoreRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>

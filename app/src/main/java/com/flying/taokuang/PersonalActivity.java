@@ -3,13 +3,19 @@ package com.flying.taokuang;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Fragement.EvaluationFragment;
 import com.flying.taokuang.Fragement.SellingFragment;
+import com.flying.taokuang.Leibie.ArticleListFragment;
 import com.flying.taokuang.entity.User;
 import com.flying.taokuang.ui.AsyncImageView;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
@@ -27,6 +33,8 @@ public class PersonalActivity extends AppCompatActivity {
 
     public String fabuID;
     public String goumaiID;
+    private TabLayout mTabLaout;
+    private ViewPager mViewPager;
 
     public String getFabuID() {
         return fabuID;
@@ -64,20 +72,44 @@ public class PersonalActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        mTabLaout = findViewById(R.id.tab_layout);
         icon = findViewById(R.id.icon);
+        mViewPager = findViewById(R.id.viewpager_p);
+        collapsingToolbar = findViewById(R.id.collapsing);
+
+        collapsingToolbar.setCollapsedTitleTypeface(Typeface.DEFAULT_BOLD);
         icon.setPlaceholderImage(R.drawable.ic_default_avatar);
         icon.setRoundAsCircle();
-        collapsingToolbar = findViewById(R.id.collapsing);
-        collapsingToolbar.setCollapsedTitleTypeface(Typeface.DEFAULT_BOLD);
-        ViewPager viewPager = findViewById(R.id.viewpager_p);
-        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(getSupportFragmentManager()
-                , FragmentPagerItems.with(this)
-                .add("在售", SellingFragment.class)
-                .add("评价", EvaluationFragment.class)
-                .create());
-        viewPager.setAdapter(adapter);
-        SmartTabLayout viewPagerTab = findViewById(R.id.view_tab_p);
-        viewPagerTab.setViewPager(viewPager);
+        mTabLaout.setTabMode(TabLayout.MODE_FIXED);
+        FragmentPagerAdapter mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+            private String[] pageTypes = {"在售", "评价"};
 
+            @Override
+            public int getCount() {
+                return pageTypes.length;
+            }
+
+            @Override
+            public Fragment getItem(int position) {
+                if (position == 0) {
+                    return new SellingFragment();
+                } else if (position == 1) {
+                    return new EvaluationFragment();
+                }
+                return null;
+            }
+
+            @Nullable
+            @Override
+            public CharSequence getPageTitle(int position) {
+                if (position >= 0 && position < pageTypes.length) {
+                    return pageTypes[position];
+                }
+                return "";
+            }
+        };
+        mViewPager.setAdapter(mAdapter);
+        mViewPager.setOffscreenPageLimit(2);
+        mTabLaout.setupWithViewPager(mViewPager);
     }
 }

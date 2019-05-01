@@ -74,7 +74,7 @@
             android:name=".DetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SearchActivity" />
-        <activity android:name=".wo.WofbActivity" />
+        <activity android:name=".wo.MySellingActivity" />
         <activity android:name=".wo.WogmActivity" />
         <activity
             android:name="cn.bmob.v3.update.UpdateDialogActivity"

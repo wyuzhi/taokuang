@@ -9,25 +9,21 @@ import android.view.ViewGroup;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.holder.MySellViewHolder;
-import com.flying.taokuang.holder.NewNormalViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-    private static final int NOMAL_ITEM = 9999;
-    private static final int MY_SELL_ITEM = 8888;
+public class SellRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<TaoKuang> mTaoList;
     private Context mContext;
 
-    public HomeRecyclerViewAdapter(Context context, List<TaoKuang> list) {
+    public SellRecyclerViewAdapter(Context context, List<TaoKuang> list) {
         mContext = context;
         mTaoList = list;
     }
 
-    public HomeRecyclerViewAdapter(Context context) {
+    public SellRecyclerViewAdapter(Context context) {
         mContext = context;
         mTaoList = new ArrayList<>();
     }
@@ -35,33 +31,22 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        switch (i) {
-            case NOMAL_ITEM:
-                return new NewNormalViewHolder(LayoutInflater.from(mContext).
-                        inflate(R.layout.feed_new_item, viewGroup, false));
-            case MY_SELL_ITEM:
-                return new MySellViewHolder(LayoutInflater.from(mContext).
-                        inflate(R.layout.selling_item, viewGroup, false));
-        }
-        return null;
+
+        return new MySellViewHolder(LayoutInflater.from(mContext).
+                inflate(R.layout.selling_item, viewGroup, false));
+
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        int type = getItemViewType(i);
         if (mTaoList == null || i < 0 || i >= mTaoList.size()) {
             return;
         }
         TaoKuang data = mTaoList.get(i);
-        switch (type) {
-            case NOMAL_ITEM:
-                ((NewNormalViewHolder) viewHolder).bindViewHolder(data);
-                break;
-            case MY_SELL_ITEM:
-                ((MySellViewHolder) viewHolder).bindViewHolder(data);
-                break;
-        }
+
+        ((MySellViewHolder) viewHolder).bindViewHolder(data);
+
     }
 
     public void addData(List<TaoKuang> dataList) {
@@ -80,8 +65,4 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         return mTaoList.size();
     }
 
-    @Override
-    public int getItemViewType(int position) {
-            return NOMAL_ITEM;
-    }
 }

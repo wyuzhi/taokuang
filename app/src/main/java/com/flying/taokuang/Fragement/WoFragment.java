@@ -26,7 +26,7 @@ import com.flying.taokuang.entity.User;
 import com.flying.taokuang.tool.BaseFragment;
 import com.flying.taokuang.ui.AsyncImageView;
 import com.flying.taokuang.wo.AboutActivity;
-import com.flying.taokuang.wo.WofbActivity;
+import com.flying.taokuang.wo.MySellingActivity;
 import com.flying.taokuang.wo.WogmActivity;
 import com.flying.taokuang.wo.WomcActivity;
 import com.flying.taokuang.wo.WoscActivity;
@@ -127,7 +127,7 @@ public class WoFragment extends BaseFragment {
         wofb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentfb = new Intent(getContext(), WofbActivity.class);
+                Intent intentfb = new Intent(getContext(), MySellingActivity.class);
                 startActivity(intentfb);
             }
         });
