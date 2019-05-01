@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.flying.baselib.utils.app.LogUtils;
+import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.ImgAdapter;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
@@ -51,12 +52,8 @@ public class EditActivity extends Activity implements View.OnClickListener {
     private List<String> cList = new ArrayList<>();
     private List<String> zList = new ArrayList<>();
 
-
-
     private RecyclerView iRecyclerView;
     private ImgAdapter iAdapter;
-
-
     private EditText biaoti;
     private EditText miaoshu;
     private EditText weizhi;
@@ -64,10 +61,9 @@ public class EditActivity extends Activity implements View.OnClickListener {
     private EditText lianxi;
     private ImageView im1;
     private ImageView im2;
+    private ImageView mIvBack;
     private Button fabu;
     private Spinner leibie;
-
-
     private String tleibie;
     private String tbiaoti;
     private String tlianxi;
@@ -75,9 +71,6 @@ public class EditActivity extends Activity implements View.OnClickListener {
 
     private String tweizhi;
     private String tjiage;
-
-
-
 
 
     @Override
@@ -92,7 +85,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
     private void initView() {
 
         iList = new ArrayList<>();
-        im2=findViewById(R.id.expanded_image);
+        im2 = findViewById(R.id.expanded_image);
         im2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,6 +108,15 @@ public class EditActivity extends Activity implements View.OnClickListener {
         iRecyclerView.setLayoutManager(new GridLayoutManager
                 (this, 4, GridLayoutManager.VERTICAL, false));
 
+        mIvBack = findViewById(R.id.image_fabu_return);
+        mIvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        UiUtils.setOnTouchBackground(mIvBack);
+
         //加载原有文件
         BmobQuery<TaoKuang> bmobQuery = new BmobQuery<>();
         bmobQuery.getObject(id, new QueryListener<TaoKuang>() {
@@ -128,7 +130,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
                     lianxi.setText(taoKuang.getLianxi());
 
                     iList.addAll(taoKuang.getPic());
-                    iAdapter=new ImgAdapter(EditActivity.this,iList);
+                    iAdapter = new ImgAdapter(EditActivity.this, iList);
                     iRecyclerView.setAdapter(iAdapter);
                     iAdapter.setM1(new ImgAdapter.M1() {
                         @Override
@@ -144,12 +146,11 @@ public class EditActivity extends Activity implements View.OnClickListener {
                     iAdapter.setM2(new ImgAdapter.M2() {
                         @Override
                         public void onDeliteClick(List list) {
-                                s = 4 - list.size();
-                                im1.setVisibility(View.VISIBLE);
+                            s = 4 - list.size();
+                            im1.setVisibility(View.VISIBLE);
                         }
 
                     });
-
 
 
                 } else {
@@ -159,8 +160,6 @@ public class EditActivity extends Activity implements View.OnClickListener {
         });
 
     }
-
-
 
 
     @Override
@@ -184,12 +183,9 @@ public class EditActivity extends Activity implements View.OnClickListener {
     }
 
 
-
-
     private void Fabu() {
         cList = iAdapter.getLocal();
         zList = iAdapter.getRemote();
-
 
 
         tleibie = String.valueOf(leibie.getSelectedItem());
@@ -209,15 +205,13 @@ public class EditActivity extends Activity implements View.OnClickListener {
         }
 
 
-
-
         final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#3f72af"));
         pDialog.setTitleText("正在发布");
         pDialog.setCancelable(false);
         pDialog.show();
 
-        if (cList.size()==0){
+        if (cList.size() == 0) {
             if (BmobUser.isLogin() && BmobUser.getCurrentUser(User.class).getRenz()) {
                 TaoKuang fb = new TaoKuang();
                 User user = BmobUser.getCurrentUser(User.class);
@@ -266,8 +260,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
                         Toast.LENGTH_LONG).show();
 
             }
-        }
-        else {
+        } else {
 
             final String[] paths = cList.toArray(new String[0]);
 
@@ -371,7 +364,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
 
             iList.addAll(Arrays.asList(pathsx));
             iAdapter = new ImgAdapter(this, iList);
-            iAdapter.setOnItemClickListener(new ImgAdapter.OnItemClickListener(){
+            iAdapter.setOnItemClickListener(new ImgAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(File file, int position) {
                     im2.setVisibility(View.VISIBLE);
@@ -389,7 +382,6 @@ public class EditActivity extends Activity implements View.OnClickListener {
         }
 
     }
-
 
 
 }

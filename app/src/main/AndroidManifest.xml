@@ -63,7 +63,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".wo.WoscActivity" />
         <activity android:name=".XieyiActivity" />
-        <activity android:name=".wo.AboutActivity" />
+        <activity
+            android:name=".wo.AboutActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".wo.WozlActivity" />
         <activity android:name=".RengzActivity" />
         <activity android:name=".wo.WomcActivity" />

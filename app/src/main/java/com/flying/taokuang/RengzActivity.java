@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.facebook.drawee.drawable.ScalingUtils;
@@ -38,6 +39,7 @@ public class RengzActivity extends TakePhotoActivity {
     private EditText sjh;
     private AsyncImageView xsz;
     private File xyk;
+    private ImageView mIvBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,15 @@ public class RengzActivity extends TakePhotoActivity {
 
         xh = findViewById(R.id.rz_xh);
         sjh = findViewById(R.id.rz_sjh);
+
+        mIvBack = findViewById(R.id.img_return);
+        mIvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        UiUtils.setOnTouchBackground(mIvBack);
 
         xsz = findViewById(R.id.rz_xsz);
         xsz.setRoundingRadius(UiUtils.dp2px(5));

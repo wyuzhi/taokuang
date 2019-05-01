@@ -11,15 +11,24 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#112d4e"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:contentInsetStart="0dp">
+
+        <ImageView
+            android:id="@+id/img_return"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_arrow_back_white" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
             android:text="校园认证"
-            android:textColor="#FCFAFA"
-            android:textSize="20dp" />
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
 
     </android.support.v7.widget.Toolbar>
 

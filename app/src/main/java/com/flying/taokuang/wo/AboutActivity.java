@@ -10,13 +10,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flying.baselib.utils.app.LogUtils;
+import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.R;
 
-public class AboutActivity  extends AppCompatActivity {
+public class AboutActivity extends AppCompatActivity {
+    private ImageView mIvBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +29,21 @@ public class AboutActivity  extends AppCompatActivity {
         TextView version = findViewById(R.id.versioncode);
         version.setText("当前版本： V " + getLocalVersionName(this));
 
+        mIvBack = findViewById(R.id.img_return);
+        mIvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        UiUtils.setOnTouchBackground(mIvBack);
+
 
         final Button btn = findViewById(R.id.share);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(v == btn){
+                if (v == btn) {
                     Intent textIntent = new Intent(Intent.ACTION_SEND);
                     textIntent.setType("text/plain");
                     textIntent.putExtra(Intent.EXTRA_TEXT, "下载地址：https://www.pgyer.com/i7Tp");
@@ -47,7 +59,7 @@ public class AboutActivity  extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (checkApkExist(AboutActivity.this, "com.tencent.mobileqq")
-                        ||checkApkExist(AboutActivity.this, "com.tencent.tim")) {
+                        || checkApkExist(AboutActivity.this, "com.tencent.tim")) {
 
                     joinQQGroup("KibI3s1CevQ5QECT8wDUnBeFk9Didhts");
                 } else {
