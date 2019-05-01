@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.flying.baselib.utils.app.LogUtils;
-import com.flying.taokuang.Adapter.HomeRecyclerViewAdapter;
+import com.flying.taokuang.Adapter.PersonalSellingRecyclerviewAdapter;
 import com.flying.taokuang.PersonalActivity;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
@@ -28,9 +28,13 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
-public class SellingFragment extends BaseFragment {
+/**
+ * 个人主页的在售 Fragment
+ */
+public class PersonalSellingFragment extends BaseFragment {
     private String fabuID;
     private String goumaiID;
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -39,11 +43,9 @@ public class SellingFragment extends BaseFragment {
 
 
     private RecyclerView sRecyclerView;
-    private HomeRecyclerViewAdapter sAdapter;
+    private PersonalSellingRecyclerviewAdapter sAdapter;
     private SwipeRefreshLayout sSwipeRefresh;
-    //private StaggeredGridLayoutManager slayoutManager;
     private List<TaoKuang> sTaolist;
-    //HomeRecyclerViewAdapter.OnItemClickListener listener = (HomeRecyclerViewAdapter.OnItemClickListener) getContext();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
@@ -66,7 +68,7 @@ public class SellingFragment extends BaseFragment {
             LogUtils.d("查询", "查询成功" + fabuID);
             BmobQuery<TaoKuang> query = new BmobQuery<>();
             query.addWhereDoesNotExists("goumai");
-            query.addWhereEqualTo("fabu",user);
+            query.addWhereEqualTo("fabu", user);
             query.order("-updatedAt");
             //包含作者信息
             query.include("fabu");
@@ -78,10 +80,9 @@ public class SellingFragment extends BaseFragment {
                         sTaolist = object;
                         StaggeredGridLayoutManager slayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
                         sRecyclerView.setLayoutManager(slayoutManager);
-                        sAdapter = new HomeRecyclerViewAdapter(getContext(), sTaolist);
+                        sAdapter = new PersonalSellingRecyclerviewAdapter(getContext(), sTaolist);
                         sRecyclerView.setAdapter(sAdapter);
                         LogUtils.d("查询", "查询成功" + object);
-                        //Snackbar.make(fRecyclerView, "查询成功", Snackbar.LENGTH_LONG).show();
                     } else {
                         LogUtils.e("BMOB", e.toString());
                         Snackbar.make(sRecyclerView, e.getMessage(), Snackbar.LENGTH_LONG).show();

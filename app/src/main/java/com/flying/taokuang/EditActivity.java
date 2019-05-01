@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.ui.UiUtils;
-import com.flying.taokuang.Adapter.ImgAdapter;
+import com.flying.taokuang.Adapter.UploadImgAdapter;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
 import com.zhihu.matisse.Matisse;
@@ -53,7 +53,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
     private List<String> zList = new ArrayList<>();
 
     private RecyclerView iRecyclerView;
-    private ImgAdapter iAdapter;
+    private UploadImgAdapter iAdapter;
     private EditText biaoti;
     private EditText miaoshu;
     private EditText weizhi;
@@ -130,9 +130,9 @@ public class EditActivity extends Activity implements View.OnClickListener {
                     lianxi.setText(taoKuang.getLianxi());
 
                     iList.addAll(taoKuang.getPic());
-                    iAdapter = new ImgAdapter(EditActivity.this, iList);
+                    iAdapter = new UploadImgAdapter(EditActivity.this, iList);
                     iRecyclerView.setAdapter(iAdapter);
-                    iAdapter.setM1(new ImgAdapter.M1() {
+                    iAdapter.setM1(new UploadImgAdapter.M1() {
                         @Override
                         public void o(String url, int position) {
                             im2.setVisibility(View.VISIBLE);
@@ -143,7 +143,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
                     if (s <= 0) {
                         im1.setVisibility(View.INVISIBLE);
                     }
-                    iAdapter.setM2(new ImgAdapter.M2() {
+                    iAdapter.setM2(new UploadImgAdapter.M2() {
                         @Override
                         public void onDeliteClick(List list) {
                             s = 4 - list.size();
@@ -363,8 +363,8 @@ public class EditActivity extends Activity implements View.OnClickListener {
             List arrayList = new ArrayList(imglist);*/
 
             iList.addAll(Arrays.asList(pathsx));
-            iAdapter = new ImgAdapter(this, iList);
-            iAdapter.setOnItemClickListener(new ImgAdapter.OnItemClickListener() {
+            iAdapter = new UploadImgAdapter(this, iList);
+            iAdapter.setOnItemClickListener(new UploadImgAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(File file, int position) {
                     im2.setVisibility(View.VISIBLE);

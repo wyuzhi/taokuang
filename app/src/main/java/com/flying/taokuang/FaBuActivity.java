@@ -20,7 +20,7 @@ import com.bumptech.glide.Glide;
 import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.collection.CollectionUtils;
 import com.flying.baselib.utils.ui.UiUtils;
-import com.flying.taokuang.Adapter.ImgAdapter;
+import com.flying.taokuang.Adapter.UploadImgAdapter;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
 import com.zhihu.matisse.Matisse;
@@ -57,7 +57,7 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
 
 
     private RecyclerView iRecyclerView;
-    private ImgAdapter iAdapter;
+    private UploadImgAdapter iAdapter;
 
 
     private EditText biaoti;
@@ -153,7 +153,7 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
                 (this, 4, GridLayoutManager.VERTICAL, false));
 
 //        if (s == 100) {
-//            iAdapter.setM2(new ImgAdapter.M2() {
+//            iAdapter.setM2(new UploadImgAdapter.M2() {
 //                @Override
 //                public void onDeliteClick(List list) {
 //                    s = 3 - list.size();
@@ -331,8 +331,8 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
             List arrayList = new ArrayList(imglist);*/
 
             iList.addAll(Arrays.asList(pathsx));
-            iAdapter = new ImgAdapter(this, iList);
-            iAdapter.setOnItemClickListener(new ImgAdapter.OnItemClickListener() {
+            iAdapter = new UploadImgAdapter(this, iList);
+            iAdapter.setOnItemClickListener(new UploadImgAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(File file, int position) {
                     im2.setVisibility(View.VISIBLE);
@@ -346,7 +346,7 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
             if (s <= 0) {
                 im1.setVisibility(View.INVISIBLE);
             }
-            iAdapter.setM2(new ImgAdapter.M2() {
+            iAdapter.setM2(new UploadImgAdapter.M2() {
                 @Override
                 public void onDeliteClick(List list) {
                     iAdapter.notifyDataSetChanged();

@@ -7,20 +7,15 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.flying.baselib.utils.ui.UiUtils;
-import com.flying.taokuang.Fragement.EvaluationFragment;
-import com.flying.taokuang.Fragement.SellingFragment;
-import com.flying.taokuang.Leibie.ArticleListFragment;
+import com.flying.taokuang.Fragement.PersonalEvaluationFragment;
+import com.flying.taokuang.Fragement.PersonalSellingFragment;
 import com.flying.taokuang.entity.User;
 import com.flying.taokuang.ui.AsyncImageView;
-import com.ogaclejapan.smarttablayout.SmartTabLayout;
-import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
-import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
@@ -92,9 +87,9 @@ public class PersonalActivity extends AppCompatActivity {
             @Override
             public Fragment getItem(int position) {
                 if (position == 0) {
-                    return new SellingFragment();
+                    return new PersonalSellingFragment();
                 } else if (position == 1) {
-                    return new EvaluationFragment();
+                    return new PersonalEvaluationFragment();
                 }
                 return null;
             }

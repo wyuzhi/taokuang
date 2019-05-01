@@ -33,7 +33,6 @@
         <activity
             android:name=".PersonalActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".wo.SellerActivity" />
         <activity
             android:name=".SplashActivity"
             android:label="@string/app_name"

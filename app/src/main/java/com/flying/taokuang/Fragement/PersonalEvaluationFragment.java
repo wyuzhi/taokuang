@@ -25,7 +25,10 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
-public class EvaluationFragment extends BaseFragment {
+/**
+ * 个人主页的评价 Fragment
+ */
+public class PersonalEvaluationFragment extends BaseFragment {
     private String fabuID;
     private String goumaiID;
     private RecyclerView sRecyclerView;
@@ -36,6 +39,7 @@ public class EvaluationFragment extends BaseFragment {
         super.onAttach(activity);
         fabuID = ((PersonalActivity) activity).getFabuID();
     }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -64,7 +68,7 @@ public class EvaluationFragment extends BaseFragment {
 
                     LinearLayoutManager slayoutManager = new LinearLayoutManager(getContext());
                     sRecyclerView.setLayoutManager(slayoutManager);
-                    sAdapter = new CommentAdapter(getContext(),list);
+                    sAdapter = new CommentAdapter(getContext(), list);
                     sRecyclerView.setAdapter(sAdapter);
                 } else {
                     LogUtils.d("查询", "查询失败:" + e);
