@@ -84,6 +84,9 @@ public final class UiUtils {
                     case MotionEvent.ACTION_DOWN:
                         v.setAlpha(0.6f);
                         break;
+                    case MotionEvent.ACTION_MOVE:
+                        v.setAlpha(1.0f);
+                        break;
                     case MotionEvent.ACTION_UP:
                         v.setAlpha(1.0f);
                         break;
