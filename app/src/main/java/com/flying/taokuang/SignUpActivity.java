@@ -1,34 +1,31 @@
 package com.flying.taokuang;
 
 import android.content.Intent;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.flying.baselib.utils.app.LogUtils;
+import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.taokuang.entity.User;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
 public class SignUpActivity extends AppCompatActivity {
-    private Button mzc;
-    private EditText myhm;
-    private EditText mzh;
-    private EditText mmm;
-    private CheckBox checkBox;
-    private TextView xieyi;
-    private String yhm;
-    private String mm;
-    private String zh;
-    private Boolean xy = false;
+    private Button mBtnSignup;
+    private TextInputEditText mEtUserNickName;
+    private TextInputEditText mEtLoginID;
+    private TextInputEditText mEtPassword;
+    private CheckBox mCbAgree;
+    private TextView mTvAgreement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,55 +35,60 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        mzc = findViewById(R.id.ljzc);
-        myhm = findViewById(R.id.yhm);
-        mzh = findViewById(R.id.zh);
-        mmm = findViewById(R.id.mm);
-        checkBox = findViewById(R.id.checkbox);
-        xieyi = findViewById(R.id.text_xieyi);
-        mzc.setOnClickListener(new View.OnClickListener() {
+        mBtnSignup = findViewById(R.id.ljzc);
+        mEtUserNickName = findViewById(R.id.yhm);
+        mEtLoginID = findViewById(R.id.zh);
+        mEtPassword = findViewById(R.id.mm);
+        mCbAgree = findViewById(R.id.checkbox);
+        mTvAgreement = findViewById(R.id.text_xieyi);
+
+        mCbAgree.setChecked(true);
+        mBtnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(xy==true){
+                if (mCbAgree.isChecked() == true) {
                     signup();
-                }else {
-                    Toast.makeText(SignUpActivity.this,"同意协议才能注册",Toast.LENGTH_SHORT).show();
+                } else {
+                    ToastUtils.show("同意协议才能注册");
                 }
             }
         });
-
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    xy = true;
-                }else xy = false;
-            }
-        });
-        xieyi.setOnClickListener(new View.OnClickListener() {
+        mTvAgreement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignUpActivity.this,XieyiActivity.class);
-                startActivityForResult(intent,1);
+                Intent intent = new Intent(SignUpActivity.this, XieyiActivity.class);
+                startActivityForResult(intent, 1);
             }
         });
     }
 
-    protected void onActivityResult(int requestCode,int resultCode,Intent data){
-        switch (requestCode){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
             case 1:
-                if(resultCode == RESULT_OK){
-                    checkBox.setChecked(true);
+                if (resultCode == RESULT_OK) {
+                    mCbAgree.setChecked(true);
                 }
         }
     }
 
     private void signup() {
+        String yhm = mEtUserNickName.getText().toString().replaceAll(" ", "");
+        String zh = mEtLoginID.getText().toString().replaceAll(" ", "");
+        String mm = mEtPassword.getText().toString().replaceAll(" ", "");
+        if (TextUtils.isEmpty(yhm) || yhm.length() < 4 || yhm.length() > 16) {
+            ToastUtils.show("昵称字数小于4位或大于16位");
+            return;
+        }
+        if (TextUtils.isEmpty(zh) || zh.length() < 8 || zh.length() > 16) {
+            ToastUtils.show("学号位数小于8位或大于16位");
+            return;
+        }
+        if (TextUtils.isEmpty(mm) || mm.length() < 4 || mm.length() > 16) {
+            ToastUtils.show("密码位数小于4位或大于16位");
+            return;
+        }
         final Intent intent = new Intent(this, LoginActivity.class);
         final User user = new User();
-        yhm = String.valueOf(myhm.getText());
-        zh = String.valueOf(mzh.getText());
-        mm = String.valueOf(mmm.getText());
         user.setUsername(zh);
         user.setPassword(mm);
         user.setNicheng(yhm);

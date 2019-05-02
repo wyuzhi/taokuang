@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
 
 
     <TextView
@@ -22,11 +22,13 @@
         android:layout_marginTop="5dp"
         android:layout_marginRight="10dp">
 
-        <EditText
+        <android.support.design.widget.TextInputEditText
             android:id="@+id/yhm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="昵称" />
+            android:hint="昵称"
+            android:imeOptions="actionNext"
+            android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -36,13 +38,15 @@
         android:layout_marginTop="5dp"
         android:layout_marginRight="10dp">
 
-        <EditText
+        <android.support.design.widget.TextInputEditText
             android:id="@+id/zh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:digits="0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
             android:hint="学号"
-            android:inputType="number|textPassword" />
+            android:imeOptions="actionNext"
+            android:inputType="number|textPassword"
+            android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -52,31 +56,35 @@
         android:layout_marginTop="5dp"
         android:layout_marginRight="10dp">
 
-        <EditText
+        <android.support.design.widget.TextInputEditText
             android:id="@+id/mm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="设置你的密码"
-            android:inputType="textPassword" />
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>
 
     <LinearLayout
-        android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:orientation="horizontal">
 
         <CheckBox
             android:id="@+id/checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center" />
+
         <TextView
             android:id="@+id/text_xieyi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="    我已阅读并同意协议"/>
+            android:layout_marginLeft="5dp"
+            android:text="我已阅读并同意协议" />
     </LinearLayout>
 
 
