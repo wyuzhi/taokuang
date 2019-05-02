@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
 
-import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.taokuang.R;
 
 public class DebugActivity extends AppCompatActivity {

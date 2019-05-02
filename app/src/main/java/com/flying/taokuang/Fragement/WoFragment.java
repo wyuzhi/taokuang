@@ -48,7 +48,7 @@ import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
 public class WoFragment extends BaseFragment {
-    private static final int SHOW_DEBUG_ACTIVITY_NUMS = 5;
+    private static final int SHOW_DEBUG_ACTIVITY_NUMS = 2;
     private AsyncImageView woicon;
     private View wofb;
     private View wogm;
@@ -74,17 +74,18 @@ public class WoFragment extends BaseFragment {
 
     private void initView(View v) {
         mIvBottomLogo = v.findViewById(R.id.iv_fs_logo);
-        mIvBottomLogo.setOnClickListener(new View.OnClickListener() {
+        mIvBottomLogo.setOnLongClickListener(new View.OnLongClickListener() {
             private int i = 0;
 
             @Override
-            public void onClick(View v) {
+            public boolean onLongClick(View v) {
                 i++;
                 if (i >= SHOW_DEBUG_ACTIVITY_NUMS) {
                     Intent intent = new Intent(getContext(), DebugActivity.class);
                     startActivity(intent);
                     i = 0;
                 }
+                return true;
             }
         });
         woo_fb = v.findViewById(R.id.woo_fb);
