@@ -254,7 +254,7 @@ public class DetailActivity extends AppCompatActivity {
         dicon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Personal = new Intent(DetailActivity.this, PersonalActivity.class);
+                Intent Personal = new Intent(DetailActivity.this, UserPageActivity.class);
                 Personal.putExtra("发布", fabuID);
                 startActivity(Personal);
 

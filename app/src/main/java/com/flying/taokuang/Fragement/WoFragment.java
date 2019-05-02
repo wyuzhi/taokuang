@@ -20,7 +20,7 @@ import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.CommentActivity;
 import com.flying.taokuang.LoginActivity;
-import com.flying.taokuang.PersonalActivity;
+import com.flying.taokuang.UserPageActivity;
 import com.flying.taokuang.R;
 import com.flying.taokuang.RengzActivity;
 import com.flying.taokuang.debug.DebugActivity;
@@ -88,7 +88,9 @@ public class WoFragment extends BaseFragment {
                 return true;
             }
         });
+
         woo_fb = v.findViewById(R.id.woo_fb);
+        UiUtils.setOnTouchBackground(woo_fb);
         woo_fb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,6 +100,7 @@ public class WoFragment extends BaseFragment {
         });
 
         wosc = v.findViewById(R.id.wo_sc);
+        UiUtils.setOnTouchBackground(wosc);
         wosc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,6 +110,7 @@ public class WoFragment extends BaseFragment {
         });
 
         wozl = v.findViewById(R.id.wo_zl);
+        UiUtils.setOnTouchBackground(wozl);
         wozl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,6 +120,7 @@ public class WoFragment extends BaseFragment {
             }
         });
         womc = v.findViewById(R.id.wo_mc);
+        UiUtils.setOnTouchBackground(womc);
         womc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,6 +129,7 @@ public class WoFragment extends BaseFragment {
             }
         });
         worz = v.findViewById(R.id.wo_rz);
+        UiUtils.setOnTouchBackground(worz);
         worz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,6 +148,7 @@ public class WoFragment extends BaseFragment {
             }
         });
         wofb = v.findViewById(R.id.wo_fb);
+        UiUtils.setOnTouchBackground(wofb);
         wofb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,6 +158,7 @@ public class WoFragment extends BaseFragment {
         });
 
         wogm = v.findViewById(R.id.wo_gm);
+        UiUtils.setOnTouchBackground(wogm);
         wogm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,6 +167,7 @@ public class WoFragment extends BaseFragment {
             }
         });
         wozx = v.findViewById(R.id.wo_zx);
+        UiUtils.setOnTouchBackground(wozx);
         wozx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,6 +179,7 @@ public class WoFragment extends BaseFragment {
         });
 
         woicon = v.findViewById(R.id.wo_icon);
+        UiUtils.setOnTouchBackground(woicon);
         woicon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,6 +192,7 @@ public class WoFragment extends BaseFragment {
         });
 
         aboutus = v.findViewById(R.id.wo_about_us);
+        UiUtils.setOnTouchBackground(aboutus);
         aboutus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,12 +210,9 @@ public class WoFragment extends BaseFragment {
         collapsingToolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (BmobUser.isLogin()) {
                     User user = BmobUser.getCurrentUser(User.class);
-                    Intent Personal = new Intent(getContext(), PersonalActivity.class);
-                    Personal.putExtra("发布", user.getObjectId());
-                    startActivity(Personal);
+                    UserPageActivity.go(getContext(), user.getObjectId());
                 } else {
                     Intent in = new Intent(getContext(), LoginActivity.class);
                     startActivity(in);

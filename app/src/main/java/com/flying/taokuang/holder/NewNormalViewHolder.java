@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.DetailActivity;
+import com.flying.taokuang.UserPageActivity;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
@@ -56,6 +57,22 @@ public class NewNormalViewHolder extends RecyclerView.ViewHolder {
         } else {
             mIvUserAvatar.setImageResource(R.drawable.ic_default_avatar);
         }
+        UiUtils.setOnTouchBackground(mIvUserAvatar);
+        UiUtils.setOnTouchBackground(mTvUserName);
+        UiUtils.expandClickRegion(mIvUserAvatar, (int) UiUtils.dp2px(5));
+        UiUtils.expandClickRegion(mTvUserName, (int) UiUtils.dp2px(5));
+        mIvUserAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserPageActivity.go(mContext, taoItem.getFabu().getObjectId());
+            }
+        });
+        mTvUserName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserPageActivity.go(mContext, taoItem.getFabu().getObjectId());
+            }
+        });
         mTvTitle.setText(title);
         mTvPrice.setText("￥" + price);
         itemView.setOnClickListener

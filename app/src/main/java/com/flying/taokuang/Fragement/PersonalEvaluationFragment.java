@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.flying.baselib.utils.app.LogUtils;
 import com.flying.taokuang.Adapter.CommentAdapter;
-import com.flying.taokuang.PersonalActivity;
+import com.flying.taokuang.UserPageActivity;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.Comment;
 import com.flying.taokuang.entity.User;
@@ -37,7 +37,7 @@ public class PersonalEvaluationFragment extends BaseFragment {
 
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        fabuID = ((PersonalActivity) activity).getFabuID();
+        fabuID = ((UserPageActivity) activity).getUserID();
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,

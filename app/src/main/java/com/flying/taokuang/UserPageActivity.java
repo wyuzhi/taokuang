@@ -1,5 +1,6 @@
 package com.flying.taokuang;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Fragement.PersonalEvaluationFragment;
@@ -22,17 +24,29 @@ import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 
-public class PersonalActivity extends AppCompatActivity {
+
+public class UserPageActivity extends AppCompatActivity {
+
+    private static final String GO_USER_PAGE_TAG = "go_person_page";
     private AsyncImageView icon;
     private CollapsingToolbarLayout collapsingToolbar;
 
-    public String fabuID;
-    public String goumaiID;
+    public String mUserID;
     private TabLayout mTabLaout;
     private ViewPager mViewPager;
 
-    public String getFabuID() {
-        return fabuID;
+
+    public static void go(Context context, String id) {
+        if (context == null || TextUtils.isEmpty(id)) {
+            return;
+        }
+        Intent intent = new Intent(context, UserPageActivity.class);
+        intent.putExtra(GO_USER_PAGE_TAG, id);
+        context.startActivity(intent);
+    }
+
+    public String getUserID() {
+        return mUserID;
     }
 
 
@@ -44,15 +58,17 @@ public class PersonalActivity extends AppCompatActivity {
         collapsingToolbar.setCollapsedTitleTypeface(Typeface.DEFAULT_BOLD);
         //从DetailActivity获得数据
         Intent intent = getIntent();
-        fabuID = intent.getStringExtra("发布");
-        goumaiID = intent.getStringExtra("购买");
+        mUserID = intent.getStringExtra(GO_USER_PAGE_TAG);
+        if (TextUtils.isEmpty(mUserID)) {
+            finish();
+        }
         initView();
         loadData();
     }
 
     private void loadData() {
         BmobQuery<User> bmobQuery = new BmobQuery<>();
-        bmobQuery.getObject(fabuID, new QueryListener<User>() {
+        bmobQuery.getObject(mUserID, new QueryListener<User>() {
             @Override
             public void done(User user, BmobException e) {
                 if (e == null) {

@@ -75,7 +75,7 @@ public class CommentActivity extends AppCompatActivity {
 
     }
 
-    /*当我不存在
+    /*当我不存在,原本是想把评论弄为弹窗的
     点击交易成功的按钮
      btn_show.setOnClickListener(new View.OnClickListener() {
             @Override

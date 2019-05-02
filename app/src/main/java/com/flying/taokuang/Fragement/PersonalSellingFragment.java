@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.flying.baselib.utils.app.LogUtils;
 import com.flying.taokuang.Adapter.PersonalSellingRecyclerviewAdapter;
-import com.flying.taokuang.PersonalActivity;
+import com.flying.taokuang.UserPageActivity;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
@@ -38,7 +38,7 @@ public class PersonalSellingFragment extends BaseFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        fabuID = ((PersonalActivity) activity).getFabuID();
+        fabuID = ((UserPageActivity) activity).getUserID();
     }
 
 
