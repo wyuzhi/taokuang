@@ -76,7 +76,6 @@ public class WoFragment extends TakePhotoFragment {
         mIvBottomLogo = v.findViewById(R.id.iv_fs_logo);
         mIvBottomLogo.setOnLongClickListener(new View.OnLongClickListener() {
             private int i = 0;
-
             @Override
             public boolean onLongClick(View v) {
                 i++;

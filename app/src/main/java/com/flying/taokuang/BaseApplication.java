@@ -7,8 +7,8 @@ import android.support.multidex.MultiDexApplication;
 import com.facebook.drawee.backends.pipeline.DraweeConfig;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
-import com.flying.baselib.utils.app.AppUtils;
 import com.flying.baselib.utils.ui.ToastUtils;
+import com.flying.baselib.utils.app.DebugSpUtils;
 import com.pgyersdk.crash.PgyCrashManager;
 import com.tendcloud.tenddata.TCAgent;
 
@@ -37,7 +37,7 @@ public class BaseApplication extends MultiDexApplication {
                 .setResizeAndRotateEnabledForNetwork(true)
                 .setDownsampleEnabled(true);
         DraweeConfig draweeConfig = DraweeConfig.newBuilder()
-                .setDrawDebugOverlay(AppUtils.sIsDebug)
+                .setDrawDebugOverlay(DebugSpUtils.isImageEnable())
                 .build();
         Fresco.initialize(this, imagePipelineConfigBuilder.build(), draweeConfig);
         initDokit();
@@ -49,7 +49,7 @@ public class BaseApplication extends MultiDexApplication {
 
     private void initDokit() {
         //DoKit工具,只在debug版本使用
-        if (AppUtils.sIsDebug) {
+        if (DebugSpUtils.isDokitEnable()) {
             try {
                 Class<?> dokit = Class.forName("com.didichuxing.doraemonkit.DoraemonKit");
                 Method install = dokit.getDeclaredMethod("install", Application.class);

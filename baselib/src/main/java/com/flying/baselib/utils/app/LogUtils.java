@@ -3,7 +3,7 @@ package com.flying.baselib.utils.app;
 import android.util.Log;
 
 public class LogUtils {
-    private static boolean sIsDebug = AppUtils.sIsDebug;
+    private static boolean sIsDebug = DebugSpUtils.isLogEnable();
     private static final String sDebugTag = "FlyingAppLog";
 
     public static void i(String msg) {
