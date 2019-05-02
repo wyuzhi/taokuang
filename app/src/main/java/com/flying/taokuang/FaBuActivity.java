@@ -288,8 +288,8 @@ public class FaBuActivity extends TakePhotoActivity implements View.OnClickListe
 
     private void chooseImagesFromGallery() {
         TakePhoto takePhoto = getTakePhoto();
-        CompressConfig config = new CompressConfig.Builder().setMaxSize(120 * 1024)
-                .setMaxPixel(800)
+        CompressConfig config = new CompressConfig.Builder().setMaxSize(250 * 1024)
+                .setMaxPixel(1500)
                 .enableReserveRaw(false)
                 .create();
         takePhoto.onEnableCompress(config, true);
