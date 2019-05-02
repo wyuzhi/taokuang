@@ -32,16 +32,16 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/item_bt"
-            android:lines="1"
+            android:id="@+id/item_title"
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            android:layout_height="30dp"
+            android:lines="1" />
 
         <TextView
-            android:id="@+id/item_jg"
-            android:textSize="15dp"
+            android:id="@+id/item_price"
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            android:layout_height="30dp"
+            android:textSize="15dp" />
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="266dp">
+    android:layout_height="wrap_content">
 
     <com.flying.taokuang.ui.AsyncImageView
         android:id="@+id/item_fm"
         android:layout_width="match_parent"
         android:layout_height="210dp"
+        android:layout_marginLeft="@dimen/home_item_horizontal_margin"
+        android:layout_marginTop="@dimen/home_item_vertical_margin"
+        android:layout_marginRight="@dimen/home_item_horizontal_margin"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -17,74 +19,86 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="88dp"
+        android:layout_marginLeft="@dimen/home_item_horizontal_margin"
+        android:layout_marginTop="@dimen/home_item_vertical_margin"
+        android:layout_marginRight="@dimen/home_item_horizontal_margin"
         android:src="@drawable/feed_item_title_bg"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/item_collect"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="@dimen/home_item_vertical_margin"
+        android:layout_marginRight="@dimen/home_item_horizontal_margin"
+        android:padding="10dp"
+        android:src="@mipmap/ic_home_item_collect_unset"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
-        android:id="@+id/item_bt"
-        android:layout_width="match_parent"
+        android:id="@+id/item_title"
+        android:layout_width="wrap_content"
         android:layout_height="25dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginLeft="@dimen/home_item_horizontal_margin"
+        android:layout_marginTop="@dimen/home_item_vertical_margin"
+        android:layout_marginRight="@dimen/home_item_horizontal_margin"
         android:ellipsize="end"
         android:gravity="center_vertical"
-        android:lines="2"
-        android:textColor="#ffffff"
+        android:maxWidth="150dp"
+        android:singleLine="true"
+        android:textColor="#535353"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_fm"
+        tools:text="@string/app_name" />
+
+    <TextView
+        android:id="@+id/feed_item_goods_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/home_item_horizontal_margin"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="@dimen/home_item_horizontal_margin"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxWidth="180dp"
+        android:singleLine="true"
+        android:textColor="#959595"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_title"
+        tools:text="@string/app_name" />
+
+    <TextView
+        android:id="@+id/item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/home_item_vertical_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:gravity="center_vertical"
+        android:textColor="@color/commonColorOrange"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_fm"
         tools:text="@string/app_name" />
 
-
-    <com.flying.taokuang.ui.AsyncImageView
-        android:id="@+id/feed_item_avatar"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_fm"
-        app:roundAsCircle="true" />
-
     <TextView
-        android:id="@+id/feed_item_user_name"
+        android:id="@+id/item_goods_owner"
         android:layout_width="wrap_content"
-        android:layout_height="26dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:ellipsize="end"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:gravity="center_vertical"
-        android:maxWidth="130dp"
         android:singleLine="true"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toRightOf="@+id/feed_item_avatar"
-        app:layout_constraintTop_toBottomOf="@+id/item_fm"
-        tools:text="@string/app_name" />
-
-    <TextView
-        android:id="@+id/item_jg"
-        android:layout_width="wrap_content"
-        android:layout_height="26dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginBottom="15dp"
-        android:gravity="center_vertical"
-        android:textColor="@android:color/holo_red_light"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:textColor="#959595"
+        android:textSize="12sp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_fm"
+        app:layout_constraintTop_toBottomOf="@+id/item_price"
         tools:text="@string/app_name" />
 
 </android.support.constraint.ConstraintLayout>

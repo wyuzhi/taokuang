@@ -1,1 +1,5 @@
-<resources />
+<resources>
+
+    <dimen name="home_item_horizontal_margin">20dp</dimen>/>
+    <dimen name="home_item_vertical_margin">10dp</dimen>/>
+</resources>

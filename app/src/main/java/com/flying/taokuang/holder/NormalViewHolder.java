@@ -30,8 +30,8 @@ public class NormalViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         mContext = itemView.getContext();
         mIvCoverImage = itemView.findViewById(R.id.item_fm);
-        mTvTitle = itemView.findViewById(R.id.item_bt);
-        mTvPrice = itemView.findViewById(R.id.item_jg);
+        mTvTitle = itemView.findViewById(R.id.item_title);
+        mTvPrice = itemView.findViewById(R.id.item_price);
     }
 
 

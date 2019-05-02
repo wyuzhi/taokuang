@@ -63,8 +63,8 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.item_bt);
-            price = itemView.findViewById(R.id.item_jg);
+            title = itemView.findViewById(R.id.item_title);
+            price = itemView.findViewById(R.id.item_price);
             image = itemView.findViewById(R.id.item_fm);
         }
     }

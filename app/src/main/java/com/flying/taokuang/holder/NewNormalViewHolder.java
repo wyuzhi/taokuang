@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.flying.baselib.utils.ui.UiUtils;
@@ -18,25 +19,26 @@ import com.flying.taokuang.ui.AsyncImageView;
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobFile;
 
 public class NewNormalViewHolder extends RecyclerView.ViewHolder {
 
     private Context mContext;
     private AsyncImageView mIvCoverImage;
-    private AsyncImageView mIvUserAvatar;
     private TextView mTvTitle;
     private TextView mTvPrice;
     private TextView mTvUserName;
+    private TextView mTvContent;
+    private ImageView mIvCollect;
 
     public NewNormalViewHolder(@NonNull View itemView) {
         super(itemView);
         mContext = itemView.getContext();
         mIvCoverImage = itemView.findViewById(R.id.item_fm);
-        mTvTitle = itemView.findViewById(R.id.item_bt);
-        mTvPrice = itemView.findViewById(R.id.item_jg);
-        mTvUserName = itemView.findViewById(R.id.feed_item_user_name);
-        mIvUserAvatar = itemView.findViewById(R.id.feed_item_avatar);
+        mTvTitle = itemView.findViewById(R.id.item_title);
+        mTvPrice = itemView.findViewById(R.id.item_price);
+        mTvUserName = itemView.findViewById(R.id.item_goods_owner);
+        mTvContent = itemView.findViewById(R.id.feed_item_goods_content);
+        mIvCollect = itemView.findViewById(R.id.item_collect);
     }
 
 
@@ -47,32 +49,13 @@ public class NewNormalViewHolder extends RecyclerView.ViewHolder {
         String title = taoItem.getBiaoti();
         String price = taoItem.getJiage();
         String nickname = taoItem.getFabu().getNicheng();
-        BmobFile avatar = taoItem.getFabu().getIcon();
+        String content = taoItem.getMiaoshu();
         List<String> pic = taoItem.getPic();
 
-        mIvCoverImage.setUrl(pic.get(0), (int) UiUtils.dp2px(200), (int) UiUtils.dp2px(120));
+        mIvCoverImage.setUrl(pic.get(0), UiUtils.dp2px(200), UiUtils.dp2px(120));
+        mIvCoverImage.setRoundingRadius(UiUtils.dp2px(4));
         mTvUserName.setText(nickname);
-        if (avatar != null) {
-            mIvUserAvatar.setUrl(taoItem.getFabu().getIcon().getUrl(), (int) UiUtils.dp2px(36), (int) UiUtils.dp2px(36));
-        } else {
-            mIvUserAvatar.setImageResource(R.drawable.ic_default_avatar);
-        }
-        UiUtils.setOnTouchBackground(mIvUserAvatar);
-        UiUtils.setOnTouchBackground(mTvUserName);
-        UiUtils.expandClickRegion(mIvUserAvatar, (int) UiUtils.dp2px(5));
-        UiUtils.expandClickRegion(mTvUserName, (int) UiUtils.dp2px(5));
-        mIvUserAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UserPageActivity.go(mContext, taoItem.getFabu().getObjectId());
-            }
-        });
-        mTvUserName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UserPageActivity.go(mContext, taoItem.getFabu().getObjectId());
-            }
-        });
+        mTvContent.setText(content);
         mTvTitle.setText(title);
         mTvPrice.setText("￥" + price);
         itemView.setOnClickListener
@@ -114,7 +97,12 @@ public class NewNormalViewHolder extends RecyclerView.ViewHolder {
                      }
                  }
                 );
-
+        mIvCollect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIvCollect.setImageResource(R.mipmap.ic_home_item_collect_set);
+            }
+        });
     }
 
 }
