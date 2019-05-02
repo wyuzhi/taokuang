@@ -33,8 +33,9 @@
     </style>
     <!--popupwindow-->
 
-    <style name="AppTheme.NoActionBar.Fullscreen" parent="AppTheme.NoActionBar">
+    <style name="Theme.SplashActivity" parent="AppTheme.NoActionBar">
         <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@mipmap/img_splash_fullscreen</item>
     </style>
 
 

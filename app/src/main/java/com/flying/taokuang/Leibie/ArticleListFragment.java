@@ -58,6 +58,7 @@ public class ArticleListFragment extends Fragment implements PullLoadMoreRecycle
         mRecyclerView = mPullLoadMoreRecyclerView.getRecyclerView();
         mRecyclerView.setVerticalScrollBarEnabled(true);
         mPullLoadMoreRecyclerView.setRefreshing(true);
+        mPullLoadMoreRecyclerView.setColorSchemeResources(R.color.commonColorYellow, R.color.commonColorOrange, R.color.commonColorBlue);
         mPullLoadMoreRecyclerView.setFooterViewText("加载中...");
         mPullLoadMoreRecyclerView.setLinearLayout();
 

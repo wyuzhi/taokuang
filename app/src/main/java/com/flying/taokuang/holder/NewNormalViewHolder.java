@@ -8,14 +8,18 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.flying.baselib.utils.collection.CollectionUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.DetailActivity;
-import com.flying.taokuang.UserPageActivity;
 import com.flying.taokuang.R;
+import com.flying.taokuang.entity.CollectionBean;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
 import com.flying.taokuang.ui.AsyncImageView;
 
+import org.litepal.LitePal;
+
+import java.util.Date;
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
@@ -97,10 +101,29 @@ public class NewNormalViewHolder extends RecyclerView.ViewHolder {
                      }
                  }
                 );
+        List<CollectionBean> collections = LitePal.where("good = ?", taoItem.getObjectId()).find(CollectionBean.class);
+        if (CollectionUtils.isEmpty(collections)) {
+            mIvCollect.setImageResource(R.mipmap.ic_home_item_collect_unset);
+        } else {
+            mIvCollect.setImageResource(R.mipmap.ic_home_item_collect_set);
+        }
         mIvCollect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mIvCollect.setImageResource(R.mipmap.ic_home_item_collect_set);
+                List<CollectionBean> collections = LitePal.where("good = ?", taoItem.getObjectId()).find(CollectionBean.class);
+                if (!CollectionUtils.isEmpty(collections)) {
+                    LitePal.deleteAll(CollectionBean.class, "good = ?", taoItem.getObjectId());
+                    mIvCollect.setImageResource(R.mipmap.ic_home_item_collect_unset);
+                } else {
+                    CollectionBean collectionBean = new CollectionBean();
+                    collectionBean.setCreateTime(new Date());
+                    collectionBean.setGood(taoItem.getObjectId());
+                    collectionBean.setPrice(taoItem.getJiage());
+                    collectionBean.setTitle(taoItem.getBiaoti());
+                    collectionBean.setImage(taoItem.getPic().get(0));
+                    collectionBean.save();
+                    mIvCollect.setImageResource(R.mipmap.ic_home_item_collect_set);
+                }
             }
         });
     }

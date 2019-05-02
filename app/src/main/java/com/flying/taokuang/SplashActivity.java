@@ -10,7 +10,6 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
         MainThread.postDelayed(new Runnable() {
             public void run() {
                 Intent intent = new Intent(SplashActivity.this, MainActivity.class);
