@@ -9,7 +9,6 @@
     tools:context=".My.MySellingActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/wo_fb_toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#112d4e"

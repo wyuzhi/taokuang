@@ -30,6 +30,7 @@ public class MyChangePasswordActivity extends Activity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setBackgroundDrawableResource(R.mipmap.bg_change_password);
         setContentView(R.layout.activity_password);
         initView();
     }

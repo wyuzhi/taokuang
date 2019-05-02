@@ -30,6 +30,7 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setBackgroundDrawableResource(R.mipmap.bg_sign_up);
         setContentView(R.layout.activity_signup);
         initView();
     }
