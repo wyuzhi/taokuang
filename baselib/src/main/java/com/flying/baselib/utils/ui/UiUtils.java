@@ -22,12 +22,12 @@ public final class UiUtils {
         throw new AssertionError("No instances.");
     }
 
-    public static float dp2px(float dp) {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, ApplicationUtils.getApplication().getResources().getDisplayMetrics());
+    public static int dp2px(float dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, ApplicationUtils.getApplication().getResources().getDisplayMetrics());
     }
 
     public static float sp2px(float px) {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, px, ApplicationUtils.getApplication().getResources().getDisplayMetrics());
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, px, ApplicationUtils.getApplication().getResources().getDisplayMetrics());
     }
 
     public static int px2dp(float px) {

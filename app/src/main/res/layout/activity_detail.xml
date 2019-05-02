@@ -57,8 +57,11 @@
                     android:id="@+id/detail_nc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="13dp"
-                    android:text="没那么简单" />
+                    android:layout_margin="10dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:text="没那么简单" />
 
                 <LinearLayout
                     android:id="@+id/detal_gmxx"
@@ -85,7 +88,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
-                            android:text="没那么简单" />
+                            tools:text="没那么简单" />
 
                         <TextView
                             android:id="@+id/detail_gmdh"
@@ -149,7 +152,9 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/detail_recycler"

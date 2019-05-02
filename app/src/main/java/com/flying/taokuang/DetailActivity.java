@@ -49,6 +49,8 @@ public class DetailActivity extends AppCompatActivity {
     private String btd;
     private String[] lists;
     private ImageView mIvBack;
+    private TextView mTvUserNickName;
+    private AsyncImageView mIvUserAvatar;
     String fabuID;
     String goumaiID;
     String gmcg;
@@ -62,6 +64,7 @@ public class DetailActivity extends AppCompatActivity {
     String icon;
     String id;
     List<String> list = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,28 +73,16 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         id = intent.getStringExtra("ID");
         btd = intent.getStringExtra("标题");
-        if (TextUtils.isEmpty(btd)){
+        if (TextUtils.isEmpty(btd)) {
             BmobQuery<TaoKuang> bmobQuery = new BmobQuery<TaoKuang>();
             bmobQuery.getObject(id, new QueryListener<TaoKuang>() {
                 @Override
                 public void done(TaoKuang taoKuang, BmobException e) {
 
-//                    String a = taoKuang.getFabu().getObjectId();
-//                    String b = BmobUser.getCurrentUser(User.class).getObjectId();
-//                    if (a.equals(b) && taoKuang.getGoumai() != null) {
-//                        gzid = taoKuang.getGezi();
-//                        dh = taoKuang.getFabu().getPhone();
-//                        nc = taoKuang.getFabu().getNicheng();
-//                    }
                     if (taoKuang.getFabu().getIcon() != null) {
-                         icon = taoKuang.getFabu().getIcon().getFileUrl();
+                        icon = taoKuang.getFabu().getIcon().getFileUrl();
                     }
-//                    if (taoKuang.getGoumai() != null) {
-//                        goumaiID = taoKuang.getGoumai().getObjectId();
-//                        icon =  taoKuang.getFabu().getIcon().getFileUrl();
-//                    }
                     fabuID = taoKuang.getFabu().getObjectId();
-//                    gmcg = taoKuang.getGoumai()  == null ? null:"成功";
                     gzid = taoKuang.getGezi();
                     ncd = taoKuang.getFabu().getNicheng();
                     jgd = taoKuang.getJiage();
@@ -105,7 +96,7 @@ public class DetailActivity extends AppCompatActivity {
 
                 }
             });
-        }else {
+        } else {
             fabuID = intent.getStringExtra("发布");
             LogUtils.d("Detail", fabuID);
             goumaiID = intent.getStringExtra("购买");
@@ -126,10 +117,6 @@ public class DetailActivity extends AppCompatActivity {
         }
 
 
-
-
-
-
     }
 
     @Override
@@ -143,6 +130,7 @@ public class DetailActivity extends AppCompatActivity {
         super.onResume();
         TCAgent.onPageStart(this, "商品详情页");
     }
+
     private void initView() {
         Button dgm = findViewById(R.id.detail_gm);
         dgm.setOnClickListener(new View.OnClickListener() {
@@ -232,7 +220,7 @@ public class DetailActivity extends AppCompatActivity {
 
             }
         });
-        mIvBack= findViewById(R.id.img_return);
+        mIvBack = findViewById(R.id.img_return);
         mIvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -249,25 +237,24 @@ public class DetailActivity extends AppCompatActivity {
         TextView dbt = findViewById(R.id.detail_bt);
         TextView dms = findViewById(R.id.detail_ms);
         TextView dwz = findViewById(R.id.detail_wz);
-        TextView dnc = findViewById(R.id.detail_nc);
-        AsyncImageView dicon = findViewById(R.id.detail_tx);
-        dicon.setOnClickListener(new View.OnClickListener() {
+        mTvUserNickName = findViewById(R.id.detail_nc);
+        mIvUserAvatar = findViewById(R.id.detail_tx);
+        mIvUserAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Personal = new Intent(DetailActivity.this, UserPageActivity.class);
-                Personal.putExtra("发布", fabuID);
-                startActivity(Personal);
-
+                UserPageActivity.go(DetailActivity.this, fabuID);
+            }
+        });
+        mTvUserNickName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserPageActivity.go(DetailActivity.this, fabuID);
             }
         });
         RecyclerView imgrec = findViewById(R.id.detail_recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-//        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         imgrec.setNestedScrollingEnabled(false);
         imgrec.setLayoutManager(layoutManager);
-        /*final ImageView di1 = findViewById(R.id.detail_im1);
-        final ImageView di2 = findViewById(R.id.detail_im2);
-        final ImageView di3 = findViewById(R.id.detail_im3);*/
         LinearLayout linearLayout = findViewById(R.id.detal_gmxx);
         Button gmqr = findViewById(R.id.gm_qr);
 
@@ -345,15 +332,15 @@ public class DetailActivity extends AppCompatActivity {
         });
 
 
-
-
         dgmdh.setText(dh);
         dgmnc.setText(nc);
         String b = BmobUser.getCurrentUser(User.class).getObjectId();
         if (gzid != null) {
             linearLayout.setVisibility(View.VISIBLE);
         }
-        dnc.setText(ncd);
+        mTvUserNickName.setText(ncd);
+        UiUtils.expandClickRegion(mTvUserNickName, UiUtils.dp2px(5));
+        UiUtils.setOnTouchBackground(mTvUserNickName);
         djg.setText("￥" + jgd);
         djg.setTextColor(Color.RED);
         dbt.setText(btd);
@@ -378,9 +365,11 @@ public class DetailActivity extends AppCompatActivity {
 
         DetailAdapter adapter = new DetailAdapter(this, list);
         imgrec.setAdapter(adapter);
-        dicon.setUrl(icon, (int) UiUtils.dp2px(50), (int) UiUtils.dp2px(50));
-        dicon.setPlaceholderImage(R.drawable.ic_default_avatar);
-        dicon.setRoundAsCircle();
+        mIvUserAvatar.setUrl(icon, (int) UiUtils.dp2px(50), (int) UiUtils.dp2px(50));
+        mIvUserAvatar.setPlaceholderImage(R.drawable.ic_default_avatar);
+        mIvUserAvatar.setRoundAsCircle();
+        UiUtils.setOnTouchBackground(mIvUserAvatar);
+        UiUtils.expandClickRegion(mIvUserAvatar, (int) UiUtils.dp2px(5));
 
 
         Button gzx = findViewById(R.id.detail_gz);
@@ -520,11 +509,11 @@ public class DetailActivity extends AppCompatActivity {
 
     private void judgeCollection0(final String id) {
         List<CollectionBean> collections = LitePal.where("good = ?", id).find(CollectionBean.class);
-        if (collections.size() > 0){
+        if (collections.size() > 0) {
             showToast("取消成功");
-            LitePal.deleteAll(CollectionBean.class, "good = ?" , id);
+            LitePal.deleteAll(CollectionBean.class, "good = ?", id);
             dcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_collection_no));
-        }else {
+        } else {
             CollectionBean collectionBean = new CollectionBean();
             collectionBean.setCreateTime(new Date());
             collectionBean.setGood(id);
@@ -541,7 +530,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private void judgeCollection(String id) {
         List<CollectionBean> collections = LitePal.where("good = ?", id).find(CollectionBean.class);
-        if (collections.size() > 0){
+        if (collections.size() > 0) {
             dcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_collection));
         }
     }
