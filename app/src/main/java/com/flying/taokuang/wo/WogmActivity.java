@@ -13,7 +13,7 @@ import android.widget.ImageView;
 
 import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.ui.UiUtils;
-import com.flying.taokuang.Adapter.HomeRecyclerViewAdapter;
+import com.flying.taokuang.Adapter.PersonalSellingRecyclerviewAdapter;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
@@ -27,8 +27,7 @@ import cn.bmob.v3.listener.FindListener;
 
 public class WogmActivity extends Activity {
     private RecyclerView gRecyclerView;
-    private HomeRecyclerViewAdapter gAdapter;
-    private LinearLayoutManager glayoutManager;
+    private PersonalSellingRecyclerviewAdapter gAdapter;
     private ImageView mIvBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +49,6 @@ public class WogmActivity extends Activity {
         Toolbar toolbar = findViewById(R.id.wo_gm_toolbar);
         //toolbar.setTitle("我购买的");
         gRecyclerView = findViewById(R.id.recycler_wo_gm);
-        glayoutManager = new LinearLayoutManager(this);
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         gRecyclerView.setLayoutManager(layoutManager);
         loadData();
@@ -69,7 +67,7 @@ public class WogmActivity extends Activity {
                 @Override
                 public void done(List<TaoKuang> object, BmobException e) {
                     if (e == null) {
-                        gAdapter = new HomeRecyclerViewAdapter(WogmActivity.this, object);
+                        gAdapter = new PersonalSellingRecyclerviewAdapter(WogmActivity.this, object);
                         gRecyclerView.setAdapter(gAdapter);
                         //Snackbar.make(gRecyclerView, "查询成功", Snackbar.LENGTH_LONG).show();
                     } else {

@@ -12,7 +12,7 @@ import android.widget.ImageView;
 
 import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.ui.UiUtils;
-import com.flying.taokuang.Adapter.HomeRecyclerViewAdapter;
+import com.flying.taokuang.Adapter.PersonalSellingRecyclerviewAdapter;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
@@ -26,8 +26,7 @@ import cn.bmob.v3.listener.FindListener;
 
 public class WomcActivity extends Activity {
     private RecyclerView mRecyclerView;
-    private HomeRecyclerViewAdapter mAdapter;
-    private LinearLayoutManager mlayoutManager;
+    private PersonalSellingRecyclerviewAdapter mAdapter;
     private ImageView mIvBack;
 
     @Override
@@ -39,7 +38,7 @@ public class WomcActivity extends Activity {
     }
 
     private void initView() {
-        mIvBack=findViewById(R.id.img_return);
+        mIvBack = findViewById(R.id.img_return);
         mIvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,7 +47,6 @@ public class WomcActivity extends Activity {
         });
         UiUtils.setOnTouchBackground(mIvBack);
         mRecyclerView = findViewById(R.id.recycler_wo_mc);
-        mlayoutManager = new LinearLayoutManager(this);
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
         loadData();
@@ -60,7 +58,7 @@ public class WomcActivity extends Activity {
 
             query.addWhereExists("goumai");
             query.addWhereEqualTo("fabu", BmobUser.getCurrentUser(User.class));
-            query.addWhereEqualTo("jiaoyi", false );
+            query.addWhereEqualTo("jiaoyi", false);
             query.order("-updatedAt");
             //包含作者信息
 
@@ -71,7 +69,7 @@ public class WomcActivity extends Activity {
                 public void done(List<TaoKuang> object, BmobException e) {
                     if (e == null) {
                         //Log.d("哈", object.get(0).getGoumai().getNicheng());
-                        mAdapter = new HomeRecyclerViewAdapter(WomcActivity.this, object);
+                        mAdapter = new PersonalSellingRecyclerviewAdapter(WomcActivity.this, object);
                         mRecyclerView.setAdapter(mAdapter);
                         //Snackbar.make(mRecyclerView, "查询成功", Snackbar.LENGTH_LONG).show();
                     } else {
