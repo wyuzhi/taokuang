@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 
 public final class NetworkUtils {
 
@@ -68,5 +69,21 @@ public final class NetworkUtils {
             }
         }
         return type;
+    }
+
+    /**
+     * 判断string是否为http链接
+     *
+     * @param string
+     * @return
+     */
+    public static boolean isHttpUrl(String string) {
+        if (TextUtils.isEmpty(string)) {
+            return false;
+        }
+        if (string.startsWith("http") || string.startsWith("https")) {
+            return true;
+        }
+        return false;
     }
 }

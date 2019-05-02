@@ -25,7 +25,6 @@ import com.flying.taokuang.R;
 import com.flying.taokuang.RengzActivity;
 import com.flying.taokuang.debug.DebugActivity;
 import com.flying.taokuang.entity.User;
-import com.flying.taokuang.tool.BaseFragment;
 import com.flying.taokuang.ui.AsyncImageView;
 import com.flying.taokuang.wo.AboutActivity;
 import com.flying.taokuang.wo.MySellingActivity;
@@ -34,6 +33,7 @@ import com.flying.taokuang.wo.WomcActivity;
 import com.flying.taokuang.wo.WoscActivity;
 import com.flying.taokuang.wo.WozlActivity;
 import com.jph.takephoto.app.TakePhoto;
+import com.jph.takephoto.app.TakePhotoFragment;
 import com.jph.takephoto.compress.CompressConfig;
 import com.jph.takephoto.model.CropOptions;
 import com.jph.takephoto.model.TResult;
@@ -47,7 +47,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
-public class WoFragment extends BaseFragment {
+public class WoFragment extends TakePhotoFragment {
     private static final int SHOW_DEBUG_ACTIVITY_NUMS = 2;
     private AsyncImageView woicon;
     private View wofb;

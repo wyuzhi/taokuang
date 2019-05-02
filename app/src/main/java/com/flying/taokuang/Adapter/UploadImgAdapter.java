@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.flying.baselib.utils.app.LogUtils;
+import com.flying.baselib.utils.device.NetworkUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.R;
 import com.flying.taokuang.ui.AsyncImageView;
@@ -83,36 +84,11 @@ public class UploadImgAdapter extends RecyclerView.Adapter<UploadImgAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
         final int p = mList.size();
         if (doit) {
-            if (mList.get(position).startsWith("http") || mList.get(position).startsWith("https")) {
+            if (NetworkUtils.isHttpUrl(mList.get(position))) {
                 remote.add(mList.get(position));
             } else {
-                //压缩图片
-                Luban.with(mContext)
-                        .load(mList.get(position))
-                        //.ignoreBy(100)
-                        //.setTargetDir(file_pathss)
-                        .filter(new CompressionPredicate() {
-                            @Override
-                            public boolean apply(String path) {
-                                return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
-                            }
-                        })
-                        .setCompressListener(new OnCompressListener() {
-                            @Override
-                            public void onStart() {
-                            }
-
-                            @Override
-                            public void onSuccess(File file) {
-                                zList.add(file.getPath());
-                                local.add(file.getPath());
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-                        }).launch();
+                zList.add(mList.get(position));
+                local.add(mList.get(position));
             }
             doitp++;
             if (doitp == p) {
@@ -120,7 +96,7 @@ public class UploadImgAdapter extends RecyclerView.Adapter<UploadImgAdapter.View
             }
         }
         LogUtils.d("IMAGE_URL", "onBindViewHolder: " + mList.get(position));
-        if (mList.get(position).startsWith("http") || mList.get(position).startsWith("https")) {
+        if (NetworkUtils.isHttpUrl(mList.get(position))) {
             viewHolder.img.setUrl(mList.get(position), (int) UiUtils.dp2px(64), (int) UiUtils.dp2px(64));
         } else {
             viewHolder.img.setUrl(Uri.fromFile(new File(mList.get(position))).toString(), (int) UiUtils.dp2px(64), (int) UiUtils.dp2px(64));
@@ -128,7 +104,7 @@ public class UploadImgAdapter extends RecyclerView.Adapter<UploadImgAdapter.View
         viewHolder.del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mList.get(position).startsWith("http") || mList.get(position).startsWith("https")) {
+                if (NetworkUtils.isHttpUrl(mList.get(position))) {
                     remote.remove(position);
                     mList.remove(position);
                     notifyItemRemoved(position);
@@ -143,16 +119,12 @@ public class UploadImgAdapter extends RecyclerView.Adapter<UploadImgAdapter.View
 
                 }
                 notifyDataSetChanged();
-
-//回调接口
-
-//                notifyDataSetChanged();
             }
         });
         viewHolder.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mList.get(position).startsWith("http") || mList.get(position).startsWith("https")) {
+                if (NetworkUtils.isHttpUrl(mList.get(position))) {
                     m1.o(mList.get(position), position);
 
                 } else {

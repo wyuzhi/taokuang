@@ -39,7 +39,6 @@ dependencies {
     implementation 'top.zibin:Luban:1.1.8'
     implementation 'com.lovedise:permissiongen:0.0.6'
     implementation 'com.github.f0ris.sweetalert:library:1.5.1'
-    implementation 'com.zhihu.android:matisse:0.5.2-beta2'
     implementation 'com.jph.takephoto:takephoto_library:4.0.3'
     implementation 'cn.bmob.android:bmob-sdk:3.6.8-rc4'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.2'

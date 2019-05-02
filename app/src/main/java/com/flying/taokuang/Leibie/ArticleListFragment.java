@@ -3,6 +3,7 @@ package com.flying.taokuang.Leibie;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -15,7 +16,6 @@ import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.taokuang.Adapter.HomeRecyclerViewAdapter;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
-import com.flying.taokuang.tool.BaseFragment;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import java.util.List;
@@ -24,7 +24,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
-public class ArticleListFragment extends BaseFragment implements PullLoadMoreRecyclerView.PullLoadMoreListener {
+public class ArticleListFragment extends Fragment implements PullLoadMoreRecyclerView.PullLoadMoreListener {
     private static final int MAX_NUM_PER_PAGE = 5;
     private static final String ARTICLE_LIST_TYPE = "list_type";
 

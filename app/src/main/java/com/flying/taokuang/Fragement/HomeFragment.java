@@ -14,9 +14,8 @@ import android.view.ViewGroup;
 
 import com.flying.taokuang.Leibie.ArticleListFragment;
 import com.flying.taokuang.R;
-import com.flying.taokuang.tool.BaseFragment;
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends Fragment {
 
     private TabLayout mTabLaout;
     private ViewPager mViewPager;

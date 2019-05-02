@@ -1,8 +1,8 @@
 package com.flying.taokuang;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,19 +15,24 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.flying.baselib.utils.app.ApplicationUtils;
 import com.flying.baselib.utils.app.LogUtils;
+import com.flying.baselib.utils.collection.CollectionUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.UploadImgAdapter;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
-import com.zhihu.matisse.Matisse;
-import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.engine.impl.GlideEngine;
-import com.zhihu.matisse.internal.entity.CaptureStrategy;
+import com.flying.taokuang.ui.AsyncImageView;
+import com.jph.takephoto.app.TakePhoto;
+import com.jph.takephoto.app.TakePhotoActivity;
+import com.jph.takephoto.compress.CompressConfig;
+import com.jph.takephoto.model.CropOptions;
+import com.jph.takephoto.model.TImage;
+import com.jph.takephoto.model.TResult;
+import com.jph.takephoto.model.TakePhotoOptions;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
@@ -39,7 +44,7 @@ import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadBatchListener;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class EditActivity extends Activity implements View.OnClickListener {
+public class EditActivity extends TakePhotoActivity implements View.OnClickListener {
     private static final int MIN_CLICK_DELAY_TIME = 10000;
     private static long lastClickTime;
 
@@ -60,7 +65,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
     private EditText jiage;
     private EditText lianxi;
     private ImageView im1;
-    private ImageView im2;
+    private AsyncImageView im2;
     private ImageView mIvBack;
     private Button fabu;
     private Spinner leibie;
@@ -166,7 +171,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.im_1:
-                Choose();
+                chooseImagesFromGallery();
                 break;
             case R.id.fabu:
 
@@ -342,43 +347,47 @@ public class EditActivity extends Activity implements View.OnClickListener {
     }
 
 
-    public void Choose() {
-        Matisse.from(EditActivity.this)
-                .choose(MimeType.ofImage())
-                .capture(true)  //是否可以拍照
-                .captureStrategy(//参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
-                        new CaptureStrategy(true, "com.example.com.flying.taokuang.fileprovider"))
-                .countable(true)
-                .maxSelectable(3)
-                .imageEngine(new GlideEngine())
-                .forResult(REQUEST_CODE_CHOOSE);
+    private void chooseImagesFromGallery() {
+        TakePhoto takePhoto = getTakePhoto();
+        CompressConfig config = new CompressConfig.Builder().setMaxSize(120 * 1024)
+                .setMaxPixel(800)
+                .enableReserveRaw(false)
+                .create();
+        takePhoto.onEnableCompress(config, true);
+
+        TakePhotoOptions.Builder builder = new TakePhotoOptions.Builder();
+        builder.setWithOwnGallery(true);
+        builder.setCorrectImage(true);
+        takePhoto.setTakePhotoOptions(builder.create());
+
+        CropOptions cropOptions = new CropOptions.Builder().setAspectX(4).setAspectY(3).setWithOwnCrop(true).create();
+        takePhoto.onPickMultipleWithCrop(4, cropOptions);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
-            String[] pathsx = Matisse.obtainPathResult(data).toArray(new String[0]);
-            /*imglist = Arrays.asList(pathsx);
-            List arrayList = new ArrayList(imglist);*/
+    public void takeSuccess(TResult result) {
+        super.takeSuccess(result);
+        if (result == null || CollectionUtils.isEmpty(result.getImages())) {
+            return;
+        }
 
-            iList.addAll(Arrays.asList(pathsx));
-            iAdapter = new UploadImgAdapter(this, iList);
-            iAdapter.setOnItemClickListener(new UploadImgAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(File file, int position) {
-                    im2.setVisibility(View.VISIBLE);
-                    Glide.with(EditActivity.this).load(file).into(im2);
-                }
-
-
-            });
-            iRecyclerView.setAdapter(iAdapter);
-            s = 4 - (iAdapter.mList.size());
-            if (s <= 0) {
-                im1.setVisibility(View.INVISIBLE);
+        for (TImage image : result.getImages()) {
+            iList.add(image.getCompressPath());
+        }
+        iAdapter = new UploadImgAdapter(this, iList);
+        iAdapter.setOnItemClickListener(new UploadImgAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(File file, int position) {
+                im2.setVisibility(View.VISIBLE);
+                im2.setUrl(Uri.fromFile(file).toString(), UiUtils.getScreenWidth(ApplicationUtils.getApplication()), UiUtils.getScreenHeight(ApplicationUtils.getApplication()));
             }
 
+
+        });
+        iRecyclerView.setAdapter(iAdapter);
+        s = 4 - (iAdapter.mList.size());
+        if (s <= 0) {
+            im1.setVisibility(View.INVISIBLE);
         }
 
     }

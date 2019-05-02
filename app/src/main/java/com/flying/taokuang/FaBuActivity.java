@@ -1,9 +1,7 @@
 package com.flying.taokuang;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,25 +11,26 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.collection.CollectionUtils;
+import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.UploadImgAdapter;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
+import com.jph.takephoto.app.TakePhoto;
+import com.jph.takephoto.app.TakePhotoActivity;
+import com.jph.takephoto.compress.CompressConfig;
+import com.jph.takephoto.model.CropOptions;
+import com.jph.takephoto.model.TImage;
+import com.jph.takephoto.model.TResult;
+import com.jph.takephoto.model.TakePhotoOptions;
 import com.tendcloud.tenddata.TCAgent;
-import com.zhihu.matisse.Matisse;
-import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.engine.impl.GlideEngine;
-import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
@@ -42,19 +41,15 @@ import cn.bmob.v3.listener.UploadBatchListener;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
-public class FaBuActivity extends Activity implements View.OnClickListener {
-    public static final int CHOOSE_PHOTO = 2;
+public class FaBuActivity extends TakePhotoActivity implements View.OnClickListener {
     private static final int MIN_CLICK_DELAY_TIME = 10000;
     private static long lastClickTime;
     private int s = 4;
 
     private static final int REQUEST_CODE_CHOOSE = 99;
 
-
-    private List<String> imglist;
     private List<String> iList;
     private List<String> zList = new ArrayList<>();
-    private List<String> lubanList = new ArrayList<>();
 
 
     private RecyclerView iRecyclerView;
@@ -68,36 +63,16 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
     private EditText lianxi;
     private ImageView im1;
     private ImageView im2;
-    private ImageView im3;
     private Button fabu;
     private Spinner leibie;
-    private Toolbar tbfb;
 
     private String tleibie;
     private String tbiaoti;
     private String tlianxi;
     private String tmiaoshu;
-    private String tfabu;
     private String tweizhi;
     private String tjiage;
-    private File file1;
-    private File file2;
-    private File file3;
-    private File file1b;
-    private File file2b;
-    private File file3b;
-    private String im1path;
-    private String im3path;
-    private String im2path;
-    private String im1pathb;
-    private String im3pathb;
-    private String im2pathb;
     private ImageView mIvBack;
-
-    private Uri im1Uri;
-  /*  private File tim1;
-    private File tim2;
-    private File tim3;*/
 
 
     @Override
@@ -182,7 +157,7 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.im_1:
-                Choose();
+                chooseImagesFromGallery();
                 break;
             case R.id.fabu:
 
@@ -201,7 +176,7 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
 
     private void Fabu() {
         if (CollectionUtils.isEmpty(iList)) {
-            Toast.makeText(FaBuActivity.this, "请至少添加一张图片", Toast.LENGTH_SHORT).show();
+            ToastUtils.show("请至少添加一张图片");
             return;
         }
         zList = iAdapter.getImage();
@@ -215,11 +190,11 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
         tjiage = String.valueOf(jiage.getText().toString());
 
         if (TextUtils.isEmpty(tlianxi) || TextUtils.isEmpty(tbiaoti) || TextUtils.isEmpty(tmiaoshu) || TextUtils.isEmpty(tweizhi) || TextUtils.isEmpty(tjiage)) {
-            Toast.makeText(FaBuActivity.this, "请将信息填写完整", Toast.LENGTH_SHORT).show();
+            ToastUtils.show("请将信息填写完整");
             return;
         }
         if (tleibie == null || tleibie.equals("类别")) {
-            Toast.makeText(FaBuActivity.this, "请选择类别", Toast.LENGTH_SHORT).show();
+            ToastUtils.show("请选择类别");
             return;
         }
 
@@ -238,13 +213,6 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
 
 
         final String[] paths = zList.toArray(new String[0]);
-
-        /*paths[0] = im1pathb;
-        paths[1] = im2pathb;
-        paths[2] = im3pathb;
-        final BmobFile bim1 = new BmobFile(new File(im1pathb));
-        final BmobFile bim2 = new BmobFile(new File(im2pathb));
-        final BmobFile bim3 = new BmobFile(new File(im3pathb));*/
         BmobFile.uploadBatch(paths, new UploadBatchListener() {
             @Override
             public void onSuccess(List<BmobFile> files, List<String> urls) {
@@ -257,7 +225,6 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
                     if (BmobUser.isLogin() && BmobUser.getCurrentUser(User.class).getRenz()) {
                         TaoKuang fb = new TaoKuang();
                         User user = BmobUser.getCurrentUser(User.class);
-                        tfabu = user.getNicheng();
                         fb.setLeibie(tleibie);
                         fb.setBiaoti(tbiaoti);
                         fb.setMiaoshu(tmiaoshu);
@@ -275,8 +242,7 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
                             public void done(String s, BmobException e) {
                                 if (e == null) {
                                     LogUtils.d("发布", "发布成功");
-                                    Toast.makeText(FaBuActivity.this, "发布成功",
-                                            Toast.LENGTH_SHORT).show();
+                                    ToastUtils.show("发布成功");
                                     pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
                                     Intent fbcg = new Intent(FaBuActivity.this, MainActivity.class);
                                     fbcg.putExtra("发布成功", "发布成功");
@@ -291,8 +257,7 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
                                 } else {
                                     LogUtils.d("发布", "发布失败:" + e);
                                     pDialog.cancel();
-                                    Toast.makeText(FaBuActivity.this, "发布失败",
-                                            Toast.LENGTH_SHORT).show();
+                                    ToastUtils.show("发布失败");
                                 }
                             }
                         });
@@ -300,8 +265,7 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
                         //do something
                     } else {
                         pDialog.cancel();
-                        Toast.makeText(FaBuActivity.this, "请先登陆或认证",
-                                Toast.LENGTH_LONG).show();
+                        ToastUtils.show("请先登陆或认证");
 
                     }
                 }
@@ -322,54 +286,56 @@ public class FaBuActivity extends Activity implements View.OnClickListener {
 
     }
 
+    private void chooseImagesFromGallery() {
+        TakePhoto takePhoto = getTakePhoto();
+        CompressConfig config = new CompressConfig.Builder().setMaxSize(120 * 1024)
+                .setMaxPixel(800)
+                .enableReserveRaw(false)
+                .create();
+        takePhoto.onEnableCompress(config, true);
 
-    public void Choose() {
-        Matisse.from(FaBuActivity.this)
-                .choose(MimeType.ofImage())
-                .capture(true)  //是否可以拍照
-                .captureStrategy(//参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
-                        new CaptureStrategy(true, "com.flying.taokuang.fileprovider"))
-                .countable(true)
-                .maxSelectable(s)
-                .imageEngine(new GlideEngine())
-                .forResult(REQUEST_CODE_CHOOSE);
+        TakePhotoOptions.Builder builder = new TakePhotoOptions.Builder();
+        builder.setWithOwnGallery(true);
+        builder.setCorrectImage(true);
+        takePhoto.setTakePhotoOptions(builder.create());
+
+        CropOptions cropOptions = new CropOptions.Builder().setAspectX(4).setAspectY(3).setWithOwnCrop(true).create();
+        takePhoto.onPickMultipleWithCrop(4, cropOptions);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
-            String[] pathsx = Matisse.obtainPathResult(data).toArray(new String[0]);
-            /*imglist = Arrays.asList(pathsx);
-            List arrayList = new ArrayList(imglist);*/
-
-            iList.addAll(Arrays.asList(pathsx));
-            iAdapter = new UploadImgAdapter(this, iList);
-            iAdapter.setOnItemClickListener(new UploadImgAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(File file, int position) {
-                    im2.setVisibility(View.VISIBLE);
-                    Glide.with(FaBuActivity.this).load(file).into(im2);
-                }
-
-
-            });
-            iRecyclerView.setAdapter(iAdapter);
-            s = 4 - (iAdapter.mList.size());
-            if (s <= 0) {
-                im1.setVisibility(View.INVISIBLE);
-            }
-            iAdapter.setM2(new UploadImgAdapter.M2() {
-                @Override
-                public void onDeliteClick(List list) {
-                    iAdapter.notifyDataSetChanged();
-                    s = 4 - list.size();
-                    im1.setVisibility(View.VISIBLE);}
-
-            });
-
-
+    public void takeSuccess(TResult result) {
+        super.takeSuccess(result);
+        if (result == null || CollectionUtils.isEmpty(result.getImages())) {
+            return;
         }
+        for (TImage image : result.getImages()) {
+            iList.add(image.getCompressPath());
+        }
+        iAdapter = new UploadImgAdapter(this, iList);
+        iAdapter.setOnItemClickListener(new UploadImgAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(File file, int position) {
+                im2.setVisibility(View.VISIBLE);
+                Glide.with(FaBuActivity.this).load(file).into(im2);
+            }
+
+
+        });
+        iRecyclerView.setAdapter(iAdapter);
+        s = 4 - (iAdapter.mList.size());
+        if (s <= 0) {
+            im1.setVisibility(View.INVISIBLE);
+        }
+        iAdapter.setM2(new UploadImgAdapter.M2() {
+            @Override
+            public void onDeliteClick(List list) {
+                iAdapter.notifyDataSetChanged();
+                s = 4 - list.size();
+                im1.setVisibility(View.VISIBLE);
+            }
+
+        });
 
     }
 
