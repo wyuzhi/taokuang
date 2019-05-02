@@ -60,24 +60,24 @@
         <activity
             android:name=".CommentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".wo.WoscActivity" />
-        <activity android:name=".XieyiActivity" />
+        <activity android:name=".My.MyCollectionActivity" />
+        <activity android:name=".AgreementActivity" />
         <activity
-            android:name=".wo.AboutActivity"
+            android:name=".My.AboutActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".wo.WozlActivity" />
-        <activity android:name=".RengzActivity" />
-        <activity android:name=".wo.WomcActivity" />
+        <activity android:name=".My.MyChangePasswordActivity" />
+        <activity android:name=".IdentifyActivity" />
+        <activity android:name=".My.MySaleActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".FaBuActivity" />
+        <activity android:name=".ReleaseActivity" />
         <activity
             android:name=".DetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SearchActivity" />
-        <activity android:name=".wo.MySellingActivity" />
-        <activity android:name=".wo.WogmActivity" />
+        <activity android:name=".My.MySellingActivity" />
+        <activity android:name=".My.MyPurchasedActivity" />
         <activity
             android:name="cn.bmob.v3.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />

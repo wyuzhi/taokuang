@@ -56,7 +56,7 @@ public class SignUpActivity extends AppCompatActivity {
         mTvAgreement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignUpActivity.this, XieyiActivity.class);
+                Intent intent = new Intent(SignUpActivity.this, AgreementActivity.class);
                 startActivityForResult(intent, 1);
             }
         });
@@ -72,26 +72,26 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void signup() {
-        String yhm = mEtUserNickName.getText().toString().replaceAll(" ", "");
-        String zh = mEtLoginID.getText().toString().replaceAll(" ", "");
-        String mm = mEtPassword.getText().toString().replaceAll(" ", "");
-        if (TextUtils.isEmpty(yhm) || yhm.length() < 4 || yhm.length() > 16) {
+        String nickName = mEtUserNickName.getText().toString().replaceAll(" ", "");
+        String loginId = mEtLoginID.getText().toString().replaceAll(" ", "");
+        String passWord = mEtPassword.getText().toString().replaceAll(" ", "");
+        if (TextUtils.isEmpty(nickName) || nickName.length() < 4 || nickName.length() > 16) {
             ToastUtils.show("昵称字数小于4位或大于16位");
             return;
         }
-        if (TextUtils.isEmpty(zh) || zh.length() < 8 || zh.length() > 16) {
+        if (TextUtils.isEmpty(loginId) || loginId.length() < 8 || loginId.length() > 16) {
             ToastUtils.show("学号位数小于8位或大于16位");
             return;
         }
-        if (TextUtils.isEmpty(mm) || mm.length() < 4 || mm.length() > 16) {
+        if (TextUtils.isEmpty(passWord) || passWord.length() < 4 || passWord.length() > 16) {
             ToastUtils.show("密码位数小于4位或大于16位");
             return;
         }
         final Intent intent = new Intent(this, LoginActivity.class);
         final User user = new User();
-        user.setUsername(zh);
-        user.setPassword(mm);
-        user.setNicheng(yhm);
+        user.setUsername(loginId);
+        user.setPassword(passWord);
+        user.setNicheng(nickName);
         user.setRenz(false);
         user.signUp(new SaveListener<User>() {
             @Override

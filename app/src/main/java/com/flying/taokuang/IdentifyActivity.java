@@ -33,7 +33,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
-public class RengzActivity extends TakePhotoActivity {
+public class IdentifyActivity extends TakePhotoActivity {
     private Button sc;
     private EditText xh;
     private EditText sjh;
@@ -45,7 +45,7 @@ public class RengzActivity extends TakePhotoActivity {
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rengz);
+        setContentView(R.layout.activity_identify);
         initView();
     }
 
@@ -94,20 +94,20 @@ public class RengzActivity extends TakePhotoActivity {
                                     @Override
                                     public void done(BmobException e) {
                                         if (e == null) {
-                                            Toast.makeText(RengzActivity.this, "上传成功,将在24小时内审核完成，审核期不影响应用使用，如无法发布请尝试注销重登", Toast.LENGTH_LONG).show();
-                                            Intent aaa = new Intent(RengzActivity.this, MainActivity.class);
+                                            Toast.makeText(IdentifyActivity.this, "上传成功,将在24小时内审核完成，审核期不影响应用使用，如无法发布请尝试注销重登", Toast.LENGTH_LONG).show();
+                                            Intent aaa = new Intent(IdentifyActivity.this, MainActivity.class);
                                             aaa.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                             startActivity(aaa);
                                         } else
-                                            Toast.makeText(RengzActivity.this, "上传失败" + e.toString(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(IdentifyActivity.this, "上传失败" + e.toString(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             } else
-                                Toast.makeText(RengzActivity.this, "上传失败" + e.toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(IdentifyActivity.this, "上传失败" + e.toString(), Toast.LENGTH_SHORT).show();
                         }
                     });
                 } else
-                    Toast.makeText(RengzActivity.this, "请填写完整",
+                    Toast.makeText(IdentifyActivity.this, "请填写完整",
                             Toast.LENGTH_LONG).show();
             }
         });

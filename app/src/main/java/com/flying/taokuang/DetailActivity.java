@@ -24,7 +24,7 @@ import com.flying.taokuang.entity.CollectionBean;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
 import com.flying.taokuang.ui.AsyncImageView;
-import com.flying.taokuang.wo.WomcActivity;
+import com.flying.taokuang.My.MySaleActivity;
 import com.tendcloud.tenddata.TCAgent;
 
 import org.litepal.LitePal;
@@ -44,15 +44,15 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class DetailActivity extends AppCompatActivity {
     private static final int MIN_CLICK_DELAY_TIME = 6000;
     private static long lastClickTime;
-    private ImageView dcollect;
+    private ImageView mIvcollect;
     private String jgd;
     private String btd;
     private String[] lists;
     private ImageView mIvBack;
     private TextView mTvUserNickName;
     private AsyncImageView mIvUserAvatar;
-    String fabuID;
-    String goumaiID;
+    String publisherID;
+    String purchaserID;
     String gmcg;
     String dh;
     String nc;
@@ -82,7 +82,7 @@ public class DetailActivity extends AppCompatActivity {
                     if (taoKuang.getFabu().getIcon() != null) {
                         icon = taoKuang.getFabu().getIcon().getFileUrl();
                     }
-                    fabuID = taoKuang.getFabu().getObjectId();
+                    publisherID = taoKuang.getFabu().getObjectId();
                     gzid = taoKuang.getGezi();
                     ncd = taoKuang.getFabu().getNicheng();
                     jgd = taoKuang.getJiage();
@@ -97,9 +97,9 @@ public class DetailActivity extends AppCompatActivity {
                 }
             });
         } else {
-            fabuID = intent.getStringExtra("发布");
-            LogUtils.d("Detail", fabuID);
-            goumaiID = intent.getStringExtra("购买");
+            publisherID = intent.getStringExtra("发布");
+            LogUtils.d("Detail", publisherID);
+            purchaserID = intent.getStringExtra("购买");
             gmcg = intent.getStringExtra("购买成功");
             dh = intent.getStringExtra("购买phone");
             nc = intent.getStringExtra("购买name");
@@ -242,13 +242,13 @@ public class DetailActivity extends AppCompatActivity {
         mIvUserAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserPageActivity.go(DetailActivity.this, fabuID);
+                UserPageActivity.go(DetailActivity.this, publisherID);
             }
         });
         mTvUserNickName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserPageActivity.go(DetailActivity.this, fabuID);
+                UserPageActivity.go(DetailActivity.this, publisherID);
             }
         });
         RecyclerView imgrec = findViewById(R.id.detail_recycler);
@@ -303,7 +303,7 @@ public class DetailActivity extends AppCompatActivity {
 
                                                             ////////
 
-//                                                            Intent intent = new Intent(DetailActivity.this, WomcActivity.class);
+//                                                            Intent intent = new Intent(DetailActivity.this, MySaleActivity.class);
 //                                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                                                            startActivity(intent);
                                                         }
@@ -350,11 +350,11 @@ public class DetailActivity extends AppCompatActivity {
 
 ///
 //收藏功能
-        dcollect = findViewById(R.id.detail_collection);
+        mIvcollect = findViewById(R.id.detail_collection);
         judgeCollection(id);
 
 
-        dcollect.setOnClickListener(new View.OnClickListener() {
+        mIvcollect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 judgeCollection0(id);
@@ -408,7 +408,7 @@ public class DetailActivity extends AppCompatActivity {
                                                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                                         @Override
                                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                            Intent intent = new Intent(DetailActivity.this, WomcActivity.class);
+                                                            Intent intent = new Intent(DetailActivity.this, MySaleActivity.class);
                                                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                             startActivity(intent);
                                                         }
@@ -478,7 +478,7 @@ public class DetailActivity extends AppCompatActivity {
 
                                                             ////////
 
-//                                                            Intent intent = new Intent(DetailActivity.this, WomcActivity.class);
+//                                                            Intent intent = new Intent(DetailActivity.this, MySaleActivity.class);
 //                                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                                                            startActivity(intent);
                                                         }
@@ -512,7 +512,7 @@ public class DetailActivity extends AppCompatActivity {
         if (collections.size() > 0) {
             showToast("取消成功");
             LitePal.deleteAll(CollectionBean.class, "good = ?", id);
-            dcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_collection_no));
+            mIvcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_collection_no));
         } else {
             CollectionBean collectionBean = new CollectionBean();
             collectionBean.setCreateTime(new Date());
@@ -522,7 +522,7 @@ public class DetailActivity extends AppCompatActivity {
             collectionBean.setImage(lists[0]);
             collectionBean.save();
             showToast("收藏成功");
-            dcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_collection));
+            mIvcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_collection));
 //
         }
     }
@@ -531,7 +531,7 @@ public class DetailActivity extends AppCompatActivity {
     private void judgeCollection(String id) {
         List<CollectionBean> collections = LitePal.where("good = ?", id).find(CollectionBean.class);
         if (collections.size() > 0) {
-            dcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_collection));
+            mIvcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_collection));
         }
     }
 

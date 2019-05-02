@@ -1,4 +1,4 @@
-package com.flying.taokuang.wo;
+package com.flying.taokuang.My;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ import org.litepal.LitePal;
 
 import java.util.List;
 
-public class WoscActivity extends Activity {
+public class MyCollectionActivity extends Activity {
     private RecyclerView mRecyclerView;
     private CollectionAdapter mAdapter;
     private LinearLayoutManager mlayoutManager;
@@ -29,7 +29,7 @@ public class WoscActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wosc);
+        setContentView(R.layout.activity_my_collection);
         initView();
     }
 
@@ -63,7 +63,7 @@ public class WoscActivity extends Activity {
 //            datas.add(taoKuang);
 //        }
         LogUtils.d("Collection Taokuang", "loadData: " + collections.size());
-        mAdapter = new CollectionAdapter(collections, WoscActivity.this);
+        mAdapter = new CollectionAdapter(collections, MyCollectionActivity.this);
         mRecyclerView.setAdapter(mAdapter);
 //        if (BmobUser.isLogin()) {
 //
@@ -84,7 +84,7 @@ public class WoscActivity extends Activity {
 //                        for (int i =0;i<objects.size();i++){
 //                            list.add(objects.get(i).getGoods());
 //                        }
-//                        mAdapter = new TaoAdapter(WoscActivity.this, list);
+//                        mAdapter = new TaoAdapter(MyCollectionActivity.this, list);
 //                        mRecyclerView.setAdapter(mAdapter);
 //
 //                        Log.d("haha", objects.toString());

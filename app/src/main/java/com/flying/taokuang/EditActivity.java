@@ -81,7 +81,7 @@ public class EditActivity extends TakePhotoActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fabu);
+        setContentView(R.layout.activity_release);
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
         initView();
@@ -278,7 +278,7 @@ public class EditActivity extends TakePhotoActivity implements View.OnClickListe
                     if (urls.size() == paths.length) {//如果数量相等，则代表文件全部上传完成
                         LogUtils.d("图片", "图片成功");
                         zList.addAll(urls);
-                        //Toast.makeText(FaBuActivity.this, "图片成功",
+                        //Toast.makeText(ReleaseActivity.this, "图片成功",
                         //       Toast.LENGTH_SHORT).show();
                         if (BmobUser.isLogin() && BmobUser.getCurrentUser(User.class).getRenz()) {
                             TaoKuang fb = new TaoKuang();

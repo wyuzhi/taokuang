@@ -41,7 +41,7 @@ import cn.bmob.v3.listener.UploadBatchListener;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
-public class FaBuActivity extends TakePhotoActivity implements View.OnClickListener {
+public class ReleaseActivity extends TakePhotoActivity implements View.OnClickListener {
     private static final int MIN_CLICK_DELAY_TIME = 10000;
     private static long lastClickTime;
     private int s = 4;
@@ -78,7 +78,7 @@ public class FaBuActivity extends TakePhotoActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fabu);
+        setContentView(R.layout.activity_release);
         initView();
     }
 
@@ -220,7 +220,7 @@ public class FaBuActivity extends TakePhotoActivity implements View.OnClickListe
 
                 if (urls.size() == paths.length) {//如果数量相等，则代表文件全部上传完成
                     LogUtils.d("图片", "图片成功");
-                    //Toast.makeText(FaBuActivity.this, "图片成功",
+                    //Toast.makeText(ReleaseActivity.this, "图片成功",
                     //       Toast.LENGTH_SHORT).show();
                     if (BmobUser.isLogin() && BmobUser.getCurrentUser(User.class).getRenz()) {
                         TaoKuang fb = new TaoKuang();
@@ -244,7 +244,7 @@ public class FaBuActivity extends TakePhotoActivity implements View.OnClickListe
                                     LogUtils.d("发布", "发布成功");
                                     ToastUtils.show("发布成功");
                                     pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
-                                    Intent fbcg = new Intent(FaBuActivity.this, MainActivity.class);
+                                    Intent fbcg = new Intent(ReleaseActivity.this, MainActivity.class);
                                     fbcg.putExtra("发布成功", "发布成功");
                                     fbcg.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(fbcg);
@@ -317,7 +317,7 @@ public class FaBuActivity extends TakePhotoActivity implements View.OnClickListe
             @Override
             public void onItemClick(File file, int position) {
                 im2.setVisibility(View.VISIBLE);
-                Glide.with(FaBuActivity.this).load(file).into(im2);
+                Glide.with(ReleaseActivity.this).load(file).into(im2);
             }
 
 

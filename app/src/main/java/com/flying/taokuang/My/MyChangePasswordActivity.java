@@ -1,4 +1,4 @@
-package com.flying.taokuang.wo;
+package com.flying.taokuang.My;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,21 +19,18 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 
-public class WozlActivity extends Activity implements View.OnClickListener {
-    private Button zlqr;
-    private EditText zlymm;
-    private EditText zlxmm;
-    private EditText zlxmm1;
-    private String ymm;
-    private String xmm;
-    private String xmm1;
+public class MyChangePasswordActivity extends Activity implements View.OnClickListener {
+    private Button mBtConfirm;
+    private EditText mEtInitialPassword;
+    private EditText mEtPassword;
+    private EditText mEtIdentifyPassword;
     private ImageView mIvBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_wozl);
+        setContentView(R.layout.activity_password);
         initView();
     }
 
@@ -46,48 +43,48 @@ public class WozlActivity extends Activity implements View.OnClickListener {
             }
         });
         UiUtils.setOnTouchBackground(mIvBack);
-        zlymm = findViewById(R.id.zl_ymm);
-        zlxmm = findViewById(R.id.zl_xmm);
-        zlxmm1 = findViewById(R.id.zl_xmm1);
-        zlqr = findViewById(R.id.zl_qr);
-        zlqr.setOnClickListener(this);
+        mEtInitialPassword = findViewById(R.id.zl_ymm);
+        mEtPassword = findViewById(R.id.zl_xmm);
+        mEtIdentifyPassword = findViewById(R.id.zl_xmm1);
+        mBtConfirm = findViewById(R.id.zl_qr);
+        mBtConfirm.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.zl_qr:
-                ymm = String.valueOf(zlymm.getText());
-                xmm = String.valueOf(zlxmm.getText());
-                xmm1 = String.valueOf(zlxmm1.getText());
+                String initialPassword = mEtInitialPassword.toString();
+                String password = mEtPassword.toString();
+                String identifyPassword = mEtIdentifyPassword.toString();
 
-                if (!ymm.equals("") && !xmm.equals("") && !xmm1.equals("") && xmm.equals(xmm1)) {
-                    BmobUser.updateCurrentUserPassword(ymm, xmm, new UpdateListener() {
+                if (!initialPassword.equals("") && !password.equals("") && !identifyPassword.equals("") && password.equals(identifyPassword)) {
+                    BmobUser.updateCurrentUserPassword(initialPassword, password, new UpdateListener() {
                         @Override
                         public void done(BmobException e) {
                             if (e == null) {
                                 User user = BmobUser.getCurrentUser(User.class);
-                                user.setMima(xmm);
+                                user.setMima(mEtPassword.toString());
                                 user.update(new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
                                     }
                                 });
-                                Toast.makeText(WozlActivity.this, "修改成功",
+                                Toast.makeText(MyChangePasswordActivity.this, "修改成功",
                                         Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(WozlActivity.this, MainActivity.class);
+                                Intent intent = new Intent(MyChangePasswordActivity.this, MainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
                                 //Snackbar.make(Layout, "查询成功", Snackbar.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(WozlActivity.this, "修改失败" + e.getMessage(),
+                                Toast.makeText(MyChangePasswordActivity.this, "修改失败" + e.getMessage(),
                                         Toast.LENGTH_LONG).show();
 
                                 //Snackbar.make(view, "查询失败：" + e.getMessage(), Snackbar.LENGTH_LONG).show();
                             }
                         }
                     });
-                } else Toast.makeText(WozlActivity.this, "修改失败" + "请确认原密码及密码确认输入正确",
+                } else Toast.makeText(MyChangePasswordActivity.this, "修改失败" + "请确认原密码及密码确认输入正确",
                         Toast.LENGTH_LONG).show();
 
 

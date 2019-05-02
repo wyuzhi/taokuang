@@ -1,9 +1,8 @@
-package com.flying.taokuang.wo;
+package com.flying.taokuang.My;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -25,7 +24,7 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
-public class WogmActivity extends Activity {
+public class MyPurchasedActivity extends Activity {
     private RecyclerView gRecyclerView;
     private PersonalSellingRecyclerviewAdapter gAdapter;
     private ImageView mIvBack;
@@ -33,7 +32,7 @@ public class WogmActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wogm);
+        setContentView(R.layout.activity_my_purchased);
         initView();
     }
 
@@ -67,7 +66,7 @@ public class WogmActivity extends Activity {
                 @Override
                 public void done(List<TaoKuang> object, BmobException e) {
                     if (e == null) {
-                        gAdapter = new PersonalSellingRecyclerviewAdapter(WogmActivity.this, object);
+                        gAdapter = new PersonalSellingRecyclerviewAdapter(MyPurchasedActivity.this, object);
                         gRecyclerView.setAdapter(gAdapter);
                         //Snackbar.make(gRecyclerView, "查询成功", Snackbar.LENGTH_LONG).show();
                     } else {

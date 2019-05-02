@@ -26,7 +26,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
-            android:text="淘矿"
+            android:text="详情页"
             android:textColor="@color/colorWhite"
             android:textSize="20dp"
             app:contentInsetStart="0dp" />

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".wo.WomcActivity">
+    tools:context=".My.MyCollectionActivity">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
@@ -27,13 +27,13 @@
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
-            android:text="我卖出的"
+            android:text="我收藏的"
             android:textColor="@color/colorWhite"
             android:textSize="20sp" />
     </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_wo_mc"
+        android:id="@+id/recycler_wo_sc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

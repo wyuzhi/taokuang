@@ -22,16 +22,16 @@ import com.flying.taokuang.CommentActivity;
 import com.flying.taokuang.LoginActivity;
 import com.flying.taokuang.UserPageActivity;
 import com.flying.taokuang.R;
-import com.flying.taokuang.RengzActivity;
+import com.flying.taokuang.IdentifyActivity;
 import com.flying.taokuang.debug.DebugActivity;
 import com.flying.taokuang.entity.User;
 import com.flying.taokuang.ui.AsyncImageView;
-import com.flying.taokuang.wo.AboutActivity;
-import com.flying.taokuang.wo.MySellingActivity;
-import com.flying.taokuang.wo.WogmActivity;
-import com.flying.taokuang.wo.WomcActivity;
-import com.flying.taokuang.wo.WoscActivity;
-import com.flying.taokuang.wo.WozlActivity;
+import com.flying.taokuang.My.AboutActivity;
+import com.flying.taokuang.My.MyCollectionActivity;
+import com.flying.taokuang.My.MySellingActivity;
+import com.flying.taokuang.My.MyPurchasedActivity;
+import com.flying.taokuang.My.MySaleActivity;
+import com.flying.taokuang.My.MyChangePasswordActivity;
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.app.TakePhotoFragment;
 import com.jph.takephoto.compress.CompressConfig;
@@ -47,7 +47,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
-public class WoFragment extends TakePhotoFragment {
+public class MyFragment extends TakePhotoFragment {
     private static final int SHOW_DEBUG_ACTIVITY_NUMS = 2;
     private AsyncImageView woicon;
     private View wofb;
@@ -65,7 +65,7 @@ public class WoFragment extends TakePhotoFragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_wo_fragment, container, false);
+        View view = inflater.inflate(R.layout.activity_my_fragment, container, false);
         initView(view);
 
         return view;
@@ -103,7 +103,7 @@ public class WoFragment extends TakePhotoFragment {
         wosc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentsc = new Intent(getContext(), WoscActivity.class);
+                Intent intentsc = new Intent(getContext(), MyCollectionActivity.class);
                 startActivity(intentsc);
             }
         });
@@ -113,7 +113,7 @@ public class WoFragment extends TakePhotoFragment {
         wozl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentzl = new Intent(getContext(), WozlActivity.class);
+                Intent intentzl = new Intent(getContext(), MyChangePasswordActivity.class);
                 startActivity(intentzl);
 
             }
@@ -123,7 +123,7 @@ public class WoFragment extends TakePhotoFragment {
         womc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentmc = new Intent(getContext(), WomcActivity.class);
+                Intent intentmc = new Intent(getContext(), MySaleActivity.class);
                 startActivity(intentmc);
             }
         });
@@ -138,7 +138,7 @@ public class WoFragment extends TakePhotoFragment {
                         Toast.makeText(getContext(), "已认证成功",
                                 Toast.LENGTH_SHORT).show();
                     } else {
-                        Intent rz = new Intent(getContext(), RengzActivity.class);
+                        Intent rz = new Intent(getContext(), IdentifyActivity.class);
                         startActivity(rz);
                     }
                 } else Toast.makeText(getContext(), "请先登陆",
@@ -161,7 +161,7 @@ public class WoFragment extends TakePhotoFragment {
         wogm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentgm = new Intent(getContext(), WogmActivity.class);
+                Intent intentgm = new Intent(getContext(), MyPurchasedActivity.class);
                 startActivity(intentgm);
             }
         });
