@@ -14,6 +14,15 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Theme.Activity.NoBackground" parent="AppTheme.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="Theme.Activity.Splash" parent="Theme.Activity.NoBackground">
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="toolbarTitle">
@@ -32,17 +41,6 @@
         <item name="android:minHeight">32dp</item>
     </style>
     <!--popupwindow-->
-
-    <style name="Theme.SplashActivity" parent="AppTheme.NoActionBar">
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowDisablePreview">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-    </style>
-
-    <style name="Theme.Activity.NoBackground" parent="AppTheme.NoActionBar">
-        <item name="android:windowBackground">@android:color/transparent</item>
-    </style>
-
 
     <style name="HomeTabLayoutTextStyle">
         <item name="android:textSize">16sp</item>
