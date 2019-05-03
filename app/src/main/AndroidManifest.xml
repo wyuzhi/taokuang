@@ -61,32 +61,53 @@
         <activity
             android:name=".CommentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".My.MyCollectionActivity" />
-        <activity android:name=".AgreementActivity" />
+        <activity
+            android:name=".My.MyCollectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AgreementActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".My.AboutActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".My.MyChangePasswordActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Activity.NoBackground" />
-        <activity android:name=".IdentifyActivity" />
-        <activity android:name=".My.MySaleActivity" />
+        <activity
+            android:name=".IdentifyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".My.MySaleActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".LoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SignUpActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Activity.NoBackground" />
-        <activity android:name=".ReleaseActivity" />
+        <activity
+            android:name=".ReleaseActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".DetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".My.MySellingActivity" />
-        <activity android:name=".My.MyPurchasedActivity" />
+        <activity
+            android:name=".SearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".My.MySellingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".My.MyPurchasedActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="cn.bmob.v3.update.UpdateDialogActivity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <provider

@@ -101,6 +101,7 @@
         android:layout_marginTop="26dp"
         android:background="@drawable/bg_signup_btn"
         android:text="完成"
+        android:textSize="14sp"
         android:textColor="@color/commonColorGrey" />
 
 
