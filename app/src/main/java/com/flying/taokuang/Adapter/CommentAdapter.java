@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.Comment;
+import com.flying.taokuang.ui.AsyncImageView;
 
 import java.util.List;
 
@@ -37,9 +39,16 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         Comment comment = mList.get(i);
-        viewHolder.evaluator.setText(comment.getAuthor().getNicheng());
-        viewHolder.content.setText(comment.getContent());
+        viewHolder.evaluator.setText(comment.getContent());
+        viewHolder.contentAuthor.setText(comment.getAuthor().getNicheng());
         viewHolder.time.setText(comment.getCreatedAt());
+
+
+        if (comment.getAuthor().getIcon() == null) {
+            viewHolder.mEvaluatorIc.setPlaceholderImage(R.drawable.ic_default_avatar);
+        } else {
+            viewHolder.mEvaluatorIc.setUrl(comment.getAuthor().getIcon().getFileUrl(), UiUtils.dp2px(36), UiUtils.dp2px(36));
+        }
 
     }
 
@@ -52,14 +61,16 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView evaluator;
-        private TextView content;
+        private TextView contentAuthor;
         private TextView time;
+        private AsyncImageView mEvaluatorIc;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             evaluator = itemView.findViewById(R.id.comment_evaluator);
-            content = itemView.findViewById(R.id.comment_content);
+            contentAuthor = itemView.findViewById(R.id.tv_comment_author);
             time = itemView.findViewById(R.id.comment_time);
+            mEvaluatorIc = itemView.findViewById(R.id.comment_user_avatar);
         }
     }
 }
