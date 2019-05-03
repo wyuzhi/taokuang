@@ -526,7 +526,7 @@ public class DetailActivity extends BaseToolbarActivity {
             collectionBean.setImage(lists[0]);
             collectionBean.save();
             showToast("收藏成功");
-            mIvcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_collection));
+            mIvcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.mipmap.collection));
 //
         }
     }
@@ -547,7 +547,7 @@ public class DetailActivity extends BaseToolbarActivity {
         ImageView tvImg = view.findViewById(R.id.tvImg);
         tvMsg.setText(txt);
         if (txt.equals("收藏成功")) {
-            tvImg.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_collection));
+            tvImg.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.mipmap.collection));
         } else
             tvImg.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_collection_no));
         tast.setView(view);
