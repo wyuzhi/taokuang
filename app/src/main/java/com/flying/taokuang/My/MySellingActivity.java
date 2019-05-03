@@ -1,6 +1,5 @@
 package com.flying.taokuang.My;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +13,7 @@ import com.flying.baselib.utils.collection.CollectionUtils;
 import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.taokuang.Adapter.SellRecyclerViewAdapter;
 import com.flying.taokuang.R;
+import com.flying.taokuang.base.BaseToolbarActivity;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
@@ -25,7 +25,7 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
-public class MySellingActivity extends Activity implements PullLoadMoreRecyclerView.PullLoadMoreListener {
+public class MySellingActivity extends BaseToolbarActivity implements PullLoadMoreRecyclerView.PullLoadMoreListener {
     private PullLoadMoreRecyclerView mPullLoadMoreRecyclerView;
     private RecyclerView fRecyclerView;
     private SellRecyclerViewAdapter mAdapter;
@@ -34,8 +34,12 @@ public class MySellingActivity extends Activity implements PullLoadMoreRecyclerV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_selling);
         initView();
+    }
+
+    @Override
+    public int getContentViewResId() {
+        return R.layout.activity_my_selling;
     }
 
     private void initView() {

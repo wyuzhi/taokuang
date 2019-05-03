@@ -9,9 +9,9 @@
     tools:context=".My.MySellingActivity">
 
     <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#112d4e"
         android:theme="@style/AppTheme.AppBarOverlay"
         app:contentInsetStart="0dp">
 

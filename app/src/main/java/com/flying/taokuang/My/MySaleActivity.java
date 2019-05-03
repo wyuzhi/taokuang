@@ -1,6 +1,6 @@
 package com.flying.taokuang.My;
 
-import android.app.Activity;
+
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +13,7 @@ import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.PersonalSellingRecyclerviewAdapter;
 import com.flying.taokuang.R;
+import com.flying.taokuang.base.BaseToolbarActivity;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
 
@@ -23,7 +24,7 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
-public class MySaleActivity extends Activity {
+public class MySaleActivity extends BaseToolbarActivity {
     private RecyclerView mRecyclerView;
     private PersonalSellingRecyclerviewAdapter mAdapter;
     private ImageView mIvBack;
@@ -32,8 +33,12 @@ public class MySaleActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_sale);
         initView();
+    }
+
+    @Override
+    public int getContentViewResId() {
+        return R.layout.activity_my_sale;
     }
 
     private void initView() {

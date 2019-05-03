@@ -1,6 +1,6 @@
 package com.flying.taokuang.My;
 
-import android.app.Activity;
+
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,13 +13,14 @@ import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.CollectionAdapter;
 import com.flying.taokuang.R;
+import com.flying.taokuang.base.BaseToolbarActivity;
 import com.flying.taokuang.entity.CollectionBean;
 
 import org.litepal.LitePal;
 
 import java.util.List;
 
-public class MyCollectionActivity extends Activity {
+public class MyCollectionActivity extends BaseToolbarActivity {
     private RecyclerView mRecyclerView;
     private CollectionAdapter mAdapter;
     private LinearLayoutManager mlayoutManager;
@@ -29,8 +30,12 @@ public class MyCollectionActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_collection);
         initView();
+    }
+
+    @Override
+    public int getContentViewResId() {
+        return R.layout.activity_my_collection;
     }
 
     private void initView() {

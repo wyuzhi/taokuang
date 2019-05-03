@@ -1,7 +1,6 @@
 package com.flying.taokuang;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,22 +8,18 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 
 import com.flying.baselib.utils.app.ApplicationUtils;
 import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.app.MainThread;
 import com.flying.baselib.utils.device.NetworkUtils;
-import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.FragmentAdapter;
 import com.flying.taokuang.Fragement.HomeFragment;
 import com.flying.taokuang.Fragement.MyFragment;
+import com.flying.taokuang.base.BaseToolbarActivity;
 import com.pgyersdk.feedback.PgyerFeedbackManager;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.tendcloud.tenddata.TCAgent;
@@ -40,7 +35,7 @@ import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseToolbarActivity {
     private List<Fragment> fragments = new ArrayList<>();
     private ViewPager viewPager;
 
@@ -68,8 +63,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         if (!BmobUser.isLogin()) {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
@@ -78,6 +71,11 @@ public class MainActivity extends AppCompatActivity {
         }
         initView();
         delayInit();
+    }
+
+    @Override
+    public int getContentViewResId() {
+        return R.layout.activity_main;
     }
 
     @Override
@@ -152,13 +150,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initView() {
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        ViewGroup.LayoutParams layoutParams = toolbar.getLayoutParams();
-        layoutParams.height = UiUtils.dp2px(50) + getStatusBarHeight(this);
-        toolbar.setLayoutParams(layoutParams);
-        toolbar.setTitle("淘矿");
-        setSupportActionBar(toolbar);
+        mToolbar.setTitle("淘矿");
+        setSupportActionBar(mToolbar);
 
         viewPager = findViewById(R.id.view_pager);
         //分类导航栏
@@ -222,14 +215,5 @@ public class MainActivity extends AppCompatActivity {
         });
         return super.onCreateOptionsMenu(menu);
 
-    }
-
-    private int getStatusBarHeight(Context context) {
-        int statusBarHeight = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            statusBarHeight = context.getResources().getDimensionPixelSize(resourceId);
-        }
-        return statusBarHeight;
     }
 }

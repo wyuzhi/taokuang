@@ -6,7 +6,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,15 +16,15 @@ import android.widget.Toast;
 import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.R;
+import com.flying.taokuang.base.BaseToolbarActivity;
 
-public class AboutActivity extends AppCompatActivity {
+
+public class AboutActivity extends BaseToolbarActivity {
     private ImageView mIvBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
-
         TextView version = findViewById(R.id.versioncode);
         version.setText("当前版本： V " + getLocalVersionName(this));
 
@@ -69,6 +68,12 @@ public class AboutActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public int getContentViewResId() {
+        return R.layout.activity_about;
+    }
+
 
     /****************
      *

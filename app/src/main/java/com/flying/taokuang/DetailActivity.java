@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -20,6 +19,7 @@ import android.widget.Toast;
 import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.DetailAdapter;
+import com.flying.taokuang.base.BaseToolbarActivity;
 import com.flying.taokuang.entity.CollectionBean;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
@@ -41,7 +41,7 @@ import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends BaseToolbarActivity {
     private static final int MIN_CLICK_DELAY_TIME = 6000;
     private static long lastClickTime;
     private ImageView mIvcollect;
@@ -68,7 +68,6 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
 
         Intent intent = getIntent();
         id = intent.getStringExtra("ID");
@@ -117,6 +116,11 @@ public class DetailActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    public int getContentViewResId() {
+        return R.layout.activity_detail;
     }
 
     @Override

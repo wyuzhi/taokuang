@@ -1,11 +1,10 @@
 package com.flying.taokuang.My;
 
-import android.app.Activity;
+
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -14,6 +13,7 @@ import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.PersonalSellingRecyclerviewAdapter;
 import com.flying.taokuang.R;
+import com.flying.taokuang.base.BaseToolbarActivity;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
 
@@ -24,16 +24,21 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
-public class MyPurchasedActivity extends Activity {
+public class MyPurchasedActivity extends BaseToolbarActivity {
     private RecyclerView gRecyclerView;
     private PersonalSellingRecyclerviewAdapter gAdapter;
     private ImageView mIvBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_purchased);
         initView();
+    }
+
+    @Override
+    public int getContentViewResId() {
+        return R.layout.activity_my_purchased;
     }
 
     private void initView() {
@@ -45,7 +50,6 @@ public class MyPurchasedActivity extends Activity {
             }
         });
         UiUtils.setOnTouchBackground(mIvBack);
-        Toolbar toolbar = findViewById(R.id.wo_gm_toolbar);
         //toolbar.setTitle("我购买的");
         gRecyclerView = findViewById(R.id.recycler_wo_gm);
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
