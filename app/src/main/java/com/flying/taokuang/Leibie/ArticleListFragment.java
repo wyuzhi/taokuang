@@ -25,10 +25,12 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
 public class ArticleListFragment extends Fragment implements PullLoadMoreRecyclerView.PullLoadMoreListener {
-    private static final int MAX_NUM_PER_PAGE = 5;
+    private static int MAX_NUM_PER_PAGE = 5;
     private static final String ARTICLE_LIST_TYPE = "list_type";
 
     private int mSkipPages;
+    //首页中的fragment分格都是统一的,只维护一个
+    private static boolean sIsLinearStyle = true;
     private String mTypeStr;
     private HomeRecyclerViewAdapter mRecyclerViewAdapter;
     private RecyclerView mRecyclerView;
@@ -60,10 +62,15 @@ public class ArticleListFragment extends Fragment implements PullLoadMoreRecycle
         mPullLoadMoreRecyclerView.setRefreshing(true);
         mPullLoadMoreRecyclerView.setColorSchemeResources(R.color.commonColorYellow, R.color.commonColorOrange, R.color.commonColorBlue);
         mPullLoadMoreRecyclerView.setFooterViewText("加载中...");
-        mPullLoadMoreRecyclerView.setLinearLayout();
+        if (sIsLinearStyle) {
+            mPullLoadMoreRecyclerView.setLinearLayout();
+        } else {
+            mPullLoadMoreRecyclerView.setGridLayout(2);
+        }
 
         mPullLoadMoreRecyclerView.setOnPullLoadMoreListener(this);
         mRecyclerViewAdapter = new HomeRecyclerViewAdapter(getActivity());
+        mRecyclerViewAdapter.setLayoutStyle(sIsLinearStyle);
         mPullLoadMoreRecyclerView.setAdapter(mRecyclerViewAdapter);
 
         mSkipPages = 0;
@@ -100,6 +107,27 @@ public class ArticleListFragment extends Fragment implements PullLoadMoreRecycle
             }
         });
 
+    }
+
+    public void updateLayoutStyle(boolean isLinear) {
+        sIsLinearStyle = isLinear;
+        if (!isAdded()) {
+            return;
+        }
+        if (mPullLoadMoreRecyclerView == null || mRecyclerViewAdapter == null) {
+            return;
+        }
+        mRecyclerViewAdapter.clearData();
+        mRecyclerViewAdapter.setLayoutStyle(sIsLinearStyle);
+        if (sIsLinearStyle) {
+            MAX_NUM_PER_PAGE = 5;
+            mPullLoadMoreRecyclerView.setLinearLayout();
+        } else {
+            //非线性的较小，请求更多的数据
+            MAX_NUM_PER_PAGE = 8;
+            mPullLoadMoreRecyclerView.setGridLayout(2);
+        }
+        onRefresh();
     }
 
     @Override

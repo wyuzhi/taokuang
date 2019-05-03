@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +16,14 @@ import android.view.ViewGroup;
 import com.flying.taokuang.Leibie.ArticleListFragment;
 import com.flying.taokuang.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeFragment extends Fragment {
 
     private TabLayout mTabLaout;
     private ViewPager mViewPager;
+    private List<ArticleListFragment> mFragments;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -32,6 +37,7 @@ public class HomeFragment extends Fragment {
         mTabLaout = view.findViewById(R.id.tab_layout);
         mTabLaout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
+        mFragments = new ArrayList<>();
         FragmentManager childFragmentManager = getChildFragmentManager();
         FragmentPagerAdapter mAdapter = new FragmentPagerAdapter(childFragmentManager) {
             private String[] pageTypes = {null, "书籍", "文具", "化妆品", "生活", "食品", "数码", "外设", "服饰", "鞋子", "其他"};
@@ -44,7 +50,9 @@ public class HomeFragment extends Fragment {
             @Override
             public Fragment getItem(int position) {
                 if (position >= 0 && position < pageTypes.length) {
-                    return ArticleListFragment.newInstance(pageTypes[position]);
+                    ArticleListFragment fragment = ArticleListFragment.newInstance(pageTypes[position]);
+                    mFragments.add(fragment);
+                    return fragment;
                 }
                 return null;
             }
@@ -60,7 +68,16 @@ public class HomeFragment extends Fragment {
         };
 
         mViewPager.setAdapter(mAdapter);
-        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setOffscreenPageLimit(1);
         mTabLaout.setupWithViewPager(mViewPager);
+    }
+
+    public void notifyAllFragmentsChangeStyle(boolean isLinear) {
+        if (!isAdded()) {
+            return;
+        }
+        for (ArticleListFragment fragment : mFragments) {
+            fragment.updateLayoutStyle(isLinear);
+        }
     }
 }

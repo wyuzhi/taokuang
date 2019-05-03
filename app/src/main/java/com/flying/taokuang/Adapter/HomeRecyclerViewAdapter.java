@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
-import com.flying.taokuang.holder.MySellViewHolder;
+import com.flying.taokuang.holder.NewNormalGridViewHolder;
 import com.flying.taokuang.holder.NewNormalViewHolder;
 
 import java.util.ArrayList;
@@ -17,8 +17,9 @@ import java.util.List;
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int NOMAL_ITEM = 9999;
-    private static final int MY_SELL_ITEM = 8888;
+    private static final int GRID_ITEM = 8888;
 
+    private boolean mLinearStyle = true;
     private List<TaoKuang> mTaoList;
     private Context mContext;
 
@@ -39,9 +40,9 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             case NOMAL_ITEM:
                 return new NewNormalViewHolder(LayoutInflater.from(mContext).
                         inflate(R.layout.feed_new_item, viewGroup, false));
-            case MY_SELL_ITEM:
-                return new MySellViewHolder(LayoutInflater.from(mContext).
-                        inflate(R.layout.selling_item, viewGroup, false));
+            case GRID_ITEM:
+                return new NewNormalGridViewHolder(LayoutInflater.from(mContext).
+                        inflate(R.layout.feed_new_item_grid, viewGroup, false));
         }
         return null;
     }
@@ -58,8 +59,8 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             case NOMAL_ITEM:
                 ((NewNormalViewHolder) viewHolder).bindViewHolder(data);
                 break;
-            case MY_SELL_ITEM:
-                ((MySellViewHolder) viewHolder).bindViewHolder(data);
+            case GRID_ITEM:
+                ((NewNormalGridViewHolder) viewHolder).bindViewHolder(data);
                 break;
         }
     }
@@ -75,6 +76,10 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         notifyDataSetChanged();
     }
 
+    public void setLayoutStyle(boolean style) {
+        mLinearStyle = style;
+    }
+
     @Override
     public int getItemCount() {
         return mTaoList.size();
@@ -82,6 +87,10 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public int getItemViewType(int position) {
+        if (mLinearStyle) {
             return NOMAL_ITEM;
+        } else {
+            return GRID_ITEM;
+        }
     }
 }

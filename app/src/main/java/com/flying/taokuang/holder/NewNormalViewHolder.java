@@ -2,7 +2,6 @@ package com.flying.taokuang.holder;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -28,7 +27,6 @@ import org.litepal.LitePal;
 import java.util.Date;
 import java.util.List;
 
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 
@@ -46,7 +44,7 @@ public class NewNormalViewHolder extends RecyclerView.ViewHolder {
     public NewNormalViewHolder(@NonNull View itemView) {
         super(itemView);
         mContext = itemView.getContext();
-        mIvCoverImage = itemView.findViewById(R.id.item_fm);
+        mIvCoverImage = itemView.findViewById(R.id.item_cover_img);
         mTvTitle = itemView.findViewById(R.id.item_title);
         mTvPrice = itemView.findViewById(R.id.item_price);
         mTvUserName = itemView.findViewById(R.id.item_goods_owner);

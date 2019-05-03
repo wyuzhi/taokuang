@@ -6,20 +6,19 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.SearchView;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.flying.baselib.utils.app.ApplicationUtils;
 import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.app.MainThread;
+import com.flying.baselib.utils.collection.CollectionUtils;
 import com.flying.baselib.utils.device.NetworkUtils;
+import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.FragmentAdapter;
 import com.flying.taokuang.Fragement.HomeFragment;
-import com.flying.taokuang.Fragement.MyFragment;
 import com.flying.taokuang.base.BaseToolbarActivity;
 import com.pgyersdk.feedback.PgyerFeedbackManager;
 import com.pgyersdk.update.PgyUpdateManager;
@@ -38,8 +37,10 @@ import kr.co.namee.permissiongen.PermissionSuccess;
 
 public class MainActivity extends BaseToolbarActivity {
     private List<Fragment> fragments = new ArrayList<>();
-    private ViewPager viewPager;
-    private View search;
+    private ViewPager mViewPager;
+    private View mSearchView;
+    private boolean mLinearStyle = true;
+    private ImageView mChangeLayoutManagerView;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -49,14 +50,14 @@ public class MainActivity extends BaseToolbarActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    viewPager.setCurrentItem(0);
+                    mViewPager.setCurrentItem(0);
                     return true;
                 case R.id.navigation_dashboard:
                     Intent intent = new Intent(getBaseContext(), ReleaseActivity.class);
                     startActivity(intent);
                     return true;
                 case R.id.navigation_notifications:
-                    viewPager.setCurrentItem(2);
+                    mViewPager.setCurrentItem(2);
                     return true;
             }
             return false;
@@ -74,12 +75,26 @@ public class MainActivity extends BaseToolbarActivity {
         }
         initView();
         delayInit();
-        search = findViewById(R.id.search_layout);
-        search.setOnClickListener(new View.OnClickListener() {
+        mSearchView = findViewById(R.id.search_layout);
+        UiUtils.expandClickRegion(mSearchView, UiUtils.dp2px(10));
+        mSearchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, GoSearchActivity.class);
                 startActivity(intent);
+            }
+        });
+        mChangeLayoutManagerView = findViewById(R.id.iv_change_layout_manager);
+        UiUtils.expandClickRegion(mChangeLayoutManagerView, UiUtils.dp2px(10));
+        mChangeLayoutManagerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mLinearStyle = !mLinearStyle;
+                mChangeLayoutManagerView.setImageResource(mLinearStyle ? R.mipmap.ic_grid_layout : R.mipmap.ic_linear_layout);
+                if (!CollectionUtils.isEmpty(fragments) && fragments.get(0) instanceof HomeFragment) {
+                    HomeFragment fragment = (HomeFragment) fragments.get(0);
+                    fragment.notifyAllFragmentsChangeStyle(mLinearStyle);
+                }
             }
         });
     }
@@ -163,21 +178,18 @@ public class MainActivity extends BaseToolbarActivity {
     private void initView() {
         // mToolbar.setTitle("淘矿");
         setSupportActionBar(mToolbar);
-        viewPager = findViewById(R.id.view_pager);
+        mViewPager = findViewById(R.id.view_pager);
         //分类导航栏
 
         //
         final BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        //向viewpager中添加页面
-        fragments.add(new HomeFragment());
-        fragments.add(new MyFragment());
         FragmentAdapter myAdapter = new FragmentAdapter(getSupportFragmentManager(), fragments);
-        viewPager.setAdapter(myAdapter);
-        viewPager.setOffscreenPageLimit(2);
+        mViewPager.setAdapter(myAdapter);
+        mViewPager.setOffscreenPageLimit(2);
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
 

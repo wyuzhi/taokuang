@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.facebook.drawee.drawable.ScalingUtils;
+import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.R;
 import com.flying.taokuang.ui.AsyncImageView;
 
@@ -33,7 +34,8 @@ public class DetailImageAdapter extends RecyclerView.Adapter<DetailImageAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int position) {
-        viewHolder.img.setUrl2(mList.get(position));
+        viewHolder.img.setUrl(mList.get(position), UiUtils.dp2px(300), UiUtils.dp2px(225));
+        viewHolder.img.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
     }
 
 

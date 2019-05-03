@@ -4,6 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.flying.taokuang.Fragement.HomeFragment;
+import com.flying.taokuang.Fragement.MyFragment;
+
 import java.util.List;
 
 public class FragmentAdapter extends FragmentPagerAdapter {
@@ -16,12 +19,19 @@ public class FragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return fragments.get(position);
+        Fragment f = null;
+        if (position == 0) {
+            f = new HomeFragment();
+        } else if (position == 1) {
+            f = new MyFragment();
+        }
+        fragments.add(f);
+        return f;
     }
 
     @Override
     public int getCount() {
-        return fragments.size();
+        return 2;
     }
 }
 

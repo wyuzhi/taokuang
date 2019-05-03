@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.flying.taokuang.ui.AsyncImageView
+        android:id="@+id/item_cover_img"
+        android:layout_width="150dp"
+        android:layout_height="110dp"
+        android:layout_marginLeft="@dimen/home_item_horizontal_margin"
+        android:layout_marginTop="@dimen/home_item_vertical_margin"
+        android:layout_marginRight="@dimen/home_item_horizontal_margin"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginTop="@dimen/home_item_vertical_margin"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxWidth="80dp"
+        android:singleLine="true"
+        android:textColor="#535353"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@+id/item_cover_img"
+        app:layout_constraintTop_toBottomOf="@+id/item_cover_img"
+        tools:text="@string/app_name" />
+
+    <TextView
+        android:id="@+id/item_goods_owner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:gravity="center_vertical"
+        android:maxWidth="80dp"
+        android:singleLine="true"
+        android:textColor="#959595"
+        android:textSize="6sp"
+        app:layout_constraintLeft_toLeftOf="@+id/item_title"
+        app:layout_constraintTop_toBottomOf="@+id/item_title"
+        tools:text="@string/app_name" />
+
+    <TextView
+        android:id="@+id/feed_item_goods_content"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxWidth="150dp"
+        android:maxLines="2"
+        android:textColor="#959595"
+        android:textSize="8sp"
+        app:layout_constraintLeft_toLeftOf="@+id/item_goods_owner"
+        app:layout_constraintTop_toBottomOf="@+id/item_goods_owner"
+        tools:text="@string/app_name" />
+
+    <TextView
+        android:id="@+id/item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/home_item_vertical_margin"
+        android:gravity="center_vertical"
+        android:maxWidth="60dp"
+        android:textColor="@color/commonColorOrange"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintRight_toRightOf="@+id/item_cover_img"
+        app:layout_constraintTop_toBottomOf="@+id/item_cover_img"
+        tools:text="@string/app_name" />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <com.flying.taokuang.ui.AsyncImageView
-        android:id="@+id/item_fm"
+        android:id="@+id/item_cover_img"
         android:layout_width="match_parent"
         android:layout_height="210dp"
         android:layout_marginLeft="@dimen/home_item_horizontal_margin"
@@ -53,7 +53,7 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_fm"
+        app:layout_constraintTop_toBottomOf="@+id/item_cover_img"
         tools:text="@string/app_name" />
 
     <TextView
@@ -85,7 +85,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_fm"
+        app:layout_constraintTop_toBottomOf="@+id/item_cover_img"
         tools:text="@string/app_name" />
 
     <TextView
@@ -109,8 +109,8 @@
         android:layout_height="wrap_content"
         android:text="删除"
         android:visibility="gone"
-        app:layout_constraintLeft_toLeftOf="@+id/item_fm"
-        app:layout_constraintTop_toTopOf="@+id/item_fm"
+        app:layout_constraintLeft_toLeftOf="@+id/item_cover_img"
+        app:layout_constraintTop_toTopOf="@+id/item_cover_img"
         tools:visibility="visible" />
 
 </android.support.constraint.ConstraintLayout>

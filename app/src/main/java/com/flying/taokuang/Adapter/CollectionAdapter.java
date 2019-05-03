@@ -1,7 +1,6 @@
 package com.flying.taokuang.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.DetailActivity;
 import com.flying.taokuang.R;
@@ -61,7 +59,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
             super(itemView);
             title = itemView.findViewById(R.id.item_title);
             price = itemView.findViewById(R.id.item_price);
-            image = itemView.findViewById(R.id.item_fm);
+            image = itemView.findViewById(R.id.item_cover_img);
         }
     }
 }

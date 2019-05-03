@@ -1,7 +1,6 @@
 package com.flying.taokuang.holder;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,19 +14,23 @@ import com.flying.taokuang.ui.AsyncImageView;
 
 import java.util.List;
 
-public class NormalViewHolder extends RecyclerView.ViewHolder {
+public class NewNormalGridViewHolder extends RecyclerView.ViewHolder {
 
     private Context mContext;
     private AsyncImageView mIvCoverImage;
     private TextView mTvTitle;
     private TextView mTvPrice;
+    private TextView mTvUserName;
+    private TextView mTvContent;
 
-    public NormalViewHolder(@NonNull View itemView) {
+    public NewNormalGridViewHolder(@NonNull View itemView) {
         super(itemView);
         mContext = itemView.getContext();
         mIvCoverImage = itemView.findViewById(R.id.item_cover_img);
         mTvTitle = itemView.findViewById(R.id.item_title);
         mTvPrice = itemView.findViewById(R.id.item_price);
+        mTvUserName = itemView.findViewById(R.id.item_goods_owner);
+        mTvContent = itemView.findViewById(R.id.feed_item_goods_content);
     }
 
 
@@ -35,15 +38,18 @@ public class NormalViewHolder extends RecyclerView.ViewHolder {
         if (taoItem == null) {
             return;
         }
-        String biaoti = taoItem.getBiaoti();
-        String jiage = taoItem.getJiage();
+        String title = taoItem.getBiaoti();
+        String price = taoItem.getJiage();
+        String nickname = taoItem.getFabu().getNicheng();
+        String content = taoItem.getMiaoshu().replaceAll("\n", "");
         List<String> pic = taoItem.getPic();
 
-        mIvCoverImage.setUrl(pic.get(0), UiUtils.dp2px(172), UiUtils.dp2px(227));
-        mIvCoverImage.setRoundingRadius(UiUtils.dp2px(5));
-        mTvTitle.setText(biaoti);
-        mTvPrice.setText("￥" + jiage);
-        mTvPrice.setTextColor(Color.RED);
+        mIvCoverImage.setUrl(pic.get(0), UiUtils.dp2px(150), UiUtils.dp2px(110));
+        mIvCoverImage.setRoundingRadius(UiUtils.dp2px(4));
+        mTvUserName.setText(nickname);
+        mTvContent.setText(content);
+        mTvTitle.setText(title);
+        mTvPrice.setText("￥" + price);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
