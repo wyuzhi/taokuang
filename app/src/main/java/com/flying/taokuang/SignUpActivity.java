@@ -2,7 +2,6 @@ package com.flying.taokuang;
 
 import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,12 +13,13 @@ import android.widget.Toast;
 
 import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.ui.ToastUtils;
+import com.flying.taokuang.base.BaseActivity;
 import com.flying.taokuang.entity.User;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends BaseActivity {
     private Button mBtnSignup;
     private TextInputEditText mEtUserNickName;
     private TextInputEditText mEtLoginID;
@@ -28,11 +28,19 @@ public class SignUpActivity extends AppCompatActivity {
     private TextView mTvAgreement;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setBackgroundDrawableResource(R.mipmap.bg_sign_up);
-        setContentView(R.layout.activity_signup);
         initView();
+    }
+
+    @Override
+    public int getContentViewResId() {
+        return R.layout.activity_signup;
+    }
+
+    @Override
+    public int getBackgroundResId() {
+        return R.mipmap.bg_sign_up;
     }
 
     private void initView() {

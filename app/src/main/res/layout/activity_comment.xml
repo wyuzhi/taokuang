@@ -114,7 +114,7 @@
             android:layout_height="45dp"
             android:background="#3f72af"
             android:text="确认评价"
-            android:textColor="@color/but_fb"
+            android:textColor="@drawable/but_fb"
             android:textSize="18sp" />
 
 

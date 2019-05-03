@@ -1,10 +1,8 @@
 package com.flying.taokuang.My;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,13 +11,14 @@ import android.widget.Toast;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.MainActivity;
 import com.flying.taokuang.R;
+import com.flying.taokuang.base.BaseActivity;
 import com.flying.taokuang.entity.User;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 
-public class MyChangePasswordActivity extends Activity implements View.OnClickListener {
+public class MyChangePasswordActivity extends BaseActivity implements View.OnClickListener {
     private Button mBtConfirm;
     private EditText mEtInitialPassword;
     private EditText mEtPassword;
@@ -27,12 +26,19 @@ public class MyChangePasswordActivity extends Activity implements View.OnClickLi
     private ImageView mIvBack;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setBackgroundDrawableResource(R.mipmap.bg_change_password);
-        setContentView(R.layout.activity_password);
         initView();
+    }
+
+    @Override
+    public int getContentViewResId() {
+        return R.layout.activity_password;
+    }
+
+    @Override
+    public int getBackgroundResId() {
+        return R.mipmap.bg_change_password;
     }
 
     private void initView() {
@@ -76,12 +82,9 @@ public class MyChangePasswordActivity extends Activity implements View.OnClickLi
                                 Intent intent = new Intent(MyChangePasswordActivity.this, MainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
-                                //Snackbar.make(Layout, "查询成功", Snackbar.LENGTH_LONG).show();
                             } else {
                                 Toast.makeText(MyChangePasswordActivity.this, "修改失败" + e.getMessage(),
                                         Toast.LENGTH_LONG).show();
-
-                                //Snackbar.make(view, "查询失败：" + e.getMessage(), Snackbar.LENGTH_LONG).show();
                             }
                         }
                     });

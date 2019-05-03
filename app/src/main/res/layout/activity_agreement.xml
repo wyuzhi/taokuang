@@ -72,7 +72,7 @@
                 android:layout_alignParentBottom="true"
                 android:background="#3f72af"
                 android:text="同意"
-                android:textColor="@color/but_fb"
+                android:textColor="@drawable/but_fb"
                 android:textSize="18sp" />
 
         </LinearLayout>

@@ -66,7 +66,9 @@
         <activity
             android:name=".My.AboutActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".My.MyChangePasswordActivity" />
+        <activity
+            android:name=".My.MyChangePasswordActivity"
+            android:theme="@style/Theme.Activity.NoBackground" />
         <activity android:name=".IdentifyActivity" />
         <activity android:name=".My.MySaleActivity" />
         <activity
@@ -74,7 +76,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SignUpActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Theme.Activity.NoBackground" />
         <activity android:name=".ReleaseActivity" />
         <activity
             android:name=".DetailActivity"
