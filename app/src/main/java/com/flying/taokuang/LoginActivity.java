@@ -2,20 +2,19 @@ package com.flying.taokuang;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.flying.baselib.utils.ui.ToastUtils;
+import com.flying.taokuang.base.BaseBackgroundActivity;
 import com.flying.taokuang.entity.User;
 
-import cn.bmob.v3.Bmob;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends BaseBackgroundActivity implements View.OnClickListener {
     private String dlyhm;
     private String dlmm;
     private EditText yhm;
@@ -25,11 +24,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        Bmob.initialize(this,"7c28cec5766e668a48a5ea7d719d8e08");
         initView();
+    }
+
+    @Override
+    public int getContentViewResId() {
+        return R.layout.activity_login;
+    }
+
+    @Override
+    public int getBackgroundResId() {
+        return -1;
     }
 
     private void initView() {
@@ -61,9 +68,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void loginb(View v) {
         final Intent intent2 = new Intent(LoginActivity.this, MainActivity.class);
-        dlyhm= String.valueOf(yhm.getText());
-        dlmm= String.valueOf(mm.getText());
-        final User dluser=new User();
+        dlyhm = String.valueOf(yhm.getText());
+        dlmm = String.valueOf(mm.getText());
+        final User dluser = new User();
         dluser.setUsername(dlyhm);
         dluser.setPassword(dlmm);
         dluser.login(new SaveListener<User>() {

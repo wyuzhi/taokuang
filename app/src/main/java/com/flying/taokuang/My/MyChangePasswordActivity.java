@@ -11,14 +11,14 @@ import android.widget.Toast;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.MainActivity;
 import com.flying.taokuang.R;
-import com.flying.taokuang.base.BaseActivity;
+import com.flying.taokuang.base.BaseBackgroundActivity;
 import com.flying.taokuang.entity.User;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 
-public class MyChangePasswordActivity extends BaseActivity implements View.OnClickListener {
+public class MyChangePasswordActivity extends BaseBackgroundActivity implements View.OnClickListener {
     private Button mBtConfirm;
     private EditText mEtInitialPassword;
     private EditText mEtPassword;

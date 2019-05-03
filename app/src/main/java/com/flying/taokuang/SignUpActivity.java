@@ -13,13 +13,13 @@ import android.widget.Toast;
 
 import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.ui.ToastUtils;
-import com.flying.taokuang.base.BaseActivity;
+import com.flying.taokuang.base.BaseBackgroundActivity;
 import com.flying.taokuang.entity.User;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
-public class SignUpActivity extends BaseActivity {
+public class SignUpActivity extends BaseBackgroundActivity {
     private Button mBtnSignup;
     private TextInputEditText mEtUserNickName;
     private TextInputEditText mEtLoginID;
