@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.flying.baselib.utils.app.ApplicationUtils;
 import com.flying.baselib.utils.app.LogUtils;
@@ -38,6 +39,8 @@ import kr.co.namee.permissiongen.PermissionSuccess;
 public class MainActivity extends BaseToolbarActivity {
     private List<Fragment> fragments = new ArrayList<>();
     private ViewPager viewPager;
+    private View search;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -71,6 +74,14 @@ public class MainActivity extends BaseToolbarActivity {
         }
         initView();
         delayInit();
+        search = findViewById(R.id.search_layout);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, GoSearchActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -150,9 +161,8 @@ public class MainActivity extends BaseToolbarActivity {
 
 
     private void initView() {
-        mToolbar.setTitle("淘矿");
+        // mToolbar.setTitle("淘矿");
         setSupportActionBar(mToolbar);
-
         viewPager = findViewById(R.id.view_pager);
         //分类导航栏
 
@@ -191,29 +201,4 @@ public class MainActivity extends BaseToolbarActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search, menu); //找到searchView
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        searchView.setSubmitButtonEnabled(true);
-        searchView.setQueryHint("输入你想查找的");
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                //Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                intent.putExtra("搜索", query);
-                startActivity(intent);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
-        return super.onCreateOptionsMenu(menu);
-
-    }
 }

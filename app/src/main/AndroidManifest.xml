@@ -27,7 +27,11 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:networkSecurityConfig,android:allowBackup,android:icon,android:label,android:supportsRtl,android:theme,android:roundIcon">
-        <activity android:name=".debug.DebugActivity"></activity>
+        <activity
+            android:name=".GoSearchActivity"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".debug.DebugActivity" />
         <activity
             android:name=".UserPageActivity"
             android:screenOrientation="portrait"
@@ -135,7 +139,6 @@
         <meta-data
             android:name="TD_CHANNEL_ID"
             android:value="Default" />
-
     </application>
 
 </manifest>

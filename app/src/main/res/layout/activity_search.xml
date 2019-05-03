@@ -3,34 +3,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".SearchActivity">
 
     <android.support.v7.widget.Toolbar
-        android:gravity="center"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#112d4e"
+        android:gravity="center"
         android:theme="@style/AppTheme.AppBarOverlay">
+
         <ImageView
             android:id="@+id/img_return"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_return"/>
+            android:src="@drawable/ic_arrow_back" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
-            android:text="      搜索结果"
-            android:textSize="20dp"
-            android:textColor="#FCFAFA"/>
+            android:text="搜索结果"
+            android:textColor="#FCFAFA"
+            android:textSize="20dp" />
 
     </android.support.v7.widget.Toolbar>
+
     <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/swipe_refresh">
+        android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_tao"
