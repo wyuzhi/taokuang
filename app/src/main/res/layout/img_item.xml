@@ -1,41 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<android.support.v7.widget.CardView android:id="@+id/cv1"-->
-    <!--android:layout_width="346.72dp"-->
-    <!--android:layout_height="554.4dp"-->
-    <!--android:layout_margin="5dp"-->
-    <!--app:cardBackgroundColor="#c4c6c8"-->
-    <!--app:cardCornerRadius="10dp"-->
-    <!--app:cardElevation="10dp"-->
-    <!--app:cardPreventCornerOverlap="true"-->
-    <!--app:layout_constraintTop_toTopOf="parent"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--xmlns:android="http://schemas.android.com/apk/res/android">-->
-
-    <!--<ImageView xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--android:id="@+id/detail_im"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:adjustViewBounds="true"-->
-
-        <!--android:maxWidth="346.72dp"-->
-        <!--android:maxHeight="554.4dp"-->
-       <!--/>-->
-
-<!--</android.support.v7.widget.CardView>-->
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp">
 
-      <com.flying.taokuang.ui.AsyncImageView
-          android:id="@+id/detail_im"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:adjustViewBounds="true"
-          android:contentDescription="@string/app_name"
-          android:scaleType="centerCrop"
-          android:maxWidth="346.72dp"
-          android:maxHeight="554.4dp"/>
+    <com.flying.taokuang.ui.AsyncImageView
+        android:id="@+id/detail_im"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop" />
 
 </RelativeLayout>

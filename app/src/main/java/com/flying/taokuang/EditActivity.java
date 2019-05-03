@@ -1,7 +1,7 @@
 package com.flying.taokuang;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.flying.baselib.utils.app.ApplicationUtils;
 import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.collection.CollectionUtils;
+import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.UploadImgAdapter;
 import com.flying.taokuang.entity.TaoKuang;
@@ -42,7 +43,6 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadBatchListener;
-import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class EditActivity extends TakePhotoActivity implements View.OnClickListener {
     private static final int MIN_CLICK_DELAY_TIME = 10000;
@@ -50,7 +50,6 @@ public class EditActivity extends TakePhotoActivity implements View.OnClickListe
 
     private static final int REQUEST_CODE_CHOOSE = 99;
     private int s = 4;
-
 
     private String id;
     private List<String> iList;
@@ -210,9 +209,8 @@ public class EditActivity extends TakePhotoActivity implements View.OnClickListe
         }
 
 
-        final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
-        pDialog.getProgressHelper().setBarColor(Color.parseColor("#3f72af"));
-        pDialog.setTitleText("正在发布");
+        final ProgressDialog pDialog = new ProgressDialog(this);
+        pDialog.setTitle("正在发布");
         pDialog.setCancelable(false);
         pDialog.show();
 
@@ -231,31 +229,12 @@ public class EditActivity extends TakePhotoActivity implements View.OnClickListe
                 fb.setGengxin(1);
                 fb.setPic(zList);
                 fb.setFabu(user);
-
                 fb.update(id, new UpdateListener() {
                     @Override
                     public void done(BmobException e) {
-                        if (e == null) {
-                            LogUtils.d("发布", "发布成功");
-                            Toast.makeText(EditActivity.this, "编辑并发布成功",
-                                    Toast.LENGTH_SHORT).show();
-                            pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
-                            Intent fbcg = new Intent(EditActivity.this, MainActivity.class);
-                            fbcg.putExtra("发布成功", "发布成功");
-                            fbcg.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(fbcg);
-                                    /*Runtime runtime = Runtime.getRuntime();
-                                    try {
-                                        runtime.exec("input keyevent " + KeyEvent.KEYCODE_BACK);
-                                    } catch (IOException z) {
-                                        z.printStackTrace();
-                                    }*/
-                        } else {
-                            LogUtils.d("发布", "编辑并发布成功:" + e);
-                            pDialog.cancel();
-                            Toast.makeText(EditActivity.this, "编辑并发布成功",
-                                    Toast.LENGTH_SHORT).show();
-                        }
+                        ToastUtils.show(e == null ? "发布成功" : "发布失败");
+                        pDialog.dismiss();
+                        finish();
                     }
                 });
                 //do something
@@ -298,27 +277,9 @@ public class EditActivity extends TakePhotoActivity implements View.OnClickListe
                             fb.update(id, new UpdateListener() {
                                 @Override
                                 public void done(BmobException e) {
-                                    if (e == null) {
-                                        LogUtils.d("发布", "发布成功");
-                                        Toast.makeText(EditActivity.this, "编辑并发布成功",
-                                                Toast.LENGTH_SHORT).show();
-                                        pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
-                                        Intent fbcg = new Intent(EditActivity.this, MainActivity.class);
-                                        fbcg.putExtra("发布成功", "发布成功");
-                                        fbcg.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        startActivity(fbcg);
-                                    /*Runtime runtime = Runtime.getRuntime();
-                                    try {
-                                        runtime.exec("input keyevent " + KeyEvent.KEYCODE_BACK);
-                                    } catch (IOException z) {
-                                        z.printStackTrace();
-                                    }*/
-                                    } else {
-                                        LogUtils.d("发布", "编辑并发布成功:" + e);
-                                        pDialog.cancel();
-                                        Toast.makeText(EditActivity.this, "编辑并发布成功",
-                                                Toast.LENGTH_SHORT).show();
-                                    }
+                                    ToastUtils.show(e == null ? "发布成功" : "发布失败");
+                                    pDialog.dismiss();
+                                    finish();
                                 }
                             });
                             //do something

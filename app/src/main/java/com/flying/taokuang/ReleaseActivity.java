@@ -1,5 +1,6 @@
 package com.flying.taokuang;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -38,7 +39,6 @@ import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadBatchListener;
-import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class ReleaseActivity extends TakePhotoActivity implements View.OnClickListener {
@@ -103,7 +103,7 @@ public class ReleaseActivity extends TakePhotoActivity implements View.OnClickLi
             }
         });
         UiUtils.setOnTouchBackground(mIvBack);
-        iList = new ArrayList<String>();
+        iList = new ArrayList<>();
         im2 = findViewById(R.id.expanded_image);
         im2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,9 +112,6 @@ public class ReleaseActivity extends TakePhotoActivity implements View.OnClickLi
             }
         });
 
-
-        //tbfb =findViewById(R.id.toolbar_fabu);
-        //toolbarfabu.setTitle("发布你的闲置好物");
         leibie = findViewById(R.id.spinner_leibie);
         biaoti = findViewById(R.id.edit_biaoti);
         miaoshu = findViewById(R.id.edit_miaoshu);
@@ -122,33 +119,12 @@ public class ReleaseActivity extends TakePhotoActivity implements View.OnClickLi
         jiage = findViewById(R.id.edit_jiage);
         lianxi = findViewById(R.id.edit_lianxi);
         im1 = findViewById(R.id.im_1);
-        //im2 = findViewById(R.id.im_2);
-        //im3 = findViewById(R.id.im_3);
         fabu = findViewById(R.id.fabu);
         im1.setOnClickListener(this);
-        //im2.setOnClickListener(this);
-        //im3.setOnClickListener(this);
         fabu.setOnClickListener(this);
-        /*imggrid = findViewById(R.id.grid_view);
-        imggrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Choose();
-            }
-        });*/
-        iRecyclerView = findViewById(R.id.image_RecyclerView);
-        iRecyclerView.setLayoutManager(new GridLayoutManager
-                (this, 4, GridLayoutManager.VERTICAL, false));
 
-//        if (s == 100) {
-//            iAdapter.setM2(new UploadImgAdapter.M2() {
-//                @Override
-//                public void onDeliteClick(List list) {
-//                    s = 3 - list.size();
-//                    im1.setVisibility(View.VISIBLE);
-//                }
-//            });
-//        }
+        iRecyclerView = findViewById(R.id.image_RecyclerView);
+        iRecyclerView.setLayoutManager(new GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false));
 
     }
 
@@ -198,16 +174,8 @@ public class ReleaseActivity extends TakePhotoActivity implements View.OnClickLi
             return;
         }
 
-
-
-
-        /*im1pathb = file1b.getPath();
-        im2pathb = file2b.getPath();
-        im3pathb = file3b.getPath();*/
-
-        final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
-        pDialog.getProgressHelper().setBarColor(Color.parseColor("#3f72af"));
-        pDialog.setTitleText("正在发布");
+        final ProgressDialog pDialog = new ProgressDialog(this);
+        pDialog.setTitle("正在发布");
         pDialog.setCancelable(false);
         pDialog.show();
 
@@ -240,25 +208,9 @@ public class ReleaseActivity extends TakePhotoActivity implements View.OnClickLi
                         fb.save(new SaveListener<String>() {
                             @Override
                             public void done(String s, BmobException e) {
-                                if (e == null) {
-                                    LogUtils.d("发布", "发布成功");
-                                    ToastUtils.show("发布成功");
-                                    pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
-                                    Intent fbcg = new Intent(ReleaseActivity.this, MainActivity.class);
-                                    fbcg.putExtra("发布成功", "发布成功");
-                                    fbcg.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(fbcg);
-                                    /*Runtime runtime = Runtime.getRuntime();
-                                    try {
-                                        runtime.exec("input keyevent " + KeyEvent.KEYCODE_BACK);
-                                    } catch (IOException z) {
-                                        z.printStackTrace();
-                                    }*/
-                                } else {
-                                    LogUtils.d("发布", "发布失败:" + e);
-                                    pDialog.cancel();
-                                    ToastUtils.show("发布失败");
-                                }
+                                ToastUtils.show(e == null ? "发布成功" : "发布失败");
+                                pDialog.dismiss();
+                                finish();
                             }
                         });
 

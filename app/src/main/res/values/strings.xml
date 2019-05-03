@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">淘矿</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="detail_buy_tips">马上购买</string>
 </resources>

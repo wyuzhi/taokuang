@@ -11,15 +11,13 @@ import com.facebook.drawee.drawable.ScalingUtils;
 import com.flying.taokuang.R;
 import com.flying.taokuang.ui.AsyncImageView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder> {
-    public List<String> mList = new ArrayList<>();
+public class DetailImageAdapter extends RecyclerView.Adapter<DetailImageAdapter.ViewHolder> {
+    public List<String> mList;
     private Context mContext;
-    //public List<String> zList = new ArrayList<>();
 
-    public DetailAdapter(Context context, List<String> list) {
+    public DetailImageAdapter(Context context, List<String> list) {
         mContext = context;
         mList = list;
     }
@@ -28,8 +26,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.img_item, viewGroup, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.img_item, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }

@@ -61,6 +61,7 @@ public class UserPageActivity extends AppCompatActivity {
         mUserID = intent.getStringExtra(GO_USER_PAGE_TAG);
         if (TextUtils.isEmpty(mUserID)) {
             finish();
+            return;
         }
         initView();
         loadData();

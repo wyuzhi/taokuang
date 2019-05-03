@@ -72,45 +72,15 @@ public class NewNormalViewHolder extends RecyclerView.ViewHolder {
         mTvContent.setText(content);
         mTvTitle.setText(title);
         mTvPrice.setText("￥" + price);
-        itemView.setOnClickListener
-                (new View.OnClickListener() {
-                     @Override
-                     public void onClick(View v) {
-                         Intent detailIntent = new Intent(mContext, DetailActivity.class);
-                         detailIntent.putExtra("图片", taoItem.getPic().toArray(new String[taoItem.getPic().size()]));
-                         detailIntent.putExtra("价格", taoItem.getJiage());
-                         detailIntent.putExtra("标题", taoItem.getBiaoti());
-                         detailIntent.putExtra("描述", taoItem.getMiaoshu());
-                         detailIntent.putExtra("位置", taoItem.getWeizhi());
-                         detailIntent.putExtra("联系", taoItem.getLianxi());
-                         detailIntent.putExtra("发布", taoItem.getFabu().getObjectId());
-                         String a = taoItem.getFabu().getObjectId();
-                         String c = "哈哈";
-                         if (taoItem.getGoumai() != null) {
-                             detailIntent.putExtra("购买", taoItem.getGoumai().getObjectId());
-                             c = taoItem.getGoumai().getObjectId();
-                         }
-
-                         String b = BmobUser.getCurrentUser(User.class).getObjectId();
-                         if (a.equals(b) && taoItem.getGoumai() != null) {
-                             detailIntent.putExtra("购买name", taoItem.getGoumai().getNicheng());
-                             detailIntent.putExtra("购买phone", taoItem.getGoumai().getPhone());
-                             detailIntent.putExtra("鸽子id", taoItem.getGoumai().getObjectId());
-                         }
-                         if (c.equals(b)) {
-                             detailIntent.putExtra("购买成功", "成功");
-                         }
-
-
-                         if (taoItem.getFabu().getIcon() != null) {
-                             detailIntent.putExtra("发布icon", taoItem.getFabu().getIcon().getFileUrl());
-                         }
-                         detailIntent.putExtra("昵称", taoItem.getFabu().getNicheng());
-                         detailIntent.putExtra("ID", taoItem.getObjectId());
-                         mContext.startActivity(detailIntent);
-                     }
-                 }
-                );
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (taoItem == null) {
+                    return;
+                }
+                DetailActivity.go(mContext, taoItem.getObjectId());
+            }
+        });
         List<CollectionBean> collections = LitePal.where("good = ?", taoItem.getObjectId()).find(CollectionBean.class);
         if (CollectionUtils.isEmpty(collections)) {
             mIvCollect.setImageResource(R.mipmap.ic_home_item_collect_unset);

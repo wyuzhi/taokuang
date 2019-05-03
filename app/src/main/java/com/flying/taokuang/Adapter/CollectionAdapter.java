@@ -43,11 +43,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                LogUtils.d("Collection id", "onClick: " + collection.getTitle());
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra("ID", collection.getGood());
-                context.startActivity(intent);
+                DetailActivity.go(context, collection.getGood());
             }
         });
     }
