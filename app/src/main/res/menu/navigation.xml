@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_tab_home"
+        android:icon="@drawable/vector_drawable_home"
         android:title="主页" />
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_tab_add"
+        android:icon="@drawable/vector_drawable__add"
         android:title="发布" />
 
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_tab_my"
+        android:icon="@drawable/vector_drawable__mine"
         android:title="我的" />
 
 

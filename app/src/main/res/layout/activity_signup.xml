@@ -95,10 +95,10 @@
 
     <Button
         android:id="@+id/ljzc"
-        android:layout_width="93.26dp"
-        android:layout_height="27.78dp"
+        android:layout_width="93dp"
+        android:layout_height="28dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="26dp"
         android:background="@drawable/bg_signup_btn"
         android:text="完成"
         android:textColor="@color/commonColorGrey" />
