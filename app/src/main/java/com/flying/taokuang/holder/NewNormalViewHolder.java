@@ -1,14 +1,20 @@
 package com.flying.taokuang.holder;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.flying.baselib.utils.app.DebugSpUtils;
 import com.flying.baselib.utils.collection.CollectionUtils;
+import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.DetailActivity;
 import com.flying.taokuang.R;
@@ -23,6 +29,8 @@ import java.util.Date;
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UpdateListener;
 
 public class NewNormalViewHolder extends RecyclerView.ViewHolder {
 
@@ -33,6 +41,7 @@ public class NewNormalViewHolder extends RecyclerView.ViewHolder {
     private TextView mTvUserName;
     private TextView mTvContent;
     private ImageView mIvCollect;
+    private Button mBtnManage;
 
     public NewNormalViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -43,6 +52,7 @@ public class NewNormalViewHolder extends RecyclerView.ViewHolder {
         mTvUserName = itemView.findViewById(R.id.item_goods_owner);
         mTvContent = itemView.findViewById(R.id.feed_item_goods_content);
         mIvCollect = itemView.findViewById(R.id.item_collect);
+        mBtnManage = itemView.findViewById(R.id.btn_new_normal_manage_delete);
     }
 
 
@@ -126,6 +136,39 @@ public class NewNormalViewHolder extends RecyclerView.ViewHolder {
                 }
             }
         });
+        mBtnManage.setVisibility(View.GONE);
+        if (DebugSpUtils.isManageEnable()) {
+            mBtnManage.setVisibility(View.VISIBLE);
+            mBtnManage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final EditText enterDebug = new EditText(mContext);
+                    enterDebug.setSingleLine(true);
+                    new AlertDialog.Builder(mContext).setTitle("请输入密码")
+                            .setView(enterDebug)
+                            .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    User user = User.getCurrentUser(User.class);
+                                    if (user != null && "111".equals(user.getUsername()) &&
+                                            DebugSpUtils.KEY_GO_DEBUG.equals(enterDebug.getText().toString())) {
+                                        TaoKuang sc = new TaoKuang();
+                                        sc.delete(taoItem.getObjectId(), new UpdateListener() {
+                                            @Override
+                                            public void done(BmobException e) {
+                                                ToastUtils.show("已删除");
+                                            }
+                                        });
+                                    }
+                                }
+                            })
+                            .create()
+                            .show();
+
+
+                }
+            });
+        }
     }
 
 }

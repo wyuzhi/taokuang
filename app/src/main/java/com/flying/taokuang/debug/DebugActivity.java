@@ -13,7 +13,6 @@ import com.flying.baselib.utils.app.DebugSpUtils;
 import com.flying.taokuang.R;
 
 public class DebugActivity extends AppCompatActivity {
-    private static final String PASSWORD = "fs2018fs";
     private Switch mSwcDokit;
     private Switch mSwcImage;
     private Switch mSwcManager;
@@ -53,7 +52,7 @@ public class DebugActivity extends AppCompatActivity {
                 .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (!PASSWORD.equals(enterDebug.getText().toString())) {
+                        if (!DebugSpUtils.KEY_GO_DEBUG.equals(enterDebug.getText().toString())) {
                             finish();
                         }
                     }

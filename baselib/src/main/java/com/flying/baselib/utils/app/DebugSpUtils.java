@@ -3,6 +3,7 @@ package com.flying.baselib.utils.app;
 import com.flying.baselib.utils.SharedPreferencesHelper;
 
 public class DebugSpUtils {
+    public static final String KEY_GO_DEBUG = "FS2019";
     private static final String KEY_DOKIT = "KEY_DOKIT";
     private static final String KEY_IMAGE = "KEY_IMAGE";
     private static final String KEY_MANAGE = "KEY_MANAGE";
