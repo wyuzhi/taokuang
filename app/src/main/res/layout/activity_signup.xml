@@ -10,11 +10,12 @@
         android:layout_width="185dp"
         android:layout_height="45dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginRight="53dp"
         android:layout_marginTop="79dp"
         android:text="欢迎注册!"
-        android:textStyle="bold"
         android:textColor="@color/commonColorGrey"
-        android:textSize="34sp" />
+        android:textSize="34sp"
+        android:textStyle="bold" />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -97,8 +98,10 @@
         android:layout_width="93.26dp"
         android:layout_height="27.78dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="35dp"
-        android:background="@mipmap/im_sign_up_finish" />
+        android:layout_marginTop="70dp"
+        android:background="@drawable/bg_signup_btn"
+        android:text="完成"
+        android:textColor="@color/commonColorGrey" />
 
 
 </LinearLayout>

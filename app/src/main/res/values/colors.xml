@@ -13,4 +13,5 @@
     <color name="commonColorYellow">#F4D539</color>
     <color name="commonColorBlue">#40507C</color>
     <color name="commonColorGrey">#727272</color>
+    <color name="commonColorGrey2">#EAEAEA</color>
 </resources>

@@ -62,8 +62,9 @@
         android:layout_width="93.26dp"
         android:layout_height="27.78dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="55dp"
-        android:background="@mipmap/im_login_finish"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/bg_login_btn"
+        android:text="完成"
         android:textColor="@color/commonColorGrey" />
 
     <Button
