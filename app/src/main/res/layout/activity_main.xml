@@ -53,9 +53,26 @@
                 android:id="@+id/iv_change_layout_manager"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:layout_marginEnd="17dp"
                 android:layout_marginRight="17dp"
-                android:src="@mipmap/ic_grid_layout" />
+                android:src="@mipmap/ic_grid_layout"
+                android:visibility="gone" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_view"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="17dp"
+                android:layout_marginRight="17dp"
+                android:scaleType="centerCrop"
+                app:lottie_autoPlay="false"
+                app:lottie_colorFilter="@android:color/white"
+                app:lottie_fileName="list_grid_anim.json"
+                app:lottie_loop="false" />
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>

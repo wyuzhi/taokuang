@@ -46,6 +46,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.facebook.fresco:fresco:1.13.0'
     implementation 'com.wuxiaolong.pullloadmorerecyclerview:library:1.1.2'
+    implementation 'com.airbnb.android:lottie:2.7.0'
 
     //App Debug 检测工具
     debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:1.1.5'

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.flying.baselib.utils.app.ApplicationUtils;
 import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.app.MainThread;
@@ -82,6 +83,27 @@ public class MainActivity extends BaseToolbarActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, GoSearchActivity.class);
                 startActivity(intent);
+            }
+        });
+        final LottieAnimationView lottieAnimationView = findViewById(R.id.animation_view);
+        UiUtils.expandClickRegion(lottieAnimationView, UiUtils.dp2px(10));
+        lottieAnimationView.useHardwareAcceleration();
+        lottieAnimationView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (lottieAnimationView == null) {
+                    return;
+                }
+                if (lottieAnimationView.isAnimating()) {
+                    lottieAnimationView.cancelAnimation();
+                }
+                lottieAnimationView.setSpeed(mLinearStyle ? -1.0f : 1.0f);
+                lottieAnimationView.playAnimation();
+                mLinearStyle = !mLinearStyle;
+                if (!CollectionUtils.isEmpty(fragments) && fragments.get(0) instanceof HomeFragment) {
+                    HomeFragment fragment = (HomeFragment) fragments.get(0);
+                    fragment.notifyAllFragmentsChangeStyle(mLinearStyle);
+                }
             }
         });
         mChangeLayoutManagerView = findViewById(R.id.iv_change_layout_manager);
