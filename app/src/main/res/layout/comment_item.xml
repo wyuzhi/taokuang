@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingTop="5dp"
-    android:paddingBottom="20dp">
+    android:paddingBottom="5dp">
 
     <com.flying.taokuang.ui.AsyncImageView
         android:id="@+id/comment_user_avatar"
@@ -24,6 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:maxWidth="150dp"
         android:singleLine="true"
