@@ -2,7 +2,6 @@ package com.flying.taokuang;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +11,6 @@ import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.taokuang.entity.User;
 
 import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
@@ -87,13 +85,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
         });
-        if(BmobUser.isLogin()){
-            User user = BmobUser.getCurrentUser(User.class);
-            Snackbar.make(v,"当前用户:"+user.getUsername(),Snackbar.LENGTH_LONG).show();
-        }
-        else{
-            Snackbar.make(v,"请登陆:",Snackbar.LENGTH_LONG).show();
-        }
     }
 }
 

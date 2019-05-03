@@ -8,13 +8,14 @@
     tools:context=".Fragement.HomeFragment">
 
     <android.support.design.widget.TabLayout
+
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         app:tabIndicatorColor="@color/commonColorYellow"
         app:tabIndicatorHeight="5dp"
         app:tabTextAppearance="@style/HomeTabLayoutTextStyle"
-        app:tabTextColor="#737373" />
+        app:tabTextColor="@color/commonColorGrey" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"

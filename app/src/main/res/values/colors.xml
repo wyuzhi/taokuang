@@ -12,4 +12,5 @@
     <color name="commonColorOrange">#ED6C29</color>
     <color name="commonColorYellow">#F4D539</color>
     <color name="commonColorBlue">#40507C</color>
+    <color name="commonColorGrey">#727272</color>
 </resources>

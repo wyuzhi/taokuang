@@ -4,22 +4,30 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <ImageView
+        android:layout_width="103.67dp"
+        android:layout_height="97.08dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60.6dp"
+        android:src="@mipmap/im_login" />
+
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="45dp"
         android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:padding="5sp"
+        android:layout_marginTop="15dp"
         android:text="登录"
-        android:textColor="#212121"
-        android:textSize="24sp" />
+        android:textColor="@color/commonColorGrey"
+        android:textSize="34dp"
+        android:textStyle="bold" />
 
 
     <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
+        android:layout_width="295dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="35dp"
         android:layout_marginRight="10dp">
 
         <android.support.design.widget.TextInputEditText
@@ -32,8 +40,9 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
+        android:layout_width="295dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="10dp">
@@ -50,15 +59,12 @@
 
     <Button
         android:id="@+id/dl_dl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/colorBlueCommon"
-        android:text="登录"
-        android:textColor="@color/colorWhite"
-        android:textSize="18sp" />
+        android:layout_width="93.26dp"
+        android:layout_height="27.78dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="55dp"
+        android:background="@mipmap/im_login_finish"
+        android:textColor="@color/commonColorGrey" />
 
     <Button
         android:id="@+id/dl_zc"
