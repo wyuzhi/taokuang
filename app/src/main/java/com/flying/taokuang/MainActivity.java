@@ -41,8 +41,6 @@ public class MainActivity extends BaseToolbarActivity {
     private ViewPager mViewPager;
     private View mSearchView;
     private boolean mLinearStyle = true;
-    private ImageView mChangeLayoutManagerView;
-
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -91,28 +89,20 @@ public class MainActivity extends BaseToolbarActivity {
         lottieAnimationView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (lottieAnimationView == null) {
-                    return;
-                }
-                if (lottieAnimationView.isAnimating()) {
-                    lottieAnimationView.cancelAnimation();
-                }
-                lottieAnimationView.setSpeed(mLinearStyle ? -1.0f : 1.0f);
-                lottieAnimationView.playAnimation();
+                MainThread.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (lottieAnimationView == null) {
+                            return;
+                        }
+                        if (lottieAnimationView.isAnimating()) {
+                            lottieAnimationView.cancelAnimation();
+                        }
+                        lottieAnimationView.setSpeed(mLinearStyle ? -1.0f : 1.0f);
+                        lottieAnimationView.playAnimation();
+                    }
+                });
                 mLinearStyle = !mLinearStyle;
-                if (!CollectionUtils.isEmpty(fragments) && fragments.get(0) instanceof HomeFragment) {
-                    HomeFragment fragment = (HomeFragment) fragments.get(0);
-                    fragment.notifyAllFragmentsChangeStyle(mLinearStyle);
-                }
-            }
-        });
-        mChangeLayoutManagerView = findViewById(R.id.iv_change_layout_manager);
-        UiUtils.expandClickRegion(mChangeLayoutManagerView, UiUtils.dp2px(10));
-        mChangeLayoutManagerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mLinearStyle = !mLinearStyle;
-                mChangeLayoutManagerView.setImageResource(mLinearStyle ? R.mipmap.ic_grid_layout : R.mipmap.ic_linear_layout);
                 if (!CollectionUtils.isEmpty(fragments) && fragments.get(0) instanceof HomeFragment) {
                     HomeFragment fragment = (HomeFragment) fragments.get(0);
                     fragment.notifyAllFragmentsChangeStyle(mLinearStyle);

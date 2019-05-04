@@ -18,30 +18,29 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical">
-
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:id="@+id/search_layout"
                 android:layout_width="175dp"
                 android:layout_height="25dp"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/bg_search_btn"
-                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/img_return"
                     android:layout_width="14dp"
                     android:layout_height="14dp"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="11dp"
                     android:src="@mipmap/ic_search" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"
                     android:text="@string/home_search_tips"
                     android:textColor="@android:color/white"
@@ -49,23 +48,13 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/iv_change_layout_manager"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginEnd="17dp"
-                android:layout_marginRight="17dp"
-                android:src="@mipmap/ic_grid_layout"
-                android:visibility="gone" />
-
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animation_view"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:layout_marginEnd="17dp"
                 android:layout_marginRight="17dp"
                 android:scaleType="centerCrop"
