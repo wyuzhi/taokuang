@@ -229,42 +229,47 @@ public class DetailActivity extends BaseToolbarActivity {
     private View.OnClickListener mBuyListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            new AlertDialog.Builder(DetailActivity.this)
-                    .setTitle("确认购买")
-                    .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            final PurchaseDialog purchaseDialog = new PurchaseDialog(DetailActivity.this);
+            purchaseDialog.setCanceledOnTouchOutside(true);
+            purchaseDialog.setConfirmOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!BmobUser.isLogin() || !BmobUser.getCurrentUser(User.class).getRenz()) {
+                        ToastUtils.show(getBaseContext().getResources().getString(R.string.detail_login_or_verify_tips));
+                        purchaseDialog.dismiss();
+                        return;
+                    }
+                    String o = mCurrentGoods.getFabu().getObjectId();
+                    String p = BmobUser.getCurrentUser(User.class).getObjectId();
+                    if (mCurrentGoods.getGoumai() != null) {
+                        ToastUtils.show(getBaseContext().getResources().getString(R.string.detail_selled_tips));
+                        return;
+                    }
+                    if (o.equals(p)) {
+                        ToastUtils.show(getBaseContext().getResources().getString(R.string.detail_owner_tips));
+                        return;
+                    }
+
+                    mCurrentGoods.setGoumai(BmobUser.getCurrentUser(User.class));
+                    mCurrentGoods.update(mCurrentGoods.getObjectId(), new UpdateListener() {
                         @Override
-                        public void onClick(final DialogInterface dialog, int which) {
-                            if (!BmobUser.isLogin() || !BmobUser.getCurrentUser(User.class).getRenz()) {
-                                ToastUtils.show("请先登陆或认证");
-                                dialog.dismiss();
+                        public void done(BmobException e) {
+                            if (purchaseDialog != null) {
+                                purchaseDialog.dismiss();
+                            }
+                            if (e != null) {
+                                ToastUtils.show("购买失败");
                                 return;
                             }
-                            String o = mCurrentGoods.getFabu().getObjectId();
-                            String p = BmobUser.getCurrentUser(User.class).getObjectId();
-                            if (mCurrentGoods.getGoumai() != null) {
-                                ToastUtils.show(getBaseContext().getResources().getString(R.string.detail_selled_tips));
-                                return;
-                            }
-                            if (o.equals(p)) {
-                                ToastUtils.show(getBaseContext().getResources().getString(R.string.detail_owner_tips));
-                                return;
-                            }
-                            mCurrentGoods.setGoumai(BmobUser.getCurrentUser(User.class));
-                            mCurrentGoods.update(mCurrentGoods.getObjectId(), new UpdateListener() {
-                                @Override
-                                public void done(BmobException e) {
-                                    if (e != null) {
-                                        ToastUtils.show("购买失败");
-                                        return;
-                                    }
-                                    dialog.dismiss();
-                                    finish();
-                                }
-                            });
+                            finish();
                         }
-                    }).setNegativeButton("取消", null).show();
+                    });
+                }
+            });
+            purchaseDialog.show();
         }
     };
+
 
     private View.OnClickListener mGoUserPageListener = new View.OnClickListener() {
         @Override

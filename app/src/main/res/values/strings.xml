@@ -4,5 +4,6 @@
     <string name="home_search_tips">输入关键词进行搜索</string>
     <string name="detail_show_all_goods_tips">全部宝贝 ></string>
     <string name="detail_selled_tips">对不起,该商品已售</string>
-    <string name="detail_owner_tips">对不起,该商品是你发布的</string>
+    <string name="detail_owner_tips">对不起,该商品是你发布的</string>请先登陆或认证
+    <string name="detail_login_or_verify_tips">请先登陆或认证</string>
 </resources>

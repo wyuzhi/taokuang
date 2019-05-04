@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="205dp"
+    android:layout_height="108dp"
+    android:background="@drawable/bg_purchase">
+
+    <ImageView
+        android:layout_width="91dp"
+        android:layout_height="12dp"
+        android:layout_marginLeft="59dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginRight="55dp"
+        android:src="@color/commonColorYellow" />
+
+    <TextView
+        android:layout_width="81dp"
+        android:layout_height="21dp"
+        android:layout_marginLeft="69dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginRight="55dp"
+        android:gravity="center"
+        android:text="确认购买？"
+        android:textColor="#435381"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_purchase_cancle"
+        android:layout_width="61dp"
+        android:layout_height="31dp"
+        android:layout_marginLeft="34dp"
+        android:layout_marginTop="54dp"
+        android:background="@drawable/bg_purchase_btn"
+        android:gravity="center"
+        android:text="再想想"
+        android:textColor="#435381"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_purchase_confirm"
+        android:layout_width="61dp"
+        android:layout_height="31dp"
+        android:layout_marginLeft="111dp"
+        android:layout_marginTop="54dp"
+        android:background="@drawable/bg_purchase_btn"
+        android:gravity="center"
+        android:text="得到它"
+        android:textColor="#435381"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>
