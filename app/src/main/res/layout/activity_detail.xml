@@ -24,6 +24,7 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
+            android:layout_marginStart="2dp"
             android:layout_marginLeft="2dp"
             android:gravity="center_vertical"
             android:textColor="@color/commonColorGrey4"
@@ -32,167 +33,74 @@
             app:contentInsetStart="0dp" />
     </android.support.v7.widget.Toolbar>
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
-        android:layout_marginBottom="50dp">
+        android:layout_below="@+id/toolbar">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal">
-
-                <com.flying.taokuang.ui.AsyncImageView
-                    android:id="@+id/detail_tx"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:padding="2dp" />
-
-                <TextView
-                    android:id="@+id/detail_nc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"
-                    android:ellipsize="end"
-                    android:maxWidth="150dp"
-                    android:singleLine="true"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    tools:text="没那么简单" />
-
-                <Button
-                    android:id="@+id/gm_qr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:text="交易成功"
-                    android:textColor="#3f72af"
-                    android:visibility="invisible" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/detail_jg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/detail_bt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:textSize="15dp" />
-
-            <TextView
-                android:id="@+id/detail_ms"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:textSize="15dp" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/detail_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:adjustViewBounds="true" />
+            android:layout_height="match_parent"
+            android:layout_marginBottom="50dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="7dp"
-                    android:text="联系方式:"
-                    android:textColor="#496644"
-                    android:textSize="20dp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp">
 
-                <TextView
-                    android:id="@+id/detail_lx"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:textIsSelectable="true"
-                    android:textSize="15dp" />
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/detail_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <com.flying.baselib.commonui.BannerIndicatorView
+                        android:id="@+id/biv_indicator"
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        app:app_cell_margin="2dp"
+                        app:app_cell_radius="2dp"
+                        app:app_current_position="0"
+                        app:app_indicator_style="CIRCLE"
+                        app:app_normal_color="@android:color/white"
+                        app:app_selected_color="@color/commonColorYellow" />
+                </RelativeLayout>
+
+
+                <include layout="@layout/layout_detail_goods_info" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/commonColorGrey2" />
+
+                <include layout="@layout/layout_detail_user_info" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginBottom="50dp"
+                    android:background="@color/commonColorGrey2" />
 
             </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="7dp"
-                    android:text="交易地点:"
-                    android:textColor="#496644"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:id="@+id/detail_wz"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:textSize="15dp" />
-
-            </LinearLayout>
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
-
-    <View
-        android:id="@+id/bottom_bar_bg"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/commonColorOrange" />
-
-    <ImageView
-        android:id="@+id/detail_collection"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_alignBottom="@+id/bottom_bar_bg"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="34dp"
-        android:layout_marginBottom="34dp"
-        android:background="@drawable/bg_collect_btn"
-        android:elevation="5dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_detail_collect_unset" />
-
-    <Button
-        android:id="@+id/detail_gm"
-        android:layout_width="103dp"
-        android:layout_height="48dp"
-        android:layout_alignBottom="@+id/bottom_bar_bg"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="top"
-        android:layout_marginRight="34dp"
-        android:layout_marginBottom="26dp"
-        android:background="@drawable/bg_buy_btn"
-        android:elevation="5dp"
-        android:text="@string/detail_buy_tips"
-        android:textColor="@color/commonColorGrey4"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+    <include layout="@layout/layout_detail_bottom_bar" />
 </RelativeLayout>

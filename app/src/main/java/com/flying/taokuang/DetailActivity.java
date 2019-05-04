@@ -1,12 +1,17 @@
 package com.flying.taokuang;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -17,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.flying.baselib.WeakHandler;
+import com.flying.baselib.commonui.BannerIndicatorView;
 import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.DetailImageAdapter;
@@ -38,8 +45,14 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
 
+import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
+
 public class DetailActivity extends BaseToolbarActivity {
     public static final String GO_DETAIL_PAGE_TAG = "GO_DETAIL_PAGE_TAG";
+    private static final int MSG_LOAD_GOODS = 1;
+    private static final int MSG_LOAD_USER = 2;
+    private static final int MSG_INIT_VIEW = 3;
+    private static final int MSG_LOAD_FAIL = 4;
 
     private ImageView mIvcollect;
     private ImageView mIvBack;
@@ -49,6 +62,11 @@ public class DetailActivity extends BaseToolbarActivity {
     private TextView mTvUserNickName;
     private TextView mToolbarTitle;
     private AsyncImageView mIvUserAvatar;
+    private SwipeRefreshLayout mRefreshLayout;
+    private BannerIndicatorView mIndicatorView;
+    private View mGoUserPage;
+
+    private LinearLayoutManager mImagesLayoutManager;
 
     private DetailImageAdapter mDetailImageAdapter;
     private TaoKuang mCurrentGoods;
@@ -65,7 +83,49 @@ public class DetailActivity extends BaseToolbarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mToolbar.setBackgroundColor(getResources().getColor(R.color.commonColorGrey3));
+
+        mRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        mBtnBuy = findViewById(R.id.detail_gm);
+        mIvBack = findViewById(R.id.img_return);
+        mTvUserNickName = findViewById(R.id.detail_nc);
+        mIvUserAvatar = findViewById(R.id.detail_tx);
+        mRvImages = findViewById(R.id.detail_recycler);
+        mBtnFinishTrade = findViewById(R.id.gm_qr);
+        mIvcollect = findViewById(R.id.detail_collection);
+        mToolbarTitle = findViewById(R.id.tv_title);
+        mGoUserPage = findViewById(R.id.rl_go_user_page);
+        mIndicatorView = findViewById(R.id.biv_indicator);
+
+        mRefreshLayout.setRefreshing(true);
+        mRefreshLayout.setOnRefreshListener(mRefreshListener);
+        mRvImages.setFocusable(false);
+        mImagesLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        mRvImages.setLayoutManager(mImagesLayoutManager);
+        new PagerSnapHelper().attachToRecyclerView(mRvImages);
+        mDetailImageAdapter = new DetailImageAdapter(this);
+        mRvImages.setAdapter(mDetailImageAdapter);
+        mIvUserAvatar.setRoundAsCircle();
+        UiUtils.setOnTouchBackground(mIvBack);
+        UiUtils.expandClickRegion(mIvcollect, UiUtils.dp2px(10));
+        UiUtils.setOnTouchBackground(mGoUserPage);
+
+        mBtnBuy.setOnClickListener(mBuyListener);
+        mIvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        mGoUserPage.setOnClickListener(mGoUserPageListener);
+        mBtnFinishTrade.setOnClickListener(mFinishTradeListener);
+        mIvcollect.setOnClickListener(mCollectListener);
+
+        mHandler.sendEmptyMessage(MSG_LOAD_GOODS);
+    }
+
+    private void loadGoodsData() {
         if (getIntent() == null || TextUtils.isEmpty(getIntent().getStringExtra(GO_DETAIL_PAGE_TAG))) {
             finish();
             return;
@@ -75,14 +135,34 @@ public class DetailActivity extends BaseToolbarActivity {
             @Override
             public void done(TaoKuang taoKuang, BmobException e) {
                 if (e != null) {
-                    finish();
+                    mHandler.sendEmptyMessage(MSG_LOAD_FAIL);
                     return;
                 }
                 mCurrentGoods = taoKuang;
-                initView();
+                mHandler.sendEmptyMessage(MSG_LOAD_USER);
             }
         });
     }
+
+    private void loadUserData() {
+        if (mCurrentGoods == null) {
+            mHandler.sendEmptyMessage(MSG_LOAD_FAIL);
+            return;
+        }
+        BmobQuery<User> bmobQuery = new BmobQuery<>();
+        bmobQuery.getObject(mCurrentGoods.getFabu().getObjectId(), new QueryListener<User>() {
+            @Override
+            public void done(User user, BmobException e) {
+                if (e != null) {
+                    mHandler.sendEmptyMessage(MSG_LOAD_FAIL);
+                    return;
+                }
+                mCurrentGoods.setFabu(user);
+                mHandler.sendEmptyMessage(MSG_INIT_VIEW);
+            }
+        });
+    }
+
 
     @Override
     public int getContentViewResId() {
@@ -105,49 +185,38 @@ public class DetailActivity extends BaseToolbarActivity {
         if (mCurrentGoods == null) {
             return;
         }
-        mBtnBuy = findViewById(R.id.detail_gm);
-        mIvBack = findViewById(R.id.img_return);
-        mTvUserNickName = findViewById(R.id.detail_nc);
-        mIvUserAvatar = findViewById(R.id.detail_tx);
-        mRvImages = findViewById(R.id.detail_recycler);
-        mBtnFinishTrade = findViewById(R.id.gm_qr);
-        mIvcollect = findViewById(R.id.detail_collection);
-        mToolbarTitle = findViewById(R.id.tv_title);
 
         TextView djg = findViewById(R.id.detail_jg);
         TextView dlx = findViewById(R.id.detail_lx);
-        TextView dbt = findViewById(R.id.detail_bt);
         TextView dms = findViewById(R.id.detail_ms);
         TextView dwz = findViewById(R.id.detail_wz);
-        dbt.setText(mCurrentGoods.getBiaoti());
-        dlx.setText(mCurrentGoods.getLianxi());
+        dlx.setText("联系方式:" + mCurrentGoods.getLianxi());
         dms.setText(mCurrentGoods.getMiaoshu());
-        dwz.setText(mCurrentGoods.getWeizhi());
+        dwz.setText("交易地点:" + mCurrentGoods.getWeizhi());
         djg.setText("￥" + mCurrentGoods.getJiage());
-
-        UiUtils.setOnTouchBackground(mIvBack);
-        UiUtils.setOnTouchBackground(mTvUserNickName);
-        UiUtils.setOnTouchBackground(mIvUserAvatar);
-        UiUtils.expandClickRegion(mTvUserNickName, UiUtils.dp2px(5));
-        UiUtils.expandClickRegion(mIvUserAvatar, UiUtils.dp2px(5));
 
         mToolbarTitle.setText(mCurrentGoods.getBiaoti());
         mTvUserNickName.setText(mCurrentGoods.getFabu().getNicheng());
         judgeCollection(mCurrentGoods.getObjectId());
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        mRvImages.setFocusable(false);
-        mRvImages.setLayoutManager(layoutManager);
-        mDetailImageAdapter = new DetailImageAdapter(this, mCurrentGoods.getPic());
-        mRvImages.setAdapter(mDetailImageAdapter);
-
         if (mCurrentGoods.getFabu() != null && mCurrentGoods.getFabu().getIcon() != null && !TextUtils.isEmpty(mCurrentGoods.getFabu().getIcon().getFileUrl())) {
-            mIvUserAvatar.setUrl(mCurrentGoods.getFabu().getIcon().getFileUrl(), UiUtils.dp2px(50), UiUtils.dp2px(50));
+            mIvUserAvatar.setUrl(mCurrentGoods.getFabu().getIcon().getFileUrl(), UiUtils.dp2px(40), UiUtils.dp2px(40));
         } else {
             mIvUserAvatar.setPlaceholderImage(R.drawable.ic_default_avatar);
         }
-        mIvUserAvatar.setRoundAsCircle();
 
+        mDetailImageAdapter.addData(mCurrentGoods.getPic());
+        mIndicatorView.setCellCount(mCurrentGoods.getPic().size());
+        mRvImages.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == SCROLL_STATE_IDLE && mImagesLayoutManager != null && mIndicatorView != null) {
+                    int pos = mImagesLayoutManager.findFirstCompletelyVisibleItemPosition();
+                    mIndicatorView.setCurrentPosition(pos);
+                }
+            }
+        });
 
         if (mCurrentGoods.getGoumai() != null && mCurrentGoods.getGoumai().getObjectId().equals(User.getCurrentUser(User.class).getObjectId())) {
             mBtnFinishTrade.setVisibility(View.VISIBLE);
@@ -155,54 +224,42 @@ public class DetailActivity extends BaseToolbarActivity {
             mBtnFinishTrade.setVisibility(View.GONE);
         }
 
-        mBtnBuy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(DetailActivity.this)
-                        .setTitle("确认购买")
-                        .setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(final DialogInterface dialog, int which) {
-                                if (!BmobUser.isLogin() || !BmobUser.getCurrentUser(User.class).getRenz()) {
-                                    ToastUtils.show("请先登陆或认证");
-                                    dialog.dismiss();
-                                    return;
-                                }
-                                String o = mCurrentGoods.getFabu().getObjectId();
-                                String p = BmobUser.getCurrentUser(User.class).getObjectId();
-                                if (mCurrentGoods.getGoumai() != null || o.equals(p)) {
-                                    ToastUtils.show("该商品已售或是你发布的");
-                                }
-                                mCurrentGoods.setGoumai(BmobUser.getCurrentUser(User.class));
-                                mCurrentGoods.update(mCurrentGoods.getObjectId(), new UpdateListener() {
-                                    @Override
-                                    public void done(BmobException e) {
-                                        if (e != null) {
-                                            ToastUtils.show("购买失败");
-                                            return;
-                                        }
-                                        dialog.dismiss();
-                                        finish();
-                                    }
-                                });
-                            }
-                        }).setNegativeButton("取消", null).show();
-            }
-        });
-
-        mIvBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        mIvUserAvatar.setOnClickListener(mGoUserPageListener);
-        mTvUserNickName.setOnClickListener(mGoUserPageListener);
-        mBtnFinishTrade.setOnClickListener(mFinishTradeListener);
-        mIvcollect.setOnClickListener(mCollectListener);
-        UiUtils.expandClickRegion(mIvcollect, UiUtils.dp2px(10));
-
     }
+
+    private View.OnClickListener mBuyListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            new AlertDialog.Builder(DetailActivity.this)
+                    .setTitle("确认购买")
+                    .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(final DialogInterface dialog, int which) {
+                            if (!BmobUser.isLogin() || !BmobUser.getCurrentUser(User.class).getRenz()) {
+                                ToastUtils.show("请先登陆或认证");
+                                dialog.dismiss();
+                                return;
+                            }
+                            String o = mCurrentGoods.getFabu().getObjectId();
+                            String p = BmobUser.getCurrentUser(User.class).getObjectId();
+                            if (mCurrentGoods.getGoumai() != null || o.equals(p)) {
+                                ToastUtils.show("该商品已售或是你发布的");
+                            }
+                            mCurrentGoods.setGoumai(BmobUser.getCurrentUser(User.class));
+                            mCurrentGoods.update(mCurrentGoods.getObjectId(), new UpdateListener() {
+                                @Override
+                                public void done(BmobException e) {
+                                    if (e != null) {
+                                        ToastUtils.show("购买失败");
+                                        return;
+                                    }
+                                    dialog.dismiss();
+                                    finish();
+                                }
+                            });
+                        }
+                    }).setNegativeButton("取消", null).show();
+        }
+    };
 
     private View.OnClickListener mGoUserPageListener = new View.OnClickListener() {
         @Override
@@ -211,7 +268,7 @@ public class DetailActivity extends BaseToolbarActivity {
             if (mCurrentGoods == null) {
                 return;
             }
-            UserPageActivity.go(DetailActivity.this, mCurrentGoods.getObjectId());
+            UserPageActivity.go(DetailActivity.this, mCurrentGoods.getFabu().getObjectId());
         }
     };
 
@@ -267,6 +324,43 @@ public class DetailActivity extends BaseToolbarActivity {
                 showToast("收藏成功");
                 mIvcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.mipmap.ic_home_item_collect_set));
 //
+            }
+
+        }
+    };
+
+    private SwipeRefreshLayout.OnRefreshListener mRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+            if (mHandler != null) {
+                mHandler.sendEmptyMessage(MSG_LOAD_GOODS);
+            }
+        }
+    };
+
+    @SuppressLint("HandlerLeak")
+    private WeakHandler mHandler = new WeakHandler(this) {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case MSG_LOAD_GOODS:
+                    loadGoodsData();
+                    break;
+                case MSG_LOAD_USER:
+                    loadUserData();
+                    break;
+                case MSG_INIT_VIEW:
+                    initView();
+                    if (mRefreshLayout != null) {
+                        mRefreshLayout.setRefreshing(false);
+                    }
+                    break;
+                case MSG_LOAD_FAIL:
+                    if (mRefreshLayout != null) {
+                        mRefreshLayout.setRefreshing(false);
+                    }
+                    break;
             }
 
         }

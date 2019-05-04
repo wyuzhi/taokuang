@@ -12,15 +12,16 @@ import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.R;
 import com.flying.taokuang.ui.AsyncImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DetailImageAdapter extends RecyclerView.Adapter<DetailImageAdapter.ViewHolder> {
     public List<String> mList;
     private Context mContext;
 
-    public DetailImageAdapter(Context context, List<String> list) {
+    public DetailImageAdapter(Context context) {
         mContext = context;
-        mList = list;
+        mList = new ArrayList<>();
     }
 
 
@@ -38,6 +39,13 @@ public class DetailImageAdapter extends RecyclerView.Adapter<DetailImageAdapter.
         viewHolder.img.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
     }
 
+    public void addData(List data) {
+        if (data == null) {
+            return;
+        }
+        mList.addAll(data);
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {

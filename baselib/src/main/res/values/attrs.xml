@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BannerIndicatorView">
+        <attr name="app_cell_radius" format="dimension" />
+        <attr name="app_cell_margin" format="dimension" />
+        <attr name="app_cell_count" format="integer" />
+        <attr name="app_current_position" format="integer" />
+        <attr name="app_selected_color" format="color|reference" />
+        <attr name="app_normal_color" format="color|reference" />
+        <attr name="app_indicator_style" format="enum">
+            <enum name="CIRCLE" value="0" />
+            <enum name="RECT" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>

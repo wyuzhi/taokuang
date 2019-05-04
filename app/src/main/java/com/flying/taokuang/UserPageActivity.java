@@ -76,7 +76,7 @@ public class UserPageActivity extends AppCompatActivity {
                     collapsingToolbar.setTitle(user.getNicheng());
                     BmobFile i = user.getIcon();
                     if (i != null) {
-                        icon.setUrl(i.getFileUrl(), (int) UiUtils.dp2px(100), (int) UiUtils.dp2px(100));
+                        icon.setUrl(i.getFileUrl(), UiUtils.dp2px(100), UiUtils.dp2px(100));
                     }
                 }
             }

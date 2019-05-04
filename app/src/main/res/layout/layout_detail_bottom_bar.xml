@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/bottom_bar_bg"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/commonColorOrange" />
+
+    <ImageView
+        android:id="@+id/detail_collection"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignBottom="@+id/bottom_bar_bg"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="34dp"
+        android:background="@drawable/bg_collect_btn"
+        android:elevation="5dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_detail_collect_unset" />
+
+    <Button
+        android:id="@+id/detail_gm"
+        android:layout_width="103dp"
+        android:layout_height="48dp"
+        android:layout_alignBottom="@+id/bottom_bar_bg"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="top"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="26dp"
+        android:background="@drawable/bg_buy_btn"
+        android:elevation="5dp"
+        android:text="@string/detail_buy_tips"
+        android:textColor="@color/commonColorGrey4"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+</merge>

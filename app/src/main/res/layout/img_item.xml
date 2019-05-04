@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.flying.taokuang.ui.AsyncImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/detail_im"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:gravity="center">
-
-    <com.flying.taokuang.ui.AsyncImageView
-        android:id="@+id/detail_im"
-        android:layout_width="320dp"
-        android:layout_height="240dp"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/app_name" />
-
-</RelativeLayout>
+    android:layout_height="match_parent" />
