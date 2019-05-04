@@ -3,8 +3,8 @@ package com.flying.taokuang.My;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -52,8 +52,7 @@ public class MyPurchasedActivity extends BaseToolbarActivity {
         UiUtils.setOnTouchBackground(mIvBack);
         //toolbar.setTitle("我购买的");
         gRecyclerView = findViewById(R.id.recycler_wo_gm);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        gRecyclerView.setLayoutManager(layoutManager);
+        gRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         loadData();
     }
 

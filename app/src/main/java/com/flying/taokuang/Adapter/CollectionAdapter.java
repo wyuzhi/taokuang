@@ -37,7 +37,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
         final CollectionBean collection = collections.get(i);
         viewHolder.title.setText(collection.getTitle());
         viewHolder.price.setText(collection.getPrice());
-        viewHolder.image.setUrl(collection.getImage(), (int) UiUtils.dp2px(172), (int) UiUtils.dp2px(227));
+        viewHolder.image.setUrl(collection.getImage(), UiUtils.dp2px(172), UiUtils.dp2px(227));
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

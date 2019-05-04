@@ -3,8 +3,8 @@ package com.flying.taokuang.My;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -51,8 +51,7 @@ public class MySaleActivity extends BaseToolbarActivity {
         });
         UiUtils.setOnTouchBackground(mIvBack);
         mRecyclerView = findViewById(R.id.recycler_wo_mc);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         loadData();
     }
 

@@ -7,8 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +33,6 @@ import cn.bmob.v3.listener.FindListener;
  */
 public class PersonalSellingFragment extends Fragment {
     private String fabuID;
-    private String goumaiID;
 
     @Override
     public void onAttach(Activity activity) {
@@ -78,8 +77,7 @@ public class PersonalSellingFragment extends Fragment {
                 public void done(List<TaoKuang> object, BmobException e) {
                     if (e == null) {
                         sTaolist = object;
-                        StaggeredGridLayoutManager slayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-                        sRecyclerView.setLayoutManager(slayoutManager);
+                        sRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                         sAdapter = new PersonalSellingRecyclerviewAdapter(getContext(), sTaolist);
                         sRecyclerView.setAdapter(sAdapter);
                         LogUtils.d("查询", "查询成功" + object);

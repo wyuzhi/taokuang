@@ -241,8 +241,13 @@ public class DetailActivity extends BaseToolbarActivity {
                             }
                             String o = mCurrentGoods.getFabu().getObjectId();
                             String p = BmobUser.getCurrentUser(User.class).getObjectId();
-                            if (mCurrentGoods.getGoumai() != null || o.equals(p)) {
-                                ToastUtils.show("该商品已售或是你发布的");
+                            if (mCurrentGoods.getGoumai() != null) {
+                                ToastUtils.show(getBaseContext().getResources().getString(R.string.detail_selled_tips));
+                                return;
+                            }
+                            if (o.equals(p)) {
+                                ToastUtils.show(getBaseContext().getResources().getString(R.string.detail_owner_tips));
+                                return;
                             }
                             mCurrentGoods.setGoumai(BmobUser.getCurrentUser(User.class));
                             mCurrentGoods.update(mCurrentGoods.getObjectId(), new UpdateListener() {

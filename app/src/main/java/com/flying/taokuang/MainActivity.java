@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.flying.baselib.utils.app.ApplicationUtils;
