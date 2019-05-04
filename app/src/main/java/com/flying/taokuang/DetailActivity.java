@@ -47,6 +47,7 @@ public class DetailActivity extends BaseToolbarActivity {
     private Button mBtnFinishTrade;
     private RecyclerView mRvImages;
     private TextView mTvUserNickName;
+    private TextView mToolbarTitle;
     private AsyncImageView mIvUserAvatar;
 
     private DetailImageAdapter mDetailImageAdapter;
@@ -64,7 +65,7 @@ public class DetailActivity extends BaseToolbarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mToolbar.setBackgroundColor(getResources().getColor(R.color.commonColorYellow));
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.commonColorGrey3));
         if (getIntent() == null || TextUtils.isEmpty(getIntent().getStringExtra(GO_DETAIL_PAGE_TAG))) {
             finish();
             return;
@@ -111,6 +112,7 @@ public class DetailActivity extends BaseToolbarActivity {
         mRvImages = findViewById(R.id.detail_recycler);
         mBtnFinishTrade = findViewById(R.id.gm_qr);
         mIvcollect = findViewById(R.id.detail_collection);
+        mToolbarTitle = findViewById(R.id.tv_title);
 
         TextView djg = findViewById(R.id.detail_jg);
         TextView dlx = findViewById(R.id.detail_lx);
@@ -129,6 +131,7 @@ public class DetailActivity extends BaseToolbarActivity {
         UiUtils.expandClickRegion(mTvUserNickName, UiUtils.dp2px(5));
         UiUtils.expandClickRegion(mIvUserAvatar, UiUtils.dp2px(5));
 
+        mToolbarTitle.setText(mCurrentGoods.getBiaoti());
         mTvUserNickName.setText(mCurrentGoods.getFabu().getNicheng());
         judgeCollection(mCurrentGoods.getObjectId());
 
@@ -197,6 +200,7 @@ public class DetailActivity extends BaseToolbarActivity {
         mTvUserNickName.setOnClickListener(mGoUserPageListener);
         mBtnFinishTrade.setOnClickListener(mFinishTradeListener);
         mIvcollect.setOnClickListener(mCollectListener);
+        UiUtils.expandClickRegion(mIvcollect, UiUtils.dp2px(10));
 
     }
 
@@ -251,7 +255,7 @@ public class DetailActivity extends BaseToolbarActivity {
             if (collections.size() > 0) {
                 showToast("取消成功");
                 LitePal.deleteAll(CollectionBean.class, "good = ?", mCurrentGoods.getObjectId());
-                mIvcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_collection_no));
+                mIvcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_detail_collect_unset));
             } else {
                 CollectionBean collectionBean = new CollectionBean();
                 collectionBean.setCreateTime(new Date());
@@ -261,7 +265,7 @@ public class DetailActivity extends BaseToolbarActivity {
                 collectionBean.setImage(mCurrentGoods.getPic().get(0));
                 collectionBean.save();
                 showToast("收藏成功");
-                mIvcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.mipmap.collection));
+                mIvcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.mipmap.ic_home_item_collect_set));
 //
             }
 
@@ -272,7 +276,9 @@ public class DetailActivity extends BaseToolbarActivity {
     private void judgeCollection(String id) {
         List<CollectionBean> collections = LitePal.where("good = ?", id).find(CollectionBean.class);
         if (collections.size() > 0) {
-            mIvcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_collection));
+            mIvcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.mipmap.ic_home_item_collect_set));
+        } else {
+            mIvcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_detail_collect_unset));
         }
     }
 

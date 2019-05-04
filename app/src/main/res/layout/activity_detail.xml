@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:theme="@style/AppTheme.AppBarOverlay"
         app:contentInsetStart="0dp">
 
         <ImageView
@@ -19,16 +18,17 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_arrow_back_white" />
+            android:src="@drawable/ic_back_grey" />
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="2dp"
             android:gravity="center_vertical"
-            android:text="详情页"
-            android:textColor="@color/colorWhite"
-            android:textSize="20dp"
+            android:textColor="@color/commonColorGrey4"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:contentInsetStart="0dp" />
     </android.support.v7.widget.Toolbar>
 
@@ -157,31 +157,42 @@
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
-    <RelativeLayout
+    <View
+        android:id="@+id/bottom_bar_bg"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:background="@mipmap/bg_toolbar">
+        android:background="@color/commonColorOrange" />
 
-        <ImageView
-            android:id="@+id/detail_collection"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_gravity="center_vertical"
-            android:padding="4dp"
-            android:src="@drawable/ic_collection_no" />
+    <ImageView
+        android:id="@+id/detail_collection"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignBottom="@+id/bottom_bar_bg"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="34dp"
+        android:layout_marginBottom="34dp"
+        android:background="@drawable/bg_collect_btn"
+        android:elevation="5dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_detail_collect_unset" />
 
-        <Button
-            android:id="@+id/detail_gm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="center_vertical"
-            android:text="@string/detail_buy_tips"
-            android:textColor="@color/commonColorGrey"
-            android:textSize="12sp" />
-    </RelativeLayout>
+    <Button
+        android:id="@+id/detail_gm"
+        android:layout_width="103dp"
+        android:layout_height="48dp"
+        android:layout_alignBottom="@+id/bottom_bar_bg"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="top"
+        android:layout_marginRight="34dp"
+        android:layout_marginBottom="26dp"
+        android:background="@drawable/bg_buy_btn"
+        android:elevation="5dp"
+        android:text="@string/detail_buy_tips"
+        android:textColor="@color/commonColorGrey4"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 </RelativeLayout>
