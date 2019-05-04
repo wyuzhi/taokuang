@@ -64,6 +64,11 @@ public class BannerIndicatorView extends View {
      */
     public void setCellCount(int cellCount) {
         this.cellCount = cellCount;
+        if (cellCount <= 1) {
+            setVisibility(GONE);
+        } else {
+            setVisibility(VISIBLE);
+        }
         invalidate();
     }
 
