@@ -28,6 +28,7 @@ import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.DetailImageAdapter;
 import com.flying.taokuang.base.BaseToolbarActivity;
+import com.flying.taokuang.entity.Collection;
 import com.flying.taokuang.entity.CollectionBean;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
@@ -387,18 +388,19 @@ public class DetailActivity extends BaseToolbarActivity {
     }
 
     private void showToast(String txt) {
-        Toast tast = Toast.makeText(this, txt, Toast.LENGTH_SHORT);
-        tast.setGravity(Gravity.CENTER, 0, 0);
-        View view = LayoutInflater.from(this).inflate(R.layout.custom_toast, null);
-        TextView tvMsg = view.findViewById(R.id.tvMsg);
-        ImageView tvImg = view.findViewById(R.id.tvImg);
-        tvMsg.setText(txt);
+        final CollectionDialog collectionDialog = new CollectionDialog(DetailActivity.this);
+        ImageView img_collection = collectionDialog.findViewById(R.id.detail_img_collection);
+        TextView tv_collection = collectionDialog.findViewById(R.id.detail_tv_collection);
+        collectionDialog.show();
         if (txt.equals("收藏成功")) {
-            tvImg.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.mipmap.collection));
-        } else
-            tvImg.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_collection_no));
-        tast.setView(view);
-        tast.show();
+            img_collection.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.mipmap.collection));
+            tv_collection.setText("收藏成功");
+        } else {
+            img_collection.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_collection_no));
+            tv_collection.setText("取消收藏");
+        }
+        collectionDialog.show();
+
     }
 
 
