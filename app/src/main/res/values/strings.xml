@@ -6,4 +6,9 @@
     <string name="detail_selled_tips">对不起,该商品已售</string>
     <string name="detail_owner_tips">对不起,该商品是你发布的</string>请先登陆或认证
     <string name="detail_login_or_verify_tips">请先登陆或认证</string>
+    <string name="dialog_purchase_tips">确认购买?</string>
+    <string name="dialog_purchase_cancel_tips">再想想</string>
+    <string name="dialog_purchase_confirm_tips">得到它</string>
+    <string name="dialog_collect_success_tips">收藏成功</string>
+    <string name="dialog_buy_success_tips">购买成功</string>
 </resources>

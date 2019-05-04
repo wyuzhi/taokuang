@@ -9,18 +9,14 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.flying.baselib.WeakHandler;
 import com.flying.baselib.commonui.BannerIndicatorView;
@@ -28,11 +24,12 @@ import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.DetailImageAdapter;
 import com.flying.taokuang.base.BaseToolbarActivity;
-import com.flying.taokuang.entity.Collection;
 import com.flying.taokuang.entity.CollectionBean;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
 import com.flying.taokuang.ui.AsyncImageView;
+import com.flying.taokuang.ui.TipsDialog;
+import com.flying.taokuang.ui.AlertDialog;
 import com.tendcloud.tenddata.TCAgent;
 
 import org.litepal.LitePal;
@@ -230,9 +227,9 @@ public class DetailActivity extends BaseToolbarActivity {
     private View.OnClickListener mBuyListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            final PurchaseDialog purchaseDialog = new PurchaseDialog(DetailActivity.this);
-            purchaseDialog.setCanceledOnTouchOutside(true);
-            purchaseDialog.setConfirmOnClickListener(new View.OnClickListener() {
+            final AlertDialog purchaseDialog = new AlertDialog(DetailActivity.this);
+            purchaseDialog.setTitle(R.string.dialog_purchase_tips);
+            purchaseDialog.setConfirmButton(R.string.dialog_purchase_confirm_tips, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (!BmobUser.isLogin() || !BmobUser.getCurrentUser(User.class).getRenz()) {
@@ -262,11 +259,13 @@ public class DetailActivity extends BaseToolbarActivity {
                                 ToastUtils.show("购买失败");
                                 return;
                             }
-                            finish();
+                            TipsDialog.show(DetailActivity.this, R.string.dialog_buy_success_tips, R.mipmap.collection);
                         }
                     });
                 }
             });
+            purchaseDialog.setCancelButton(R.string.dialog_purchase_cancel_tips, null);
+            purchaseDialog.setCanceledOnTouchOutside(true);
             purchaseDialog.show();
         }
     };
@@ -286,7 +285,7 @@ public class DetailActivity extends BaseToolbarActivity {
     private View.OnClickListener mFinishTradeListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            new AlertDialog.Builder(DetailActivity.this)
+            new android.support.v7.app.AlertDialog.Builder(DetailActivity.this)
                     .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -321,7 +320,6 @@ public class DetailActivity extends BaseToolbarActivity {
             }
             List<CollectionBean> collections = LitePal.where("good = ?", mCurrentGoods.getObjectId()).find(CollectionBean.class);
             if (collections.size() > 0) {
-                showToast("取消成功");
                 LitePal.deleteAll(CollectionBean.class, "good = ?", mCurrentGoods.getObjectId());
                 mIvcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_detail_collect_unset));
             } else {
@@ -332,9 +330,8 @@ public class DetailActivity extends BaseToolbarActivity {
                 collectionBean.setTitle(mCurrentGoods.getBiaoti());
                 collectionBean.setImage(mCurrentGoods.getPic().get(0));
                 collectionBean.save();
-                showToast("收藏成功");
+                TipsDialog.show(DetailActivity.this, R.string.dialog_collect_success_tips, R.mipmap.collection);
                 mIvcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.mipmap.ic_home_item_collect_set));
-//
             }
 
         }
@@ -386,22 +383,5 @@ public class DetailActivity extends BaseToolbarActivity {
             mIvcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_detail_collect_unset));
         }
     }
-
-    private void showToast(String txt) {
-        final CollectionDialog collectionDialog = new CollectionDialog(DetailActivity.this);
-        ImageView img_collection = collectionDialog.findViewById(R.id.detail_img_collection);
-        TextView tv_collection = collectionDialog.findViewById(R.id.detail_tv_collection);
-        collectionDialog.show();
-        if (txt.equals("收藏成功")) {
-            img_collection.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.mipmap.collection));
-            tv_collection.setText("收藏成功");
-        } else {
-            img_collection.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_collection_no));
-            tv_collection.setText("取消收藏");
-        }
-        collectionDialog.show();
-
-    }
-
 
 }

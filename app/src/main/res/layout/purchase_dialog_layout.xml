@@ -7,33 +7,30 @@
     <ImageView
         android:layout_width="91dp"
         android:layout_height="12dp"
-        android:layout_marginLeft="59dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="27dp"
-        android:layout_marginRight="55dp"
         android:src="@color/commonColorYellow" />
 
     <TextView
-        android:layout_width="81dp"
-        android:layout_height="21dp"
-        android:layout_marginLeft="69dp"
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
-        android:layout_marginRight="55dp"
-        android:gravity="center"
-        android:text="确认购买？"
-        android:textColor="#435381"
-        android:textSize="14sp"
+        android:textColor="@color/commonColorBlue2"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <Button
         android:id="@+id/btn_purchase_cancle"
         android:layout_width="61dp"
         android:layout_height="31dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="34dp"
         android:layout_marginLeft="34dp"
         android:layout_marginTop="54dp"
         android:background="@drawable/bg_purchase_btn"
-        android:gravity="center"
-        android:text="再想想"
-        android:textColor="#435381"
+        android:textColor="@color/commonColorBlue2"
         android:textSize="12sp"
         android:textStyle="bold" />
 
@@ -41,12 +38,13 @@
         android:id="@+id/btn_purchase_confirm"
         android:layout_width="61dp"
         android:layout_height="31dp"
-        android:layout_marginLeft="111dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="54dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginRight="34dp"
         android:background="@drawable/bg_purchase_btn"
-        android:gravity="center"
-        android:text="得到它"
-        android:textColor="#435381"
+        android:textColor="@color/commonColorBlue2"
         android:textSize="12sp"
         android:textStyle="bold" />
 
