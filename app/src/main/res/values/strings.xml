@@ -12,4 +12,11 @@
     <string name="dialog_collect_success_tips">收藏成功</string>
     <string name="dialog_buy_success_tips">购买成功</string>
     <string name="empty_data_tips">暂时没有数据哦~</string>
+    <string name="signup_network_fail">网络连接失败</string>
+    <string name="signup_success_tips">注册成功</string>
+    <string name="signup_agree_tips">同意协议才能注册</string>
+    <string name="signup_fail_tips">注册失败，该学号已被注册</string>
+    <string name="signup_nickname_fail_tips">昵称字数小于4位或大于16位</string>
+    <string name="signup_loginid_fail_tips">学号位数小于8位或大于16位</string>
+    <string name="signup_password_fail_tips">密码位数小于4位或大于16位</string>
 </resources>

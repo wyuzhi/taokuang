@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 
 import com.flying.baselib.utils.app.LogUtils;
+import com.flying.baselib.utils.device.NetworkUtils;
 import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.taokuang.base.BaseBackgroundActivity;
 import com.flying.taokuang.entity.User;
@@ -58,7 +59,7 @@ public class SignUpActivity extends BaseBackgroundActivity {
                 if (mCbAgree.isChecked() == true) {
                     signup();
                 } else {
-                    ToastUtils.show("同意协议才能注册");
+                    ToastUtils.show(getBaseContext().getResources().getString(R.string.signup_agree_tips));
                 }
             }
         });
@@ -85,16 +86,19 @@ public class SignUpActivity extends BaseBackgroundActivity {
         String loginId = mEtLoginID.getText().toString().replaceAll(" ", "");
         String passWord = mEtPassword.getText().toString().replaceAll(" ", "");
         if (TextUtils.isEmpty(nickName) || nickName.length() < 4 || nickName.length() > 16) {
-            ToastUtils.show("昵称字数小于4位或大于16位");
+            ToastUtils.show(getBaseContext().getResources().getString(R.string.signup_nickname_fail_tips));
             return;
         }
         if (TextUtils.isEmpty(loginId) || loginId.length() < 8 || loginId.length() > 16) {
-            ToastUtils.show("学号位数小于8位或大于16位");
+            ToastUtils.show(getBaseContext().getResources().getString(R.string.signup_loginid_fail_tips));
             return;
         }
         if (TextUtils.isEmpty(passWord) || passWord.length() < 4 || passWord.length() > 16) {
-            ToastUtils.show("密码位数小于4位或大于16位");
+            ToastUtils.show(getBaseContext().getResources().getString(R.string.signup_password_fail_tips));
             return;
+        }
+        if (!NetworkUtils.isNetworkConnected(getApplicationContext())) {
+            ToastUtils.show(getBaseContext().getResources().getString(R.string.signup_network_fail));
         }
         final User user = new User();
         user.setUsername(loginId);
@@ -105,14 +109,12 @@ public class SignUpActivity extends BaseBackgroundActivity {
             @Override
             public void done(User user, BmobException e) {
                 if (e == null) {
-                    Toast.makeText(SignUpActivity.this, "注册成功",
-                            Toast.LENGTH_SHORT).show();
+                    ToastUtils.show(getBaseContext().getResources().getString(R.string.signup_success_tips));
                     LogUtils.d("注册", "注册成功");
                     finish();
                 } else {
                     LogUtils.d("注册", "注册失败:" + e);
-                    Toast.makeText(SignUpActivity.this, "注册失败",
-                            Toast.LENGTH_SHORT).show();
+                    ToastUtils.show(getBaseContext().getResources().getString(R.string.signup_fail_tips));
                 }
             }
         });
