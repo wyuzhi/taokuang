@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 
-import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.PersonalSellingRecyclerviewAdapter;
 import com.flying.taokuang.R;

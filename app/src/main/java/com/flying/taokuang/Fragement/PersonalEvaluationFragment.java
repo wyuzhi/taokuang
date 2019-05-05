@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.flying.baselib.utils.app.LogUtils;
 import com.flying.taokuang.Adapter.CommentAdapter;
 import com.flying.taokuang.UserPageActivity;
 import com.flying.taokuang.R;
@@ -19,7 +18,6 @@ import com.flying.taokuang.entity.Comment;
 import com.flying.taokuang.entity.User;
 import com.flying.taokuang.ui.EmptyRecyclerViewHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
@@ -34,7 +32,6 @@ public class PersonalEvaluationFragment extends Fragment {
     private String goumaiID;
     private RecyclerView sRecyclerView;
     private CommentAdapter sAdapter;
-    private List<Comment> sTaolist;
 
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -50,7 +47,6 @@ public class PersonalEvaluationFragment extends Fragment {
     }
 
     private void initView(final View v) {
-        sTaolist = new ArrayList<>();
         sRecyclerView = v.findViewById(R.id.recycler_tao_e);
         LinearLayoutManager slayoutManager = new LinearLayoutManager(getContext());
         sRecyclerView.setLayoutManager(slayoutManager);
