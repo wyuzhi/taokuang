@@ -19,8 +19,9 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
+            android:background="@drawable/bg_ripple_grey"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_back_grey" />
+            android:src="@drawable/ic_arrow_back_grey" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -34,7 +35,7 @@
             android:singleLine="true"
             android:text="@string/my_about_us"
             android:textColor="@color/commonColorGrey4"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:contentInsetStart="0dp" />
     </android.support.v7.widget.Toolbar>

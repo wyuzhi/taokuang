@@ -20,17 +20,25 @@
             android:id="@+id/img_return"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:background="@drawable/bg_ripple_grey"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_arrow_back_white" />
+            android:src="@drawable/ic_arrow_back_grey" />
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@+id/img_return"
             android:gravity="center_vertical"
-            android:text="我购买的"
-            android:textColor="@color/colorWhite"
-            android:textSize="20sp" />
+            android:maxWidth="150dp"
+            android:singleLine="true"
+            android:text="@string/my_mine_bought"
+            android:textColor="@color/commonColorGrey4"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:contentInsetStart="0dp" />
     </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView

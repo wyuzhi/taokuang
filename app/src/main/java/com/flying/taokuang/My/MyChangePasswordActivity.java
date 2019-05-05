@@ -1,8 +1,11 @@
 package com.flying.taokuang.My;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,6 +27,7 @@ public class MyChangePasswordActivity extends BaseBackgroundActivity implements 
     private EditText mEtPassword;
     private EditText mEtIdentifyPassword;
     private ImageView mIvBack;
+    private Toolbar mToolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,12 @@ public class MyChangePasswordActivity extends BaseBackgroundActivity implements 
         mEtIdentifyPassword = findViewById(R.id.zl_xmm1);
         mBtConfirm = findViewById(R.id.zl_qr);
         mBtConfirm.setOnClickListener(this);
+        mToolbar = findViewById(R.id.toolbar);
+        mToolbar.setFitsSystemWindows(true);
+        mToolbar.setBackgroundColor(Color.TRANSPARENT);
+        ViewGroup.LayoutParams layoutParams = mToolbar.getLayoutParams();
+        layoutParams.height = UiUtils.dp2px(50) + UiUtils.getStatusBarHeight(this);
+        mToolbar.setLayoutParams(layoutParams);
     }
 
     @Override
