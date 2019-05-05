@@ -37,7 +37,7 @@ public class EmptyRecyclerViewHelper {
     }
 
     private void checkIfEmpty() {
-        //item等于0的情况下延时600ms再去检查一次
+        //item等于0的情况下延时500ms再去检查一次
         if (mEmptyView != null && mRecyclerView != null && mRecyclerView.getAdapter() != null && mRecyclerView.getAdapter().getItemCount() == 0) {
             mRecyclerView.postDelayed(new Runnable() {
                 @Override
@@ -48,10 +48,6 @@ public class EmptyRecyclerViewHelper {
                     boolean emptyViewVisible = mRecyclerView.getAdapter().getItemCount() == 0;
                     mEmptyView.setVisibility(emptyViewVisible ? View.VISIBLE : View.GONE);
                     mRecyclerView.setVisibility(emptyViewVisible ? View.GONE : View.VISIBLE);
-                    ViewGroup parent = (ViewGroup) mRecyclerView.getParent();
-                    if (!emptyViewVisible) {
-                        parent.removeView(mEmptyView);
-                    }
                 }
             }, 500);
         }

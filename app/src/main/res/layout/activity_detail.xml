@@ -34,6 +34,8 @@
                 android:layout_toRightOf="@+id/img_return"
                 android:gravity="center_vertical"
                 android:textColor="@color/commonColorGrey4"
+                android:singleLine="true"
+                android:maxWidth="150dp"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:contentInsetStart="0dp" />
