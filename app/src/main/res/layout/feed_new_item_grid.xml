@@ -26,7 +26,7 @@
         android:gravity="center_vertical"
         android:maxWidth="80dp"
         android:singleLine="true"
-        android:textColor="#535353"
+        android:textColor="@color/commonColorGrey4"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@+id/item_cover_img"

@@ -18,5 +18,6 @@
     <color name="commonColorGrey3">#F5F5F5</color>
     <color name="commonColorGrey4">#535353</color>
     <color name="commonColorGrey5">#b6b6b6</color>
-    <color name="commonColorGrey6">#797979</color>
+    <color name="commonColorGrey6">#6b6b6b</color>
+    <color name="commonColorGrey7">#797979</color>
 </resources>

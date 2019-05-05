@@ -32,7 +32,7 @@
             android:gravity="center_vertical"
             android:maxWidth="150dp"
             android:singleLine="true"
-            android:text="用户中心"
+            android:text="@string/my_about_us"
             android:textColor="@color/commonColorGrey4"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -56,7 +56,7 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="22dp"
-        android:text="       翔工作室，成立于2000年10月，19年以来一直负责学生在线的运营维护，并为矿大师生设计开发了矿友，导航站，矿大头像戳，学工处官网，矿大文库,易班场地申请系统等众多互联网产品。是矿大卓越的科技、媒体和通信(Technology,Media,Telecom)解决方案的提供者。我们的成员来自全校多个学院，十几年来老成员遍布百度，阿里，京东，今日头条，小米等各个互联网公司，这里拥有矿大学生群体中最好的设计与技术团队。"
+        android:text="@string/aboutus_fs_content"
         android:textSize="10sp" />
 
     <TextView
@@ -68,7 +68,6 @@
         android:layout_gravity="end"
         android:layout_marginTop="19dp"
         android:layout_marginRight="50dp"
-        android:text="版本号：V3.0"
         android:textSize="8sp" />
 
 
@@ -82,22 +81,22 @@
         android:layout_margin="10dp"
         android:layout_marginTop="13dp"
         android:background="@color/commonColorGrey3"
-        android:text="觉得好用？分享给好友"
-        android:textColor="@color/commonColorGrey6"
+        android:text="@string/about_us_share_app"
+        android:textColor="@color/commonColorGrey7"
         android:textSize="12sp" />
 
     <Button
         android:id="@+id/contect"
         android:layout_width="260dp"
-        android:layout_height="55dp"
+        android:layout_height="36dp"
         android:layout_below="@id/share"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="13dp"
         android:background="@color/commonColorGrey3"
         android:padding="5dp"
-        android:text="使用有问题？反馈给开发者\qq群:242524777"
-        android:textColor="@color/commonColorGrey6"
+        android:text="@string/aboutus_join_qq_group"
+        android:textColor="@color/commonColorGrey7"
         android:textSize="12sp" />
 
 </RelativeLayout>

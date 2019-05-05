@@ -49,7 +49,7 @@
         android:gravity="center_vertical"
         android:maxWidth="150dp"
         android:singleLine="true"
-        android:textColor="#535353"
+        android:textColor="@color/commonColorGrey4"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"

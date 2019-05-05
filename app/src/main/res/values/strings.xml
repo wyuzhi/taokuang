@@ -19,4 +19,21 @@
     <string name="signup_nickname_fail_tips">昵称字数小于4位或大于16位</string>
     <string name="signup_loginid_fail_tips">学号位数小于8位或大于16位</string>
     <string name="signup_password_fail_tips">密码位数小于4位或大于16位</string>
+    <string name="my_trade_center">交易中心</string>
+    <string name="my_user_center">用户中心</string>
+    <string name="my_mine_selling">我发布的</string>
+    <string name="my_mine_selled">我卖出的</string>
+    <string name="my_mine_bought">我买到的</string>
+    <string name="my_my_collect">我收藏的</string>
+    <string name="my_verify">学生认证</string>
+    <string name="my_change_password">修改密码</string>
+    <string name="my_log_out">注销登录</string>
+    <string name="my_about_us">关于我们</string>
+    <string name="my_click_to_login_tips">点击去登录</string>
+    <string name="my_log_out_title">确认退出?</string>
+    <string name="my_log_out_confirm">是的呢~</string>
+    <string name="my_log_out_cancel">点错了</string>
+    <string name="aboutus_fs_content">\t翔工作室成立于2000年10月,19年以来一直负责学生在线的运营维护,并为矿大师生设计开发了矿友,导航站,矿大头像戳,学工处官网,矿大文库,易班场地申请系统等众多互联网产品。是矿大卓越的科技、媒体和通信(Technology,Media,Telecom)解决方案的提供者。我们的成员来自全校多个学院,十几年来老成员遍布百度,阿里,京东,今日头条,小米等各个互联网公司,这里拥有矿大学生群体中最好的设计与技术团队。</string>
+    <string name="aboutus_join_qq_group">使用有问题?加入反馈群</string>
+    <string name="about_us_share_app">觉得好用?分享给好友</string>
 </resources>

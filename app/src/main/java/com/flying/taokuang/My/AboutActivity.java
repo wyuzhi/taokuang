@@ -17,6 +17,9 @@ import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.R;
 import com.flying.taokuang.base.BaseToolbarActivity;
+import com.flying.taokuang.debug.DebugActivity;
+
+import static org.litepal.LitePalApplication.getContext;
 
 
 public class AboutActivity extends BaseToolbarActivity {
@@ -27,7 +30,19 @@ public class AboutActivity extends BaseToolbarActivity {
         super.onCreate(savedInstanceState);
         TextView version = findViewById(R.id.versioncode);
         version.setText("当前版本： V " + getLocalVersionName(this));
+        version.setOnClickListener(new View.OnClickListener() {
+            private int i = 0;
 
+            @Override
+            public void onClick(View v) {
+                i++;
+                if (i >= 10) {
+                    Intent intent = new Intent(getContext(), DebugActivity.class);
+                    startActivity(intent);
+                    i = 0;
+                }
+            }
+        });
         mIvBack = findViewById(R.id.img_return);
         mIvBack.setOnClickListener(new View.OnClickListener() {
             @Override
