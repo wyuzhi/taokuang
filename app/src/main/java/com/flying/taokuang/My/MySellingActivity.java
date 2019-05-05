@@ -16,6 +16,7 @@ import com.flying.taokuang.R;
 import com.flying.taokuang.base.BaseToolbarActivity;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
+import com.flying.taokuang.ui.EmptyRecyclerViewHelper;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import java.util.List;
@@ -61,6 +62,8 @@ public class MySellingActivity extends BaseToolbarActivity implements PullLoadMo
             }
         });
         UiUtils.setOnTouchBackground(mIvBack);
+        fRecyclerView.setHasFixedSize(true);
+        EmptyRecyclerViewHelper.with(fRecyclerView);
         loadData();
     }
 

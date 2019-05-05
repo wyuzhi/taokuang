@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.flying.baselib.utils.collection.CollectionUtils;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.holder.NewNormalGridViewHolder;
@@ -66,9 +67,17 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public void addData(List<TaoKuang> dataList) {
+        if (CollectionUtils.isEmpty(dataList)) {
+            return;
+        }
+        if (CollectionUtils.isEmpty(mTaoList)) {
+            mTaoList = dataList;
+            notifyDataSetChanged();
+            return;
+        }
         int oldSize = mTaoList.size();
         mTaoList.addAll(dataList);
-        notifyItemInserted(oldSize);
+        notifyItemRangeInserted(oldSize, dataList.size());
     }
 
     public void clearData() {

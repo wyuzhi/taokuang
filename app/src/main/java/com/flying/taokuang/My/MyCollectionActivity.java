@@ -8,12 +8,12 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 
-import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.CollectionAdapter;
 import com.flying.taokuang.R;
 import com.flying.taokuang.base.BaseToolbarActivity;
 import com.flying.taokuang.entity.CollectionBean;
+import com.flying.taokuang.ui.EmptyRecyclerViewHelper;
 
 import org.litepal.LitePal;
 
@@ -49,14 +49,16 @@ public class MyCollectionActivity extends BaseToolbarActivity {
         mRecyclerView = findViewById(R.id.recycler_wo_sc);
         mlayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mlayoutManager);
+        mRecyclerView.setHasFixedSize(true);
+        mAdapter = new CollectionAdapter(this);
+        mRecyclerView.setAdapter(mAdapter);
+        EmptyRecyclerViewHelper.with(mRecyclerView);
         loadData();
     }
 
     private void loadData() {
         List<CollectionBean> collections = LitePal.findAll(CollectionBean.class);
-        LogUtils.d("Collection Taokuang", "loadData: " + collections.size());
-        mAdapter = new CollectionAdapter(collections, MyCollectionActivity.this);
-        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.addData(collections);
     }
 }
 

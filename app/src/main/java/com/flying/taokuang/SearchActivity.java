@@ -10,10 +10,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 
-import com.flying.baselib.utils.app.LogUtils;
 import com.flying.taokuang.Adapter.HomeRecyclerViewAdapter;
 import com.flying.taokuang.base.BaseToolbarActivity;
 import com.flying.taokuang.entity.TaoKuang;
+import com.flying.taokuang.ui.EmptyRecyclerViewHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,17 +42,14 @@ public class SearchActivity extends BaseToolbarActivity {
         Intent intents = getIntent();
         final String sstj = intents.getStringExtra("搜索");
         sRecyclerView = findViewById(R.id.recycler_tao);
+        sSwipeRefresh = findViewById(R.id.swipe_refresh);
         slayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         sRecyclerView.setLayoutManager(slayoutManager);
-        sSwipeRefresh = findViewById(R.id.swipe_refresh);
-       /*mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-            }
-        });*/
+        sAdapter = new HomeRecyclerViewAdapter(SearchActivity.this);
+        sRecyclerView.setAdapter(sAdapter);
+        sRecyclerView.setHasFixedSize(true);
+        EmptyRecyclerViewHelper.with(sRecyclerView);
         BmobQuery<TaoKuang> tQuery = new BmobQuery<>();
-        //tQuery.addWhereContains("biaoti","sstj");
         tQuery.addWhereDoesNotExists("goumai");
         tQuery.include("fabu");
         tQuery.findObjects(new FindListener<TaoKuang>() {
@@ -73,14 +70,8 @@ public class SearchActivity extends BaseToolbarActivity {
                             datas.add(list.get(i));
                         }
                     }
-
-                    sAdapter = new HomeRecyclerViewAdapter(SearchActivity.this, datas);
-                    sRecyclerView.setAdapter(sAdapter);
-                    //tAdapter.setOnItemClickListener(listener);
-                    LogUtils.d("查询", "查询成功" + list);
+                    sAdapter.addData(datas);
                     sSwipeRefresh.setRefreshing(false);
-                } else {
-                    LogUtils.d("查询", "查询失败:" + e);
                 }
             }
         });

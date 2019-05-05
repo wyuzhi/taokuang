@@ -8,17 +8,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.flying.baselib.utils.collection.CollectionUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.DetailActivity;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.CollectionBean;
 import com.flying.taokuang.ui.AsyncImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.ViewHolder> {
     private List<CollectionBean> collections;
     private Context context;
+
+    public CollectionAdapter(Context context) {
+        this.collections = new ArrayList<>();
+        this.context = context;
+    }
 
     public CollectionAdapter(List<CollectionBean> collections, Context context) {
         this.collections = collections;
@@ -44,6 +51,20 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
                 DetailActivity.go(context, collection.getGood());
             }
         });
+    }
+
+    public void addData(List<CollectionBean> data) {
+        if (CollectionUtils.isEmpty(data)) {
+            return;
+        }
+        if (CollectionUtils.isEmpty(collections)) {
+            collections = data;
+            notifyDataSetChanged();
+            return;
+        }
+        int oldSize = collections.size();
+        collections.addAll(data);
+        notifyItemRangeInserted(oldSize, data.size());
     }
 
     @Override

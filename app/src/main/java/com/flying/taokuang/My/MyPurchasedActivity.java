@@ -9,13 +9,13 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 
-import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.PersonalSellingRecyclerviewAdapter;
 import com.flying.taokuang.R;
 import com.flying.taokuang.base.BaseToolbarActivity;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
+import com.flying.taokuang.ui.EmptyRecyclerViewHelper;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import cn.bmob.v3.listener.FindListener;
 
 public class MyPurchasedActivity extends BaseToolbarActivity {
     private RecyclerView gRecyclerView;
-    private PersonalSellingRecyclerviewAdapter gAdapter;
+    private PersonalSellingRecyclerviewAdapter mAdapter;
     private ImageView mIvBack;
 
     @Override
@@ -50,9 +50,12 @@ public class MyPurchasedActivity extends BaseToolbarActivity {
             }
         });
         UiUtils.setOnTouchBackground(mIvBack);
-        //toolbar.setTitle("我购买的");
         gRecyclerView = findViewById(R.id.recycler_wo_gm);
         gRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new PersonalSellingRecyclerviewAdapter(MyPurchasedActivity.this);
+        gRecyclerView.setAdapter(mAdapter);
+        gRecyclerView.setHasFixedSize(true);
+        EmptyRecyclerViewHelper.with(gRecyclerView);
         loadData();
     }
 
@@ -69,12 +72,7 @@ public class MyPurchasedActivity extends BaseToolbarActivity {
                 @Override
                 public void done(List<TaoKuang> object, BmobException e) {
                     if (e == null) {
-                        gAdapter = new PersonalSellingRecyclerviewAdapter(MyPurchasedActivity.this, object);
-                        gRecyclerView.setAdapter(gAdapter);
-                        //Snackbar.make(gRecyclerView, "查询成功", Snackbar.LENGTH_LONG).show();
-                    } else {
-                        LogUtils.e("BMOB", e.toString());
-                        Snackbar.make(gRecyclerView, e.getMessage(), Snackbar.LENGTH_LONG).show();
+                        mAdapter.addData(object);
                     }
                 }
 

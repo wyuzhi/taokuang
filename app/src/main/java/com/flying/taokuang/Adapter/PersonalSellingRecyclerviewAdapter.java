@@ -8,18 +8,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.flying.baselib.utils.collection.CollectionUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.DetailActivity;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.ui.AsyncImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PersonalSellingRecyclerviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<TaoKuang> mTaoList;
     private Context mContext;
+
+    public PersonalSellingRecyclerviewAdapter(Context context) {
+        mContext = context;
+        mTaoList = new ArrayList<>();
+    }
 
     public PersonalSellingRecyclerviewAdapter(Context context, List<TaoKuang> list) {
         mContext = context;
@@ -44,9 +51,17 @@ public class PersonalSellingRecyclerviewAdapter extends RecyclerView.Adapter<Rec
     }
 
     public void addData(List<TaoKuang> dataList) {
+        if (CollectionUtils.isEmpty(dataList)) {
+            return;
+        }
+        if (CollectionUtils.isEmpty(mTaoList)) {
+            mTaoList = dataList;
+            notifyDataSetChanged();
+            return;
+        }
         int oldSize = mTaoList.size();
         mTaoList.addAll(dataList);
-        notifyItemInserted(oldSize);
+        notifyItemRangeInserted(oldSize, dataList.size());
     }
 
     public void clearData() {

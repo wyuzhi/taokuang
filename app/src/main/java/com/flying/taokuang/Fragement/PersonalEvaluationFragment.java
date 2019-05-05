@@ -17,6 +17,7 @@ import com.flying.taokuang.UserPageActivity;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.Comment;
 import com.flying.taokuang.entity.User;
+import com.flying.taokuang.ui.EmptyRecyclerViewHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,11 @@ public class PersonalEvaluationFragment extends Fragment {
     private void initView(final View v) {
         sTaolist = new ArrayList<>();
         sRecyclerView = v.findViewById(R.id.recycler_tao_e);
+        LinearLayoutManager slayoutManager = new LinearLayoutManager(getContext());
+        sRecyclerView.setLayoutManager(slayoutManager);
+        sAdapter = new CommentAdapter(getContext());
+        sRecyclerView.setAdapter(sAdapter);
+        EmptyRecyclerViewHelper.with(sRecyclerView);
         loadDate();
     }
 
@@ -65,13 +71,7 @@ public class PersonalEvaluationFragment extends Fragment {
             @Override
             public void done(List<Comment> list, BmobException e) {
                 if (e == null) {
-
-                    LinearLayoutManager slayoutManager = new LinearLayoutManager(getContext());
-                    sRecyclerView.setLayoutManager(slayoutManager);
-                    sAdapter = new CommentAdapter(getContext(), list);
-                    sRecyclerView.setAdapter(sAdapter);
-                } else {
-                    LogUtils.d("查询", "查询失败:" + e);
+                    sAdapter.addData(list);
                 }
             }
         });

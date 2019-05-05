@@ -24,6 +24,7 @@ public class TipsDialog extends Dialog {
     private ImageView mIvIcon;
     private TextView mTvTitle;
     private WeakHandler mHandler;
+    private Runnable mEndRunable;
     private int mShowMillis = DEFAULTT_MILLIS;
 
     @SuppressLint("HandlerLeak")
@@ -38,6 +39,9 @@ public class TipsDialog extends Dialog {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 dismiss();
+                if (mEndRunable != null) {
+                    mEndRunable.run();
+                }
             }
         };
     }
@@ -67,6 +71,10 @@ public class TipsDialog extends Dialog {
         mShowMillis = millis;
     }
 
+    public void withEndAction(Runnable runnable) {
+        mEndRunable = runnable;
+    }
+
     @Override
     public void show() {
         super.show();
@@ -83,10 +91,14 @@ public class TipsDialog extends Dialog {
 
 
     public static void show(Activity context, @StringRes int strId, @DrawableRes int imgId) {
-        show(context, strId, imgId, DEFAULTT_MILLIS);
+        show(context, strId, imgId, null);
     }
 
-    public static void show(Activity context, @StringRes int strId, @DrawableRes int imgId, int millis) {
+    public static void show(Activity context, @StringRes int strId, @DrawableRes int imgId, Runnable runnable) {
+        show(context, strId, imgId, DEFAULTT_MILLIS, runnable);
+    }
+
+    public static void show(Activity context, @StringRes int strId, @DrawableRes int imgId, int millis, Runnable runnable) {
         if (context == null) {
             return;
         }
@@ -101,6 +113,8 @@ public class TipsDialog extends Dialog {
             if (dialog != null) {
                 dialog.setTitle(strId);
                 dialog.setIcon(imgId);
+                dialog.setShowMillis(millis);
+                dialog.withEndAction(runnable);
                 dialog.show();
                 return;
             }
@@ -109,6 +123,7 @@ public class TipsDialog extends Dialog {
         dialog.setTitle(strId);
         dialog.setIcon(imgId);
         dialog.setShowMillis(millis);
+        dialog.withEndAction(runnable);
         dialog.show();
         if (sDialogActivityMap != null) {
             sDialogActivityMap.put(new WeakReference<>(context), dialog);

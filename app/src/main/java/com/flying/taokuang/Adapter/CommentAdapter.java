@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.flying.baselib.utils.collection.CollectionUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.Comment;
 import com.flying.taokuang.ui.AsyncImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
@@ -20,10 +22,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     private Context mContext;
     //public List<String> zList = new ArrayList<>();
 
-
-    public CommentAdapter(Context context, List<Comment> list) {
+    public CommentAdapter(Context context) {
         mContext = context;
-        mList = list;
+        mList = new ArrayList<>();
     }
 
 
@@ -52,6 +53,19 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     }
 
+    public void addData(List<Comment> data) {
+        if (CollectionUtils.isEmpty(data)) {
+            return;
+        }
+        if (CollectionUtils.isEmpty(mList)) {
+            mList = data;
+            notifyDataSetChanged();
+            return;
+        }
+        int oldSize = mList.size();
+        mList.addAll(data);
+        notifyItemRangeInserted(oldSize, data.size());
+    }
 
     @Override
     public int getItemCount() {

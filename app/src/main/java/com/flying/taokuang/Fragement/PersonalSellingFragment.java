@@ -19,6 +19,7 @@ import com.flying.taokuang.UserPageActivity;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
+import com.flying.taokuang.ui.EmptyRecyclerViewHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,6 @@ public class PersonalSellingFragment extends Fragment {
     private RecyclerView sRecyclerView;
     private PersonalSellingRecyclerviewAdapter sAdapter;
     private SwipeRefreshLayout sSwipeRefresh;
-    private List<TaoKuang> sTaolist;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
@@ -55,8 +55,11 @@ public class PersonalSellingFragment extends Fragment {
     }
 
     private void initView(final View v) {
-        sTaolist = new ArrayList<>();
         sRecyclerView = v.findViewById(R.id.recycler_tao_s);
+        sRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        sAdapter = new PersonalSellingRecyclerviewAdapter(getContext());
+        sRecyclerView.setAdapter(sAdapter);
+        EmptyRecyclerViewHelper.with(sRecyclerView);
         loadDate();
     }
 
@@ -76,14 +79,7 @@ public class PersonalSellingFragment extends Fragment {
                 @Override
                 public void done(List<TaoKuang> object, BmobException e) {
                     if (e == null) {
-                        sTaolist = object;
-                        sRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        sAdapter = new PersonalSellingRecyclerviewAdapter(getContext(), sTaolist);
-                        sRecyclerView.setAdapter(sAdapter);
-                        LogUtils.d("查询", "查询成功" + object);
-                    } else {
-                        LogUtils.e("BMOB", e.toString());
-                        Snackbar.make(sRecyclerView, e.getMessage(), Snackbar.LENGTH_LONG).show();
+                        sAdapter.addData(object);
                     }
                 }
 

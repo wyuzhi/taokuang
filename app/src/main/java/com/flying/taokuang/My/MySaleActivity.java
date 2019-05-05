@@ -16,6 +16,7 @@ import com.flying.taokuang.R;
 import com.flying.taokuang.base.BaseToolbarActivity;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
+import com.flying.taokuang.ui.EmptyRecyclerViewHelper;
 
 import java.util.List;
 
@@ -52,32 +53,28 @@ public class MySaleActivity extends BaseToolbarActivity {
         UiUtils.setOnTouchBackground(mIvBack);
         mRecyclerView = findViewById(R.id.recycler_wo_mc);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new PersonalSellingRecyclerviewAdapter(this);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setHasFixedSize(true);
+        EmptyRecyclerViewHelper.with(mRecyclerView);
         loadData();
+
     }
 
     private void loadData() {
         if (BmobUser.isLogin()) {
             BmobQuery<TaoKuang> query = new BmobQuery<>();
-
             query.addWhereExists("goumai");
             query.addWhereEqualTo("fabu", BmobUser.getCurrentUser(User.class));
             query.addWhereEqualTo("jiaoyi", false);
             query.order("-updatedAt");
-            //包含作者信息
-
             query.include("fabu,goumai");
             query.findObjects(new FindListener<TaoKuang>() {
 
                 @Override
                 public void done(List<TaoKuang> object, BmobException e) {
                     if (e == null) {
-                        //Log.d("哈", object.get(0).getGoumai().getNicheng());
-                        mAdapter = new PersonalSellingRecyclerviewAdapter(MySaleActivity.this, object);
-                        mRecyclerView.setAdapter(mAdapter);
-                        //Snackbar.make(mRecyclerView, "查询成功", Snackbar.LENGTH_LONG).show();
-                    } else {
-                        LogUtils.e("BMOB", e.toString());
-                        Snackbar.make(mRecyclerView, e.getMessage(), Snackbar.LENGTH_LONG).show();
+                        mAdapter.addData(object);
                     }
                 }
 

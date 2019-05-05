@@ -16,6 +16,7 @@ import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.taokuang.Adapter.HomeRecyclerViewAdapter;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
+import com.flying.taokuang.ui.EmptyRecyclerViewHelper;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import java.util.List;
@@ -72,6 +73,7 @@ public class ArticleListFragment extends Fragment implements PullLoadMoreRecycle
         mRecyclerViewAdapter = new HomeRecyclerViewAdapter(getActivity());
         mRecyclerViewAdapter.setLayoutStyle(sIsLinearStyle);
         mPullLoadMoreRecyclerView.setAdapter(mRecyclerViewAdapter);
+        EmptyRecyclerViewHelper.with(mRecyclerView);
 
         mSkipPages = 0;
         mTypeStr = getArguments().getString(ARTICLE_LIST_TYPE);

@@ -11,4 +11,5 @@
     <string name="dialog_purchase_confirm_tips">得到它</string>
     <string name="dialog_collect_success_tips">收藏成功</string>
     <string name="dialog_buy_success_tips">购买成功</string>
+    <string name="empty_data_tips">暂时没有数据哦~</string>
 </resources>
