@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,7 @@ import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
 public class MyFragment extends TakePhotoFragment {
+    private Toolbar mToolbar;
     private AsyncImageView woicon;
     private View wofb;
     private View wogm;
@@ -68,6 +70,12 @@ public class MyFragment extends TakePhotoFragment {
 
 
     private void initView(View v) {
+        mToolbar = v.findViewById(R.id.toolbar);
+        mToolbar.setFitsSystemWindows(true);
+        ViewGroup.LayoutParams layoutParams = mToolbar.getLayoutParams();
+        layoutParams.height = UiUtils.dp2px(50) + UiUtils.getStatusBarHeight(getContext());
+        mToolbar.setLayoutParams(layoutParams);
+
         mTvUserNickName = v.findViewById(R.id.tv_user_nick_name);
         mUserInfoView = v.findViewById(R.id.rl_user_info);
         mUserInfoView.setOnClickListener(new View.OnClickListener() {

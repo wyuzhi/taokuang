@@ -1,6 +1,5 @@
 package com.flying.taokuang.base;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -24,20 +23,11 @@ public abstract class BaseToolbarActivity extends AppCompatActivity {
         mToolbar.setBackgroundResource(R.mipmap.bg_toolbar);
         mToolbar.setFitsSystemWindows(true);
         ViewGroup.LayoutParams layoutParams = mToolbar.getLayoutParams();
-        layoutParams.height = UiUtils.dp2px(50) + getStatusBarHeight(this);
+        layoutParams.height = UiUtils.dp2px(50) + UiUtils.getStatusBarHeight(this);
         mToolbar.setLayoutParams(layoutParams);
 
     }
 
     public abstract int getContentViewResId();
-
-    private int getStatusBarHeight(Context context) {
-        int statusBarHeight = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            statusBarHeight = context.getResources().getDimensionPixelSize(resourceId);
-        }
-        return statusBarHeight;
-    }
 
 }

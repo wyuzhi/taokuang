@@ -7,19 +7,15 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
+import android.view.WindowManager;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.flying.baselib.utils.app.ApplicationUtils;
 import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.app.MainThread;
-import com.flying.baselib.utils.collection.CollectionUtils;
 import com.flying.baselib.utils.device.NetworkUtils;
-import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.FragmentAdapter;
-import com.flying.taokuang.Fragement.HomeFragment;
-import com.flying.taokuang.base.BaseToolbarActivity;
 import com.pgyersdk.feedback.PgyerFeedbackManager;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.tendcloud.tenddata.TCAgent;
@@ -35,11 +31,9 @@ import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
 
 
-public class MainActivity extends BaseToolbarActivity {
+public class MainActivity extends AppCompatActivity {
     private List<Fragment> fragments = new ArrayList<>();
     private ViewPager mViewPager;
-    private View mSearchView;
-    private boolean mLinearStyle = true;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -71,48 +65,11 @@ public class MainActivity extends BaseToolbarActivity {
             finish();
             return;
         }
+        setContentView(R.layout.activity_main);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
         initView();
         delayInit();
-        mSearchView = findViewById(R.id.search_layout);
-        UiUtils.expandClickRegion(mSearchView, UiUtils.dp2px(10));
-        mSearchView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, GoSearchActivity.class);
-                startActivity(intent);
-            }
-        });
-        final LottieAnimationView lottieAnimationView = findViewById(R.id.animation_view);
-        UiUtils.expandClickRegion(lottieAnimationView, UiUtils.dp2px(10));
-        lottieAnimationView.useHardwareAcceleration();
-        lottieAnimationView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainThread.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (lottieAnimationView == null) {
-                            return;
-                        }
-                        if (lottieAnimationView.isAnimating()) {
-                            lottieAnimationView.cancelAnimation();
-                        }
-                        lottieAnimationView.setSpeed(mLinearStyle ? -1.0f : 1.0f);
-                        lottieAnimationView.playAnimation();
-                    }
-                });
-                mLinearStyle = !mLinearStyle;
-                if (!CollectionUtils.isEmpty(fragments) && fragments.get(0) instanceof HomeFragment) {
-                    HomeFragment fragment = (HomeFragment) fragments.get(0);
-                    fragment.notifyAllFragmentsChangeStyle(mLinearStyle);
-                }
-            }
-        });
-    }
-
-    @Override
-    public int getContentViewResId() {
-        return R.layout.activity_main;
     }
 
     @Override
@@ -187,8 +144,6 @@ public class MainActivity extends BaseToolbarActivity {
 
 
     private void initView() {
-        // mToolbar.setTitle("淘矿");
-        setSupportActionBar(mToolbar);
         mViewPager = findViewById(R.id.view_pager);
         //分类导航栏
 
