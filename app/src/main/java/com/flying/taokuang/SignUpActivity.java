@@ -96,7 +96,6 @@ public class SignUpActivity extends BaseBackgroundActivity {
             ToastUtils.show("密码位数小于4位或大于16位");
             return;
         }
-        final Intent intent = new Intent(this, LoginActivity.class);
         final User user = new User();
         user.setUsername(loginId);
         user.setPassword(passWord);
@@ -109,7 +108,7 @@ public class SignUpActivity extends BaseBackgroundActivity {
                     Toast.makeText(SignUpActivity.this, "注册成功",
                             Toast.LENGTH_SHORT).show();
                     LogUtils.d("注册", "注册成功");
-                    startActivity(intent);
+                    finish();
                 } else {
                     LogUtils.d("注册", "注册失败:" + e);
                     Toast.makeText(SignUpActivity.this, "注册失败",
