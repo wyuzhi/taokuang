@@ -64,7 +64,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="10dp"
-                android:background="@color/commonColorView" />
+                android:background="@color/commonColorGrey5" />
 
             <EditText
                 android:id="@+id/edit_miaoshu"
@@ -130,7 +130,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="10dp"
-                android:background="@color/commonColorView" />
+                android:background="@color/commonColorGrey5" />
 
             <EditText
                 android:id="@+id/edit_weizhi"

@@ -14,10 +14,16 @@ import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieComposition;
+import com.airbnb.lottie.LottieCompositionFactory;
+import com.airbnb.lottie.LottieListener;
 import com.flying.baselib.WeakHandler;
 import com.flying.baselib.commonui.BannerIndicatorView;
 import com.flying.baselib.utils.ui.ToastUtils;
@@ -51,6 +57,7 @@ public class DetailActivity extends BaseToolbarActivity {
     private static final int MSG_LOAD_USER = 2;
     private static final int MSG_INIT_VIEW = 3;
     private static final int MSG_LOAD_FAIL = 4;
+    private static final int MSG_REMOVE_LOADING_ANIM = 5;
 
     private ImageView mIvcollect;
     private ImageView mIvBack;
@@ -63,6 +70,8 @@ public class DetailActivity extends BaseToolbarActivity {
     private SwipeRefreshLayout mRefreshLayout;
     private BannerIndicatorView mIndicatorView;
     private View mGoUserPage;
+    private FrameLayout mContentLayout;
+    private LottieAnimationView lottieAnimationView;
 
     private LinearLayoutManager mImagesLayoutManager;
 
@@ -81,7 +90,20 @@ public class DetailActivity extends BaseToolbarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mContentLayout = findViewById(android.R.id.content);
+        lottieAnimationView = new LottieAnimationView(this);
+        LottieCompositionFactory.fromAsset(this, "detail_loading.json").addListener(new LottieListener<LottieComposition>() {
+            @Override
+            public void onResult(LottieComposition result) {
+                lottieAnimationView.setComposition(result);
+                lottieAnimationView.playAnimation();
+            }
+        });
+        lottieAnimationView.setPadding(UiUtils.dp2px(150), 0, UiUtils.dp2px(150), 0);
+        lottieAnimationView.useHardwareAcceleration(true);
+        lottieAnimationView.setRepeatCount(-1);
+        lottieAnimationView.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        mContentLayout.addView(lottieAnimationView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         mToolbar.setBackgroundColor(getResources().getColor(R.color.commonColorGrey3));
 
         mRefreshLayout = findViewById(R.id.swipeRefreshLayout);
@@ -363,11 +385,26 @@ public class DetailActivity extends BaseToolbarActivity {
                     if (mRefreshLayout != null) {
                         mRefreshLayout.setRefreshing(false);
                     }
+                    mHandler.sendEmptyMessageDelayed(MSG_REMOVE_LOADING_ANIM, 500);
                     break;
                 case MSG_LOAD_FAIL:
                     if (mRefreshLayout != null) {
                         mRefreshLayout.setRefreshing(false);
                     }
+                    break;
+                case MSG_REMOVE_LOADING_ANIM:
+                    if (lottieAnimationView == null) {
+                        return;
+                    }
+                    lottieAnimationView.animate().alpha(0.0f).withEndAction(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (mContentLayout == null || lottieAnimationView == null) {
+                                return;
+                            }
+                            mContentLayout.removeView(lottieAnimationView);
+                        }
+                    }).setDuration(500).start();
                     break;
             }
 
