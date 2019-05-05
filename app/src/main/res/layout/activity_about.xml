@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,179 +11,95 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#112d4e"
-        android:theme="@style/AppTheme.AppBarOverlay"
+        android:layout_alignParentTop="true"
         app:contentInsetStart="0dp">
 
         <ImageView
             android:id="@+id/img_return"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_arrow_back_white" />
+            android:src="@drawable/ic_back_grey" />
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@+id/img_return"
             android:gravity="center_vertical"
-            android:text="关于我们"
-            android:textColor="@color/colorWhite"
-            android:textSize="20dp"
+            android:maxWidth="150dp"
+            android:singleLine="true"
+            android:text="用户中心"
+            android:textColor="@color/commonColorGrey4"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:contentInsetStart="0dp" />
     </android.support.v7.widget.Toolbar>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="5dp"
-            android:background="#fff"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingBottom="5dp">
+    <ImageView
+        android:id="@+id/about_logo"
+        android:layout_width="112dp"
+        android:layout_height="112dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="115dp"
+        android:src="@drawable/flyingstudio" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
-                android:text="中国矿业大学 · 翔工作室"
-                android:textSize="22dp"
-                android:textStyle="bold" />
+    <TextView
+        android:id="@+id/about_tv"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/about_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="22dp"
+        android:text="       翔工作室，成立于2000年10月，19年以来一直负责学生在线的运营维护，并为矿大师生设计开发了矿友，导航站，矿大头像戳，学工处官网，矿大文库,易班场地申请系统等众多互联网产品。是矿大卓越的科技、媒体和通信(Technology,Media,Telecom)解决方案的提供者。我们的成员来自全校多个学院，十几年来老成员遍布百度，阿里，京东，今日头条，小米等各个互联网公司，这里拥有矿大学生群体中最好的设计与技术团队。"
+        android:textSize="10sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingRight="5dp">
-
-                <ImageView
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    android:src="@drawable/flyingstudio" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="5dp"
-                    android:text="     翔工作室成立于2000年10月，18年来一直负责学生在线的运营维护，并为矿大师生设计开发了导航站，矿大头像戳，学工处官网，矿大文库，易班场地申请系统等互联网产品。是矿大卓越科技、媒体和通信解决方案提供者。"
-                    android:textSize="16dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="invisible">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:padding="5dp"
-                        android:text="App开发:"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:padding="5dp"
-                        android:text="计算机学院2016级 - 邢远\n计算机学院2017级 - 潘天一"
-                        android:textSize="16dp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:visibility="invisible">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:padding="5dp"
-                        android:text="图标:"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:padding="5dp"
-                        android:text="资源与地球科学学院2017级 - 刘紫尚"
-                        android:textSize="16dp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/content"
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/versioncode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_margin="5dp"
-                android:text="版本号：V3.0"
-                android:textSize="10dp" />
-
-            <Button
-                android:id="@+id/share"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="#456"
-                android:padding="5dp"
-                android:text="觉得好用？分享给好友"
-                android:textColor="#fff"
-                android:textSize="18sp" />
-
-            <Button
-                android:id="@+id/contect"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="#456"
-                android:padding="5dp"
-                android:text="使用有问题？反馈给开发者\qq群:242524777"
-                android:textColor="#fff"
-                android:textSize="18sp" />
-
-        </LinearLayout>
+    <TextView
+        android:id="@+id/versioncode"
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"
+        android:layout_below="@id/about_tv"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="end"
+        android:layout_marginTop="19dp"
+        android:layout_marginRight="50dp"
+        android:text="版本号：V3.0"
+        android:textSize="8sp" />
 
 
-    </LinearLayout>
-</LinearLayout>
+    <Button
+        android:id="@+id/share"
+        android:layout_width="260dp"
+        android:layout_height="36dp"
+        android:layout_below="@id/versioncode"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:layout_marginTop="13dp"
+        android:background="@color/commonColorGrey3"
+        android:text="觉得好用？分享给好友"
+        android:textColor="@color/commonColorGrey6"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/contect"
+        android:layout_width="260dp"
+        android:layout_height="55dp"
+        android:layout_below="@id/share"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="13dp"
+        android:background="@color/commonColorGrey3"
+        android:padding="5dp"
+        android:text="使用有问题？反馈给开发者\qq群:242524777"
+        android:textColor="@color/commonColorGrey6"
+        android:textSize="12sp" />
+
+</RelativeLayout>
+
+
