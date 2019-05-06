@@ -236,7 +236,7 @@ public class MyFragment extends TakePhotoFragment {
                         public void done(BmobException e) {
                             if (e == null) {
                                 ToastUtils.show("修改成功");
-                                woicon.setUrl(BmobUser.getCurrentUser(User.class).getIcon().getFileUrl());
+                                woicon.setUrl(BmobUser.getCurrentUser(User.class).getIcon().getFileUrl(), UiUtils.dp2px(44), UiUtils.dp2px(44));
                             } else {
                                 ToastUtils.show("修改失败");
                             }

@@ -35,8 +35,9 @@ public class DetailImageAdapter extends RecyclerView.Adapter<DetailImageAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int position) {
-        viewHolder.img.setUrl(mList.get(position), UiUtils.dp2px(300), UiUtils.dp2px(225));
+        viewHolder.img.setUrl(mList.get(position), UiUtils.dp2px(250), UiUtils.dp2px(185));
         viewHolder.img.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
+        viewHolder.img.setRoundingRadius(UiUtils.dp2px(3));
     }
 
     public void addData(List data) {

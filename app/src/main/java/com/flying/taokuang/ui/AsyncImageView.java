@@ -127,23 +127,6 @@ public class AsyncImageView extends SimpleDraweeView {
     }
 
     /**
-     * 设置图片,支持wrap_content(不一定成功)
-     *
-     * @param url
-     */
-    public void setUrl2(String url) {
-        if (!(getControllerBuilder() instanceof PipelineDraweeControllerBuilder)) {
-            return;
-        }
-        DraweeController controller = ((PipelineDraweeControllerBuilder) getControllerBuilder())
-                .setControllerListener(listener)
-                .setUri(url)
-                .setOldController(getController())
-                .build();
-        setController(controller);
-    }
-
-    /**
      * 支持根据宽高进行缩放,建议用这个
      *
      * @param url
@@ -165,25 +148,6 @@ public class AsyncImageView extends SimpleDraweeView {
                 .setAutoPlayAnimations(true)
                 .build();
         setController(controller);
-    }
-
-    private final ControllerListener listener = new BaseControllerListener<ImageInfo>() {
-        @Override
-        public void onIntermediateImageSet(String id, ImageInfo imageInfo) {
-            updateViewSize(imageInfo);
-        }
-
-        @Override
-        public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
-            updateViewSize(imageInfo);
-        }
-    };
-
-
-    private void updateViewSize(ImageInfo imageInfo) {
-        if (imageInfo != null) {
-            setAspectRatio((float) imageInfo.getWidth() / imageInfo.getHeight());
-        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
