@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -40,12 +43,20 @@ public class IdentifyActivity extends TakePhotoActivity {
     private AsyncImageView xsz;
     private File xyk;
     private ImageView mIvBack;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_identify);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        mToolbar = findViewById(R.id.toolbar);
+        mToolbar.setBackgroundResource(R.mipmap.bg_toolbar);
+        mToolbar.setFitsSystemWindows(true);
+        ViewGroup.LayoutParams layoutParams = mToolbar.getLayoutParams();
+        layoutParams.height = UiUtils.dp2px(50) + UiUtils.getStatusBarHeight(this);
+        mToolbar.setLayoutParams(layoutParams);
         initView();
     }
 

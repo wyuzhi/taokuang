@@ -11,8 +11,6 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#112d4e"
-        android:gravity="center"
         android:theme="@style/AppTheme.AppBarOverlay"
         app:contentInsetStart="0dp">
 
