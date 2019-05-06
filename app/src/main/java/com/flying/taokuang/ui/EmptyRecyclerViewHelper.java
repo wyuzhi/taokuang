@@ -36,9 +36,8 @@ public class EmptyRecyclerViewHelper {
         helper.setAdapterDataObserver();
     }
 
-    private void checkIfEmpty() {
-        //item等于0的情况下延时500ms再去检查一次
-        if (mEmptyView != null && mRecyclerView != null && mRecyclerView.getAdapter() != null && mRecyclerView.getAdapter().getItemCount() == 0) {
+    private void checkIfEmptyDelayed(int millis) {
+        if (mEmptyView != null && mRecyclerView != null && mRecyclerView.getAdapter() != null) {
             mRecyclerView.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -49,7 +48,7 @@ public class EmptyRecyclerViewHelper {
                     mEmptyView.setVisibility(emptyViewVisible ? View.VISIBLE : View.GONE);
                     mRecyclerView.setVisibility(emptyViewVisible ? View.GONE : View.VISIBLE);
                 }
-            }, 500);
+            }, millis);
         }
     }
 
@@ -107,23 +106,25 @@ public class EmptyRecyclerViewHelper {
             lp.gravity = Gravity.CENTER;
             mEmptyView.setLayoutParams(lp);
         }
-        checkIfEmpty();
+        //fragment、activity初始化会调用,延时2.5s 等待请求结果
+        checkIfEmptyDelayed(2500);
     }
 
     final private RecyclerView.AdapterDataObserver observer = new RecyclerView.AdapterDataObserver() {
         @Override
         public void onChanged() {
-            checkIfEmpty();
+            checkIfEmptyDelayed(10);
         }
 
         @Override
         public void onItemRangeInserted(int positionStart, int itemCount) {
-            checkIfEmpty();
+            checkIfEmptyDelayed(10);
+
         }
 
         @Override
         public void onItemRangeRemoved(int positionStart, int itemCount) {
-            checkIfEmpty();
+            checkIfEmptyDelayed(10);
         }
     };
 }

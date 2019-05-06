@@ -82,7 +82,7 @@ public class MySellingActivity extends BaseToolbarActivity implements PullLoadMo
                         mAdapter.addData(object);
                     }
                     if (e != null) {
-                        ToastUtils.show("没有更多了...");
+                        ToastUtils.show("没有数据了...");
                     }
                     MainThread.postDelayed(new Runnable() {
                         @Override

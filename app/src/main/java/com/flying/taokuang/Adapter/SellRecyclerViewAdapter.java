@@ -66,7 +66,6 @@ public class SellRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     public void clearData() {
         mTaoList.clear();
-        notifyDataSetChanged();
     }
 
     @Override

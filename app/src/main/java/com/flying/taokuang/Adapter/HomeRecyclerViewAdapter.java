@@ -82,7 +82,6 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     public void clearData() {
         mTaoList.clear();
-        notifyDataSetChanged();
     }
 
     public void setLayoutStyle(boolean style) {
