@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.MainActivity;
 import com.flying.taokuang.R;
@@ -71,9 +72,9 @@ public class MyChangePasswordActivity extends BaseBackgroundActivity implements 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.zl_qr:
-                String initialPassword = mEtInitialPassword.toString();
-                String password = mEtPassword.toString();
-                String identifyPassword = mEtIdentifyPassword.toString();
+                String initialPassword = String.valueOf(mEtInitialPassword.getText());
+                String password = String.valueOf(mEtPassword.getText());
+                String identifyPassword = String.valueOf(mEtIdentifyPassword.getText());
 
                 if (!initialPassword.equals("") && !password.equals("") && !identifyPassword.equals("") && password.equals(identifyPassword)) {
                     BmobUser.updateCurrentUserPassword(initialPassword, password, new UpdateListener() {
@@ -98,12 +99,17 @@ public class MyChangePasswordActivity extends BaseBackgroundActivity implements 
                             }
                         }
                     });
-                } else Toast.makeText(MyChangePasswordActivity.this, "修改失败" + "请确认原密码及密码确认输入正确",
-                        Toast.LENGTH_LONG).show();
-
+                } else {
+                    Toast.makeText(MyChangePasswordActivity.this, "修改失败" + "请确认原密码及密码确认输入正确",
+                            Toast.LENGTH_LONG).show();
+                }
 
                 break;
-
         }
+    }
+
+    @Override
+    public String toString() {
+        return Integer.toHexString(hashCode());
     }
 }
