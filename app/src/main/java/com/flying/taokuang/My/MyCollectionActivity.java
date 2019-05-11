@@ -16,6 +16,7 @@ import com.flying.taokuang.entity.CollectionBean;
 import com.flying.taokuang.ui.EmptyRecyclerViewHelper;
 
 import org.litepal.LitePal;
+import org.litepal.crud.callback.FindMultiCallback;
 
 import java.util.List;
 
@@ -57,8 +58,13 @@ public class MyCollectionActivity extends BaseToolbarActivity {
     }
 
     private void loadData() {
-        List<CollectionBean> collections = LitePal.findAll(CollectionBean.class);
-        mAdapter.addData(collections);
+        LitePal.findAllAsync(CollectionBean.class)
+                .listen(new FindMultiCallback<CollectionBean>() {
+                    @Override
+                    public void onFinish(List<CollectionBean> list) {
+                        mAdapter.addData(list);
+                    }
+                });
     }
 }
 
