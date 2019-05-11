@@ -57,4 +57,9 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+
+    <style name="ReleaseEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/commonColorGrey5</item>
+        <item name="colorControlActivated">@color/commonColorGrey5</item>
+    </style>
 </resources>

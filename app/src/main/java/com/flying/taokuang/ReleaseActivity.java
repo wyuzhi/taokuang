@@ -1,9 +1,12 @@
 package com.flying.taokuang;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -74,12 +77,28 @@ public class ReleaseActivity extends TakePhotoActivity implements View.OnClickLi
     private String tjiage;
     private ImageView mIvBack;
 
+    private Toolbar mToolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_release);
         initView();
+        toolBar();
+    }
+
+    private void toolBar() {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        mToolbar = findViewById(R.id.toolbar);
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.commonColorGrey3));
+        ViewGroup.LayoutParams layoutParams = mToolbar.getLayoutParams();
+        layoutParams.height =UiUtils.getStatusBarHeight(this);
+        mToolbar.setLayoutParams(layoutParams);
+        mToolbar.setPadding(mToolbar.getPaddingLeft(), layoutParams.height, mToolbar.getPaddingRight(), mToolbar.getPaddingBottom());
+        mToolbar.getLayoutParams().height = layoutParams.height +
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                45, getResources().getDisplayMetrics());
     }
 
     @Override
@@ -95,7 +114,7 @@ public class ReleaseActivity extends TakePhotoActivity implements View.OnClickLi
     }
 
     private void initView() {
-        mIvBack = findViewById(R.id.image_fabu_return);
+        mIvBack = findViewById(R.id.img_return);
         mIvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,7 +133,7 @@ public class ReleaseActivity extends TakePhotoActivity implements View.OnClickLi
 
         leibie = findViewById(R.id.spinner_leibie);
         biaoti = findViewById(R.id.edit_biaoti);
-        miaoshu = findViewById(R.id.edit_miaoshu);
+        miaoshu = findViewById(R.id.edit_description);
         weizhi = findViewById(R.id.edit_weizhi);
         jiage = findViewById(R.id.edit_jiage);
         lianxi = findViewById(R.id.edit_lianxi);

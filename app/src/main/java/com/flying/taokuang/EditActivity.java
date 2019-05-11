@@ -100,7 +100,7 @@ public class EditActivity extends TakePhotoActivity implements View.OnClickListe
 
         leibie = findViewById(R.id.spinner_leibie);
         biaoti = findViewById(R.id.edit_biaoti);
-        miaoshu = findViewById(R.id.edit_miaoshu);
+        miaoshu = findViewById(R.id.edit_description);
         weizhi = findViewById(R.id.edit_weizhi);
         jiage = findViewById(R.id.edit_jiage);
         lianxi = findViewById(R.id.edit_lianxi);
@@ -112,7 +112,7 @@ public class EditActivity extends TakePhotoActivity implements View.OnClickListe
         iRecyclerView.setLayoutManager(new GridLayoutManager
                 (this, 4, GridLayoutManager.VERTICAL, false));
 
-        mIvBack = findViewById(R.id.image_fabu_return);
+        mIvBack = findViewById(R.id.img_return);
         mIvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

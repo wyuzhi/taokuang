@@ -10,6 +10,7 @@
     <color name="multiple_image_select_primary">@color/colorPrimary</color>
     <color name="multiple_image_select_primaryDark">@color/colorPrimary</color>
     <color name="commonColorOrange">#ED6C29</color>
+    <color name="commonColorOrange2">#ff6f1f</color>
     <color name="commonColorYellow">#F4D539</color>
     <color name="commonColorBlue">#40507C</color>
     <color name="commonColorBlue2">#435381</color>
