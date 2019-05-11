@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Fragement.PersonalEvaluationFragment;
@@ -29,11 +32,11 @@ public class UserPageActivity extends AppCompatActivity {
 
     private static final String GO_USER_PAGE_TAG = "go_person_page";
     private AsyncImageView icon;
-    private CollapsingToolbarLayout collapsingToolbar;
 
     public String mUserID;
     private TabLayout mTabLaout;
     private ViewPager mViewPager;
+    private AppBarLayout mToolbar;
 
 
     public static void go(Context context, String id) {
@@ -54,8 +57,13 @@ public class UserPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal);
-        CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing);
-        collapsingToolbar.setCollapsedTitleTypeface(Typeface.DEFAULT_BOLD);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        mToolbar = findViewById(R.id.abl_app_bar);
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.commonColorGrey2));
+        mToolbar.setFitsSystemWindows(true);
+        ViewGroup.LayoutParams layoutParams = mToolbar.getLayoutParams();
+        layoutParams.height = UiUtils.dp2px(138) + UiUtils.getStatusBarHeight(this);
+        mToolbar.setLayoutParams(layoutParams);
         //从DetailActivity获得数据
         Intent intent = getIntent();
         mUserID = intent.getStringExtra(GO_USER_PAGE_TAG);
@@ -73,7 +81,6 @@ public class UserPageActivity extends AppCompatActivity {
             @Override
             public void done(User user, BmobException e) {
                 if (e == null) {
-                    collapsingToolbar.setTitle(user.getNicheng());
                     BmobFile i = user.getIcon();
                     if (i != null) {
                         icon.setUrl(i.getFileUrl(), UiUtils.dp2px(100), UiUtils.dp2px(100));
@@ -87,9 +94,7 @@ public class UserPageActivity extends AppCompatActivity {
         mTabLaout = findViewById(R.id.tab_layout);
         icon = findViewById(R.id.icon);
         mViewPager = findViewById(R.id.viewpager_p);
-        collapsingToolbar = findViewById(R.id.collapsing);
 
-        collapsingToolbar.setCollapsedTitleTypeface(Typeface.DEFAULT_BOLD);
         icon.setPlaceholderImage(R.drawable.ic_default_avatar);
         icon.setRoundAsCircle();
         mTabLaout.setTabMode(TabLayout.MODE_FIXED);

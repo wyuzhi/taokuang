@@ -5,41 +5,40 @@
     android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/abl_app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="138dp"
+        android:background="@null"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FCFAFA"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:collapsedTitleGravity="center|left"
-            app:collapsedTitleTextAppearance="@style/toolbarTitle2"
-            app:contentScrim="#FCFAFA"
-            app:expandedTitleGravity="right|bottom"
-            app:expandedTitleTextAppearance="@style/toolbarTitle"
+            android:fitsSystemWindows="true"
+            app:collapsedTitleGravity="center"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:statusBarScrim="@color/color">
+            app:paddingStart="0dp"
+            app:titleEnabled="false">
+
+            <ImageView
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="50dp"
+                android:padding="3dp"
+                android:src="@drawable/ic_arrow_back_grey" />
 
             <com.flying.taokuang.ui.AsyncImageView
                 android:id="@+id/icon"
                 android:layout_width="82dp"
                 android:layout_height="82dp"
-                android:layout_gravity="center"
-                app:layout_collapseMode="parallax" />
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="38dp"
-                app:layout_collapseMode="parallax">
-
-
-            </android.support.v7.widget.Toolbar>
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="28dp"
+                android:fitsSystemWindows="true" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
-
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
