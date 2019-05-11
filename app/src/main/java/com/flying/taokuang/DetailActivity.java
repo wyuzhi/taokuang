@@ -50,7 +50,6 @@ import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
-import static android.view.View.GONE;
 
 public class DetailActivity extends BaseToolbarActivity {
     public static final String GO_DETAIL_PAGE_TAG = "GO_DETAIL_PAGE_TAG";
@@ -78,10 +77,6 @@ public class DetailActivity extends BaseToolbarActivity {
 
     private DetailImageAdapter mDetailImageAdapter;
     private TaoKuang mCurrentGoods;
-
-    private TextView mTvExpand;
-    private TextView mTvExpandText;
-    private boolean expandText = true;
 
     public static void go(Context context, String id) {
         if (context == null || TextUtils.isEmpty(id)) {
@@ -123,9 +118,6 @@ public class DetailActivity extends BaseToolbarActivity {
         mGoUserPage = findViewById(R.id.rl_go_user_page);
         mIndicatorView = findViewById(R.id.biv_indicator);
 
-        mTvExpand = findViewById(R.id.detail_show_all);
-        mTvExpandText = findViewById(R.id.detail_ms);
-
         mRefreshLayout.setRefreshing(true);
         mRefreshLayout.setOnRefreshListener(mRefreshListener);
         mRvImages.setFocusable(false);
@@ -150,25 +142,8 @@ public class DetailActivity extends BaseToolbarActivity {
         mBtnFinishTrade.setOnClickListener(mFinishTradeListener);
         mIvcollect.setOnClickListener(mCollectListener);
 
-        mTvExpand.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (expandText) {
-                    mTvExpand.setText(R.string.detail_show_all_expand_tips);
-                    mTvExpandText.setMaxLines(10);
-                    expandText = false;
-                    mTvExpand.setText(R.string.detail_show_little_tips);
-                } else {
-                    mTvExpand.setText(R.string.detail_show_little_tips);
-                    mTvExpandText.setMaxLines(3);
-                    expandText = true;
-                    mTvExpand.setText(R.string.detail_show_all_expand_tips);
-                }
-            }
-        });
         mHandler.sendEmptyMessage(MSG_LOAD_GOODS);
     }
-
 
     private void loadGoodsData() {
         if (getIntent() == null || TextUtils.isEmpty(getIntent().getStringExtra(GO_DETAIL_PAGE_TAG))) {
@@ -266,13 +241,7 @@ public class DetailActivity extends BaseToolbarActivity {
         if (mCurrentGoods.getGoumai() != null && mCurrentGoods.getGoumai().getObjectId().equals(User.getCurrentUser(User.class).getObjectId())) {
             mBtnFinishTrade.setVisibility(View.VISIBLE);
         } else {
-            mBtnFinishTrade.setVisibility(GONE);
-        }
-        //text();
-        if (dms.getLineCount() <= 3) {
-            mTvExpand.setVisibility(GONE);
-        } else {
-            dms.setMaxLines(3);
+            mBtnFinishTrade.setVisibility(View.GONE);
         }
 
     }
@@ -452,7 +421,4 @@ public class DetailActivity extends BaseToolbarActivity {
         }
     }
 
-
 }
-
-

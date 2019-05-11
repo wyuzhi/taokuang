@@ -37,6 +37,4 @@
     <string name="aboutus_join_qq_group">使用有问题?加入反馈群</string>
     <string name="about_us_share_app">觉得好用?分享给好友</string>
     <string name="search_title">搜索结果</string>
-    <string name="detail_show_all_expand_tips">展开 </string>
-    <string name="detail_show_little_tips">收起 </string>
 </resources>
