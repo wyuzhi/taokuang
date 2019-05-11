@@ -3,9 +3,7 @@ package com.flying.taokuang;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -84,21 +82,18 @@ public class ReleaseActivity extends TakePhotoActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_release);
+        initToolBar();
         initView();
-        toolBar();
     }
 
-    private void toolBar() {
+    private void initToolBar() {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         mToolbar = findViewById(R.id.toolbar);
         mToolbar.setBackgroundColor(getResources().getColor(R.color.commonColorGrey3));
+        mToolbar.setFitsSystemWindows(true);
         ViewGroup.LayoutParams layoutParams = mToolbar.getLayoutParams();
-        layoutParams.height =UiUtils.getStatusBarHeight(this);
+        layoutParams.height = UiUtils.dp2px(50) + UiUtils.getStatusBarHeight(this);
         mToolbar.setLayoutParams(layoutParams);
-        mToolbar.setPadding(mToolbar.getPaddingLeft(), layoutParams.height, mToolbar.getPaddingRight(), mToolbar.getPaddingBottom());
-        mToolbar.getLayoutParams().height = layoutParams.height +
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                45, getResources().getDisplayMetrics());
     }
 
     @Override

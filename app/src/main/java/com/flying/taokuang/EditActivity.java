@@ -6,8 +6,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -76,6 +79,7 @@ public class EditActivity extends TakePhotoActivity implements View.OnClickListe
     private String tweizhi;
     private String tjiage;
 
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +87,18 @@ public class EditActivity extends TakePhotoActivity implements View.OnClickListe
         setContentView(R.layout.activity_release);
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
+        initToolBar();
         initView();
+    }
+
+    private void initToolBar() {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        mToolbar = findViewById(R.id.toolbar);
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.commonColorGrey3));
+        mToolbar.setFitsSystemWindows(true);
+        ViewGroup.LayoutParams layoutParams = mToolbar.getLayoutParams();
+        layoutParams.height = UiUtils.dp2px(50) + UiUtils.getStatusBarHeight(this);
+        mToolbar.setLayoutParams(layoutParams);
     }
 
     private void initView() {
