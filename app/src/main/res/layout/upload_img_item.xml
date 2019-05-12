@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/dl"
+        android:background="@drawable/ic_upload_delete"
         android:focusable="false" />
 
 </RelativeLayout>
