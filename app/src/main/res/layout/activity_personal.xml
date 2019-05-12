@@ -5,19 +5,19 @@
     android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/abl_app_bar"
         android:layout_width="match_parent"
-        android:layout_height="138dp"
+        android:layout_height="wrap_content"
         android:background="@null"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapsing"
+            android:id="@+id/abl_app_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="138dp"
             android:fitsSystemWindows="true"
             app:collapsedTitleGravity="center"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:layout_scrollFlags="scroll"
             app:paddingStart="0dp"
             app:titleEnabled="false">
 
@@ -39,35 +39,33 @@
                 android:fitsSystemWindows="true" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
+
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            app:elevation="0dp"
+            app:tabIndicatorColor="@color/commonColorYellow"
+            app:tabIndicatorHeight="6dp"
+            app:tabTextAppearance="@style/PersonalTabLayoutTextStyle"
+            app:tabTextColor="@color/commonColorBlue2" />
+
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager_p"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                app:tabIndicatorColor="@color/commonColorYellow"
-                app:tabIndicatorHeight="6dp"
-                app:tabTextAppearance="@style/PersonalTabLayoutTextStyle"
-                app:tabTextColor="@color/commonColorBlue2" />
-
-            <android.support.v4.view.ViewPager
-
-                android:id="@+id/viewpager_p"
-                android:layout_width="match_parent"
-                android:layout_height="500dp" />
+            android:layout_height="match_parent" />
 
 
-        </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -95,6 +95,7 @@
             android:theme="@style/Theme.Activity.NoBackground" />
         <activity
             android:name=".ReleaseActivity"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" />
         <activity
             android:name=".DetailActivity"

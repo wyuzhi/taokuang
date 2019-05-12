@@ -36,7 +36,7 @@ public class UserPageActivity extends AppCompatActivity {
     public String mUserID;
     private TabLayout mTabLaout;
     private ViewPager mViewPager;
-    private AppBarLayout mToolbar;
+    private CollapsingToolbarLayout mToolbar;
 
 
     public static void go(Context context, String id) {
