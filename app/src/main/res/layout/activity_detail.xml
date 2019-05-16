@@ -122,6 +122,7 @@
 
                 <include layout="@layout/layout_detail_goods_info" />
 
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"

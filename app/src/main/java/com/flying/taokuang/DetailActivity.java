@@ -208,7 +208,7 @@ public class DetailActivity extends BaseToolbarActivity {
 
         TextView djg = findViewById(R.id.detail_jg);
         TextView dlx = findViewById(R.id.detail_lx);
-        TextView dms = findViewById(R.id.detail_ms);
+        ExpandableTextView dms = findViewById(R.id.expandable_text);
         TextView dwz = findViewById(R.id.detail_wz);
         dlx.setText("联系方式:" + mCurrentGoods.getLianxi());
         dms.setText(mCurrentGoods.getMiaoshu());

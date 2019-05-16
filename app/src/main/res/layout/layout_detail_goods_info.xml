@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="20dp"
@@ -8,16 +9,31 @@
     android:layout_marginRight="20dp"
     android:layout_marginBottom="10dp">
 
-    <TextView
-        android:id="@+id/detail_ms"
+    <com.flying.taokuang.ExpandableTextView
+        android:id="@+id/expandable_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:textSize="14sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@id/id_source_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@id/id_expand_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="展开"
+            android:textColor="@color/commonColorOrange"
+            android:textSize="12sp" />
+    </com.flying.taokuang.ExpandableTextView>
 
 
     <TextView
@@ -28,7 +44,7 @@
         android:textIsSelectable="true"
         android:textSize="12sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_ms" />
+        app:layout_constraintTop_toBottomOf="@+id/expandable_text" />
 
     <TextView
         android:id="@+id/detail_wz"
@@ -49,7 +65,7 @@
         android:textColor="@color/commonColorOrange"
         android:textSize="24sp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/detail_ms" />
+        app:layout_constraintTop_toBottomOf="@id/expandable_text" />
 
 
 </android.support.constraint.ConstraintLayout>
