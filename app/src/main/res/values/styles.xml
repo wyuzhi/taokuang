@@ -25,15 +25,6 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="toolbarTitle">
-        <item name="android:textSize">12sp</item>
-        <item name="android:textColor">#FCFAFA</item>
-    </style>
-
-    <style name="toolbarTitle2">
-        <item name="android:textSize">18sp</item>
-    </style>
-
     <style name="RatingBar1" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/rating_bar</item>
         <item name="android:maxHeight">64dp</item>
