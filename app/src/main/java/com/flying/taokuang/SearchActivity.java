@@ -27,6 +27,7 @@ public class SearchActivity extends BaseToolbarActivity {
     private HomeRecyclerViewAdapter sAdapter;
     private SwipeRefreshLayout sSwipeRefresh;
     private StaggeredGridLayoutManager slayoutManager;
+     String sstj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class SearchActivity extends BaseToolbarActivity {
             }
         });
         Intent intents = getIntent();
-        final String sstj = intents.getStringExtra("搜索");
+        sstj = intents.getStringExtra("搜索");
         sRecyclerView = findViewById(R.id.recycler_tao);
         sSwipeRefresh = findViewById(R.id.swipe_refresh);
         slayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
@@ -49,8 +50,44 @@ public class SearchActivity extends BaseToolbarActivity {
         sRecyclerView.setAdapter(sAdapter);
         sRecyclerView.setHasFixedSize(true);
         EmptyRecyclerViewHelper.with(sRecyclerView);
+
+        final String ha = intents.getStringExtra("ha");
+        if (ha!=null) {
+            searchwant();
+        } else {
+            BmobQuery<TaoKuang> tQuery = new BmobQuery<>();
+            tQuery.addWhereDoesNotExists("goumai");
+            tQuery.include("fabu");
+            tQuery.findObjects(new FindListener<TaoKuang>() {
+                @Override
+                public void done(List<TaoKuang> list, BmobException e) {
+                    if (e == null) {
+                        String key = sstj.toString().trim();
+                        List<TaoKuang> datas = new ArrayList<TaoKuang>();
+                        for (int i = 0; i < list.size(); i++) {
+                            String actbt = list.get(i).getBiaoti();
+                            String actfb = list.get(i).getFabu().getNicheng();
+                            String actms = list.get(i).getMiaoshu();
+                            if (actbt.contains(key)) {
+                                datas.add(list.get(i));
+                            } else if (actfb.contains(key)) {
+                                datas.add(list.get(i));
+                            } else if (actms.contains(key)) {
+                                datas.add(list.get(i));
+                            }
+                        }
+                        sAdapter.addData(datas);
+                        sSwipeRefresh.setRefreshing(false);
+                    }
+                }
+            });
+        }
+
+    }
+
+    private void searchwant() {
         BmobQuery<TaoKuang> tQuery = new BmobQuery<>();
-        tQuery.addWhereDoesNotExists("goumai");
+        tQuery.addWhereEqualTo("type","1");
         tQuery.include("fabu");
         tQuery.findObjects(new FindListener<TaoKuang>() {
             @Override
@@ -75,7 +112,6 @@ public class SearchActivity extends BaseToolbarActivity {
                 }
             }
         });
-
     }
 
     @Override

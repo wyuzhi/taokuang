@@ -7,8 +7,8 @@ import android.support.multidex.MultiDexApplication;
 import com.facebook.drawee.backends.pipeline.DraweeConfig;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
-import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.baselib.utils.app.DebugSpUtils;
+import com.flying.baselib.utils.ui.ToastUtils;
 import com.pgyersdk.crash.PgyCrashManager;
 import com.tendcloud.tenddata.TCAgent;
 
@@ -17,6 +17,8 @@ import org.litepal.LitePal;
 import java.lang.reflect.Method;
 
 import cn.bmob.v3.Bmob;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.im.android.api.JMessageClient;
 
 
 public class BaseApplication extends MultiDexApplication {
@@ -33,6 +35,9 @@ public class BaseApplication extends MultiDexApplication {
         PgyCrashManager.register();
         LitePal.initialize(this);
         Bmob.initialize(this, "7c28cec5766e668a48a5ea7d719d8e08");
+        JMessageClient.init(this);
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
         ImagePipelineConfig.Builder imagePipelineConfigBuilder = ImagePipelineConfig.newBuilder(this)
                 .setResizeAndRotateEnabledForNetwork(true)
                 .setDownsampleEnabled(true);

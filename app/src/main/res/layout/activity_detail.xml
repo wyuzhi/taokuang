@@ -34,7 +34,7 @@
                 android:layout_marginLeft="2dp"
                 android:layout_toRightOf="@+id/img_return"
                 android:gravity="center_vertical"
-                android:maxWidth="150dp"
+                android:maxWidth="250dp"
                 android:singleLine="true"
                 android:textColor="@color/commonColorGrey4"
                 android:textSize="14sp"
@@ -42,6 +42,7 @@
                 app:contentInsetStart="0dp" />
 
             <ImageView
+                android:id="@+id/detail_share"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_alignParentRight="true"
@@ -135,6 +136,14 @@
                     android:layout_height="2dp"
                     android:layout_marginBottom="50dp"
                     android:background="@color/commonColorGrey2" />
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/detail_comment_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
 
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>

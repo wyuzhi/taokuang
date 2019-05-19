@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -21,6 +22,41 @@
         android:layout_marginTop="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/successful"
+        android:layout_width="61dp"
+        android:layout_height="31dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/bg_purchase_btn"
+        android:text="交易成功"
+        android:textColor="@color/commonColorBlue2"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toRightOf="@+id/item_cover_img"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="10dp" />
+
+    <Button
+        android:id="@+id/unsuccessful"
+        android:layout_width="61dp"
+        android:layout_height="31dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_purchase_btn"
+        android:text="被鸽举报"
+        android:textColor="@color/commonColorBlue2"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toRightOf="@+id/item_cover_img"
+        app:layout_constraintTop_toBottomOf="@+id/successful"
+        tools:ignore="MissingConstraints" />
+
 
     <TextView
         android:id="@+id/item_price"

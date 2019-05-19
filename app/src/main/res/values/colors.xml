@@ -19,4 +19,6 @@
     <color name="commonColorGrey5">#b6b6b6</color>
     <color name="commonColorGrey6">#6b6b6b</color>
     <color name="commonColorGrey7">#797979</color>
+    <color name="dot_hong">#E73111</color>
+    <color name="text_bottom_comment">#9B9B9B</color>
 </resources>

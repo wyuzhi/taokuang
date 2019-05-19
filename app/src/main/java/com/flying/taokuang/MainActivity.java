@@ -1,6 +1,8 @@
 package com.flying.taokuang;
 
 import android.Manifest;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 
 import com.flying.baselib.utils.app.ApplicationUtils;
@@ -16,6 +19,7 @@ import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.app.MainThread;
 import com.flying.baselib.utils.device.NetworkUtils;
 import com.flying.taokuang.Adapter.FragmentAdapter;
+import com.flying.taokuang.ui.PublishDialog;
 import com.pgyersdk.feedback.PgyerFeedbackManager;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.tendcloud.tenddata.TCAgent;
@@ -30,8 +34,11 @@ import kr.co.namee.permissiongen.PermissionFail;
 import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
 
+import static com.flying.taokuang.DetailActivity.GO_DETAIL_PAGE_TAG;
+
 
 public class MainActivity extends AppCompatActivity {
+    private PublishDialog publishDialog;
     private List<Fragment> fragments = new ArrayList<>();
     private ViewPager mViewPager;
 
@@ -45,8 +52,28 @@ public class MainActivity extends AppCompatActivity {
                     mViewPager.setCurrentItem(0);
                     return true;
                 case R.id.navigation_dashboard:
-                    Intent intent = new Intent(getBaseContext(), ReleaseActivity.class);
-                    startActivity(intent);
+                    if (publishDialog == null) {
+                        publishDialog = new PublishDialog(MainActivity.this);
+                        publishDialog.setFabuClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(getBaseContext(), ReleaseActivity.class);
+                                startActivity(intent);
+                                publishDialog.outDia();
+                            }
+                        });
+                        publishDialog.setHuishouClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(getBaseContext(), WantReleaseActivity.class);
+                                startActivity(intent);
+                                publishDialog.outDia();
+                            }
+                        });
+
+                    }
+                    publishDialog.show();
+
                     return true;
                 case R.id.navigation_notifications:
                     mViewPager.setCurrentItem(2);
@@ -82,7 +109,34 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         TCAgent.onPageStart(this, "主页");
+        forKey();
     }
+
+    private void forKey() {
+        ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        //无数据时直接返回
+        assert cm != null;
+        if (!cm.hasPrimaryClip()) {
+            return;
+        }
+        ClipData data = cm.getPrimaryClip();
+        assert data != null;
+        ClipData.Item item = data.getItemAt(0);
+        if (item != null && item.getText() != null) {
+            String content = item.getText().toString();
+            if (content.startsWith("我在淘矿上")) {
+                String key = content.substring(content.indexOf("$") + 1, content.indexOf("&"));
+                Intent intent = new Intent(this, DetailActivity.class);
+                intent.putExtra(GO_DETAIL_PAGE_TAG, key);
+                startActivity(intent);
+                ClipData mClipData = ClipData.newPlainText("Label", "https://www.pgyer.com/i7Tp");
+                cm.setPrimaryClip(mClipData);
+            }
+        }
+
+
+    }
+
 
     private void delayInit() {
         //不是很重要的操作,优先让主线程绘制UI
@@ -128,7 +182,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
         PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 

@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.MainActivity;
 import com.flying.taokuang.R;
@@ -104,6 +103,14 @@ public class MyChangePasswordActivity extends BaseBackgroundActivity implements 
                             Toast.LENGTH_LONG).show();
                 }
 
+//                TaoKuang gz = new TaoKuang();
+//                gz.setObjectId("b137da0af9");
+//                gz.remove("goumai");
+//                gz.update(new UpdateListener() {
+//                    @Override
+//                    public void done(BmobException e) {
+//                    }
+//                });
                 break;
         }
     }

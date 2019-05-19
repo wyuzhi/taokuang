@@ -63,7 +63,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             return;
         }
         int oldSize = mList.size();
-        mList.addAll(data);
+        if (oldSize==data.size()){
+            return;
+        }
+        mList=data;
+        notifyDataSetChanged();
         notifyItemRangeInserted(oldSize, data.size());
     }
 

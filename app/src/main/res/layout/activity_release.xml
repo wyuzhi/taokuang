@@ -87,13 +87,12 @@
                 android:textSize="16sp" />
 
             <View
-                android:layout_width="308dp"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="25dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginRight="25dp"
-                android:background="@color/commonColorGrey5" />
+                android:background="@color/colorDarkCommon" />
 
             <EditText
                 android:id="@+id/edit_description"
@@ -132,13 +131,12 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/release_add_goods" />
 
-
             </LinearLayout>
 
 
             <View
-                android:layout_width="308dp"
-                android:layout_height="0.3dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="5dp"
@@ -200,7 +198,8 @@
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="25dp"
-                android:hint="联系方式"
+                android:hint="联系方式,请直接输入QQ账号"
+                android:inputType="number"
                 android:singleLine="true"
                 android:textSize="14sp"
                 android:theme="@style/ReleaseEditText" />

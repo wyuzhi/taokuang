@@ -3,6 +3,7 @@ package com.flying.taokuang;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.flying.baselib.utils.app.ApplicationUtils;
 import com.flying.baselib.utils.app.LogUtils;
+import com.flying.baselib.utils.app.UploadImageUtils;
 import com.flying.baselib.utils.collection.CollectionUtils;
 import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.baselib.utils.ui.UiUtils;
@@ -41,11 +43,9 @@ import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
-import cn.bmob.v3.listener.UploadBatchListener;
 
 public class EditActivity extends TakePhotoActivity implements View.OnClickListener {
     private static final int MIN_CLICK_DELAY_TIME = 10000;
@@ -54,6 +54,7 @@ public class EditActivity extends TakePhotoActivity implements View.OnClickListe
     private static final int REQUEST_CODE_CHOOSE = 99;
     private int s = 4;
 
+    List<String> iurls = new ArrayList<>();
     private String id;
     private List<String> iList;
     private List<String> cList = new ArrayList<>();
@@ -80,6 +81,9 @@ public class EditActivity extends TakePhotoActivity implements View.OnClickListe
     private String tjiage;
 
     private Toolbar mToolbar;
+    ProgressDialog pDialog;
+    private Boolean CONTINUE = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,11 +197,46 @@ public class EditActivity extends TakePhotoActivity implements View.OnClickListe
                 if ((curClickTime - lastClickTime) >= MIN_CLICK_DELAY_TIME) {
                     // 超过点击间隔后再将lastClickTime重置为当前点击时间
                     lastClickTime = curClickTime;
-
-                    Fabu();
+                    pDialog = new ProgressDialog(this);
+                    pDialog.setTitle("正在发布");
+                    pDialog.setCancelable(false);
+                    pDialog.show();
+                    if (CONTINUE) {
+                        cList = iAdapter.getLocal();
+                        final String[] paths = cList.toArray(new String[0]);
+                        new EditActivity.AsynTask().execute(paths);
+                    } else {
+                        Fabu();
+                    }
                 }
                 break;
         }
+
+    }
+
+    class AsynTask extends AsyncTask<String[], Integer, String> {
+
+
+        @Override
+        protected String doInBackground(String[]... strings) {
+            for (int i = 0; i < strings[0].length; i++) {
+                iurls.add(UploadImageUtils.postFile("https://school.chpz527.cn/api/upload",
+                        null, new File(String.valueOf(strings[0][i])), getApplicationContext()));
+            }
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(String s) {
+            Fabu();
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+        }
+
 
     }
 
@@ -223,11 +262,6 @@ public class EditActivity extends TakePhotoActivity implements View.OnClickListe
             return;
         }
 
-
-        final ProgressDialog pDialog = new ProgressDialog(this);
-        pDialog.setTitle("正在发布");
-        pDialog.setCancelable(false);
-        pDialog.show();
 
         if (cList.size() == 0) {
             if (BmobUser.isLogin() && BmobUser.getCurrentUser(User.class).getRenz()) {
@@ -261,63 +295,47 @@ public class EditActivity extends TakePhotoActivity implements View.OnClickListe
             }
         } else {
 
+
             final String[] paths = cList.toArray(new String[0]);
 
 
-            BmobFile.uploadBatch(paths, new UploadBatchListener() {
-                @Override
-                public void onSuccess(List<BmobFile> files, List<String> urls) {
+            if (iurls.size() == paths.length) {//如果数量相等，则代表文件全部上传完成
+                LogUtils.d("图片", "图片成功");
+                zList.addAll(iurls);
+                //Toast.makeText(ReleaseActivity.this, "图片成功",
+                //       Toast.LENGTH_SHORT).show();
+                if (BmobUser.isLogin() && BmobUser.getCurrentUser(User.class).getRenz()) {
+                    TaoKuang fb = new TaoKuang();
+                    User user = BmobUser.getCurrentUser(User.class);
+                    fb.setLeibie(tleibie);
+                    fb.setBiaoti(tbiaoti);
+                    fb.setMiaoshu(tmiaoshu);
+                    fb.setWeizhi(tweizhi);
+                    fb.setLianxi(tlianxi);
+                    fb.setJiage(tjiage);
+                    fb.setJiaoyi(false);
+                    fb.setBuy(false);
+                    fb.setGengxin(1);
+                    fb.setPic(zList);
+                    fb.setFabu(user);
 
-
-                    if (urls.size() == paths.length) {//如果数量相等，则代表文件全部上传完成
-                        LogUtils.d("图片", "图片成功");
-                        zList.addAll(urls);
-                        //Toast.makeText(ReleaseActivity.this, "图片成功",
-                        //       Toast.LENGTH_SHORT).show();
-                        if (BmobUser.isLogin() && BmobUser.getCurrentUser(User.class).getRenz()) {
-                            TaoKuang fb = new TaoKuang();
-                            User user = BmobUser.getCurrentUser(User.class);
-                            fb.setLeibie(tleibie);
-                            fb.setBiaoti(tbiaoti);
-                            fb.setMiaoshu(tmiaoshu);
-                            fb.setWeizhi(tweizhi);
-                            fb.setLianxi(tlianxi);
-                            fb.setJiage(tjiage);
-                            fb.setJiaoyi(false);
-                            fb.setBuy(false);
-                            fb.setGengxin(1);
-                            fb.setPic(zList);
-                            fb.setFabu(user);
-
-                            fb.update(id, new UpdateListener() {
-                                @Override
-                                public void done(BmobException e) {
-                                    ToastUtils.show(e == null ? "发布成功" : "发布失败");
-                                    pDialog.dismiss();
-                                    finish();
-                                }
-                            });
-                            //do something
-                        } else {
-                            pDialog.cancel();
-                            Toast.makeText(EditActivity.this, "请先登陆或认证",
-                                    Toast.LENGTH_LONG).show();
-
+                    fb.update(id, new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            ToastUtils.show(e == null ? "发布成功" : "发布失败");
+                            pDialog.dismiss();
+                            finish();
                         }
-                    }
+                    });
+                    //do something
+                } else {
+                    pDialog.cancel();
+                    Toast.makeText(EditActivity.this, "请先登陆或认证",
+                            Toast.LENGTH_LONG).show();
+
                 }
+            }
 
-                @Override
-                public void onProgress(int i, int i1, int i2, int i3) {
-
-                }
-
-                @Override
-                public void onError(int i, String s) {
-                    LogUtils.d("图片", "图片失败" + s);
-                }
-
-            });
 
         }
     }
@@ -351,6 +369,7 @@ public class EditActivity extends TakePhotoActivity implements View.OnClickListe
             iList.add(image.getCompressPath());
         }
         iAdapter = new UploadImgAdapter(this, iList);
+        CONTINUE = true;
         iAdapter.setOnItemClickListener(new UploadImgAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(File file, int position) {

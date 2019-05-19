@@ -90,6 +90,24 @@
                 android:background="@color/commonColorGrey2" />
 
             <TextView
+                android:id="@+id/wo_want"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/bg_ripple_grey"
+                android:gravity="center_vertical|left"
+                android:paddingLeft="23dp"
+                android:text="@string/my_mine_want"
+                android:textColor="@color/commonColorGrey6"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="23dp"
+                android:background="@color/commonColorGrey2" />
+
+            <TextView
                 android:id="@+id/wo_mc"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
@@ -125,6 +143,7 @@
                 android:layout_marginLeft="23dp"
                 android:layout_marginRight="23dp"
                 android:background="@color/commonColorGrey2" />
+
 
             <TextView
                 android:id="@+id/wo_sc"

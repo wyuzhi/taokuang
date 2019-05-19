@@ -24,7 +24,7 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
-public class MySaleActivity extends BaseToolbarActivity {
+public class MySoldActivity extends BaseToolbarActivity {
     private RecyclerView mRecyclerView;
     private PersonalSellingRecyclerviewAdapter mAdapter;
     private ImageView mIvBack;
@@ -38,7 +38,7 @@ public class MySaleActivity extends BaseToolbarActivity {
 
     @Override
     public int getContentViewResId() {
-        return R.layout.activity_my_sale;
+        return R.layout.activity_my_sold;
     }
 
     private void initView() {
@@ -64,6 +64,7 @@ public class MySaleActivity extends BaseToolbarActivity {
         if (BmobUser.isLogin()) {
             BmobQuery<TaoKuang> query = new BmobQuery<>();
             query.addWhereExists("goumai");
+            query.addWhereNotEqualTo("type","1");
             query.addWhereEqualTo("fabu", BmobUser.getCurrentUser(User.class));
             query.addWhereEqualTo("jiaoyi", false);
             query.order("-updatedAt");

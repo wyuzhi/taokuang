@@ -1,9 +1,12 @@
 package com.flying.taokuang;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -28,14 +31,18 @@ import com.flying.baselib.WeakHandler;
 import com.flying.baselib.commonui.BannerIndicatorView;
 import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.baselib.utils.ui.UiUtils;
+import com.flying.taokuang.Adapter.CommentAdapter;
 import com.flying.taokuang.Adapter.DetailImageAdapter;
 import com.flying.taokuang.base.BaseToolbarActivity;
 import com.flying.taokuang.entity.CollectionBean;
+import com.flying.taokuang.entity.Comment;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
-import com.flying.taokuang.ui.AsyncImageView;
-import com.flying.taokuang.ui.TipsDialog;
 import com.flying.taokuang.ui.AlertDialog;
+import com.flying.taokuang.ui.AsyncImageView;
+import com.flying.taokuang.ui.DeletableEditText;
+import com.flying.taokuang.ui.InputTextMsgDialog;
+import com.flying.taokuang.ui.TipsDialog;
 import com.tendcloud.tenddata.TCAgent;
 
 import org.litepal.LitePal;
@@ -46,7 +53,9 @@ import java.util.List;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
@@ -59,11 +68,22 @@ public class DetailActivity extends BaseToolbarActivity {
     private static final int MSG_LOAD_FAIL = 4;
     private static final int MSG_REMOVE_LOADING_ANIM = 5;
 
+    private String QQ;
+    InputTextMsgDialog inputTextMsgDialog;
+
+
     private ImageView mIvcollect;
     private ImageView mIvBack;
+    private ImageView mIvContent;
+    private ImageView mIvComment;
+    private ImageView mIvshare;
+    private Button mBtnCommit;
     private Button mBtnBuy;
     private Button mBtnFinishTrade;
     private RecyclerView mRvImages;
+    private RecyclerView mRvComment;
+    private CommentAdapter CommentAdapter;
+    private DeletableEditText mEdComment;
     private TextView mTvUserNickName;
     private TextView mToolbarTitle;
     private AsyncImageView mIvUserAvatar;
@@ -107,13 +127,19 @@ public class DetailActivity extends BaseToolbarActivity {
         mToolbar.setBackgroundColor(getResources().getColor(R.color.commonColorGrey3));
 
         mRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+//        mBtnCommit = findViewById(R.id.detail_commit);
         mBtnBuy = findViewById(R.id.detail_gm);
         mIvBack = findViewById(R.id.img_return);
         mTvUserNickName = findViewById(R.id.detail_nc);
+//        mEdComment = findViewById(R.id.detail_comment);
         mIvUserAvatar = findViewById(R.id.detail_tx);
+        mRvComment = findViewById(R.id.detail_comment_recycler);
         mRvImages = findViewById(R.id.detail_recycler);
         mBtnFinishTrade = findViewById(R.id.gm_qr);
         mIvcollect = findViewById(R.id.detail_collection);
+        mIvContent = findViewById(R.id.detail_content);
+        mIvComment = findViewById(R.id.detail_comment);
+        mIvshare = findViewById(R.id.detail_share);
         mToolbarTitle = findViewById(R.id.tv_title);
         mGoUserPage = findViewById(R.id.rl_go_user_page);
         mIndicatorView = findViewById(R.id.biv_indicator);
@@ -123,15 +149,24 @@ public class DetailActivity extends BaseToolbarActivity {
         mRvImages.setFocusable(false);
         mImagesLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mRvImages.setLayoutManager(mImagesLayoutManager);
+        LinearLayoutManager slayoutManager = new LinearLayoutManager(this);
+        mRvComment.setLayoutManager(slayoutManager);
         new PagerSnapHelper().attachToRecyclerView(mRvImages);
         mDetailImageAdapter = new DetailImageAdapter(this);
         mRvImages.setAdapter(mDetailImageAdapter);
+        CommentAdapter = new CommentAdapter(this);
+        mRvComment.setAdapter(CommentAdapter);
         mIvUserAvatar.setRoundAsCircle();
         UiUtils.setOnTouchBackground(mIvBack);
         UiUtils.expandClickRegion(mIvcollect, UiUtils.dp2px(10));
+        UiUtils.expandClickRegion(mIvContent, UiUtils.dp2px(10));
+        UiUtils.expandClickRegion(mIvContent, UiUtils.dp2px(10));
+        UiUtils.expandClickRegion(mIvshare, UiUtils.dp2px(10));
         UiUtils.setOnTouchBackground(mGoUserPage);
 
         mBtnBuy.setOnClickListener(mBuyListener);
+//        mBtnCommit.setOnClickListener(mCommitListener);
+
         mIvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,6 +176,9 @@ public class DetailActivity extends BaseToolbarActivity {
         mGoUserPage.setOnClickListener(mGoUserPageListener);
         mBtnFinishTrade.setOnClickListener(mFinishTradeListener);
         mIvcollect.setOnClickListener(mCollectListener);
+        mIvContent.setOnClickListener(mContentListener);
+        mIvComment.setOnClickListener(mCommentListener);
+        mIvshare.setOnClickListener(mShareListener);
 
         mHandler.sendEmptyMessage(MSG_LOAD_GOODS);
     }
@@ -160,6 +198,9 @@ public class DetailActivity extends BaseToolbarActivity {
                 }
                 mCurrentGoods = taoKuang;
                 mHandler.sendEmptyMessage(MSG_LOAD_USER);
+                if (mCurrentGoods.getType().equals("1")) {
+                    mBtnBuy.setVisibility(View.GONE);
+                }
             }
         });
     }
@@ -210,6 +251,7 @@ public class DetailActivity extends BaseToolbarActivity {
         TextView dlx = findViewById(R.id.detail_lx);
         ExpandableTextView dms = findViewById(R.id.expandable_text);
         TextView dwz = findViewById(R.id.detail_wz);
+        QQ = mCurrentGoods.getLianxi().toString();
         dlx.setText("联系方式:" + mCurrentGoods.getLianxi());
         dms.setText(mCurrentGoods.getMiaoshu());
         dwz.setText("交易地点:" + mCurrentGoods.getWeizhi());
@@ -224,6 +266,9 @@ public class DetailActivity extends BaseToolbarActivity {
         } else {
             mIvUserAvatar.setPlaceholderImage(R.drawable.ic_default_avatar);
         }
+
+
+        initComment();
 
         mDetailImageAdapter.addData(mCurrentGoods.getPic());
         mIndicatorView.setCellCount(mCurrentGoods.getPic().size());
@@ -245,6 +290,46 @@ public class DetailActivity extends BaseToolbarActivity {
         }
 
     }
+
+    private void initComment() {
+        BmobQuery<Comment> tQuery = new BmobQuery<>();
+        tQuery.addWhereEqualTo("good", mCurrentGoods);
+        tQuery.order("-updatedAt");
+        tQuery.include("author");
+        tQuery.findObjects(new FindListener<Comment>() {
+            @Override
+            public void done(List<Comment> list, BmobException e) {
+                if (e == null) {
+                    CommentAdapter.addData(list);
+                }
+            }
+        });
+
+
+    }
+
+    private View.OnClickListener mCommitListener = new View.OnClickListener() {
+        @Override
+
+        public void onClick(View v) {
+            String mcomment = String.valueOf(mEdComment.getText().toString());
+            final Comment comment = new Comment();
+            comment.setAuthor(BmobUser.getCurrentUser(User.class));
+            comment.setGood(mCurrentGoods);
+            comment.setContent(mcomment);
+            comment.save(new SaveListener<String>() {
+
+                @Override
+                public void done(String objectId, BmobException e) {
+                    ToastUtils.show("发布成功");
+                    mEdComment.setText("");
+
+                }
+            });
+
+
+        }
+    };
 
     private View.OnClickListener mBuyListener = new View.OnClickListener() {
         @Override
@@ -332,6 +417,60 @@ public class DetailActivity extends BaseToolbarActivity {
                     })
                     .setNegativeButton("取消", null).show();
         }
+    };
+    private View.OnClickListener mShareListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //获取剪贴板管理器：
+            ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+// 创建普通字符型ClipData
+            ClipData mClipData = ClipData.newPlainText("Label", "我在淘矿上发现了" + "【" + mCurrentGoods.getBiaoti() + "】" + "$" + mCurrentGoods.getObjectId() + "&" + "复制本消息，打开【淘矿APP】即可查看，下载链接【https://www.pgyer.com/i7Tp】");
+// 将ClipData内容放到系统剪贴板里。
+            cm.setPrimaryClip(mClipData);
+            Intent textIntent = new Intent(Intent.ACTION_SEND);
+            textIntent.setType("text/plain");
+            textIntent.putExtra(Intent.EXTRA_TEXT, "我在淘矿上发现了" + "【" + mCurrentGoods.getBiaoti() + "】" + "$" + mCurrentGoods.getObjectId() + "&" + "复制本消息，打开【淘矿APP】即可查看，下载链接【https://www.pgyer.com/i7Tp】");
+            startActivity(Intent.createChooser(textIntent, "分享"));
+        }
+    };
+    private View.OnClickListener mCommentListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (inputTextMsgDialog == null) {
+                inputTextMsgDialog = new InputTextMsgDialog(DetailActivity.this);
+            }
+            inputTextMsgDialog.setMaxNumber(20);
+            inputTextMsgDialog.setOnTextSendListener(new InputTextMsgDialog.OnTextSendListener() {
+                @Override
+                public void onTextSend(String msg) {
+                    final Comment comment = new Comment();
+                    comment.setAuthor(BmobUser.getCurrentUser(User.class));
+                    comment.setGood(mCurrentGoods);
+                    comment.setContent(msg);
+                    comment.save(new SaveListener<String>() {
+
+                        @Override
+                        public void done(String objectId, BmobException e) {
+                            ToastUtils.show("发布成功");
+                            if (mHandler != null) {
+                                mHandler.sendEmptyMessage(MSG_LOAD_GOODS);
+                            }
+                        }
+                    });
+
+                }
+            });
+            inputTextMsgDialog.show();
+        }
+    };
+    private View.OnClickListener mContentListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String url = "mqqwpa://im/chat?chat_type=wpa&uin=" + QQ;
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+
+        }
+
     };
 
     private View.OnClickListener mCollectListener = new View.OnClickListener() {

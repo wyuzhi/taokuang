@@ -18,6 +18,7 @@ public class TaoKuang extends BmobObject {
     private Boolean buy;
     private String gezi;
     private List<String> pic;
+    private String type;
 
 
 
@@ -126,4 +127,11 @@ public class TaoKuang extends BmobObject {
         this.buy = buy;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

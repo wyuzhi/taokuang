@@ -13,6 +13,7 @@ import com.flying.taokuang.entity.User;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
+import cn.jpush.android.api.JPushInterface;
 
 public class LoginActivity extends BaseBackgroundActivity implements View.OnClickListener {
     private String dlyhm;
@@ -67,6 +68,7 @@ public class LoginActivity extends BaseBackgroundActivity implements View.OnClic
     }
 
     private void loginb(View v) {
+
         final Intent intent2 = new Intent(LoginActivity.this, MainActivity.class);
         dlyhm = String.valueOf(yhm.getText());
         dlmm = String.valueOf(mm.getText());
@@ -81,6 +83,8 @@ public class LoginActivity extends BaseBackgroundActivity implements View.OnClic
                     user.update(new UpdateListener() {
                         @Override
                         public void done(BmobException e) {
+                            JPushInterface.setAlias(LoginActivity.this,666,dlyhm);
+
 
                         }
                     });

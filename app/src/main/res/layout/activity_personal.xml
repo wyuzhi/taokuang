@@ -22,6 +22,7 @@
             app:titleEnabled="false">
 
             <ImageView
+                android:id="@+id/back"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
                 android:layout_gravity="bottom"

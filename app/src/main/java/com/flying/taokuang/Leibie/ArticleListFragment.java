@@ -126,7 +126,7 @@ public class ArticleListFragment extends Fragment implements PullLoadMoreRecycle
             mPullLoadMoreRecyclerView.setLinearLayout();
         } else {
             //非线性的较小，请求更多的数据
-            MAX_NUM_PER_PAGE = 8;
+            MAX_NUM_PER_PAGE = 10;
             mPullLoadMoreRecyclerView.setGridLayout(2);
         }
         onRefresh();

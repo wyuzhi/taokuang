@@ -69,6 +69,10 @@ public class NewNormalViewHolder extends RecyclerView.ViewHolder {
         mTvUserName.setText(nickname);
         mTvContent.setText(content);
         mTvTitle.setText(title);
+        if (taoItem.getType()!=null){
+            mTvTitle.setMaxWidth(320);
+            mTvContent.setMaxWidth(370);
+        }
         mTvPrice.setText("￥" + price);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

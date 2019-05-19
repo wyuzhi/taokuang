@@ -16,19 +16,20 @@ import android.widget.Toast;
 import com.flying.baselib.utils.collection.CollectionUtils;
 import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.baselib.utils.ui.UiUtils;
-import com.flying.taokuang.LoginActivity;
-import com.flying.taokuang.UserPageActivity;
-import com.flying.taokuang.R;
 import com.flying.taokuang.IdentifyActivity;
+import com.flying.taokuang.LoginActivity;
+import com.flying.taokuang.My.AboutActivity;
+import com.flying.taokuang.My.MyChangePasswordActivity;
+import com.flying.taokuang.My.MyCollectionActivity;
+import com.flying.taokuang.My.MyPurchasedActivity;
+import com.flying.taokuang.My.MySoldActivity;
+import com.flying.taokuang.My.MySellingActivity;
+import com.flying.taokuang.My.MyWantActivity;
+import com.flying.taokuang.R;
+import com.flying.taokuang.UserPageActivity;
 import com.flying.taokuang.entity.User;
 import com.flying.taokuang.ui.AlertDialog;
 import com.flying.taokuang.ui.AsyncImageView;
-import com.flying.taokuang.My.AboutActivity;
-import com.flying.taokuang.My.MyCollectionActivity;
-import com.flying.taokuang.My.MySellingActivity;
-import com.flying.taokuang.My.MyPurchasedActivity;
-import com.flying.taokuang.My.MySaleActivity;
-import com.flying.taokuang.My.MyChangePasswordActivity;
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.app.TakePhotoFragment;
 import com.jph.takephoto.compress.CompressConfig;
@@ -54,6 +55,7 @@ public class MyFragment extends TakePhotoFragment {
     private View worz;
     private View wozl;
     private View wosc;
+    private View wowant;
     private File iconfile;
     private View aboutus;
     private View mUserInfoView;
@@ -115,8 +117,16 @@ public class MyFragment extends TakePhotoFragment {
         womc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentmc = new Intent(getContext(), MySaleActivity.class);
+                Intent intentmc = new Intent(getContext(), MySoldActivity.class);
                 startActivity(intentmc);
+            }
+        });
+        wowant = v.findViewById(R.id.wo_want);
+        wowant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentwant = new Intent(getContext(), MyWantActivity.class);
+                startActivity(intentwant);
             }
         });
         worz = v.findViewById(R.id.wo_rz);

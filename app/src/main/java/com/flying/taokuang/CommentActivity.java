@@ -2,7 +2,6 @@ package com.flying.taokuang;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -10,13 +9,14 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
+import com.flying.taokuang.base.BaseToolbarActivity;
 import com.flying.taokuang.entity.Comment;
 import com.flying.taokuang.entity.User;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
-public class CommentActivity extends AppCompatActivity {
+public class CommentActivity extends BaseToolbarActivity {
     private EditText Econtent;
     private Button Efabu;
     private String content;
@@ -30,7 +30,7 @@ public class CommentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comment);
+        //setContentView(R.layout.activity_comment);
         ratingBar1 = findViewById(R.id.m_ratingBar_fuwu);
         ratingBar1.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -40,6 +40,12 @@ public class CommentActivity extends AppCompatActivity {
         });
         //ratingBar2 =findViewById(R.id.m_ratingBar_miaoshu);
         initView();
+
+    }
+
+    @Override
+    public int getContentViewResId() {
+        return R.layout.activity_comment;
     }
 
     private void initView() {

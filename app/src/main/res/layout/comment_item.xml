@@ -61,7 +61,7 @@
         android:maxWidth="200dp"
         android:maxLines="2"
         android:textColor="#838383"
-        android:textSize="10sp"
+        android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@+id/comment_user_avatar"
         app:layout_constraintTop_toBottomOf="@id/comment_time"
         app:layout_goneMarginTop="4dp"
