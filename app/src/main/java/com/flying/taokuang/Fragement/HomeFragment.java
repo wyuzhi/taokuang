@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.flying.baselib.utils.app.MainThread;
@@ -21,7 +20,6 @@ import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.GoSearchActivity;
 import com.flying.taokuang.Leibie.ArticleListFragment;
 import com.flying.taokuang.R;
-import com.flying.taokuang.WantActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +30,6 @@ public class HomeFragment extends Fragment {
     private ViewPager mViewPager;
     private Toolbar mToolbar;
     private View mSearchView;
-    private ImageView mWant;
     private boolean mLinearStyle = true;
     private List<ArticleListFragment> mFragments;
 
@@ -44,14 +41,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mWant = view.findViewById(R.id.want);
-        mWant.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), WantActivity.class);
-                startActivity(intent);
-            }
-        });
         mViewPager = view.findViewById(R.id.view_pager);
         mTabLaout = view.findViewById(R.id.tab_layout);
         mTabLaout.setTabMode(TabLayout.MODE_SCROLLABLE);

@@ -67,13 +67,13 @@ public class PublishDialog extends Dialog {
 
     @Override
     public void dismiss() {
-        ObjectAnimator rootAnim = ObjectAnimator.ofFloat(mRoot, "alpha", 1F, 0F).setDuration(300);
-        ObjectAnimator sellAnim = ObjectAnimator.ofFloat(mSell, "translationY", 0F, UiUtils.dp2px(80)).setDuration(600);
-        ObjectAnimator buyAnim = ObjectAnimator.ofFloat(mBuy, "translationY", 0F, UiUtils.dp2px(80)).setDuration(600);
-        rootAnim.setStartDelay(400);
+        ObjectAnimator rootAnim = ObjectAnimator.ofFloat(mRoot, "alpha", 1F, 0F).setDuration(200);
+        ObjectAnimator sellAnim = ObjectAnimator.ofFloat(mSell, "translationY", 0F, UiUtils.dp2px(80)).setDuration(300);
+        ObjectAnimator buyAnim = ObjectAnimator.ofFloat(mBuy, "translationY", 0F, UiUtils.dp2px(80)).setDuration(300);
+        rootAnim.setStartDelay(200);
         buyAnim.setStartDelay(100);
         AnimatorSet set = new AnimatorSet();
-        set.setDuration(700);
+        set.setDuration(400);
         set.setInterpolator(new AnticipateOvershootInterpolator());
         set.playTogether(rootAnim, sellAnim, buyAnim);
         set.addListener(new AnimatorListenerAdapter() {
