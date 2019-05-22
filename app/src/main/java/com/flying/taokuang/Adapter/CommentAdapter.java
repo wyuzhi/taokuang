@@ -20,7 +20,6 @@ import java.util.List;
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
     public List<Comment> mList;
     private Context mContext;
-    //public List<String> zList = new ArrayList<>();
 
     public CommentAdapter(Context context) {
         mContext = context;
@@ -67,7 +66,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             return;
         }
         mList=data;
-        notifyDataSetChanged();
         notifyItemRangeInserted(oldSize, data.size());
     }
 

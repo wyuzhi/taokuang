@@ -1,8 +1,6 @@
 package com.flying.taokuang;
 
 import android.annotation.SuppressLint;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,6 +27,7 @@ import com.airbnb.lottie.LottieCompositionFactory;
 import com.airbnb.lottie.LottieListener;
 import com.flying.baselib.WeakHandler;
 import com.flying.baselib.commonui.BannerIndicatorView;
+import com.flying.baselib.utils.device.ClipboardUtils;
 import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.CommentAdapter;
@@ -40,7 +39,6 @@ import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
 import com.flying.taokuang.ui.AlertDialog;
 import com.flying.taokuang.ui.AsyncImageView;
-import com.flying.taokuang.ui.DeletableEditText;
 import com.flying.taokuang.ui.InputTextMsgDialog;
 import com.flying.taokuang.ui.TipsDialog;
 import com.tendcloud.tenddata.TCAgent;
@@ -68,7 +66,7 @@ public class DetailActivity extends BaseToolbarActivity {
     private static final int MSG_LOAD_FAIL = 4;
     private static final int MSG_REMOVE_LOADING_ANIM = 5;
 
-    private String QQ;
+    private String mQQNumber;
     InputTextMsgDialog inputTextMsgDialog;
 
 
@@ -77,13 +75,11 @@ public class DetailActivity extends BaseToolbarActivity {
     private ImageView mIvContent;
     private ImageView mIvComment;
     private ImageView mIvshare;
-    private Button mBtnCommit;
     private Button mBtnBuy;
     private Button mBtnFinishTrade;
     private RecyclerView mRvImages;
     private RecyclerView mRvComment;
-    private CommentAdapter CommentAdapter;
-    private DeletableEditText mEdComment;
+    private CommentAdapter mCommentAdapter;
     private TextView mTvUserNickName;
     private TextView mToolbarTitle;
     private AsyncImageView mIvUserAvatar;
@@ -127,11 +123,9 @@ public class DetailActivity extends BaseToolbarActivity {
         mToolbar.setBackgroundColor(getResources().getColor(R.color.commonColorGrey3));
 
         mRefreshLayout = findViewById(R.id.swipeRefreshLayout);
-//        mBtnCommit = findViewById(R.id.detail_commit);
         mBtnBuy = findViewById(R.id.detail_gm);
         mIvBack = findViewById(R.id.img_return);
         mTvUserNickName = findViewById(R.id.detail_nc);
-//        mEdComment = findViewById(R.id.detail_comment);
         mIvUserAvatar = findViewById(R.id.detail_tx);
         mRvComment = findViewById(R.id.detail_comment_recycler);
         mRvImages = findViewById(R.id.detail_recycler);
@@ -151,11 +145,12 @@ public class DetailActivity extends BaseToolbarActivity {
         mRvImages.setLayoutManager(mImagesLayoutManager);
         LinearLayoutManager slayoutManager = new LinearLayoutManager(this);
         mRvComment.setLayoutManager(slayoutManager);
+        mRvComment.setHasFixedSize(true);
         new PagerSnapHelper().attachToRecyclerView(mRvImages);
         mDetailImageAdapter = new DetailImageAdapter(this);
         mRvImages.setAdapter(mDetailImageAdapter);
-        CommentAdapter = new CommentAdapter(this);
-        mRvComment.setAdapter(CommentAdapter);
+        mCommentAdapter = new CommentAdapter(this);
+        mRvComment.setAdapter(mCommentAdapter);
         mIvUserAvatar.setRoundAsCircle();
         UiUtils.setOnTouchBackground(mIvBack);
         UiUtils.expandClickRegion(mIvcollect, UiUtils.dp2px(10));
@@ -165,8 +160,6 @@ public class DetailActivity extends BaseToolbarActivity {
         UiUtils.setOnTouchBackground(mGoUserPage);
 
         mBtnBuy.setOnClickListener(mBuyListener);
-//        mBtnCommit.setOnClickListener(mCommitListener);
-
         mIvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -251,7 +244,7 @@ public class DetailActivity extends BaseToolbarActivity {
         TextView dlx = findViewById(R.id.detail_lx);
         ExpandableTextView dms = findViewById(R.id.expandable_text);
         TextView dwz = findViewById(R.id.detail_wz);
-        QQ = mCurrentGoods.getLianxi().toString();
+        mQQNumber = mCurrentGoods.getLianxi().toString();
         dlx.setText("联系方式:" + mCurrentGoods.getLianxi());
         dms.setText(mCurrentGoods.getMiaoshu());
         dwz.setText("交易地点:" + mCurrentGoods.getWeizhi());
@@ -300,36 +293,13 @@ public class DetailActivity extends BaseToolbarActivity {
             @Override
             public void done(List<Comment> list, BmobException e) {
                 if (e == null) {
-                    CommentAdapter.addData(list);
+                    mCommentAdapter.addData(list);
                 }
             }
         });
 
 
     }
-
-    private View.OnClickListener mCommitListener = new View.OnClickListener() {
-        @Override
-
-        public void onClick(View v) {
-            String mcomment = String.valueOf(mEdComment.getText().toString());
-            final Comment comment = new Comment();
-            comment.setAuthor(BmobUser.getCurrentUser(User.class));
-            comment.setGood(mCurrentGoods);
-            comment.setContent(mcomment);
-            comment.save(new SaveListener<String>() {
-
-                @Override
-                public void done(String objectId, BmobException e) {
-                    ToastUtils.show("发布成功");
-                    mEdComment.setText("");
-
-                }
-            });
-
-
-        }
-    };
 
     private View.OnClickListener mBuyListener = new View.OnClickListener() {
         @Override
@@ -421,15 +391,11 @@ public class DetailActivity extends BaseToolbarActivity {
     private View.OnClickListener mShareListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //获取剪贴板管理器：
-            ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-// 创建普通字符型ClipData
-            ClipData mClipData = ClipData.newPlainText("Label", "我在淘矿上发现了" + "【" + mCurrentGoods.getBiaoti() + "】" + "$" + mCurrentGoods.getObjectId() + "&" + "复制本消息，打开【淘矿APP】即可查看，下载链接【https://www.pgyer.com/i7Tp】");
-// 将ClipData内容放到系统剪贴板里。
-            cm.setPrimaryClip(mClipData);
+            String text = "我在淘矿上发现了" + "【" + mCurrentGoods.getBiaoti() + "】" + "$" + mCurrentGoods.getObjectId() + "&" + "复制本消息，打开【淘矿APP】即可查看，下载链接【https://www.pgyer.com/i7Tp】";
+            ClipboardUtils.copy(getApplicationContext(), "Label", text);
             Intent textIntent = new Intent(Intent.ACTION_SEND);
             textIntent.setType("text/plain");
-            textIntent.putExtra(Intent.EXTRA_TEXT, "我在淘矿上发现了" + "【" + mCurrentGoods.getBiaoti() + "】" + "$" + mCurrentGoods.getObjectId() + "&" + "复制本消息，打开【淘矿APP】即可查看，下载链接【https://www.pgyer.com/i7Tp】");
+            textIntent.putExtra(Intent.EXTRA_TEXT, text);
             startActivity(Intent.createChooser(textIntent, "分享"));
         }
     };
@@ -466,9 +432,15 @@ public class DetailActivity extends BaseToolbarActivity {
     private View.OnClickListener mContentListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String url = "mqqwpa://im/chat?chat_type=wpa&uin=" + QQ;
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-
+            if (TextUtils.isEmpty(mQQNumber)) {
+                return;
+            }
+            String url = "mqqwpa://im/chat?chat_type=wpa&uin=" + mQQNumber;
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+            } catch (Exception e) {
+                ToastUtils.show(getResources().getString(R.string.detail_no_qq_tips));
+            }
         }
 
     };
