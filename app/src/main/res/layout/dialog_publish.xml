@@ -1,122 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/publish_main_rlmian"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="#da000000">
 
-    <RelativeLayout
-        android:id="@+id/publish_main_rlmian"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#da000000"
-        android:clickable="true">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="26dp"
-            android:orientation="horizontal"
-            android:paddingBottom="80dp">
-
-            <LinearLayout
-                android:id="@+id/Publish_dialog_fabu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:orientation="vertical"
-
-                android:paddingTop="20dp">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_horizontal"
-                    android:contentDescription="@null"
-                    android:src="@drawable/vector_drawable_baby" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="15dp"
-                    android:text="发布宝贝"
-                    android:textColor="#fff" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/publish_dialog_huishou"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:orientation="vertical"
-                android:paddingTop="20dp">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_horizontal"
-                    android:contentDescription="@null"
-                    android:src="@drawable/vector_drawable_want" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="15dp"
-                    android:text="发布求购"
-                    android:textColor="#fff" />
-            </LinearLayout>
-
-            <!--<LinearLayout-->
-            <!--android:id="@+id/publish_dialog_pinggu"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:clickable="true"-->
-            <!--android:orientation="vertical"-->
-
-            <!--android:paddingTop="20dp">-->
-
-            <!--<ImageView-->
-            <!--android:layout_width="40dp"-->
-            <!--android:layout_height="40dp"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--android:contentDescription="@null" />-->
-
-            <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--android:layout_marginTop="15dp"-->
-            <!--android:text="手机评估"-->
-            <!--android:textColor="#fff" />-->
-            <!--</LinearLayout>-->
-
-        </LinearLayout>
-
-        <ImageView
-            android:src="@mipmap/publish_dialog_back"
-            android:id="@+id/publish_dialog_ivMenu"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="14dp"
-            android:contentDescription="@null" />
-    </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/publish_dialog_llBt"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="26dp"
+        android:orientation="horizontal"
+        android:paddingBottom="80dp">
+
+        <LinearLayout
+            android:id="@+id/Publish_dialog_fabu"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@null"
+                android:src="@drawable/vector_drawable_baby" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:text="发布宝贝"
+                android:textColor="#fff" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/publish_dialog_huishou"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@null"
+                android:src="@drawable/vector_drawable_want" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:text="发布求购"
+                android:textColor="#fff" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/publish_dialog_iv_close"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="21dp"
-        android:clickable="true"
-        android:gravity="bottom|center_horizontal"
-        android:orientation="vertical"></LinearLayout>
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="14dp"
+        android:contentDescription="@null"
+        android:src="@mipmap/publish_dialog_back" />
 </RelativeLayout>
+
+

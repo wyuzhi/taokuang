@@ -54,20 +54,20 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_dashboard:
                     if (publishDialog == null) {
                         publishDialog = new PublishDialog(MainActivity.this);
-                        publishDialog.setFabuClickListener(new View.OnClickListener() {
+                        publishDialog.setSellClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 Intent intent = new Intent(getBaseContext(), ReleaseActivity.class);
                                 startActivity(intent);
-                                publishDialog.outDia();
+                                publishDialog.dismiss();
                             }
                         });
-                        publishDialog.setHuishouClickListener(new View.OnClickListener() {
+                        publishDialog.setBuyClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 Intent intent = new Intent(getBaseContext(), WantReleaseActivity.class);
                                 startActivity(intent);
-                                publishDialog.outDia();
+                                publishDialog.dismiss();
                             }
                         });
 
