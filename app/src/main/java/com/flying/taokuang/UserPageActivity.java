@@ -103,7 +103,7 @@ public class UserPageActivity extends AppCompatActivity {
         icon = findViewById(R.id.icon);
         mViewPager = findViewById(R.id.viewpager_p);
 
-        icon.setPlaceholderImage(R.drawable.ic_default_avatar);
+        icon.setPlaceholderImage(R.drawable.ic_default_avatar_white);
         icon.setRoundAsCircle();
         mTabLaout.setTabMode(TabLayout.MODE_FIXED);
         FragmentPagerAdapter mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {

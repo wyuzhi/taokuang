@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="26dp"
+        android:baselineAligned="false"
         android:orientation="horizontal"
         android:paddingBottom="80dp">
 

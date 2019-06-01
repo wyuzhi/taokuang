@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
+    <com.flying.taokuang.ui.AsyncImageView
+        android:id="@+id/comment_user_avatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="37dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:roundAsCircle="true" />
+
+
+    <TextView
+        android:id="@+id/tv_comment_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="12dp"
+        android:ellipsize="end"
+        android:maxWidth="150dp"
+        android:singleLine="true"
+        android:textColor="#4b4b4b"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/comment_user_avatar"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="超级棒" />
+
+    <TextView
+        android:id="@+id/comment_time"
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"
+        android:layout_alignTop="@id/tv_comment_author"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:maxWidth="150dp"
+        android:singleLine="true"
+        android:textColor="#838383"
+        android:textSize="8sp"
+        app:layout_constraintLeft_toRightOf="@+id/comment_user_avatar"
+        app:layout_constraintTop_toBottomOf="@+id/tv_comment_author"
+        tools:text="11-18 19:51" />
+
+    <TextView
+        android:id="@+id/comment_evaluator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:maxWidth="200dp"
+        android:maxLines="2"
+        android:textColor="#838383"
+        android:textSize="10sp"
+        app:layout_constraintLeft_toRightOf="@+id/comment_user_avatar"
+        app:layout_constraintTop_toBottomOf="@id/comment_time"
+        app:layout_goneMarginTop="4dp"
+        tools:text="超级棒" />
+</android.support.constraint.ConstraintLayout>

@@ -27,6 +27,9 @@ import com.airbnb.lottie.LottieCompositionFactory;
 import com.airbnb.lottie.LottieListener;
 import com.flying.baselib.WeakHandler;
 import com.flying.baselib.commonui.BannerIndicatorView;
+import com.flying.baselib.commonui.edit.EditorCallback;
+import com.flying.baselib.commonui.edit.FloatEditorActivity;
+import com.flying.baselib.commonui.edit.InputCheckRule;
 import com.flying.baselib.utils.device.ClipboardUtils;
 import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.baselib.utils.ui.UiUtils;
@@ -39,7 +42,6 @@ import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
 import com.flying.taokuang.ui.AlertDialog;
 import com.flying.taokuang.ui.AsyncImageView;
-import com.flying.taokuang.ui.InputTextMsgDialog;
 import com.flying.taokuang.ui.TipsDialog;
 import com.tendcloud.tenddata.TCAgent;
 
@@ -56,8 +58,6 @@ import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
-import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
-
 public class DetailActivity extends BaseToolbarActivity {
     public static final String GO_DETAIL_PAGE_TAG = "GO_DETAIL_PAGE_TAG";
     private static final int MSG_LOAD_GOODS = 1;
@@ -65,10 +65,7 @@ public class DetailActivity extends BaseToolbarActivity {
     private static final int MSG_INIT_VIEW = 3;
     private static final int MSG_LOAD_FAIL = 4;
     private static final int MSG_REMOVE_LOADING_ANIM = 5;
-
-    private String mQQNumber;
-    InputTextMsgDialog inputTextMsgDialog;
-
+    private static final int MSG_LOAD_COMMENT = 6;
 
     private ImageView mIvcollect;
     private ImageView mIvBack;
@@ -149,7 +146,7 @@ public class DetailActivity extends BaseToolbarActivity {
         new PagerSnapHelper().attachToRecyclerView(mRvImages);
         mDetailImageAdapter = new DetailImageAdapter(this);
         mRvImages.setAdapter(mDetailImageAdapter);
-        mCommentAdapter = new CommentAdapter(this);
+        mCommentAdapter = new CommentAdapter(this, R.layout.detail_comment_item);
         mRvComment.setAdapter(mCommentAdapter);
         mIvUserAvatar.setRoundAsCircle();
         UiUtils.setOnTouchBackground(mIvBack);
@@ -191,6 +188,7 @@ public class DetailActivity extends BaseToolbarActivity {
                 }
                 mCurrentGoods = taoKuang;
                 mHandler.sendEmptyMessage(MSG_LOAD_USER);
+                mHandler.sendEmptyMessage(MSG_LOAD_COMMENT);
                 if (mCurrentGoods.getType().equals("1")) {
                     mBtnBuy.setVisibility(View.GONE);
                 }
@@ -217,6 +215,23 @@ public class DetailActivity extends BaseToolbarActivity {
         });
     }
 
+    private void loadComment() {
+        if (mCurrentGoods == null) {
+            return;
+        }
+        BmobQuery<Comment> tQuery = new BmobQuery<>();
+        tQuery.addWhereEqualTo("good", mCurrentGoods);
+        tQuery.order("-updatedAt");
+        tQuery.include("author");
+        tQuery.findObjects(new FindListener<Comment>() {
+            @Override
+            public void done(List<Comment> list, BmobException e) {
+                if (e == null && mCommentAdapter != null) {
+                    mCommentAdapter.setData(list);
+                }
+            }
+        });
+    }
 
     @Override
     public int getContentViewResId() {
@@ -244,7 +259,6 @@ public class DetailActivity extends BaseToolbarActivity {
         TextView dlx = findViewById(R.id.detail_lx);
         ExpandableTextView dms = findViewById(R.id.expandable_text);
         TextView dwz = findViewById(R.id.detail_wz);
-        mQQNumber = mCurrentGoods.getLianxi().toString();
         dlx.setText("联系方式:" + mCurrentGoods.getLianxi());
         dms.setText(mCurrentGoods.getMiaoshu());
         dwz.setText("交易地点:" + mCurrentGoods.getWeizhi());
@@ -260,16 +274,13 @@ public class DetailActivity extends BaseToolbarActivity {
             mIvUserAvatar.setPlaceholderImage(R.drawable.ic_default_avatar);
         }
 
-
-        initComment();
-
-        mDetailImageAdapter.addData(mCurrentGoods.getPic());
+        mDetailImageAdapter.setData(mCurrentGoods.getPic());
         mIndicatorView.setCellCount(mCurrentGoods.getPic().size());
         mRvImages.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (newState == SCROLL_STATE_IDLE && mImagesLayoutManager != null && mIndicatorView != null) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && mImagesLayoutManager != null && mIndicatorView != null) {
                     int pos = mImagesLayoutManager.findFirstCompletelyVisibleItemPosition();
                     mIndicatorView.setCurrentPosition(pos);
                 }
@@ -281,23 +292,6 @@ public class DetailActivity extends BaseToolbarActivity {
         } else {
             mBtnFinishTrade.setVisibility(View.GONE);
         }
-
-    }
-
-    private void initComment() {
-        BmobQuery<Comment> tQuery = new BmobQuery<>();
-        tQuery.addWhereEqualTo("good", mCurrentGoods);
-        tQuery.order("-updatedAt");
-        tQuery.include("author");
-        tQuery.findObjects(new FindListener<Comment>() {
-            @Override
-            public void done(List<Comment> list, BmobException e) {
-                if (e == null) {
-                    mCommentAdapter.addData(list);
-                }
-            }
-        });
-
 
     }
 
@@ -399,45 +393,42 @@ public class DetailActivity extends BaseToolbarActivity {
             startActivity(Intent.createChooser(textIntent, "分享"));
         }
     };
+
     private View.OnClickListener mCommentListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (inputTextMsgDialog == null) {
-                inputTextMsgDialog = new InputTextMsgDialog(DetailActivity.this);
-            }
-            inputTextMsgDialog.setMaxNumber(20);
-            inputTextMsgDialog.setOnTextSendListener(new InputTextMsgDialog.OnTextSendListener() {
+            FloatEditorActivity.openDefaultEditor(DetailActivity.this, new EditorCallback.Extend() {
                 @Override
-                public void onTextSend(String msg) {
+                public void onSubmit(String content) {
                     final Comment comment = new Comment();
                     comment.setAuthor(BmobUser.getCurrentUser(User.class));
                     comment.setGood(mCurrentGoods);
-                    comment.setContent(msg);
+                    comment.setContent(content);
                     comment.save(new SaveListener<String>() {
-
                         @Override
                         public void done(String objectId, BmobException e) {
-                            ToastUtils.show("发布成功");
+                            if (e != null) {
+                                ToastUtils.show(getString(R.string.detail_comment_failure));
+                                return;
+                            }
+                            ToastUtils.show(getString(R.string.detail_comment_success));
                             if (mHandler != null) {
-                                mHandler.sendEmptyMessage(MSG_LOAD_GOODS);
+                                mHandler.sendEmptyMessage(MSG_LOAD_COMMENT);
                             }
                         }
                     });
-
                 }
-            });
-            inputTextMsgDialog.show();
+            }, new InputCheckRule(60, 1));
         }
     };
     private View.OnClickListener mContentListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (TextUtils.isEmpty(mQQNumber)) {
+            if (mCurrentGoods == null || TextUtils.isEmpty(mCurrentGoods.getLianxi())) {
                 return;
             }
-            String url = "mqqwpa://im/chat?chat_type=wpa&uin=" + mQQNumber;
             try {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.detail_open_qq, mCurrentGoods.getLianxi()))));
             } catch (Exception e) {
                 ToastUtils.show(getResources().getString(R.string.detail_no_qq_tips));
             }
@@ -490,6 +481,9 @@ public class DetailActivity extends BaseToolbarActivity {
                     break;
                 case MSG_LOAD_USER:
                     loadUserData();
+                    break;
+                case MSG_LOAD_COMMENT:
+                    loadComment();
                     break;
                 case MSG_INIT_VIEW:
                     initView();

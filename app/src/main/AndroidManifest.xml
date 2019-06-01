@@ -64,7 +64,7 @@
         <activity
             android:name=".CommentActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"  />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".My.MyCollectionActivity"
             android:screenOrientation="portrait" />

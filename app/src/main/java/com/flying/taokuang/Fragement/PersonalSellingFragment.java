@@ -21,7 +21,6 @@ import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
 import com.flying.taokuang.ui.EmptyRecyclerViewHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;

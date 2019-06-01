@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.facebook.drawee.drawable.ScalingUtils;
+import com.flying.baselib.utils.collection.CollectionUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.R;
 import com.flying.taokuang.ui.AsyncImageView;
@@ -40,11 +41,11 @@ public class DetailImageAdapter extends RecyclerView.Adapter<DetailImageAdapter.
         viewHolder.img.setRoundingRadius(UiUtils.dp2px(3));
     }
 
-    public void addData(List data) {
-        if (data == null) {
+    public void setData(List data) {
+        if (CollectionUtils.isEmpty(data)) {
             return;
         }
-        mList.addAll(data);
+        mList = data;
         notifyDataSetChanged();
     }
 

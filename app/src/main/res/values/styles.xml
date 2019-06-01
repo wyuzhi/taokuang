@@ -61,21 +61,4 @@
         <item name="android:windowAnimationStyle">@null</item>
     </style>
 
-    <!-- 中间弹出框 -->
-    <style name="dialog_center" parent="Theme.AppCompat.Dialog.Alert">
-        <item name="android:windowNoTitle">true</item>
-        <!-- 去黑边 -->
-        <item name="android:windowFrame">@null</item>
-        <item name="android:screenOrientation">portrait</item>
-        <!-- 设置是否可滑动 -->
-        <item name="android:windowIsFloating">true</item>
-        <!-- 背景 -->
-        <!-- 窗口背景 -->
-        <item name="android:windowBackground">@null</item>
-        <!-- 是否变暗 -->
-        <item name="android:backgroundDimEnabled">true</item>
-        <!-- 点击空白部分activity不消失 -->
-        <item name="android:windowCloseOnTouchOutside">true</item>
-    </style>
-
 </resources>

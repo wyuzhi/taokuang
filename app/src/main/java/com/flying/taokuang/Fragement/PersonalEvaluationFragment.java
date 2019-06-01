@@ -29,7 +29,6 @@ import cn.bmob.v3.listener.FindListener;
  */
 public class PersonalEvaluationFragment extends Fragment {
     private String fabuID;
-    private String goumaiID;
     private RecyclerView sRecyclerView;
     private CommentAdapter sAdapter;
 
@@ -50,7 +49,8 @@ public class PersonalEvaluationFragment extends Fragment {
         sRecyclerView = v.findViewById(R.id.recycler_tao_e);
         LinearLayoutManager slayoutManager = new LinearLayoutManager(getContext());
         sRecyclerView.setLayoutManager(slayoutManager);
-        sAdapter = new CommentAdapter(getContext());
+        sRecyclerView.setHasFixedSize(true);
+        sAdapter = new CommentAdapter(getContext(), R.layout.personal_comment_item);
         sRecyclerView.setAdapter(sAdapter);
         EmptyRecyclerViewHelper.with(sRecyclerView);
         loadDate();
@@ -67,7 +67,7 @@ public class PersonalEvaluationFragment extends Fragment {
             @Override
             public void done(List<Comment> list, BmobException e) {
                 if (e == null) {
-                    sAdapter.addData(list);
+                    sAdapter.setData(list);
                 }
             }
         });

@@ -19,6 +19,7 @@ public abstract class BaseToolbarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getContentViewResId());
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         mToolbar = findViewById(R.id.toolbar);
         mToolbar.setBackgroundResource(R.mipmap.bg_toolbar);
         mToolbar.setFitsSystemWindows(true);

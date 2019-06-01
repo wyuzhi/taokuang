@@ -3,7 +3,8 @@
     android:id="@+id/rl_go_user_page"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp">
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
 
     <com.flying.taokuang.ui.AsyncImageView
         android:id="@+id/detail_tx"

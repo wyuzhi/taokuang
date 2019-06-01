@@ -1,6 +1,7 @@
 package com.flying.taokuang.Adapter;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,18 +21,18 @@ import java.util.List;
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
     public List<Comment> mList;
     private Context mContext;
+    private int mLayoutId;
 
-    public CommentAdapter(Context context) {
+    public CommentAdapter(Context context, @LayoutRes int layoutId) {
         mContext = context;
+        mLayoutId = layoutId;
         mList = new ArrayList<>();
     }
-
 
     @NonNull
     @Override
     public CommentAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.comment_item, viewGroup, false);
+        View view = LayoutInflater.from(mContext).inflate(mLayoutId, viewGroup, false);
         CommentAdapter.ViewHolder viewHolder = new CommentAdapter.ViewHolder(view);
         return viewHolder;
     }
@@ -43,13 +44,20 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         viewHolder.contentAuthor.setText(comment.getAuthor().getNicheng());
         viewHolder.time.setText(comment.getCreatedAt());
 
-
         if (comment.getAuthor().getIcon() == null) {
             viewHolder.mEvaluatorIc.setPlaceholderImage(R.drawable.ic_default_avatar);
         } else {
             viewHolder.mEvaluatorIc.setUrl(comment.getAuthor().getIcon().getFileUrl(), UiUtils.dp2px(36), UiUtils.dp2px(36));
         }
 
+    }
+
+    public void setData(List<Comment> data) {
+        if (CollectionUtils.isEmpty(data)) {
+            return;
+        }
+        mList = data;
+        notifyDataSetChanged();
     }
 
     public void addData(List<Comment> data) {
@@ -62,10 +70,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             return;
         }
         int oldSize = mList.size();
-        if (oldSize==data.size()){
-            return;
-        }
-        mList=data;
+        mList.addAll(data);
         notifyItemRangeInserted(oldSize, data.size());
     }
 

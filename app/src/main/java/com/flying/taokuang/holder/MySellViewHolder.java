@@ -123,7 +123,7 @@ public class MySellViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 Intent detailIntent = new Intent(mContext, DetailActivity.class);
-                detailIntent.putExtra("图片", taoItem.getPic().toArray(new String[taoItem.getPic().size()]));
+                detailIntent.putExtra("图片", taoItem.getPic().toArray(new String[0]));
                 detailIntent.putExtra("价格", taoItem.getJiage());
                 detailIntent.putExtra("标题", taoItem.getBiaoti());
                 detailIntent.putExtra("描述", taoItem.getMiaoshu());
