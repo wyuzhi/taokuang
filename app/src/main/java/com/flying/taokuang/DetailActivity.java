@@ -42,6 +42,7 @@ import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
 import com.flying.taokuang.ui.AlertDialog;
 import com.flying.taokuang.ui.AsyncImageView;
+import com.flying.taokuang.ui.EmptyRecyclerViewHelper;
 import com.flying.taokuang.ui.TipsDialog;
 import com.tendcloud.tenddata.TCAgent;
 
@@ -85,7 +86,7 @@ public class DetailActivity extends BaseToolbarActivity {
     private View mGoUserPage;
     private FrameLayout mContentLayout;
     private LottieAnimationView lottieAnimationView;
-
+    private EmptyRecyclerViewHelper mEmptyRecyclerViewHelper;
     private LinearLayoutManager mImagesLayoutManager;
 
     private DetailImageAdapter mDetailImageAdapter;
@@ -148,6 +149,7 @@ public class DetailActivity extends BaseToolbarActivity {
         mRvImages.setAdapter(mDetailImageAdapter);
         mCommentAdapter = new CommentAdapter(this, R.layout.detail_comment_item);
         mRvComment.setAdapter(mCommentAdapter);
+        mEmptyRecyclerViewHelper = new EmptyRecyclerViewHelper(mRvComment);
         mIvUserAvatar.setRoundAsCircle();
         UiUtils.setOnTouchBackground(mIvBack);
         UiUtils.expandClickRegion(mIvcollect, UiUtils.dp2px(10));
@@ -226,6 +228,9 @@ public class DetailActivity extends BaseToolbarActivity {
         tQuery.findObjects(new FindListener<Comment>() {
             @Override
             public void done(List<Comment> list, BmobException e) {
+                if (mEmptyRecyclerViewHelper != null) {
+                    mEmptyRecyclerViewHelper.checkIfEmpty();
+                }
                 if (e == null && mCommentAdapter != null) {
                     mCommentAdapter.setData(list);
                 }

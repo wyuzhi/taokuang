@@ -27,6 +27,7 @@ import cn.bmob.v3.listener.FindListener;
 public class MySoldActivity extends BaseToolbarActivity {
     private RecyclerView mRecyclerView;
     private PersonalSellingRecyclerviewAdapter mAdapter;
+    private EmptyRecyclerViewHelper mEmptyRecyclerViewHelper;
     private ImageView mIvBack;
 
     @Override
@@ -55,7 +56,7 @@ public class MySoldActivity extends BaseToolbarActivity {
         mAdapter = new PersonalSellingRecyclerviewAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setHasFixedSize(true);
-        EmptyRecyclerViewHelper.with(mRecyclerView);
+        mEmptyRecyclerViewHelper = new EmptyRecyclerViewHelper(mRecyclerView);
         loadData();
 
     }
@@ -64,7 +65,7 @@ public class MySoldActivity extends BaseToolbarActivity {
         if (BmobUser.isLogin()) {
             BmobQuery<TaoKuang> query = new BmobQuery<>();
             query.addWhereExists("goumai");
-            query.addWhereNotEqualTo("type","1");
+            query.addWhereNotEqualTo("type", "1");
             query.addWhereEqualTo("fabu", BmobUser.getCurrentUser(User.class));
             query.addWhereEqualTo("jiaoyi", false);
             query.order("-updatedAt");
@@ -73,6 +74,9 @@ public class MySoldActivity extends BaseToolbarActivity {
 
                 @Override
                 public void done(List<TaoKuang> object, BmobException e) {
+                    if (mEmptyRecyclerViewHelper != null) {
+                        mEmptyRecyclerViewHelper.checkIfEmpty();
+                    }
                     if (e == null) {
                         mAdapter.addData(object);
                     }

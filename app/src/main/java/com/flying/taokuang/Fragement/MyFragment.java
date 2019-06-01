@@ -56,7 +56,6 @@ public class MyFragment extends TakePhotoFragment {
     private View wozl;
     private View wosc;
     private View wowant;
-    private File iconfile;
     private View aboutus;
     private View mUserInfoView;
     private TextView mTvUserNickName;
@@ -220,7 +219,7 @@ public class MyFragment extends TakePhotoFragment {
             mTvUserNickName.setText(user.getNicheng());
             BmobFile icon = user.getIcon();
             if (icon != null) {
-                woicon.setUrl(icon.getFileUrl(), UiUtils.dp2px(100), UiUtils.dp2px(100));
+                woicon.setUrl(icon.getFileUrl(), UiUtils.dp2px(44), UiUtils.dp2px(44));
             }
         }
 
@@ -233,7 +232,7 @@ public class MyFragment extends TakePhotoFragment {
         if (result == null || CollectionUtils.isEmpty(result.getImages())) {
             return;
         }
-        iconfile = new File(result.getImages().get(0).getCompressPath());
+        File iconfile = new File(result.getImages().get(0).getCompressPath());
         final BmobFile ic = new BmobFile(iconfile);
         ic.uploadblock(new UploadFileListener() {
             @Override

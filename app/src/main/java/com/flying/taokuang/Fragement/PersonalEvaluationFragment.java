@@ -30,6 +30,7 @@ import cn.bmob.v3.listener.FindListener;
 public class PersonalEvaluationFragment extends Fragment {
     private String fabuID;
     private RecyclerView sRecyclerView;
+    private EmptyRecyclerViewHelper mEmptyRecyclerViewHelper;
     private CommentAdapter sAdapter;
 
     public void onAttach(Activity activity) {
@@ -52,7 +53,7 @@ public class PersonalEvaluationFragment extends Fragment {
         sRecyclerView.setHasFixedSize(true);
         sAdapter = new CommentAdapter(getContext(), R.layout.personal_comment_item);
         sRecyclerView.setAdapter(sAdapter);
-        EmptyRecyclerViewHelper.with(sRecyclerView);
+        mEmptyRecyclerViewHelper = new EmptyRecyclerViewHelper(sRecyclerView);
         loadDate();
     }
 
@@ -66,6 +67,9 @@ public class PersonalEvaluationFragment extends Fragment {
         tQuery.findObjects(new FindListener<Comment>() {
             @Override
             public void done(List<Comment> list, BmobException e) {
+                if (mEmptyRecyclerViewHelper != null) {
+                    mEmptyRecyclerViewHelper.checkIfEmpty();
+                }
                 if (e == null) {
                     sAdapter.setData(list);
                 }

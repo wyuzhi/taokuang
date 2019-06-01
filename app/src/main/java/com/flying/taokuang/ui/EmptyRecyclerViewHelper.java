@@ -25,18 +25,10 @@ public class EmptyRecyclerViewHelper {
     public EmptyRecyclerViewHelper(RecyclerView recyclerView) {
         mRecyclerView = recyclerView;
         mContext = mRecyclerView.getContext();
+        initDefaultEmptyView();
     }
 
-    public static void with(RecyclerView recyclerView) {
-        if (recyclerView == null) {
-            return;
-        }
-        EmptyRecyclerViewHelper helper = new EmptyRecyclerViewHelper(recyclerView);
-        helper.initDefaultEmptyView();
-        helper.setAdapterDataObserver();
-    }
-
-    private void checkIfEmptyDelayed(int millis) {
+    public void checkIfEmpty() {
         if (mEmptyView != null && mRecyclerView != null && mRecyclerView.getAdapter() != null) {
             mRecyclerView.postDelayed(new Runnable() {
                 @Override
@@ -48,13 +40,7 @@ public class EmptyRecyclerViewHelper {
                     mEmptyView.setVisibility(emptyViewVisible ? View.VISIBLE : View.GONE);
                     mRecyclerView.setVisibility(emptyViewVisible ? View.GONE : View.VISIBLE);
                 }
-            }, millis);
-        }
-    }
-
-    private void setAdapterDataObserver() {
-        if (mRecyclerView != null && mRecyclerView.getAdapter() != null) {
-            mRecyclerView.getAdapter().registerAdapterDataObserver(observer);
+            }, 50);
         }
     }
 
@@ -106,25 +92,6 @@ public class EmptyRecyclerViewHelper {
             lp.gravity = Gravity.CENTER;
             mEmptyView.setLayoutParams(lp);
         }
-        //fragment、activity初始化会调用,延时2.5s 等待请求结果
-        checkIfEmptyDelayed(2500);
     }
 
-    final private RecyclerView.AdapterDataObserver observer = new RecyclerView.AdapterDataObserver() {
-        @Override
-        public void onChanged() {
-            checkIfEmptyDelayed(10);
-        }
-
-        @Override
-        public void onItemRangeInserted(int positionStart, int itemCount) {
-            checkIfEmptyDelayed(10);
-
-        }
-
-        @Override
-        public void onItemRangeRemoved(int positionStart, int itemCount) {
-            checkIfEmptyDelayed(10);
-        }
-    };
 }

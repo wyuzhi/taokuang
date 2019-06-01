@@ -35,6 +35,7 @@ public class ArticleListFragment extends Fragment implements PullLoadMoreRecycle
     private String mTypeStr;
     private HomeRecyclerViewAdapter mRecyclerViewAdapter;
     private RecyclerView mRecyclerView;
+    private EmptyRecyclerViewHelper mEmptyRecyclerViewHelper;
     private PullLoadMoreRecyclerView mPullLoadMoreRecyclerView;
 
 
@@ -73,7 +74,7 @@ public class ArticleListFragment extends Fragment implements PullLoadMoreRecycle
         mRecyclerViewAdapter = new HomeRecyclerViewAdapter(getActivity());
         mRecyclerViewAdapter.setLayoutStyle(sIsLinearStyle);
         mPullLoadMoreRecyclerView.setAdapter(mRecyclerViewAdapter);
-        EmptyRecyclerViewHelper.with(mRecyclerView);
+        mEmptyRecyclerViewHelper = new EmptyRecyclerViewHelper(mRecyclerView);
 
         mSkipPages = 0;
         mTypeStr = getArguments().getString(ARTICLE_LIST_TYPE);
@@ -93,12 +94,10 @@ public class ArticleListFragment extends Fragment implements PullLoadMoreRecycle
         tQuery.findObjects(new FindListener<TaoKuang>() {
             @Override
             public void done(List<TaoKuang> list, BmobException e) {
+                mEmptyRecyclerViewHelper.checkIfEmpty();
                 if (!CollectionUtils.isEmpty(list)) {
                     mRecyclerViewAdapter.addData(list);
                     mSkipPages++;
-                }
-                if (e != null) {
-                    ToastUtils.show("没有数据了...");
                 }
                 MainThread.postDelayed(new Runnable() {
                     @Override

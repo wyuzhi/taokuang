@@ -30,6 +30,7 @@ public class MyWantActivity extends BaseToolbarActivity implements PullLoadMoreR
     private PullLoadMoreRecyclerView mPullLoadMoreRecyclerView;
     private RecyclerView fRecyclerView;
     private SellRecyclerViewAdapter mAdapter;
+    private EmptyRecyclerViewHelper mEmptyRecyclerViewHelper;
     private ImageView mIvBack;
     private TextView mTvtitle;
 
@@ -66,7 +67,7 @@ public class MyWantActivity extends BaseToolbarActivity implements PullLoadMoreR
         });
         UiUtils.setOnTouchBackground(mIvBack);
         fRecyclerView.setHasFixedSize(true);
-        EmptyRecyclerViewHelper.with(fRecyclerView);
+        mEmptyRecyclerViewHelper = new EmptyRecyclerViewHelper(fRecyclerView);
         loadData();
     }
 
@@ -81,6 +82,9 @@ public class MyWantActivity extends BaseToolbarActivity implements PullLoadMoreR
 
                 @Override
                 public void done(List<TaoKuang> object, BmobException e) {
+                    if (mEmptyRecyclerViewHelper!=null){
+                        mEmptyRecyclerViewHelper.checkIfEmpty();
+                    }
                     if (!CollectionUtils.isEmpty(object)) {
                         mAdapter.addData(object);
                     }

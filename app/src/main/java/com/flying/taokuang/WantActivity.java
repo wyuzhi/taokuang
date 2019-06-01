@@ -30,6 +30,7 @@ import cn.bmob.v3.listener.FindListener;
 public class WantActivity extends BaseToolbarActivity {
     private RecyclerView gRecyclerView;
     private HomeRecyclerViewAdapter mAdapter;
+    private EmptyRecyclerViewHelper mEmptyRecyclerViewHelper;
     private ImageView mIvBack;
     private TextView tvtitle;
 
@@ -37,7 +38,6 @@ public class WantActivity extends BaseToolbarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-//        setSupportActionBar(mToolbar);
         initView();
     }
 
@@ -63,7 +63,7 @@ public class WantActivity extends BaseToolbarActivity {
         mAdapter = new HomeRecyclerViewAdapter(this);
         gRecyclerView.setAdapter(mAdapter);
         gRecyclerView.setHasFixedSize(true);
-        EmptyRecyclerViewHelper.with(gRecyclerView);
+        mEmptyRecyclerViewHelper = new EmptyRecyclerViewHelper(gRecyclerView);
         loadData();
     }
 
@@ -78,6 +78,9 @@ public class WantActivity extends BaseToolbarActivity {
 
                 @Override
                 public void done(List<TaoKuang> object, BmobException e) {
+                    if (mEmptyRecyclerViewHelper != null) {
+                        mEmptyRecyclerViewHelper.checkIfEmpty();
+                    }
                     if (e == null) {
                         mAdapter.addData(object);
                     }

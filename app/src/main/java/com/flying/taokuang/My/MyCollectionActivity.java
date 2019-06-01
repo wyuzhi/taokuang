@@ -24,6 +24,7 @@ public class MyCollectionActivity extends BaseToolbarActivity {
     private RecyclerView mRecyclerView;
     private CollectionAdapter mAdapter;
     private LinearLayoutManager mlayoutManager;
+    private EmptyRecyclerViewHelper mEmptyRecyclerViewHelper;
     private ImageView mIvBack;
 
     @Override
@@ -53,7 +54,7 @@ public class MyCollectionActivity extends BaseToolbarActivity {
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new CollectionAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
-        EmptyRecyclerViewHelper.with(mRecyclerView);
+        mEmptyRecyclerViewHelper = new EmptyRecyclerViewHelper(mRecyclerView);
         loadData();
     }
 
@@ -62,6 +63,9 @@ public class MyCollectionActivity extends BaseToolbarActivity {
                 .listen(new FindMultiCallback<CollectionBean>() {
                     @Override
                     public void onFinish(List<CollectionBean> list) {
+                        if (mEmptyRecyclerViewHelper != null) {
+                            mEmptyRecyclerViewHelper.checkIfEmpty();
+                        }
                         mAdapter.addData(list);
                     }
                 });

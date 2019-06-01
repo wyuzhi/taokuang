@@ -32,14 +32,8 @@ import cn.bmob.v3.listener.FindListener;
  * 个人主页的在售 Fragment
  */
 public class PersonalSellingFragment extends Fragment {
-    private String fabuID;
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        fabuID = ((UserPageActivity) activity).getUserID();
-    }
-
+    private EmptyRecyclerViewHelper mEmptyRecyclerViewHelper;
 
     private RecyclerView sRecyclerView;
     private PersonalSellingRecyclerviewAdapter sAdapter;
@@ -58,15 +52,14 @@ public class PersonalSellingFragment extends Fragment {
         sRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         sAdapter = new PersonalSellingRecyclerviewAdapter(getContext());
         sRecyclerView.setAdapter(sAdapter);
-        EmptyRecyclerViewHelper.with(sRecyclerView);
+        mEmptyRecyclerViewHelper = new EmptyRecyclerViewHelper(sRecyclerView);
         loadDate();
     }
 
     private void loadDate() {
         if (BmobUser.isLogin()) {
             User user = new User();
-            user.setObjectId(fabuID);
-            LogUtils.d("查询", "查询成功" + fabuID);
+            user.setObjectId(((UserPageActivity) getActivity()).getUserID());
             BmobQuery<TaoKuang> query = new BmobQuery<>();
             query.addWhereDoesNotExists("goumai");
             query.addWhereEqualTo("fabu", user);
@@ -77,6 +70,9 @@ public class PersonalSellingFragment extends Fragment {
 
                 @Override
                 public void done(List<TaoKuang> object, BmobException e) {
+                    if (mEmptyRecyclerViewHelper != null) {
+                        mEmptyRecyclerViewHelper.checkIfEmpty();
+                    }
                     if (e == null) {
                         sAdapter.addData(object);
                     }

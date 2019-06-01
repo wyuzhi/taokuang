@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -27,7 +28,7 @@ public class SearchActivity extends BaseToolbarActivity {
     private HomeRecyclerViewAdapter sAdapter;
     private SwipeRefreshLayout sSwipeRefresh;
     private StaggeredGridLayoutManager slayoutManager;
-     String sstj;
+    private EmptyRecyclerViewHelper mEmptyRecyclerViewHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +41,6 @@ public class SearchActivity extends BaseToolbarActivity {
                 finish();
             }
         });
-        Intent intents = getIntent();
-        sstj = intents.getStringExtra("搜索");
         sRecyclerView = findViewById(R.id.recycler_tao);
         sSwipeRefresh = findViewById(R.id.swipe_refresh);
         slayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
@@ -49,10 +48,10 @@ public class SearchActivity extends BaseToolbarActivity {
         sAdapter = new HomeRecyclerViewAdapter(SearchActivity.this);
         sRecyclerView.setAdapter(sAdapter);
         sRecyclerView.setHasFixedSize(true);
-        EmptyRecyclerViewHelper.with(sRecyclerView);
+        mEmptyRecyclerViewHelper = new EmptyRecyclerViewHelper(sRecyclerView);
 
-        final String ha = intents.getStringExtra("ha");
-        if (ha!=null) {
+        final String ha = getIntent().getStringExtra("ha");
+        if (!TextUtils.isEmpty(ha)) {
             searchwant();
         } else {
             BmobQuery<TaoKuang> tQuery = new BmobQuery<>();
@@ -61,8 +60,11 @@ public class SearchActivity extends BaseToolbarActivity {
             tQuery.findObjects(new FindListener<TaoKuang>() {
                 @Override
                 public void done(List<TaoKuang> list, BmobException e) {
+                    if (mEmptyRecyclerViewHelper!=null){
+                        mEmptyRecyclerViewHelper.checkIfEmpty();
+                    }
                     if (e == null) {
-                        String key = sstj.toString().trim();
+                        String key = getIntent().getStringExtra("搜索").trim();
                         List<TaoKuang> datas = new ArrayList<TaoKuang>();
                         for (int i = 0; i < list.size(); i++) {
                             String actbt = list.get(i).getBiaoti();
@@ -87,13 +89,16 @@ public class SearchActivity extends BaseToolbarActivity {
 
     private void searchwant() {
         BmobQuery<TaoKuang> tQuery = new BmobQuery<>();
-        tQuery.addWhereEqualTo("type","1");
+        tQuery.addWhereEqualTo("type", "1");
         tQuery.include("fabu");
         tQuery.findObjects(new FindListener<TaoKuang>() {
             @Override
             public void done(List<TaoKuang> list, BmobException e) {
+                if (mEmptyRecyclerViewHelper!=null){
+                    mEmptyRecyclerViewHelper.checkIfEmpty();
+                }
                 if (e == null) {
-                    String key = sstj.toString().trim();
+                    String key = getIntent().getStringExtra("搜索").trim();
                     List<TaoKuang> datas = new ArrayList<TaoKuang>();
                     for (int i = 0; i < list.size(); i++) {
                         String actbt = list.get(i).getBiaoti();

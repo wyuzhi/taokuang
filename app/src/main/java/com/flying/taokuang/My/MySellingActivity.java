@@ -30,6 +30,7 @@ public class MySellingActivity extends BaseToolbarActivity implements PullLoadMo
     private PullLoadMoreRecyclerView mPullLoadMoreRecyclerView;
     private RecyclerView fRecyclerView;
     private SellRecyclerViewAdapter mAdapter;
+    private EmptyRecyclerViewHelper mEmptyRecyclerViewHelper;
     private ImageView mIvBack;
 
     @Override
@@ -63,7 +64,7 @@ public class MySellingActivity extends BaseToolbarActivity implements PullLoadMo
         });
         UiUtils.setOnTouchBackground(mIvBack);
         fRecyclerView.setHasFixedSize(true);
-        EmptyRecyclerViewHelper.with(fRecyclerView);
+        mEmptyRecyclerViewHelper = new EmptyRecyclerViewHelper(fRecyclerView);
         loadData();
     }
 
@@ -78,6 +79,9 @@ public class MySellingActivity extends BaseToolbarActivity implements PullLoadMo
 
                 @Override
                 public void done(List<TaoKuang> object, BmobException e) {
+                    if (mEmptyRecyclerViewHelper != null) {
+                        mEmptyRecyclerViewHelper.checkIfEmpty();
+                    }
                     if (!CollectionUtils.isEmpty(object)) {
                         mAdapter.addData(object);
                     }

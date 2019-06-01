@@ -27,6 +27,7 @@ import cn.bmob.v3.listener.FindListener;
 public class MyPurchasedActivity extends BaseToolbarActivity {
     private RecyclerView gRecyclerView;
     private PersonalSellingRecyclerviewAdapter mAdapter;
+    private EmptyRecyclerViewHelper mEmptyRecyclerViewHelper;
     private ImageView mIvBack;
 
     @Override
@@ -55,7 +56,7 @@ public class MyPurchasedActivity extends BaseToolbarActivity {
         mAdapter = new PersonalSellingRecyclerviewAdapter(MyPurchasedActivity.this);
         gRecyclerView.setAdapter(mAdapter);
         gRecyclerView.setHasFixedSize(true);
-        EmptyRecyclerViewHelper.with(gRecyclerView);
+        mEmptyRecyclerViewHelper = new EmptyRecyclerViewHelper(gRecyclerView);
         loadData();
     }
 
@@ -71,6 +72,9 @@ public class MyPurchasedActivity extends BaseToolbarActivity {
 
                 @Override
                 public void done(List<TaoKuang> object, BmobException e) {
+                    if (mEmptyRecyclerViewHelper != null) {
+                        mEmptyRecyclerViewHelper.checkIfEmpty();
+                    }
                     if (e == null) {
                         mAdapter.addData(object);
                     }
