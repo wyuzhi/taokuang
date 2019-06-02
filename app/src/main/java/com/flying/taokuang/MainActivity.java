@@ -57,16 +57,14 @@ public class MainActivity extends AppCompatActivity {
                         publishDialog.setSellClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Intent intent = new Intent(getBaseContext(), ReleaseActivity.class);
-                                startActivity(intent);
+                                PublishActivity.go(MainActivity.this, PublishActivity.TYPE_SELL);
                                 publishDialog.dismiss();
                             }
                         });
                         publishDialog.setBuyClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Intent intent = new Intent(getBaseContext(), WantReleaseActivity.class);
-                                startActivity(intent);
+                                PublishActivity.go(MainActivity.this, PublishActivity.TYPE_BUY);
                                 publishDialog.dismiss();
                             }
                         });

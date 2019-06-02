@@ -13,7 +13,7 @@ import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.DetailActivity;
-import com.flying.taokuang.EditActivity;
+import com.flying.taokuang.PublishActivity;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
@@ -112,10 +112,7 @@ public class MySellViewHolder extends RecyclerView.ViewHolder {
         mBtnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent editIntent = new Intent(mContext, EditActivity.class);
-                editIntent.putExtra("id", taoItem.getObjectId());
-                mContext.startActivity(editIntent);
-
+                PublishActivity.go(mContext, taoItem.getObjectId(), PublishActivity.TYPE_SELL);
             }
         });
 

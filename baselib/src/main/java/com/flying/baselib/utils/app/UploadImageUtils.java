@@ -21,28 +21,20 @@ import static java.lang.String.valueOf;
 
 public class UploadImageUtils {
 
-
     public static String postFile(final String url, final Map<String, Object> map, File file, Context context) {
-          String mstr = null;
+        String mstr = null;
         OkHttpClient client = new OkHttpClient();
-        // form 表单形式上传
         MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
         if (file != null) {
-            // MediaType.parse() 里面是上传的文件类型。
             RequestBody body = RequestBody.create(MediaType.parse("image/*"), file);
-            String filename = file.getName();
-            // 参数分别为， 请求key ，文件名称 ， RequestBody
             requestBody.addFormDataPart("file", file.getName(), body);
         }
         if (map != null) {
-            // map 里面是请求中所需要的 key 和 value
             for (Map.Entry entry : map.entrySet()) {
                 requestBody.addFormDataPart(valueOf(entry.getKey()), valueOf(entry.getValue()));
             }
         }
         Request request = new Request.Builder().url(url).post(requestBody.build()).tag(context).build();
-
-
         Call requestCall = client.newCall(request);
         Response response = null;
         try {
@@ -50,48 +42,16 @@ public class UploadImageUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        //响应成功
-        if (response.isSuccessful()) {
+        if (response != null && response.isSuccessful()) {
             try {
                 String str = response.body().string();
                 JSONObject jsonObject = new JSONObject(str);
                 mstr = jsonObject.getString("file_name");
-            } catch (IOException e) {
-
-
-            } catch (JSONException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-
-
-        // readTimeout("请求超时时间" , 时间单位);
-//        client.newBuilder().readTimeout(5000, TimeUnit.MILLISECONDS).build().newCall(request).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                Log.i("lfq", "onFailure");
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                if (response.isSuccessful()) {
-//                    String str = response.body().string();
-//                    try {
-//                        JSONObject jsonObject = new JSONObject(str);
-//                        mstr = jsonObject.getString("file_name");
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                    Log.i("lfq", response.message() + " , body " + str);
-//
-//                } else {
-//                    Log.i("lfq", response.message() + " error : body " + response.body().string());
-//                }
-//            }
-//        });
         return mstr;
-
     }
 
 }

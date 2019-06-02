@@ -9,9 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 
-import com.flying.baselib.utils.app.LogUtils;
+import com.flying.baselib.utils.collection.CollectionUtils;
 import com.flying.baselib.utils.device.NetworkUtils;
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.R;
@@ -22,75 +22,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UploadImgAdapter extends RecyclerView.Adapter<UploadImgAdapter.ViewHolder> {
-    public List<String> mList;
+    private List<String> mList;
     private Context mContext;
-    private List<String> local = new ArrayList<>();
-    private List<String> remote = new ArrayList<>(0);
-    private List<String> zList = new ArrayList<>();
-    private int doitp = 0;
-    private Boolean doit = true;
 
-
-    private OnItemClickListener mOnItemClickListener;
-    private M1 m1;
-    private M2 m2;
-
-    public void setM2(M2 m2) {
-        this.m2 = m2;
-    }
-
-    public interface M2 {
-        void onDeliteClick(List list);
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(File file, int position);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        mOnItemClickListener = onItemClickListener;
-    }
-
-    public interface M1 {
-        void o(String url, int position);
-    }
-
-    public void setM1(M1 onItemClickListener) {
-        m1 = onItemClickListener;
-    }
-
-
-    public UploadImgAdapter(Context context, List<String> list) {
+    public UploadImgAdapter(Context context) {
         mContext = context;
-        mList = list;
+        mList = new ArrayList<>();
     }
-
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.upload_img_item, viewGroup, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.upload_img_item, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
-        final int p = mList.size();
-        if (doit) {
-            if (NetworkUtils.isHttpUrl(mList.get(position))) {
-                remote.add(mList.get(position));
-            } else {
-                zList.add(mList.get(position));
-                local.add(mList.get(position));
-            }
-            doitp++;
-            if (doitp == p) {
-                doit = false;
-            }
-        }
-        LogUtils.d("IMAGE_URL", "onBindViewHolder: " + mList.get(position));
         if (NetworkUtils.isHttpUrl(mList.get(position))) {
             viewHolder.img.setUrl(mList.get(position), (int) UiUtils.dp2px(64), (int) UiUtils.dp2px(64));
         } else {
@@ -99,46 +48,34 @@ public class UploadImgAdapter extends RecyclerView.Adapter<UploadImgAdapter.View
         viewHolder.del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (NetworkUtils.isHttpUrl(mList.get(position))) {
-                    remote.remove(position);
-                    mList.remove(position);
-                    notifyItemRemoved(position);
-                    m2.onDeliteClick(mList);
-
-                } else {
-                    local.remove(position - remote.size());
-                    mList.remove(position);
-                    zList.remove(position);
-                    notifyItemRemoved(position);
-                    m2.onDeliteClick(mList);
-
-                }
+                mList.remove(position);
                 notifyDataSetChanged();
             }
         });
-        viewHolder.img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (NetworkUtils.isHttpUrl(mList.get(position))) {
-                    m1.o(mList.get(position), position);
-
-                } else {
-                    mOnItemClickListener.onItemClick(new File(mList.get(position)), position);
-                }
-            }
-        });
-    }
-
-    public List<String> getImage() {
-        return zList;
     }
 
     public List<String> getLocal() {
+        List<String> local = new ArrayList<>();
+        for (String url : mList) {
+            if (!NetworkUtils.isHttpUrl(url)) {
+                local.add(url);
+            }
+        }
         return local;
     }
 
     public List<String> getRemote() {
-        return remote;
+        List<String> local = new ArrayList<>();
+        for (String url : mList) {
+            if (NetworkUtils.isHttpUrl(url)) {
+                local.add(url);
+            }
+        }
+        return local;
+    }
+
+    public List<String> getData() {
+        return mList;
     }
 
     @Override
@@ -146,10 +83,24 @@ public class UploadImgAdapter extends RecyclerView.Adapter<UploadImgAdapter.View
         return mList.size();
     }
 
+    public void addData(List data) {
+        if (CollectionUtils.isEmpty(data)) {
+            return;
+        }
+        if (CollectionUtils.isEmpty(mList)) {
+            mList = data;
+            notifyDataSetChanged();
+            return;
+        }
+        int oldSize = mList.size();
+        mList.addAll(data);
+        notifyItemRangeInserted(oldSize, data.size());
+
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private AsyncImageView img;
-        private Button del;
+        private ImageView del;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

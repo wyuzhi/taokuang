@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ReleaseActivity">
+    android:layout_height="match_parent">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -44,14 +41,13 @@
                     android:gravity="center_vertical"
                     android:maxWidth="150dp"
                     android:singleLine="true"
-                    android:text="出售"
                     android:textColor="@color/commonColorGrey4"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:contentInsetStart="0dp" />
 
                 <Button
-                    android:id="@+id/fabu"
+                    android:id="@+id/btn_publish"
                     android:layout_width="59dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
@@ -59,7 +55,7 @@
                     android:layout_marginRight="22dp"
                     android:background="@drawable/bg_release_btn"
                     android:padding="3dp"
-                    android:text="发表"
+                    android:text="@string/publish_tips"
                     android:textColor="@color/cardview_light_background"
                     android:textSize="12sp" />
 
@@ -70,65 +66,54 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="25dp"
             android:orientation="vertical">
 
             <EditText
                 android:id="@+id/edit_biaoti"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="25dp"
+                android:layout_height="40dp"
                 android:background="@null"
                 android:hint="标题"
                 android:singleLine="true"
-                android:textColor="@color/commonColorGrey7"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:theme="@style/ReleaseEditText" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
                 android:background="@color/colorDarkCommon" />
 
             <EditText
                 android:id="@+id/edit_description"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginLeft="25dp"
+                android:layout_height="100dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="25dp"
                 android:background="@null"
                 android:gravity="top|left"
                 android:hint="@string/release_sale_reasons"
-                android:textColor="@color/commonColorGrey7"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:theme="@style/ReleaseEditText" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="64dp"
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/image_RecyclerView"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="10dp">
-
-                </android.support.v7.widget.RecyclerView>
+                    android:layout_height="wrap_content" />
 
                 <ImageView
                     android:id="@+id/im_1"
-                    android:layout_width="97dp"
-                    android:layout_height="97dp"
-                    android:background="@color/commonColorGrey3"
-                    android:padding="25dp"
-                    android:scaleType="centerCrop"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@color/commonColorGrey2"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
                     android:src="@drawable/release_add_goods" />
 
             </LinearLayout>
@@ -137,94 +122,72 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="25dp"
-                android:background="@color/colorDarkCommon" />
+                android:layout_marginTop="10dp"
+                android:background="@color/commonColorGrey2" />
 
             <Spinner
                 android:id="@+id/spinner_leibie"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="25dp"
+                android:layout_height="40dp"
                 android:background="@drawable/spinner_category"
                 android:entries="@array/spingarr"
                 android:paddingTop="11dp"
                 android:paddingBottom="11dp"
                 android:spinnerMode="dropdown"
+                android:textColor="@color/commonColorGrey8"
                 android:textSize="14sp" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="25dp"
-                android:background="@color/commonColorGrey5" />
+                android:layout_height="1dp"
+                android:background="@color/commonColorGrey2" />
 
             <EditText
                 android:id="@+id/edit_weizhi"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="25dp"
+                android:layout_height="40dp"
+                android:background="@null"
                 android:hint="交易地点"
-                android:paddingTop="11dp"
                 android:singleLine="true"
                 android:textSize="14sp"
                 android:theme="@style/ReleaseEditText" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/commonColorGrey2" />
+
             <EditText
                 android:id="@+id/edit_jiage"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="25dp"
+                android:layout_height="40dp"
+                android:background="@null"
                 android:hint="价格"
                 android:inputType="number|numberDecimal"
                 android:singleLine="true"
                 android:textSize="14sp"
                 android:theme="@style/ReleaseEditText" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/commonColorGrey2" />
+
             <EditText
                 android:id="@+id/edit_lianxi"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="25dp"
+                android:layout_height="40dp"
+                android:background="@null"
                 android:hint="@string/edit_input_qq_tips"
                 android:inputType="number"
                 android:singleLine="true"
                 android:textSize="14sp"
                 android:theme="@style/ReleaseEditText" />
 
-            <android.support.v7.widget.CardView
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                app:cardCornerRadius="6dp">
-
-
-            </android.support.v7.widget.CardView>
-
+                android:layout_height="1dp"
+                android:background="@color/commonColorGrey2" />
         </LinearLayout>
-
-
     </LinearLayout>
-
-    <com.flying.taokuang.ui.AsyncImageView
-        android:id="@+id/expanded_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerInside"
-        android:visibility="invisible" />
 </RelativeLayout>
