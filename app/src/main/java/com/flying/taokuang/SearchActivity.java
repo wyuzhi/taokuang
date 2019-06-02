@@ -1,11 +1,10 @@
 package com.flying.taokuang;
 
-
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -24,11 +23,19 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
 public class SearchActivity extends BaseToolbarActivity {
+    private static final String TAG_SEARCH_KEY = "search_key";
     private RecyclerView sRecyclerView;
     private HomeRecyclerViewAdapter sAdapter;
-    private SwipeRefreshLayout sSwipeRefresh;
-    private StaggeredGridLayoutManager slayoutManager;
     private EmptyRecyclerViewHelper mEmptyRecyclerViewHelper;
+
+    public static void go(Context context, String key) {
+        if (context == null || TextUtils.isEmpty(key)) {
+            return;
+        }
+        Intent intent = new Intent(context, SearchActivity.class);
+        intent.putExtra(TAG_SEARCH_KEY, key);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,81 +49,40 @@ public class SearchActivity extends BaseToolbarActivity {
             }
         });
         sRecyclerView = findViewById(R.id.recycler_tao);
-        sSwipeRefresh = findViewById(R.id.swipe_refresh);
-        slayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        sRecyclerView.setLayoutManager(slayoutManager);
+        sRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         sAdapter = new HomeRecyclerViewAdapter(SearchActivity.this);
         sRecyclerView.setAdapter(sAdapter);
         sRecyclerView.setHasFixedSize(true);
         mEmptyRecyclerViewHelper = new EmptyRecyclerViewHelper(sRecyclerView);
 
-        final String ha = getIntent().getStringExtra("ha");
-        if (!TextUtils.isEmpty(ha)) {
-            searchwant();
-        } else {
-            BmobQuery<TaoKuang> tQuery = new BmobQuery<>();
-            tQuery.addWhereDoesNotExists("goumai");
-            tQuery.include("fabu");
-            tQuery.findObjects(new FindListener<TaoKuang>() {
-                @Override
-                public void done(List<TaoKuang> list, BmobException e) {
-                    if (mEmptyRecyclerViewHelper!=null){
-                        mEmptyRecyclerViewHelper.checkIfEmpty();
-                    }
-                    if (e == null) {
-                        String key = getIntent().getStringExtra("搜索").trim();
-                        List<TaoKuang> datas = new ArrayList<TaoKuang>();
-                        for (int i = 0; i < list.size(); i++) {
-                            String actbt = list.get(i).getBiaoti();
-                            String actfb = list.get(i).getFabu().getNicheng();
-                            String actms = list.get(i).getMiaoshu();
-                            if (actbt.contains(key)) {
-                                datas.add(list.get(i));
-                            } else if (actfb.contains(key)) {
-                                datas.add(list.get(i));
-                            } else if (actms.contains(key)) {
-                                datas.add(list.get(i));
-                            }
-                        }
-                        sAdapter.addData(datas);
-                        sSwipeRefresh.setRefreshing(false);
-                    }
-                }
-            });
+        final String key = getIntent().getStringExtra(TAG_SEARCH_KEY).trim();
+        if (TextUtils.isEmpty(key)) {
+            finish();
+            return;
         }
-
-    }
-
-    private void searchwant() {
         BmobQuery<TaoKuang> tQuery = new BmobQuery<>();
-        tQuery.addWhereEqualTo("type", "1");
+        tQuery.addWhereDoesNotExists("goumai");
         tQuery.include("fabu");
+        tQuery.order("-updatedAt");
+        tQuery.setLimit(60);
         tQuery.findObjects(new FindListener<TaoKuang>() {
             @Override
             public void done(List<TaoKuang> list, BmobException e) {
-                if (mEmptyRecyclerViewHelper!=null){
-                    mEmptyRecyclerViewHelper.checkIfEmpty();
-                }
                 if (e == null) {
-                    String key = getIntent().getStringExtra("搜索").trim();
-                    List<TaoKuang> datas = new ArrayList<TaoKuang>();
-                    for (int i = 0; i < list.size(); i++) {
-                        String actbt = list.get(i).getBiaoti();
-                        String actfb = list.get(i).getFabu().getNicheng();
-                        String actms = list.get(i).getMiaoshu();
-                        if (actbt.contains(key)) {
-                            datas.add(list.get(i));
-                        } else if (actfb.contains(key)) {
-                            datas.add(list.get(i));
-                        } else if (actms.contains(key)) {
-                            datas.add(list.get(i));
+                    List<TaoKuang> datas = new ArrayList<>();
+                    for (TaoKuang bean : list) {
+                        if (bean.getBiaoti().contains(key)) {
+                            datas.add(bean);
                         }
                     }
                     sAdapter.addData(datas);
-                    sSwipeRefresh.setRefreshing(false);
+                }
+                if (mEmptyRecyclerViewHelper != null) {
+                    mEmptyRecyclerViewHelper.checkIfEmpty();
                 }
             }
         });
+
     }
 
     @Override

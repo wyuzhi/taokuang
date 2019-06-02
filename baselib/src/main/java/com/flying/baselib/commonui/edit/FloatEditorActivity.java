@@ -12,6 +12,7 @@ import android.widget.EditText;
 
 import com.flying.baselib.R;
 import com.flying.baselib.utils.ui.ToastUtils;
+import com.flying.baselib.utils.ui.UiUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -49,6 +50,8 @@ public class FloatEditorActivity extends Activity implements View.OnClickListene
         submit = findViewById(holder.submitViewId);
         etContent = findViewById(holder.editTextId);
         etContent.requestFocus();
+        UiUtils.expandClickRegion(cancel, UiUtils.dp2px(10));
+        UiUtils.expandClickRegion(submit, UiUtils.dp2px(10));
     }
 
     private void setEvent() {

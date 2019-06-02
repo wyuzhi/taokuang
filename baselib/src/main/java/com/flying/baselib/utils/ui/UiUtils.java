@@ -47,6 +47,9 @@ public final class UiUtils {
      * @param expandSize
      */
     public static void expandClickRegion(final View view, final int expandSize) {
+        if (view == null) {
+            return;
+        }
         ((View) view.getParent()).post(new Runnable() {
             @Override
             public void run() {

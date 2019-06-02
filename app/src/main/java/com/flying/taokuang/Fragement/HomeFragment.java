@@ -1,6 +1,5 @@
 package com.flying.taokuang.Fragement;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,16 +9,20 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.flying.baselib.commonui.edit.EditorCallback;
+import com.flying.baselib.commonui.edit.FloatEditorActivity;
+import com.flying.baselib.commonui.edit.InputCheckRule;
 import com.flying.baselib.utils.app.MainThread;
 import com.flying.baselib.utils.ui.UiUtils;
-import com.flying.taokuang.GoSearchActivity;
 import com.flying.taokuang.Leibie.ArticleListFragment;
 import com.flying.taokuang.R;
+import com.flying.taokuang.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,8 +58,14 @@ public class HomeFragment extends Fragment {
         mSearchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), GoSearchActivity.class);
-                startActivity(intent);
+                FloatEditorActivity.openDefaultEditor(getContext(), new EditorCallback.Extend() {
+                    @Override
+                    public void onSubmit(String content) {
+                        if (!TextUtils.isEmpty(content)) {
+                            SearchActivity.go(getContext(), content);
+                        }
+                    }
+                }, new InputCheckRule(10, 1));
             }
         });
         final LottieAnimationView lottieAnimationView = view.findViewById(R.id.animation_view);
