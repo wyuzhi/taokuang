@@ -167,7 +167,7 @@ public class PublishActivity extends TakePhotoActivity implements View.OnClickLi
                 @Override
                 public void done(TaoKuang taoKuang, BmobException e) {
                     if (e != null) {
-                        ToastUtils.show(String.valueOf(e.getErrorCode()));
+                        ToastUtils.show(String.valueOf(e.getMessage()));
                         finish();
                         return;
                     }

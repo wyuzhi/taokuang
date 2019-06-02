@@ -7,12 +7,15 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.flying.baselib.commonui.edit.EditorCallback;
+import com.flying.baselib.commonui.edit.FloatEditorActivity;
+import com.flying.baselib.commonui.edit.InputCheckRule;
 import com.flying.baselib.utils.collection.CollectionUtils;
 import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.baselib.utils.ui.UiUtils;
@@ -58,6 +61,7 @@ public class MyFragment extends TakePhotoFragment {
     private View wowant;
     private View aboutus;
     private View mUserInfoView;
+    private User mUser;
     private TextView mTvUserNickName;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -77,14 +81,14 @@ public class MyFragment extends TakePhotoFragment {
         layoutParams.height = UiUtils.dp2px(50) + UiUtils.getStatusBarHeight(getContext());
         mToolbar.setLayoutParams(layoutParams);
 
+        mUser = BmobUser.getCurrentUser(User.class);
         mTvUserNickName = v.findViewById(R.id.tv_user_nick_name);
         mUserInfoView = v.findViewById(R.id.rl_user_info);
         mUserInfoView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (BmobUser.isLogin()) {
-                    User user = BmobUser.getCurrentUser(User.class);
-                    UserPageActivity.go(getContext(), user.getObjectId());
+                if (mUser != null) {
+                    UserPageActivity.go(getContext(), mUser.getObjectId());
                 } else {
                     Intent in = new Intent(getContext(), LoginActivity.class);
                     startActivity(in);
@@ -133,18 +137,17 @@ public class MyFragment extends TakePhotoFragment {
         worz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (BmobUser.isLogin()) {
-                    User user = BmobUser.getCurrentUser(User.class);
-                    if (user.getRenz()) {
-                        Toast.makeText(getContext(), "已认证成功",
-                                Toast.LENGTH_SHORT).show();
+                if (mUser != null) {
+                    if (mUser.getRenz()) {
+                        ToastUtils.show("已认证成功");
                     } else {
                         Intent rz = new Intent(getContext(), IdentifyActivity.class);
                         startActivity(rz);
                     }
-                } else Toast.makeText(getContext(), "请先登陆",
-                        Toast.LENGTH_SHORT).show();
-
+                } else {
+                    Intent in = new Intent(getContext(), LoginActivity.class);
+                    startActivity(in);
+                }
             }
         });
         wofb = v.findViewById(R.id.wo_fb);
@@ -171,7 +174,7 @@ public class MyFragment extends TakePhotoFragment {
         wozx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (BmobUser.isLogin()) {
+                if (mUser != null) {
                     final AlertDialog logoutDialog = new AlertDialog(getActivity());
                     logoutDialog.setTitle(R.string.my_log_out_title);
                     logoutDialog.setConfirmButton(R.string.my_log_out_confirm, new View.OnClickListener() {
@@ -194,10 +197,8 @@ public class MyFragment extends TakePhotoFragment {
         woicon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (BmobUser.isLogin()) {
+                if (mUser != null) {
                     chooseAvatarFromGallery();
-                } else {
-                    ToastUtils.show("请先登陆");
                 }
             }
         });
@@ -214,15 +215,36 @@ public class MyFragment extends TakePhotoFragment {
         });
         woicon.setPlaceholderImage(R.drawable.ic_default_avatar);
         woicon.setRoundAsCircle();
-        if (BmobUser.isLogin()) {
-            User user = BmobUser.getCurrentUser(User.class);
-            mTvUserNickName.setText(user.getNicheng());
-            BmobFile icon = user.getIcon();
-            if (icon != null) {
-                woicon.setUrl(icon.getFileUrl(), UiUtils.dp2px(44), UiUtils.dp2px(44));
+        if (mUser != null) {
+            mTvUserNickName.setText(mUser.getNicheng());
+            UiUtils.expandClickRegion(mTvUserNickName, 15);
+            if (mUser.getIcon() != null) {
+                woicon.setUrl(mUser.getIcon().getFileUrl(), UiUtils.dp2px(44), UiUtils.dp2px(44));
             }
+            mTvUserNickName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FloatEditorActivity.openDefaultEditor(getContext(), new EditorCallback.Extend() {
+                        @Override
+                        public void onSubmit(final String content) {
+                            if (mUser != null && !TextUtils.isEmpty(content)) {
+                                mUser.setNicheng(content);
+                                mUser.update(new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+                                        if (e == null && mTvUserNickName != null) {
+                                            mTvUserNickName.setText(content);
+                                        } else {
+                                            ToastUtils.show(e.getMessage());
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }, new InputCheckRule(20, 2));
+                }
+            });
         }
-
 
     }
 
@@ -237,15 +259,14 @@ public class MyFragment extends TakePhotoFragment {
         ic.uploadblock(new UploadFileListener() {
             @Override
             public void done(BmobException e) {
-                if (e == null) {
-                    User user = BmobUser.getCurrentUser(User.class);
-                    user.setIcon(ic);
-                    user.update(new UpdateListener() {
+                if (e == null && mUser != null) {
+                    mUser.setIcon(ic);
+                    mUser.update(new UpdateListener() {
                         @Override
                         public void done(BmobException e) {
                             if (e == null) {
                                 ToastUtils.show("修改成功");
-                                woicon.setUrl(BmobUser.getCurrentUser(User.class).getIcon().getFileUrl(), UiUtils.dp2px(44), UiUtils.dp2px(44));
+                                woicon.setUrl(mUser.getIcon().getFileUrl(), UiUtils.dp2px(44), UiUtils.dp2px(44));
                             } else {
                                 ToastUtils.show("修改失败");
                             }
