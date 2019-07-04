@@ -43,7 +43,8 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         final CollectionBean collection = collections.get(i);
         viewHolder.title.setText(collection.getTitle());
-        viewHolder.price.setText(collection.getPrice());
+        viewHolder.price.setText("¥" + collection.getPrice());
+        viewHolder.content.setText(collection.getContent());
         viewHolder.image.setUrl(collection.getImage(), UiUtils.dp2px(172), UiUtils.dp2px(227));
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +74,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView title, price;
+        private TextView title, price, content;
         private AsyncImageView image;
 
         public ViewHolder(@NonNull View itemView) {
@@ -81,6 +82,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
             title = itemView.findViewById(R.id.item_title);
             price = itemView.findViewById(R.id.item_price);
             image = itemView.findViewById(R.id.item_cover_img);
+            content = itemView.findViewById(R.id.item_content);
         }
     }
 }

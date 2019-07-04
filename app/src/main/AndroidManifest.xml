@@ -50,19 +50,16 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-
+        <activity android:name=".My.DealActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".PublishActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".CommentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".My.MyCollectionActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".AgreementActivity"
             android:screenOrientation="portrait" />
@@ -76,9 +73,6 @@
             android:theme="@style/Theme.Activity.NoBackground" />
         <activity
             android:name=".IdentifyActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".My.MySoldActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".LoginActivity"
@@ -98,12 +92,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SearchActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".My.MySellingActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".My.MyPurchasedActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="cn.bmob.v3.update.UpdateDialogActivity"

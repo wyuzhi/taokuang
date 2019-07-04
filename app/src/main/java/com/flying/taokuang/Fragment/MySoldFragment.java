@@ -1,18 +1,16 @@
-package com.flying.taokuang.My;
-
+package com.flying.taokuang.Fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.widget.ImageView;
+import android.view.ViewGroup;
 
-import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.PersonalSellingRecyclerviewAdapter;
 import com.flying.taokuang.R;
-import com.flying.taokuang.base.BaseToolbarActivity;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
 import com.flying.taokuang.ui.EmptyRecyclerViewHelper;
@@ -24,43 +22,27 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
-public class MySoldActivity extends BaseToolbarActivity {
+public class MySoldFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private PersonalSellingRecyclerviewAdapter mAdapter;
     private EmptyRecyclerViewHelper mEmptyRecyclerViewHelper;
-    private ImageView mIvBack;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        super.onCreate(savedInstanceState);
-        initView();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.my_sold_fragment, container, false);
+        initView(view);
+        return view;
     }
 
-    @Override
-    public int getContentViewResId() {
-        return R.layout.activity_my_sold;
-    }
-
-    private void initView() {
-        mIvBack = findViewById(R.id.img_return);
-        mIvBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        UiUtils.setOnTouchBackground(mIvBack);
-        mRecyclerView = findViewById(R.id.recycler_wo_mc);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new PersonalSellingRecyclerviewAdapter(this);
+    private void initView(View view) {
+        mRecyclerView = view.findViewById(R.id.recycler_wo_mc);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mAdapter = new PersonalSellingRecyclerviewAdapter(getContext());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setHasFixedSize(true);
         mEmptyRecyclerViewHelper = new EmptyRecyclerViewHelper(mRecyclerView);
         loadData();
 
     }
-
     private void loadData() {
         if (BmobUser.isLogin()) {
             BmobQuery<TaoKuang> query = new BmobQuery<>();
@@ -87,4 +69,6 @@ public class MySoldActivity extends BaseToolbarActivity {
             Snackbar.make(mRecyclerView, "请先登录", Snackbar.LENGTH_LONG).show();
         }
     }
+
 }
+

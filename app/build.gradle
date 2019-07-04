@@ -68,5 +68,4 @@ dependencies {
     implementation 'cn.bmob.android:bmob-sdk:3.6.8-rc4'
 
 
-
 }

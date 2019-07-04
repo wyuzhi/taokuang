@@ -47,7 +47,7 @@ public class PersonalSellingRecyclerviewAdapter extends RecyclerView.Adapter<Rec
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        return new SellingViewHolder(LayoutInflater.from(mContext).inflate(R.layout.user_page_selling_item, viewGroup, false));
+        return new SellingViewHolder(LayoutInflater.from(mContext).inflate(R.layout.user_selling_item, viewGroup, false));
     }
 
 
@@ -91,6 +91,9 @@ public class PersonalSellingRecyclerviewAdapter extends RecyclerView.Adapter<Rec
         private View mRoot;
         private Button mBtnSuccess;
         private Button mBtnUnsuccess;
+        private TextView mTvTime;
+        private TextView mTvName;
+        private TextView mTvUserName;
 
         public SellingViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -100,6 +103,9 @@ public class PersonalSellingRecyclerviewAdapter extends RecyclerView.Adapter<Rec
             mRoot = itemView;
             mBtnSuccess = itemView.findViewById(R.id.successful);
             mBtnUnsuccess = itemView.findViewById(R.id.unsuccessful);
+            mTvTime = itemView.findViewById(R.id.item_time);
+            mTvName = itemView.findViewById(R.id.item_name);
+            mTvUserName = itemView.findViewById(R.id.username);
         }
 
         public void bindViewHolder(final TaoKuang data) {
@@ -109,17 +115,24 @@ public class PersonalSellingRecyclerviewAdapter extends RecyclerView.Adapter<Rec
             if (BmobUser.getCurrentUser(User.class).getObjectId().equals(data.getFabu().getObjectId()) && data.getGoumai() != null) {
                 mBtnSuccess.setVisibility(View.VISIBLE);
                 mBtnUnsuccess.setVisibility(View.VISIBLE);
+                mTvUserName.setText("买家名称：");
             }
             mIvCoverImage.setRoundingRadius(UiUtils.dp2px(3));
             mIvCoverImage.setUrl(data.getPic().get(0), UiUtils.dp2px(137), UiUtils.dp2px(89));
             mTvPrice.setText("¥" + data.getJiage());
             mTvContent.setText(data.getMiaoshu());
+            //只能提取用户ID
+            User author = new User();
+            String id = data.getObjectId();
+            author.setObjectId(id);
+            mTvName.setText(author.getNicheng());
             mRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     DetailActivity.go(mContext, data.getObjectId());
                 }
             });
+            mTvTime.setText(data.getCreatedAt());
 
             mBtnSuccess.setOnClickListener(new View.OnClickListener() {
                 @Override

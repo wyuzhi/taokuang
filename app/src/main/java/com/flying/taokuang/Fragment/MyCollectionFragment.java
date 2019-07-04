@@ -1,17 +1,16 @@
-package com.flying.taokuang.My;
-
+package com.flying.taokuang.Fragment;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.widget.ImageView;
+import android.view.ViewGroup;
 
 import com.flying.baselib.utils.ui.UiUtils;
 import com.flying.taokuang.Adapter.CollectionAdapter;
 import com.flying.taokuang.R;
-import com.flying.taokuang.base.BaseToolbarActivity;
 import com.flying.taokuang.entity.CollectionBean;
 import com.flying.taokuang.ui.EmptyRecyclerViewHelper;
 
@@ -20,39 +19,23 @@ import org.litepal.crud.callback.FindMultiCallback;
 
 import java.util.List;
 
-public class MyCollectionActivity extends BaseToolbarActivity {
+public class MyCollectionFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private CollectionAdapter mAdapter;
     private LinearLayoutManager mlayoutManager;
     private EmptyRecyclerViewHelper mEmptyRecyclerViewHelper;
-    private ImageView mIvBack;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        super.onCreate(savedInstanceState);
-        initView();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.my_collection_fragment, container, false);
+        initView(view);
+        return view;
     }
-
-    @Override
-    public int getContentViewResId() {
-        return R.layout.activity_my_collection;
-    }
-
-    private void initView() {
-        mIvBack = findViewById(R.id.img_return);
-        mIvBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        UiUtils.setOnTouchBackground(mIvBack);
-        mRecyclerView = findViewById(R.id.recycler_wo_sc);
-        mlayoutManager = new LinearLayoutManager(this);
+    private void initView(View view) {
+        mRecyclerView = view.findViewById(R.id.recycler_wo_sc);
+        mlayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mlayoutManager);
         mRecyclerView.setHasFixedSize(true);
-        mAdapter = new CollectionAdapter(this);
+        mAdapter = new CollectionAdapter(getContext());
         mRecyclerView.setAdapter(mAdapter);
         mEmptyRecyclerViewHelper = new EmptyRecyclerViewHelper(mRecyclerView);
         loadData();
@@ -70,5 +53,6 @@ public class MyCollectionActivity extends BaseToolbarActivity {
                     }
                 });
     }
+
 }
 

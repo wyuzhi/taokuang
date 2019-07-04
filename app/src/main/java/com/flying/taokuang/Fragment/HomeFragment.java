@@ -1,4 +1,4 @@
-package com.flying.taokuang.Fragement;
+package com.flying.taokuang.Fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

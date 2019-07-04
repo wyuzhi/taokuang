@@ -48,6 +48,7 @@ public class SellRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         ((MySellViewHolder) viewHolder).bindViewHolder(data);
 
+
     }
 
     public void addData(List<TaoKuang> dataList) {

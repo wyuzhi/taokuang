@@ -2,7 +2,7 @@
 <litepal>
     <dbname value="demo" />
 
-    <version value="3" />
+    <version value="4" />
     <list>
         <mapping class="com.flying.taokuang.entity.CollectionBean" />
     </list>

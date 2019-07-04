@@ -17,8 +17,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.flying.baselib.utils.ui.UiUtils;
-import com.flying.taokuang.Fragement.PersonalEvaluationFragment;
-import com.flying.taokuang.Fragement.PersonalSellingFragment;
+import com.flying.taokuang.Fragment.PersonalEvaluationFragment;
+import com.flying.taokuang.Fragment.PersonalSellingFragment;
 import com.flying.taokuang.entity.User;
 import com.flying.taokuang.ui.AsyncImageView;
 

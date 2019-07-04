@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.flying.taokuang.Fragement.HomeFragment;
-import com.flying.taokuang.Fragement.MyFragment;
+import com.flying.taokuang.Fragment.HomeFragment;
+import com.flying.taokuang.Fragment.MyFragment;
 
 import java.util.List;
 

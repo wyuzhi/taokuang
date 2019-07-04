@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.flying.baselib.utils.app.DebugSpUtils;
+import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.collection.CollectionUtils;
 import com.flying.baselib.utils.ui.ToastUtils;
 import com.flying.baselib.utils.ui.UiUtils;
@@ -73,7 +74,7 @@ public class NewNormalViewHolder extends RecyclerView.ViewHolder {
             mTvTitle.setMaxWidth(320);
             mTvContent.setMaxWidth(370);
         }
-        mTvPrice.setText("￥" + price);
+        mTvPrice.setText("¥" + price);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +103,8 @@ public class NewNormalViewHolder extends RecyclerView.ViewHolder {
                     collectionBean.setGood(taoItem.getObjectId());
                     collectionBean.setPrice(taoItem.getJiage());
                     collectionBean.setTitle(taoItem.getBiaoti());
+                    collectionBean.setContent(taoItem.getMiaoshu());
+                    LogUtils.d("收藏",taoItem.getMiaoshu());
                     collectionBean.setImage(taoItem.getPic().get(0));
                     collectionBean.save();
                     mIvCollect.setImageResource(R.mipmap.ic_home_item_collect_set);

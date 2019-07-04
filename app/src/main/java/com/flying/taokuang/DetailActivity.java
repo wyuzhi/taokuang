@@ -68,11 +68,11 @@ public class DetailActivity extends BaseToolbarActivity {
     private static final int MSG_REMOVE_LOADING_ANIM = 5;
     private static final int MSG_LOAD_COMMENT = 6;
 
-    private ImageView mIvcollect;
+    private ImageView mIvCollect;
     private ImageView mIvBack;
     private ImageView mIvContent;
     private ImageView mIvComment;
-    private ImageView mIvshare;
+    private ImageView mIvShare;
     private Button mBtnBuy;
     private Button mBtnFinishTrade;
     private RecyclerView mRvImages;
@@ -128,10 +128,10 @@ public class DetailActivity extends BaseToolbarActivity {
         mRvComment = findViewById(R.id.detail_comment_recycler);
         mRvImages = findViewById(R.id.detail_recycler);
         mBtnFinishTrade = findViewById(R.id.gm_qr);
-        mIvcollect = findViewById(R.id.detail_collection);
+        mIvCollect = findViewById(R.id.detail_collection);
         mIvContent = findViewById(R.id.detail_content);
         mIvComment = findViewById(R.id.detail_comment);
-        mIvshare = findViewById(R.id.detail_share);
+        mIvShare = findViewById(R.id.detail_share);
         mToolbarTitle = findViewById(R.id.tv_title);
         mGoUserPage = findViewById(R.id.rl_go_user_page);
         mIndicatorView = findViewById(R.id.biv_indicator);
@@ -152,10 +152,10 @@ public class DetailActivity extends BaseToolbarActivity {
         mEmptyRecyclerViewHelper = new EmptyRecyclerViewHelper(mRvComment);
         mIvUserAvatar.setRoundAsCircle();
         UiUtils.setOnTouchBackground(mIvBack);
-        UiUtils.expandClickRegion(mIvcollect, UiUtils.dp2px(10));
+        UiUtils.expandClickRegion(mIvCollect, UiUtils.dp2px(10));
         UiUtils.expandClickRegion(mIvContent, UiUtils.dp2px(10));
         UiUtils.expandClickRegion(mIvContent, UiUtils.dp2px(10));
-        UiUtils.expandClickRegion(mIvshare, UiUtils.dp2px(10));
+        UiUtils.expandClickRegion(mIvShare, UiUtils.dp2px(10));
         UiUtils.setOnTouchBackground(mGoUserPage);
 
         mBtnBuy.setOnClickListener(mBuyListener);
@@ -167,10 +167,10 @@ public class DetailActivity extends BaseToolbarActivity {
         });
         mGoUserPage.setOnClickListener(mGoUserPageListener);
         mBtnFinishTrade.setOnClickListener(mFinishTradeListener);
-        mIvcollect.setOnClickListener(mCollectListener);
+        mIvCollect.setOnClickListener(mCollectListener);
         mIvContent.setOnClickListener(mContentListener);
         mIvComment.setOnClickListener(mCommentListener);
-        mIvshare.setOnClickListener(mShareListener);
+        mIvShare.setOnClickListener(mShareListener);
 
         mHandler.sendEmptyMessage(MSG_LOAD_GOODS);
     }
@@ -450,17 +450,18 @@ public class DetailActivity extends BaseToolbarActivity {
             List<CollectionBean> collections = LitePal.where("good = ?", mCurrentGoods.getObjectId()).find(CollectionBean.class);
             if (collections.size() > 0) {
                 LitePal.deleteAll(CollectionBean.class, "good = ?", mCurrentGoods.getObjectId());
-                mIvcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_detail_collect_unset));
+                mIvCollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_detail_collect_unset));
             } else {
                 CollectionBean collectionBean = new CollectionBean();
                 collectionBean.setCreateTime(new Date());
                 collectionBean.setGood(mCurrentGoods.getObjectId());
                 collectionBean.setPrice(mCurrentGoods.getJiage());
                 collectionBean.setTitle(mCurrentGoods.getBiaoti());
+                collectionBean.setContent(mCurrentGoods.getMiaoshu());
                 collectionBean.setImage(mCurrentGoods.getPic().get(0));
                 collectionBean.save();
                 TipsDialog.show(DetailActivity.this, R.string.dialog_collect_success_tips, R.mipmap.collection);
-                mIvcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.mipmap.ic_home_item_collect_set));
+                mIvCollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.mipmap.ic_home_item_collect_set));
             }
 
         }
@@ -525,9 +526,9 @@ public class DetailActivity extends BaseToolbarActivity {
     private void judgeCollection(String id) {
         List<CollectionBean> collections = LitePal.where("good = ?", id).find(CollectionBean.class);
         if (collections.size() > 0) {
-            mIvcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.mipmap.ic_home_item_collect_set));
+            mIvCollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.mipmap.ic_home_item_collect_set));
         } else {
-            mIvcollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_detail_collect_unset));
+            mIvCollect.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_detail_collect_unset));
         }
     }
 

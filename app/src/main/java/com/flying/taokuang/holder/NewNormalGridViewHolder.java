@@ -49,7 +49,7 @@ public class NewNormalGridViewHolder extends RecyclerView.ViewHolder {
         mTvUserName.setText(nickname);
         mTvContent.setText(content);
         mTvTitle.setText(title);
-        mTvPrice.setText("￥" + price);
+        mTvPrice.setText("¥" + price);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

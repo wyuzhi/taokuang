@@ -2,46 +2,72 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="114dp"
     android:layout_margin="5dp"
     app:cardCornerRadius="8dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-
-            <android.support.v7.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                app:cardCornerRadius="8dp">
-
-                <com.flying.taokuang.ui.AsyncImageView
-                    android:id="@+id/item_cover_img"
-                    android:layout_width="172dp"
-                    android:layout_height="227dp" />
-            </android.support.v7.widget.CardView>
-
-        </LinearLayout>
+        android:layout_marginLeft="24dp">
 
         <TextView
             android:id="@+id/item_title"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:lines="1" />
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="12dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="物品"
+            android:textStyle="bold"
+            android:textColor="@color/commonColorGrey4"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/item_price"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:textSize="15dp" />
-    </LinearLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@id/item_title"
+            android:text="￥123"
+            android:textColor="@color/commonColorOrange2"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/item_content"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_price"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="详情信息"
+            android:textColor="@color/commonColorGrey9"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/item_sc_zs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/item_sc_cl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
+
+
+        <com.flying.taokuang.ui.AsyncImageView
+            android:id="@+id/item_cover_img"
+            android:layout_width="137dp"
+            android:layout_height="89dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp" />
+
+    </RelativeLayout>
+
 
 </android.support.v7.widget.CardView>

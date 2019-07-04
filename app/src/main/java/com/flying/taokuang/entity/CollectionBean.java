@@ -6,6 +6,12 @@ import java.util.Date;
 
 
 public class CollectionBean extends LitePalSupport {
+    private String title;
+    private String price;
+    private Date createTime;
+    private String good;
+    private String image;
+    private String content;
     public String getGood() {
         return good;
     }
@@ -21,8 +27,6 @@ public class CollectionBean extends LitePalSupport {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
-
-    private String good;
 
     public String getTitle() {
         return title;
@@ -40,10 +44,6 @@ public class CollectionBean extends LitePalSupport {
         this.price = price;
     }
 
-    private String title;
-    private String price;
-    private Date createTime;
-
     public String getImage() {
         return image;
     }
@@ -52,5 +52,11 @@ public class CollectionBean extends LitePalSupport {
         this.image = image;
     }
 
-    private String image;
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }

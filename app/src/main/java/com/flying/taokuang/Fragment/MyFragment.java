@@ -1,4 +1,4 @@
-package com.flying.taokuang.Fragement;
+package com.flying.taokuang.Fragment;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -23,11 +23,8 @@ import com.flying.taokuang.IdentifyActivity;
 import com.flying.taokuang.LoginActivity;
 import com.flying.taokuang.My.AboutActivity;
 import com.flying.taokuang.My.MyChangePasswordActivity;
-import com.flying.taokuang.My.MyCollectionActivity;
-import com.flying.taokuang.My.MyPurchasedActivity;
-import com.flying.taokuang.My.MySoldActivity;
-import com.flying.taokuang.My.MySellingActivity;
 import com.flying.taokuang.My.MyWantActivity;
+import com.flying.taokuang.My.DealActivity;
 import com.flying.taokuang.R;
 import com.flying.taokuang.UserPageActivity;
 import com.flying.taokuang.entity.User;
@@ -100,7 +97,8 @@ public class MyFragment extends TakePhotoFragment {
         wosc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentsc = new Intent(getContext(), MyCollectionActivity.class);
+                Intent intentsc = new Intent(getContext(), DealActivity.class);
+                intentsc.putExtra("id",4);
                 startActivity(intentsc);
             }
         });
@@ -120,7 +118,8 @@ public class MyFragment extends TakePhotoFragment {
         womc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentmc = new Intent(getContext(), MySoldActivity.class);
+                Intent intentmc = new Intent(getContext(), DealActivity.class);
+                intentmc.putExtra("id",2);
                 startActivity(intentmc);
             }
         });
@@ -155,7 +154,7 @@ public class MyFragment extends TakePhotoFragment {
         wofb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentfb = new Intent(getContext(), MySellingActivity.class);
+                Intent intentfb = new Intent(getContext(), DealActivity.class);
                 startActivity(intentfb);
             }
         });
@@ -165,7 +164,8 @@ public class MyFragment extends TakePhotoFragment {
         wogm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentgm = new Intent(getContext(), MyPurchasedActivity.class);
+                Intent intentgm = new Intent(getContext(), DealActivity.class);
+                intentgm.putExtra("id",3);
                 startActivity(intentgm);
             }
         });

@@ -19,6 +19,7 @@ public class TaoKuang extends BmobObject {
     private String gezi;
     private List<String> pic;
     private String type;
+    private String name;
 
 
 
@@ -134,4 +135,8 @@ public class TaoKuang extends BmobObject {
     public void setType(String type) {
         this.type = type;
     }
+
+    public String getName(){return name;}
+
+    public void setName(String name){this.name = name; }
 }

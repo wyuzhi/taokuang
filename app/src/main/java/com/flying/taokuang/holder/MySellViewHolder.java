@@ -34,6 +34,7 @@ public class MySellViewHolder extends RecyclerView.ViewHolder {
     private AsyncImageView mIvCoverImage;
     private TextView mTvTitle;
     private TextView mTvPrice;
+    private TextView mTvContent;
     private Button mBtnEdit;
     private Button mBtnDelete;
     private Button mBtnRefresh;
@@ -41,9 +42,10 @@ public class MySellViewHolder extends RecyclerView.ViewHolder {
     public MySellViewHolder(@NonNull View itemView) {
         super(itemView);
         mContext = itemView.getContext();
-        mIvCoverImage = itemView.findViewById(R.id.item_fm_zs);
+        mIvCoverImage = itemView.findViewById(R.id.item_cover_img);
         mTvTitle = itemView.findViewById(R.id.item_bt_zs);
         mTvPrice = itemView.findViewById(R.id.item_jg_zs);
+        mTvContent = itemView.findViewById(R.id.item_content);
         mBtnEdit = itemView.findViewById(R.id.item_bj_zs);
         mBtnDelete = itemView.findViewById(R.id.item_sc_zs);
         mBtnRefresh = itemView.findViewById(R.id.item_sc_cl);
@@ -55,13 +57,15 @@ public class MySellViewHolder extends RecyclerView.ViewHolder {
         }
         String biaoti = taoItem.getBiaoti();
         String jiage = taoItem.getJiage();
+        String content = taoItem.getMiaoshu();
         List<String> pic = taoItem.getPic();
 
         mIvCoverImage.setUrl(pic.get(0), (int) UiUtils.dp2px(172), (int) UiUtils.dp2px(227));
         mIvCoverImage.setRoundingRadius(UiUtils.dp2px(5));
-        mTvTitle.setText("     " + biaoti);
-        mTvPrice.setText("  ￥" + jiage);
+        mTvTitle.setText(biaoti);
+        mTvPrice.setText("¥" + jiage);
         mTvPrice.setTextColor(Color.RED);
+        mTvContent.setText(content);
         mBtnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

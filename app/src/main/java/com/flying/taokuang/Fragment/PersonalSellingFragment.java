@@ -1,6 +1,5 @@
-package com.flying.taokuang.Fragement;
+package com.flying.taokuang.Fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.flying.baselib.utils.app.LogUtils;
 import com.flying.taokuang.Adapter.PersonalSellingRecyclerviewAdapter;
 import com.flying.taokuang.UserPageActivity;
 import com.flying.taokuang.R;

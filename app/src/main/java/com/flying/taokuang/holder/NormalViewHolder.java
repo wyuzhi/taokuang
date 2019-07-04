@@ -42,7 +42,7 @@ public class NormalViewHolder extends RecyclerView.ViewHolder {
         mIvCoverImage.setUrl(pic.get(0), UiUtils.dp2px(172), UiUtils.dp2px(227));
         mIvCoverImage.setRoundingRadius(UiUtils.dp2px(5));
         mTvTitle.setText(biaoti);
-        mTvPrice.setText("￥" + jiage);
+        mTvPrice.setText("¥" + jiage);
         mTvPrice.setTextColor(Color.RED);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
