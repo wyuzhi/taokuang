@@ -47,16 +47,16 @@ import cn.bmob.v3.listener.UploadFileListener;
 
 public class MyFragment extends TakePhotoFragment {
     private Toolbar mToolbar;
-    private AsyncImageView woicon;
-    private View wofb;
-    private View wogm;
-    private View womc;
-    private View wozx;
-    private View worz;
-    private View wozl;
-    private View wosc;
-    private View wowant;
-    private View aboutus;
+    private AsyncImageView mIcon;
+    private View mPublish;
+    private View mPurchased;
+    private View mSold;
+    private View mCancel;
+    private View mIdentify;
+    private View mChange;
+    private View mCollection;
+    private View mWanted;
+    private View mAbout;
     private View mUserInfoView;
     private User mUser;
     private TextView mTvUserNickName;
@@ -92,20 +92,11 @@ public class MyFragment extends TakePhotoFragment {
                 }
             }
         });
-        wosc = v.findViewById(R.id.wo_sc);
-        UiUtils.setOnTouchBackground(wosc);
-        wosc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentsc = new Intent(getContext(), DealActivity.class);
-                intentsc.putExtra("id",4);
-                startActivity(intentsc);
-            }
-        });
 
-        wozl = v.findViewById(R.id.wo_zl);
-        UiUtils.setOnTouchBackground(wozl);
-        wozl.setOnClickListener(new View.OnClickListener() {
+
+        mChange = v.findViewById(R.id.wo_zl);
+        UiUtils.setOnTouchBackground(mChange);
+        mChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentzl = new Intent(getContext(), MyChangePasswordActivity.class);
@@ -113,9 +104,9 @@ public class MyFragment extends TakePhotoFragment {
 
             }
         });
-        womc = v.findViewById(R.id.wo_mc);
-        UiUtils.setOnTouchBackground(womc);
-        womc.setOnClickListener(new View.OnClickListener() {
+        mSold = v.findViewById(R.id.wo_mc);
+        UiUtils.setOnTouchBackground(mSold);
+        mSold.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentmc = new Intent(getContext(), DealActivity.class);
@@ -123,17 +114,37 @@ public class MyFragment extends TakePhotoFragment {
                 startActivity(intentmc);
             }
         });
-        wowant = v.findViewById(R.id.wo_want);
-        wowant.setOnClickListener(new View.OnClickListener() {
+        mPurchased = v.findViewById(R.id.wo_gm);
+        UiUtils.setOnTouchBackground(mPurchased);
+        mPurchased.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentgm = new Intent(getContext(), DealActivity.class);
+                intentgm.putExtra("id",3);
+                startActivity(intentgm);
+            }
+        });
+        mCollection = v.findViewById(R.id.wo_sc);
+        UiUtils.setOnTouchBackground(mCollection);
+        mCollection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentsc = new Intent(getContext(), DealActivity.class);
+                intentsc.putExtra("id",4);
+                startActivity(intentsc);
+            }
+        });
+        mWanted = v.findViewById(R.id.wo_want);
+        mWanted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentwant = new Intent(getContext(), MyWantActivity.class);
                 startActivity(intentwant);
             }
         });
-        worz = v.findViewById(R.id.wo_rz);
-        UiUtils.setOnTouchBackground(worz);
-        worz.setOnClickListener(new View.OnClickListener() {
+        mIdentify = v.findViewById(R.id.wo_rz);
+        UiUtils.setOnTouchBackground(mIdentify);
+        mIdentify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mUser != null) {
@@ -149,9 +160,9 @@ public class MyFragment extends TakePhotoFragment {
                 }
             }
         });
-        wofb = v.findViewById(R.id.wo_fb);
-        UiUtils.setOnTouchBackground(wofb);
-        wofb.setOnClickListener(new View.OnClickListener() {
+        mPublish = v.findViewById(R.id.wo_fb);
+        UiUtils.setOnTouchBackground(mPublish);
+        mPublish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentfb = new Intent(getContext(), DealActivity.class);
@@ -159,19 +170,10 @@ public class MyFragment extends TakePhotoFragment {
             }
         });
 
-        wogm = v.findViewById(R.id.wo_gm);
-        UiUtils.setOnTouchBackground(wogm);
-        wogm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentgm = new Intent(getContext(), DealActivity.class);
-                intentgm.putExtra("id",3);
-                startActivity(intentgm);
-            }
-        });
-        wozx = v.findViewById(R.id.wo_zx);
-        UiUtils.setOnTouchBackground(wozx);
-        wozx.setOnClickListener(new View.OnClickListener() {
+
+        mCancel = v.findViewById(R.id.wo_zx);
+        UiUtils.setOnTouchBackground(mCancel);
+        mCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mUser != null) {
@@ -192,9 +194,9 @@ public class MyFragment extends TakePhotoFragment {
             }
         });
 
-        woicon = v.findViewById(R.id.wo_icon);
-        UiUtils.setOnTouchBackground(woicon);
-        woicon.setOnClickListener(new View.OnClickListener() {
+        mIcon = v.findViewById(R.id.wo_icon);
+        UiUtils.setOnTouchBackground(mIcon);
+        mIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mUser != null) {
@@ -203,23 +205,23 @@ public class MyFragment extends TakePhotoFragment {
             }
         });
 
-        aboutus = v.findViewById(R.id.wo_about_us);
-        UiUtils.setOnTouchBackground(aboutus);
-        UiUtils.expandClickRegion(woicon, UiUtils.dp2px(10));
-        aboutus.setOnClickListener(new View.OnClickListener() {
+        mAbout = v.findViewById(R.id.wo_about_us);
+        UiUtils.setOnTouchBackground(mAbout);
+        UiUtils.expandClickRegion(mIcon, UiUtils.dp2px(10));
+        mAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), AboutActivity.class);
                 startActivity(intent);
             }
         });
-        woicon.setPlaceholderImage(R.drawable.ic_default_avatar);
-        woicon.setRoundAsCircle();
+        mIcon.setPlaceholderImage(R.drawable.ic_default_avatar);
+        mIcon.setRoundAsCircle();
         if (mUser != null) {
             mTvUserNickName.setText(mUser.getNicheng());
             UiUtils.expandClickRegion(mTvUserNickName, 15);
             if (mUser.getIcon() != null) {
-                woicon.setUrl(mUser.getIcon().getFileUrl(), UiUtils.dp2px(44), UiUtils.dp2px(44));
+                mIcon.setUrl(mUser.getIcon().getFileUrl(), UiUtils.dp2px(44), UiUtils.dp2px(44));
             }
             mTvUserNickName.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -266,7 +268,7 @@ public class MyFragment extends TakePhotoFragment {
                         public void done(BmobException e) {
                             if (e == null) {
                                 ToastUtils.show("修改成功");
-                                woicon.setUrl(mUser.getIcon().getFileUrl(), UiUtils.dp2px(44), UiUtils.dp2px(44));
+                                mIcon.setUrl(mUser.getIcon().getFileUrl(), UiUtils.dp2px(44), UiUtils.dp2px(44));
                             } else {
                                 ToastUtils.show("修改失败");
                             }

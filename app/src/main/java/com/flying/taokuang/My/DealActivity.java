@@ -2,9 +2,7 @@ package com.flying.taokuang.My;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.View;
@@ -33,38 +31,22 @@ public class DealActivity extends BaseToolbarActivity {
         super.onCreate(savedInstanceState);
         initData();
         initView();
+        goInto();
     }
 
-    @Override
-    protected void onResume() {
+    private void goInto() {
         int id = getIntent().getIntExtra("id", 0);
-        switch (id) {
+        switch (id){
             case (2):
-                Fragment fragment2 = new MySoldFragment();
-                FragmentManager fmanger2 = getSupportFragmentManager();
-                FragmentTransaction transaction2 = fmanger2.beginTransaction();
-                transaction2.replace(R.id.mViewPager, fragment2);
-                transaction2.commit();
                 mViewPager.setCurrentItem(1);
                 break;
-            case (3):
-                Fragment fragment3 = new MyPurchasedFragment();
-                FragmentManager fmanger3 = getSupportFragmentManager();
-                FragmentTransaction transaction3 = fmanger3.beginTransaction();
-                transaction3.replace(R.id.mViewPager, fragment3);
-                transaction3.commit();
+            case(3):
                 mViewPager.setCurrentItem(2);
                 break;
             case (4):
-                Fragment fragment4 = new MyCollectionFragment();
-                FragmentManager fmanger4 = getSupportFragmentManager();
-                FragmentTransaction transaction4 = fmanger4.beginTransaction();
-                transaction4.replace(R.id.mViewPager, fragment4);
-                transaction4.commit();
                 mViewPager.setCurrentItem(3);
                 break;
         }
-        super.onResume();
     }
 
     private void initData() {

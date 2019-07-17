@@ -29,7 +29,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private TabLayout mTabLaout;
+    private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private Toolbar mToolbar;
     private View mSearchView;
@@ -45,8 +45,8 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mViewPager = view.findViewById(R.id.view_pager);
-        mTabLaout = view.findViewById(R.id.tab_layout);
-        mTabLaout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        mTabLayout = view.findViewById(R.id.tab_layout);
+        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         mToolbar = view.findViewById(R.id.toolbar);
         ViewGroup.LayoutParams layoutParams = mToolbar.getLayoutParams();
         layoutParams.height = UiUtils.dp2px(50) + UiUtils.getStatusBarHeight(getContext());
@@ -124,7 +124,7 @@ public class HomeFragment extends Fragment {
 
         mViewPager.setAdapter(mAdapter);
         mViewPager.setOffscreenPageLimit(1);
-        mTabLaout.setupWithViewPager(mViewPager);
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 
     public void notifyAllFragmentsChangeStyle(boolean isLinear) {
