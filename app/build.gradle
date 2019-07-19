@@ -6,8 +6,8 @@ android {
         applicationId "com.flying.taokuang"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 333
-        versionName "3.3.3"
+        versionCode 336
+        versionName "3.3.6"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 

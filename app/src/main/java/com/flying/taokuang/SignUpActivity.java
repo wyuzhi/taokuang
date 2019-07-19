@@ -1,14 +1,13 @@
 package com.flying.taokuang;
 
 import android.content.Intent;
-import android.support.design.widget.TextInputEditText;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
-
 
 import com.flying.baselib.utils.app.LogUtils;
 import com.flying.baselib.utils.device.NetworkUtils;
@@ -24,6 +23,7 @@ public class SignUpActivity extends BaseBackgroundActivity {
     private TextInputEditText mEtUserNickName;
     private TextInputEditText mEtLoginID;
     private TextInputEditText mEtPassword;
+    private TextInputEditText mEtInviter;
     private CheckBox mCbAgree;
     private TextView mTvAgreement;
 
@@ -48,6 +48,7 @@ public class SignUpActivity extends BaseBackgroundActivity {
         mEtUserNickName = findViewById(R.id.yhm);
         mEtLoginID = findViewById(R.id.zh);
         mEtPassword = findViewById(R.id.mm);
+        mEtInviter = findViewById(R.id.inviter);
         mCbAgree = findViewById(R.id.checkbox);
         mTvAgreement = findViewById(R.id.text_xieyi);
 
@@ -81,6 +82,7 @@ public class SignUpActivity extends BaseBackgroundActivity {
     }
 
     private void signup() {
+        String inviter = mEtInviter.getText().toString().replaceAll(" ", "");
         String nickName = mEtUserNickName.getText().toString().replaceAll(" ", "");
         String loginId = mEtLoginID.getText().toString().replaceAll(" ", "");
         String passWord = mEtPassword.getText().toString().replaceAll(" ", "");
@@ -99,8 +101,10 @@ public class SignUpActivity extends BaseBackgroundActivity {
         if (!NetworkUtils.isNetworkConnected(getApplicationContext())) {
             ToastUtils.show(getBaseContext().getResources().getString(R.string.signup_network_fail));
         }
+
         final User user = new User();
         user.setUsername(loginId);
+        user.setInviter(inviter);
         user.setPassword(passWord);
         user.setNicheng(nickName);
         user.setRenz(false);

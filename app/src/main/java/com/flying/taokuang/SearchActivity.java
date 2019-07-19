@@ -59,12 +59,14 @@ public class SearchActivity extends BaseToolbarActivity {
         if (TextUtils.isEmpty(key)) {
             finish();
             return;
+
         }
         BmobQuery<TaoKuang> tQuery = new BmobQuery<>();
         tQuery.addWhereDoesNotExists("goumai");
         tQuery.include("fabu");
         tQuery.order("-updatedAt");
         tQuery.setLimit(60);
+
         tQuery.findObjects(new FindListener<TaoKuang>() {
             @Override
             public void done(List<TaoKuang> list, BmobException e) {
@@ -82,7 +84,6 @@ public class SearchActivity extends BaseToolbarActivity {
                 }
             }
         });
-
     }
 
     @Override

@@ -173,6 +173,44 @@
                 android:textColor="#6b6b6b"
                 android:textSize="14sp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/bg_ripple_grey"
+                android:gravity="center_vertical|left"
+                android:orientation="horizontal"
+                android:textColor="@color/commonColorGrey6"
+                android:textSize="12sp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_ripple_grey"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="23dp"
+                    android:text="邀请人数"
+                    android:textColor="@color/commonColorGrey6"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/wo_inviter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_ripple_grey"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="23dp"
+                    android:textColor="@color/commonColorGrey6"
+                    android:textSize="12sp" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="23dp"
+                android:background="@color/commonColorGrey2" />
 
             <TextView
                 android:id="@+id/wo_rz"
@@ -237,7 +275,8 @@
                 android:paddingLeft="23dp"
                 android:text="@string/my_about_us"
                 android:textColor="@color/commonColorGrey6"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="visible" />
 
             <View
                 android:layout_width="match_parent"

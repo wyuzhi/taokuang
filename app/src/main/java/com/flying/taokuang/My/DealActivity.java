@@ -64,7 +64,9 @@ public class DealActivity extends BaseToolbarActivity {
     }
 
     private void initView() {
-        mToolbar.setBackgroundColor(getResources().getColor(R.color.commonColorGrey10));
+//        mToolbar.setBackgroundColor(getResources
+//
+//        ().getColor(R.color.commonColorGrey8));
         mTabLayout = findViewById(R.id.mTabLayout);
         mViewPager = findViewById(R.id.mViewPager);
         mIvBack = findViewById(R.id.img_return);

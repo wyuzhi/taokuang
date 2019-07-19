@@ -45,6 +45,7 @@ public class MyPurchasedFragment extends Fragment {
     private void loadData() {
         if (BmobUser.isLogin()) {
             BmobQuery<TaoKuang> query = new BmobQuery<>();
+            query.addWhereDoesNotExists("type");
             query.addWhereEqualTo("goumai", BmobUser.getCurrentUser(User.class));
             query.addWhereEqualTo("buy", false);
             query.order("-updatedAt");

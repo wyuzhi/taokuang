@@ -9,6 +9,7 @@ public class User extends BmobUser {
     private String nicheng;
     private String mima;
     private String xh;
+    private String inviter;
     private String phone;
     private BmobFile icon;
     private BmobFile xsz;
@@ -73,4 +74,14 @@ public class User extends BmobUser {
     public void setMima(String mima) {
         this.mima = mima;
     }
+
+    public String getInviter() {
+        return inviter;
+    }
+
+    public void setInviter(String inviter) {
+        this.inviter = inviter;
+    }
+
+
 }

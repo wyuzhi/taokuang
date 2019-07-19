@@ -39,9 +39,11 @@ import com.jph.takephoto.model.TakePhotoOptions;
 
 import java.io.File;
 
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.CountListener;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
@@ -57,6 +59,7 @@ public class MyFragment extends TakePhotoFragment {
     private View mCollection;
     private View mWanted;
     private View mAbout;
+    private TextView woinviter;
     private View mUserInfoView;
     private User mUser;
     private TextView mTvUserNickName;
@@ -247,6 +250,19 @@ public class MyFragment extends TakePhotoFragment {
                 }
             });
         }
+
+        woinviter = v.findViewById(R.id.wo_inviter);
+        String username = (String) BmobUser.getObjectByKey("username");
+        BmobQuery<User> query = new BmobQuery<User>();
+        query.addWhereEqualTo("inviter", username);
+        query.count(User.class, new CountListener() {
+            @Override
+            public void done(Integer count, BmobException e) {
+                if (e == null) {
+                    woinviter.setText(count.toString());
+                }
+            }
+        });
 
     }
 

@@ -72,30 +72,32 @@ public class LoginActivity extends BaseBackgroundActivity implements View.OnClic
         final Intent intent2 = new Intent(LoginActivity.this, MainActivity.class);
         dlyhm = String.valueOf(yhm.getText());
         dlmm = String.valueOf(mm.getText());
-        final User dluser = new User();
-        dluser.setUsername(dlyhm);
-        dluser.setPassword(dlmm);
-        dluser.login(new SaveListener<User>() {
-            @Override
-            public void done(User user, BmobException e) {
-                if (e == null) {
-                    user.setMima(dlmm);
-                    user.update(new UpdateListener() {
-                        @Override
-                        public void done(BmobException e) {
-                            JPushInterface.setAlias(LoginActivity.this,666,dlyhm);
+        if (dlyhm != null && dlmm != null) {
+            final User dluser = new User();
+            dluser.setUsername(dlyhm);
+            dluser.setPassword(dlmm);
+            dluser.login(new SaveListener<User>() {
+                @Override
+                public void done(User user, BmobException e) {
+                    if (e == null) {
+                        user.setMima(dlmm);
+                        user.update(new UpdateListener() {
+                            @Override
+                            public void done(BmobException e) {
+                                JPushInterface.setAlias(LoginActivity.this, 666, dlyhm);
 
 
-                        }
-                    });
-                    intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent2);
-                    LoginActivity.this.finish();
-                } else {
-                    ToastUtils.show("用户名或密码错误");
+                            }
+                        });
+                        intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent2);
+                        LoginActivity.this.finish();
+                    } else {
+                        ToastUtils.show("用户名或密码错误");
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }
 

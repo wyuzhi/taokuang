@@ -8,6 +8,7 @@
     tools:context=".My.DealActivity">
 
     <android.support.v7.widget.Toolbar
+        android:background="@mipmap/bg_toolbar"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
