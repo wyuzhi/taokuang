@@ -34,19 +34,20 @@ public class DealActivity extends BaseToolbarActivity {
         goInto();
     }
 
-    private void goInto() {
+    private boolean goInto() {
         int id = getIntent().getIntExtra("id", 0);
         switch (id){
             case (2):
                 mViewPager.setCurrentItem(1);
-                break;
+                return true;
             case(3):
                 mViewPager.setCurrentItem(2);
-                break;
+                return true;
             case (4):
                 mViewPager.setCurrentItem(3);
-                break;
+                return true;
         }
+        return false;
     }
 
     private void initData() {

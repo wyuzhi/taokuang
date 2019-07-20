@@ -120,7 +120,7 @@ public class PersonalSellingRecyclerviewAdapter extends RecyclerView.Adapter<Rec
             mIvCoverImage.setRoundingRadius(UiUtils.dp2px(3));
             mIvCoverImage.setUrl(data.getPic().get(0), UiUtils.dp2px(137), UiUtils.dp2px(89));
             mTvPrice.setText("¥" + data.getJiage());
-            mTvContent.setText(data.getMiaoshu());
+            mTvContent.setText(data.getBiaoti());
             //只能提取用户ID
             User author = new User();
             String id = data.getObjectId();
