@@ -37,10 +37,6 @@ public class MySellingFragment extends Fragment implements PullLoadMoreRecyclerV
         initView(view);
         return view;
     }
-//    @Override
-//    public int getContentViewResId() {
-//        return R.layout.activity_my_selling;
-//    }
 
     private void initView(View view) {
         mPullLoadMoreRecyclerView = view.findViewById(R.id.pullLoadMoreRecyclerView);

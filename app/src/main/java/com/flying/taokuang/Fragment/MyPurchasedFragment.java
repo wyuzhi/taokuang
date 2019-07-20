@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.flying.taokuang.Adapter.PersonalSellingRecyclerviewAdapter;
+import com.flying.taokuang.Adapter.SellingRecyclerviewAdapter;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
 import com.flying.taokuang.entity.User;
@@ -24,7 +24,7 @@ import cn.bmob.v3.listener.FindListener;
 
 public class MyPurchasedFragment extends Fragment {
     private RecyclerView gRecyclerView;
-    private PersonalSellingRecyclerviewAdapter mAdapter;
+    private SellingRecyclerviewAdapter mAdapter;
     private EmptyRecyclerViewHelper mEmptyRecyclerViewHelper;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class MyPurchasedFragment extends Fragment {
     private void initView(View view) {
         gRecyclerView = view.findViewById(R.id.recycler_wo_gm);
         gRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapter = new PersonalSellingRecyclerviewAdapter(getContext());
+        mAdapter = new SellingRecyclerviewAdapter(getContext());
         gRecyclerView.setAdapter(mAdapter);
         gRecyclerView.setHasFixedSize(true);
         mEmptyRecyclerViewHelper = new EmptyRecyclerViewHelper(gRecyclerView);

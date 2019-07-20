@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.flying.taokuang.Adapter.PersonalSellingRecyclerviewAdapter;
+import com.flying.taokuang.Adapter.SellingRecyclerviewAdapter;
 import com.flying.taokuang.UserPageActivity;
 import com.flying.taokuang.R;
 import com.flying.taokuang.entity.TaoKuang;
